@@ -1,0 +1,80 @@
+local function test(pid1,pid2,pid3)
+	--print(pid1,pid2,pid3,type(pid1))
+	local player1 = playermgr.getplayer(pid1)
+	local player2 = playermgr.getplayer(pid2)
+	local player3 = playermgr.getplayer(pid3)
+	player2:enterscene(player1.sceneid,player1.pos)
+	player3:enterscene(player1.sceneid,player1.pos)
+	local request = net.team.C2S
+	-- clear
+	request.quitteam(player1,{})	
+	request.quitteam(player2,{})
+	request.quitteam(player3,{})
+	teammgr:clear()
+
+	request.createteam(player1,{target=1,lv=1})
+	local teamid = player1.teamid
+	assert(teamid)
+	local team = teammgr:getteam(teamid)
+	assert(team)
+	assert(team.captain == pid1)
+	-- ignore repeat createteam
+	request.createteam(player1,{target=2,lv=2})
+	local teamid = player1.teamid
+	assert(teamid)
+	local team = teammgr:getteam(teamid)
+	assert(team)
+	assert(team.captain == pid1)
+	assert(team.target==1,team.target)
+	assert(team.lv==1,team.lv)
+	request.apply_jointeam(player2,{teamid=teamid})	
+	assert(#team.applyers==1)
+	assert(team.applyers[1].pid == pid2)
+	-- ignore repeat addapplyer
+	request.apply_jointeam(player2,{teamid=teamid})
+	assert(#team.applyers==1)
+
+	request.agree_jointeam(player1,{pid=pid2})
+	--pprintf("applyers:%s",team.applyers)
+	assert(#team.applyers==0)
+	assert(team.follow[pid2]==true)
+	assert(player2.teamid==teamid)
+	request.invite_jointeam(player2,{pid=pid3})
+	net.msg.C2S.onmessagebox(player3,{
+		id=messagebox.id,
+		buttonid = 1, -- agree
+	})	
+	assert(#team.applyers==1)
+	assert(team.applyers[1].pid==pid3)
+	request.agree_jointeam(player1,{pid=pid3})
+	assert(#team.applyers==0)
+	assert(team.follow[pid3]==true)
+	request.leaveteam(player2)
+	assert(team.follow[pid2]==nil)
+	assert(team.leave[pid2]==true)
+	player2:setpos(player2.sceneid,{x=player2.pos.x+5,y=player2.pos.y+5,dir=player2.pos.dir})
+	request.backteam(player2)
+	assert(team.follow[pid2]==true)
+	assert(team.leave[pid2]==nil)
+	assert(player2.sceneid==player1.sceneid)
+	assert(table.equal(player2.pos,player1.pos))
+	request.changecaptain(player1,{pid=pid2})
+	assert(team.captain==pid2)
+	assert(team.follow[pid1]==true)
+	-- non-captain cann't changecaptain
+	request.changecaptain(player1,{pid=pid3})
+	assert(team.captain==pid2)
+	
+	-- non-captain cann't changetarget
+	request.changetarget(player1,{target=2,lv=2})
+	assert(team.target==1)
+	assert(team.lv==1)
+	request.changetarget(player2,{target=2,lv=2})
+	assert(team.target==2)
+	assert(team.lv==2)
+	--
+	request.syncteam(player1,{})
+	request.openui_team(player1,{})
+end
+
+return test
