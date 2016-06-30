@@ -1,5 +1,5 @@
 
-csuitequip = class("suitequip")
+csuitequip = class("csuitequip")
 
 function csuitequip:init(pid)
 	self.pid = pid

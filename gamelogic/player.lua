@@ -1,7 +1,7 @@
 
 require "gamelogic.friend.frienddb"
 require "gamelogic.achieve.achievedb"
-require "gamelogic.task.taskmgr"
+require "gamelogic.task.taskdb"
 require "gamelogic.item.itemdb"
 
 cplayer = class("cplayer",cdatabaseable)
@@ -48,7 +48,7 @@ function cplayer:init(pid)
 		thisweek = self.thisweek,
 		thisweek2 = self.thisweek2,
 	}
-	self.taskmgr = ctaskmgr.new(self.pid)
+	self.taskdb = ctaskdb.new(self.pid)
 	self.objid = 0
 	-- 一般物品背包
 	self.itemdb = citemdb.new({
@@ -78,7 +78,7 @@ function cplayer:init(pid)
 		time = self.timeattr,
 		friend = self.frienddb,
 		achieve = self.achievedb,
-		task = self.taskmgr,
+		task = self.taskdb,
 		item = self.itemdb,
 		fashiowshow = self.fashowshowdb,
 		carddb = self.carddb,
