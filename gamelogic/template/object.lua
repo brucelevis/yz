@@ -50,6 +50,9 @@ function cresourcemgr:release()
 	for _,scene in pairs(self.scenelist) do
 		scene.release()
 	end
+	self.template = nil
+	self.npclist = nil
+	self.scenelist = nil
 end
 
 cnpc = class("templ_npc")
@@ -64,11 +67,17 @@ function cscene:init(templ)
 	self.template = templ
 end
 
+cwar = class("templ_war")
+
+function cwar:init(templ)
+	self.template = templ
+end
 
 object = {
 	cresourcemgr = cresourcemgr,
 	cnpc = cnpc,
 	cscene = cscene,
+	cwar = cwar,
 }
 
 return object

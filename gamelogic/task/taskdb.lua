@@ -7,9 +7,15 @@ function ctaskdb:init(pid)
 	self.pid = pid
 	self.loadstate = "unload"
 	self.taskcontainers = {}
-	local allname = auxilary.getalltasktype()
-	for _,name in ipairs(allname) do
-		local taskcontainer = ctaskcontainer.new({pid = pid,name = name})
+	for templateid,data in pairs(g_alltaskdata) do
+		local formdata,tasktype = data[1],data[2]
+		local taskcontainer = ctaskcontainer.new({
+			name = TASK_TYPE_NAME[tasktype],
+			pid = pid,
+			formdata = formdata,
+			templateid = templateid,
+			type = tasktype,
+		})
 		self:addtaskcontainer(taskcontainer)
 	end
 end

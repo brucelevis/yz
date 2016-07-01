@@ -11,7 +11,8 @@ end
 TASK_TYPE_MAIN		= 1 --主线
 TASK_TYPE_BRANCH	= 2 --支线
 TASK_TYPE_SHIMEN	= 3 --师门
+TASK_TYPE_TEST		= 4
 settaskname(TASK_TYPE_MAIN,"zhuxian")
 settaskname(TASK_TYPE_BRANCH,"zhixian")
 settaskname(TASK_TYPE_SHIMEN,"shimen")
-
+settaskname(TASK_TYPE_TEST,"test")

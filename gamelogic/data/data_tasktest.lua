@@ -1,15 +1,21 @@
 
-data_tasktest = {}
 
 --<<npc导表开始>>
 local npcinfo = {
 	[1001] = {
 		name = "路人甲",
-		shape = "101",
-		pos = "1001,10,20",
+		shape = 101,
+		location = {scene = 1001,x = 100,y = 80,},
+		clientnpc = 0,
 	},
 }
 --<<npc导表结束>>
+
+
+--<<场景导表开始>>
+local sceneinof = {
+}
+--<<场景导表结束
 
 
 --<<奖励导表开始>>
@@ -44,49 +50,58 @@ local textinfo = {
 local taskinfo = {
 	[1001] = {
 		name = "测试找人",
-		type = TASK_NORMAL,
-		accept = "npc1001;find1001;talk1001",
-		submit = "done",
-		done = "reward1001",
-		fail = "",
+		accept = {
+			{ npc = 1001,},{ find = 1001,},{ talk = 1001,},
+		}
+		submit = {
+			{ done = 1,},
+		}
+		done = {
+	t		{ reward = 1001,},
+		}
+		fail = {
+		},
 	},
 	[1002] = {
 		name = "测试寻物",
-		type = TASK_NORMAL,
-		accept = "item(1001,1);find1002;talk1002",
-		submit = "handin",
-		done = "reward1001",
-		fail = "talk1003",
+		accept = {
+			{ item = { type = 1000,num = 1,},},{ find = 1002,},{ talk = 1002,},
+		},
+		submit = {
+			{ handin = 1,},
+		},
+		done = {
+			{ reward = 1001,},
+		},
+		fail = {
+			{ talk = 1003,},
+		},
 	},
 	[1003] = {
 		name = "测试战斗",
-		type = TASK_WAR,
-		accept = "find1003;talk1004",
-		submit = "war1001",
-		done = "reward1002",
-		fail = "talk1005",
+		accept = {
+			{ find = 1003,},{ talk = 1004,},
+		},
+		submit = {
+			{ war = 1001,},
+		},
+		done = {
+			{ reward = 1002,},
+		},
+		fail = {
+			{ talk = 1005,},
+		},
 	},
 }
 --<<任务导表结束>>
 
+data_testtask = {
+	npcinfo = npcinfo,
+	sceneinfo = sceneinfo,
+	rewardinfo = rewardinfo,
+	textinfo = textinfo,
+	taskinfo = taskinfo,
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+return data_testtask
 

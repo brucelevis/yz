@@ -1,12 +1,4 @@
 
-local g_alltasktype = {}
-for _,data in pairs(g_taskdata) do
-	g_alltasktype[data[2]] = true
-end
-
-local function getalltasktype()
-	return table.keys(g_alltasktype)
-end
 
 local function gettaskdata(taskid)
 	local maintype = gettasktype(taskid)
@@ -33,7 +25,6 @@ end
 
 
 auxilary = {
-	getalltasktype = getalltasktype,
 	gettaskdata = gettaskdata,
 	tasktypename = tasktypename,
 }

@@ -1,11 +1,18 @@
 require "gamelogic.base.container"
 
-ctaskcontainer = class("ctaskcontainer",ccontainer)
+ctaskcontainer = class("ctaskcontainer",ccontainer,ctemplate)
 
 function ctaskcontainer:init(conf)
+	cid
 	ccontainer.init(self,conf)
+	ctemplate.init(self,conf)
 	self.finishtasks = {}
 	self.nowtaskid = nil  -- 仅对同时只有一个任务的任务类有效
+	self.scirpt_handle.find = self.findnpc
+	self.script_handle.item = self.needitem
+	self.script_handle.patrol = self.patrolwar
+	self.script_handle.progress = self.progressbar
+	self.script_handle.handin = self.handinitem
 end
 
 function ctaskcontainer:load(data)
@@ -20,6 +27,7 @@ function ctaskcontainer:load(data)
 			return nil
 		end
 		task.load(objdata)
+		self:loadres(task,objdata)
 		return task
 	end)
 	self.nowtaskid = data.nowtaskid
@@ -31,7 +39,9 @@ end
 
 function ctaskcontainer:save()
 	local data = ccontainer.save(function(obj)
-		return obj.save()
+		local data = obj.save()
+		self:saveres(obj,data)
+		return data
 	end)
 	data.nowtaskid = self.nowtaskid
 	data.finishtasks = table.values(self.finishtasks)
@@ -56,6 +66,55 @@ function ctaskcontainer:onlogin(player)
 end
 
 function ctaskcontainer:onlogoff(player)
+end
+
+function ctaskcontainer:onclear(tasks)
+	for _,task in pairs(tasks) do
+		self.release(task)
+		net.task.S2C.deltask(task)
+	end
+end
+
+function ctaskcontainer:ondel(task)
+	self.release(task)
+	net.task.S2C.deltask(task)
+end
+
+function ctaskcontainer:onadd(task)
+	net.task.S2C.addtask(task)
+end
+
+function ctemplate:findnpc(resmgr,arg,pid,npc)
+	local nid = arg
+	local findnpc = resmgr:get("findnpc",{})
+	table.insert(findnpc,nid)
+	resmgr:set("findnpc",findnpc)
+end
+
+function ctemplate:needitem(resmgr,arg,pid,npc)
+	local itemtype = arg.type
+	local itemnum = arg.num
+	local itemneed = resmgr:get("itemneed",{})
+	if not itemneed[itemtype] then
+		itemneed[itemtype] = 0
+	end
+	itemneed[itemtype] = itemneed[itemtype] + 1
+	resmgr:set("itemneed",itemneed)
+end
+
+function ctemplate:patrolwar(resmgr,arg,pid,npc)
+end
+
+function ctemplate:progressbar(resmgr,arg,pid,npc)
+end
+
+function ctemplate:handinitem(resmgr,arg,pid,npc)
+end
+
+function ctemplate:onwarwin(resmgr,pid)
+end
+
+function ctemplate:onwarfail(resmgr,pid)
 end
 
 function ctaskcontainer:gettask(taskid,nocheckvalid)
@@ -98,7 +157,9 @@ function ctaskcontainer:__newtask(conf)
 				conf.exceedtime = os.time() + secs
 			end
 		end
-		return ctask.new(conf)
+		local task =  ctask.new(conf)
+		self:loadres(task,nil)
+		return task
 	end
 end
 

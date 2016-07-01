@@ -3,9 +3,8 @@ require "gamelogic.task.taskdb"
 require "gamelogic.task.auxilary"
 
 
-g_taskdata={
-	[1302] = {data_OrgRunRingTask,"orgrunring"}
-	[1000] = {data_TestTask,"test"}
+g_alltaskdata={
+	[1000] = {data_TestTask,TASK_TYPE_TEST},
 }
 
-return g_taskdata
+return g_alltaskdata
