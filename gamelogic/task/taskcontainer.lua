@@ -111,6 +111,20 @@ end
 function ctemplate:handinitem(resmgr,arg,pid,npc)
 end
 
+function ctemplate:taskdone(resmgr,arg,pid,npc)
+	self:deltask(taskid,"submit")
+	self:addfinishtask(taskid)
+	local taskdata = self.formdata.taskinfo[taskid]
+	if istrue(taskdata.autoaccept) then
+		local nexttask = self:nexttask(taskid)
+		if nexttask then
+			if self:can_accepttask(nexttask.taskid) then
+				self:accepttask(nexttask)
+			end
+		end
+	end
+end
+
 function ctemplate:onwarwin(resmgr,pid)
 end
 
@@ -134,9 +148,8 @@ function ctaskcontainer:gettask(taskid,nocheckvalid)
 end
 
 function ctaskcontainer:__newtask(conf)
-	require "gamelogic.task.init"
 	local taskid = assert(conf.taskid)
-	local taskdata = auxilary.gettaskdata(taskid)
+	local taskdata = self.formdata.taskinfo[taskid]
 	if taskdata then
 		conf.state = TASK_STATE_ACCEPT
 		conf.type = taskdata.type
@@ -196,7 +209,7 @@ function ctaskcontainer:finishtask(taskid)
 	if task then  
 		self:updatetask(task,"state",TASK_STATE_FINISH)
 	end
-	local taskdata = auxilary.gettaskdata(taskid)
+	local taskdata = self.formdata.taskifno[taskid]
 	if istrue(taskdata.autosubmit) then
 		-- 无需判断是否可以提交，任务可能已经失效，调用者调用了finishtask,就必须知道可能会“无条件”提交的行为！
 		self:submittask(taskid)
@@ -210,23 +223,18 @@ function ctaskcontainer:addfinishtask(taskid)
 end
 
 function ctaskcontainer:submittask(taskid)
-	self:deltask(taskid,"submit")
-	self:addfinishtask(taskid)
-	self:bonustask(taskid)
-	local taskdata = auxilary.gettaskdata(taskid)
-	if istrue(taskdata.autoaccept) then
-		local nexttask = self:nexttask(taskid)
-		if nexttask then
-			if self:can_accepttask(nexttask.taskid) then
-				self:accepttask(nexttask)
-			end
-		end
-	end
+	local submitscript = self.formdata.taskinfo[taskid].submit
+	local task = self:gettask(taskid)
+	self:execscript(task,submitscript,self.pid)
 end
 
 function ctaskcontainer:accepttask(taskid)
 	local task = self:__newtask({taskid = taskid})
-	self:addtask(task)
+	if task then
+		self:addtask(task)
+		local acceptscript = self.formdata.taskinfo[taskid].accept
+		self.execscript(task,acceptscript,self.pid)
+	end
 end
 
 function ctaskcontainer:giveuptask(taskid)
@@ -242,7 +250,7 @@ function ctaskcontainer:can_accepttask(taskid)
 	if not player then
 		return false
 	end
-	local taskdata = auxilary.gettaskdata(taskid)
+	local taskdata = self.formdata.taskinfo[taskid]
 	local isok = true
 	if taskdata.pretask and next(taskdata.pretask) then
 		for i,taskid in ipairs(taskdata.pretask) do
@@ -269,7 +277,7 @@ function ctaskcontainer:can_submittask(taskid)
 end
 
 function ctaskcontainer:can_giveuptask(taskid)
-	local taskdata = auxilary.gettaskdata(taskid)
+	local taskdata = self.formdata.taskinfo[taskid]
 	if not istrue(taskdata.cangiveup) then
 		return false,"该任务无法放弃"
 	end
@@ -277,25 +285,11 @@ function ctaskcontainer:can_giveuptask(taskid)
 end
 
 function ctaskcontainer:can_clientfinish(taskid)
-	local taskdata = auxilary.gettaskdata(taskid)
+	local taskdata = self.formdata.taskinfo[taskid]
 	if taskdata.finishbyclient ~= 1 then
 		return false
 	end
 	return true
-end
-
-function ctaskcontainer:bonustask(taskid)
-	local taskdata = auxilary.gettaskdata(taskid)
-	local award = taskdata.award
-	local reason = string.format("%s.bonustask",self.name)
-	self:doaward(award,reason)
-end
-
-function ctaskcontainer:bonus_helpwar(taskid)
-	local taskdata = auxilary.gettaskdata(taskid)
-	local award = taskdata.help_award
-	local reason = string.format("%s.bonus_helpwar",self.name)
-	self:doaward(award,reason)
 end
 
 return ctaskcontainer

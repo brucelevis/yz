@@ -1,10 +1,9 @@
 citemdb = class("citemdb",ccontainer)
 
 function citemdb:init(conf)
-	-- conf: {pid=xxx,name=xxx,bagtype=xxx}
+	-- conf: {pid=xxx,name=xxx}
 	ccontainer.init(self,conf)
 	self.pid = conf.pid
-	self.bagtype = conf.bagtype
 	self.space = ITEMBAG_SPACE
 	self.expandspace = 0
 	self.pos_id = {}
@@ -97,7 +96,7 @@ end
 
 function citemdb:onadd(item)
 	self:_onadd(item)
-	net.item.S2C.syncitem(self.pid,self.bagtype,item)
+	net.item.S2C.syncitem(self.pid,item)
 end
 
 function citemdb:delitemobj(itemid,reason)
@@ -311,13 +310,13 @@ function citemdb:moveitem(itemid,newpos)
 	if item2 then
 		self.pos_id[oldpos] = item2.id
 		item2.pos = oldpos
-		net.item.S2C.syncitem(self.pid,self.bagtype,item2)
+		net.item.S2C.syncitem(self.pid,item2)
 	else
 		self.pos_id[oldpos] = nil
 	end
 	self.pos_id[newpos] = item1.id
 	item1.pos = newpos
-	net.item.S2C.syncitem(self.pid,self.bagtype,item1)
+	net.item.S2C.syncitem(self.pid,item1)
 	return item2
 end
 

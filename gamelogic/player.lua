@@ -22,6 +22,7 @@ function cplayer:init(pid)
 	self.gold = nil
 	self.silver = nil
 	self.coin = nil
+	self.objid = 0
 
 	self.data = {}
 	self.frienddb = cfrienddb.new(self.pid)
@@ -49,24 +50,20 @@ function cplayer:init(pid)
 		thisweek2 = self.thisweek2,
 	}
 	self.taskdb = ctaskdb.new(self.pid)
-	self.objid = 0
 	-- 一般物品背包
 	self.itemdb = citemdb.new({
 		pid = self.pid,
 		name = "itemdb",
-		bagtype = BAG_NORMAL,
 	})
 	-- 时装背包
 	self.fashionshowdb = citemdb.new({
 		pid = self.pid,
 		name = "fashinoshowdb",
-		bagtype = BAG_FASNINOSHOW,
 	})
 	-- 怪物卡片
 	self.carddb = citemdb.new({
 		pid = self.pid,
 		name = "carddb",
-		bagtype = BAG_CARD,
 	})
 	self.delaytonextlogin = cdelaytonextlogin.new(self.pid)
 	self.switch = cswitch.new{
@@ -74,6 +71,13 @@ function cplayer:init(pid)
 		flag = self.flag,
 	}
 	self.suitequip = csuitequip.new(self.pid)
+	self.privatemsg = cprivatemsg.new(self.pid)
+
+	self.titledb = ctitledb.new({
+		pid = self.pid,
+		name = "titledb",
+	})
+
 	self.autosaveobj = {
 		time = self.timeattr,
 		friend = self.frienddb,
@@ -85,6 +89,7 @@ function cplayer:init(pid)
 		delaytonextlogin = self.delaytonextlogin,
 		switch = self.switch,
 		suitequip = self.suitequip,
+		privatemsg = self.privatemsg,
 	}
 	self.loadstate = "unload"
 end
@@ -98,6 +103,7 @@ function cplayer:save()
 		sceneid = self.sceneid,
 		pos = self.pos,
 		warid = self.warid,
+		watch_warid = self.watch_warid,
 		objid = self.objid,
 	}
 	return data
@@ -116,6 +122,7 @@ function cplayer:load(data)
 		self.sceneid = data.basic.sceneid
 		self.pos = data.basic.pos
 		self.warid = data.basic.warid
+		watch_warid = self.watch_warid
 		self.objid = data.basic.objid
 	end
 end
@@ -335,11 +342,13 @@ function cplayer:onlogin()
 			obj:onlogin(self)
 		end
 	end
-	if not self.sceneid then
-		self.sceneid = BORN_SCENEID
-		self.pos = randlist(ALL_BORN_LOCS)
+	if not self.sceneid or not self:enterscene(self.sceneid,self.pos) then
+		local born_sceneid = BORN_SCENEID
+		local born_pos = randlist(ALL_BORN_LOCS)
+		self:enterscene(born_sceneid,born_pos)
 	end
-	self:enterscene(self.sceneid,self.pos)
+	warmgr.onlogin(self)
+	channel.subscribe("world",self.pid)
 	self:synctoac()
 end
 
@@ -352,6 +361,8 @@ function cplayer:onlogoff()
 		end
 	end
 	self:leavescene(self.sceneid)
+	warmgr.onlogoff(self)
+	channel.unsubscribe("world",self.pid)
 	self:synctoac()
 end
 
@@ -593,8 +604,9 @@ function cplayer:packmember()
 end
 
 -- 场景信息
-function cplayer:packscene(sceneid)
+function cplayer:packscene(sceneid,pos)
 	sceneid = sceneid or self.sceneid
+	pos = pos or self.pos
 	local scene = scenemgr.getscene(sceneid)
 	return {
 		pid = self.pid,
@@ -604,11 +616,11 @@ function cplayer:packscene(sceneid)
 		teamid = self:getteamid() or 0,
 		teamstate = self:teamstate(),
 		warid = self.warid,
-		pos = self.pos,
 		scene_strategy = self.scene_strategy,
 		agent = self.__agent,
-		sceneid = sceneid,
 		mapid = scene.mapid,
+		sceneid = sceneid,
+		pos = pos,
 	}
 end
 
@@ -638,7 +650,6 @@ function cplayer:move(package)
 	local scene = scenemgr.getscene(self.sceneid)
 	if scene then
 		scene:move(self,package)
-		self:setpos(self.sceneid,package.srcpos)
 		return true
 	end
 end
@@ -650,25 +661,34 @@ function cplayer:leavescene(sceneid)
 		local scene = scenemgr.getscene(sceneid)
 		if scene then
 			scene:leave(self)
+			return true
 		end
 	end
+	return false
 end
 
 function cplayer:enterscene(sceneid,pos)
 	assert(sceneid)
 	assert(pos)
-	local pid = self.pid
-	self:leavescene(self.sceneid)
+	if not self:canenter(sceneid,pos) then
+		return false
+	end
 	local newscene = scenemgr.getscene(sceneid)
 	if not newscene then
-		return
+		return false
 	end
-	self:setpos(sceneid,pos)
-	newscene:enter(self)
+	local pid = self.pid
+	self:leavescene(self.sceneid)
+	newscene:enter(self,pos)
+	return true
 end
 
 -- 强制跳转到指定坐标
 cplayer.jumpto = cplayer.enterscene
+
+function cplayer:canenter(sceneid,pos)
+	return true
+end
 
 function cplayer:setpos(sceneid,pos)
 	self.sceneid = sceneid

@@ -132,20 +132,59 @@ function C2S.setsuit(player,request)
 	player.suitequip:setsuit(suitno)
 end
 
+function C2S.pickitem(player,request)
+	local itemid = assert(request.itemid)
+	local sceneid = assert(request.sceneid)
+	if player.sceneid ~= sceneid then
+		return
+	end
+	local item = scenemgr.getitem(itemid,sceneid)
+	if not item then
+		return
+	end
+	local distance = getdistance(player.pos,item.pos)
+	if distance > 20 then
+		net.msg.S2C.notify(player.pid,language.format("距离物品太远"))
+		return
+	end
+	scenemgr.delitem(itemid,sceneid)
+	player:additembytype(item.type,item.num,item.bind,"pickitem")
+end
+
 -- s2c
-function S2C.syncitem(pid,bagtype,item)
-	local param = {
-		bagtype = bagtype,
+function S2C.additem(pid,item)
+	sendpackage(pid,"item","additem",{
+		item = protoitem(item),
+	})
+end
+
+function S2C.loaditems(pid,items)
+	local params = {}
+	local itemlst = {}
+	local num = 0
+	local len = table.count(items)
+	for _,item in pairs(items) do
+		table.insert(itemlst,protoitem(item))
+		num = num + 1
+		if num % 50 == 0 or num == len then
+			table.insert(params,{ items = itemlst })
+			itemlst = {}
+		end
+	end
+	for _,param in ipairs(params) do
+		sendpackage(pid,"item","loaditems",param)
+	end
+end
+
+local function protoitem(item)
+	return {
+		id = item.id,
+		type = item.type,
+		num = item.num,
+		bind = item.bind,
+		createtime = item.createtime,
 		pos = item.pos,
-		item = {
-			id = item.id,
-			type = item.type,
-			num = item.num,
-			bind = item.bind,
-			createtime = item.createtime,
-		}
 	}
-	sendpackage(pid,"item","syncitem",param)
 end
 
 function S2C.delitem(pid,itemid)
@@ -159,6 +198,10 @@ function S2C.detail(pid,item)
 		id = item.id,
 	}
 	sendpackage(pid,"item","detail",param)
+end
+
+function S2C.updateitem(pid,item,attrnames)
+	
 end
 
 return netitem

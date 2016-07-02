@@ -34,17 +34,18 @@ function ctemplate:saveres(playunit,data)
 	return data
 end
 
-function ctemplate:execscript(playunit,scriptlist,pid,npc)
+function ctemplate:execscript(playunit,scriptlist,pid)
 	local resmgr = assert(playunit.resourcemgr)
 	for _,script in ipairs(scriptlist) do
 		for sc,arg in pairs(script) do
 			local func = self.script_handle[sc]
 			if func ~= nil then
+				local npc = self:getcurrentnpc(resmgr)
 				func(resmgr,arg,pid,npc)
 			else
 				local result = self:customexec(resmgr,sc,arg,pid,npc)
 				if not result then
-					logger.log("err","unknow script:".. sc .."template:".. self.templateid)
+					logger.log("err","template","unknow script=".. sc .." template=".. self.templateid)
 				end
 			end
 		end
@@ -57,6 +58,9 @@ function ctemplate:getnpc(resmgr,nid)
 			return npc
 		end
 	end
+end
+
+function ctemplate:getcurrentnpc(resmgr)
 end
 
 function ctemplate:createscene(resmgr,scid)
