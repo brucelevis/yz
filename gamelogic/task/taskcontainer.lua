@@ -10,9 +10,10 @@ function ctaskcontainer:init(conf)
 	self.nowtaskid = nil  -- 仅对同时只有一个任务的任务类有效
 	self.scirpt_handle.find = self.findnpc
 	self.script_handle.item = self.needitem
-	self.script_handle.patrol = self.patrolwar
+	self.script_handle.patrol = self.setpatrol
 	self.script_handle.progress = self.progressbar
 	self.script_handle.handin = self.handinitem
+	self.script_handle.done = self.taskdone
 end
 
 function ctaskcontainer:load(data)
@@ -84,34 +85,35 @@ function ctaskcontainer:onadd(task)
 	net.task.S2C.addtask(task)
 end
 
-function ctemplate:findnpc(resmgr,arg,pid,npc)
+function ctemplate:findnpc(task,arg,pid,npc)
 	local nid = arg
-	local findnpc = resmgr:get("findnpc",{})
+	local findnpc = plaunit.resourcemgr:get("findnpc",{})
 	table.insert(findnpc,nid)
-	resmgr:set("findnpc",findnpc)
+	task.resourcemgr:set("findnpc",findnpc)
 end
 
-function ctemplate:needitem(resmgr,arg,pid,npc)
+function ctemplate:needitem(task,arg,pid,npc)
 	local itemtype = arg.type
 	local itemnum = arg.num
-	local itemneed = resmgr:get("itemneed",{})
+	local itemneed = task.resourcemgr:get("itemneed",{})
 	if not itemneed[itemtype] then
 		itemneed[itemtype] = 0
 	end
 	itemneed[itemtype] = itemneed[itemtype] + 1
-	resmgr:set("itemneed",itemneed)
+	task.resourcemgr:set("itemneed",itemneed)
 end
 
-function ctemplate:patrolwar(resmgr,arg,pid,npc)
+function ctemplate:patrolwar(task,arg,pid,npc)
 end
 
-function ctemplate:progressbar(resmgr,arg,pid,npc)
+function ctemplate:progressbar(task,arg,pid,npc)
 end
 
-function ctemplate:handinitem(resmgr,arg,pid,npc)
+function ctemplate:handinitem(task,arg,pid,npc)
 end
 
-function ctemplate:taskdone(resmgr,arg,pid,npc)
+function ctemplate:taskdone(task,arg,pid,npc)
+	local donescript = self.formdata.taskinf[taskid]
 	self:deltask(taskid,"submit")
 	self:addfinishtask(taskid)
 	local taskdata = self.formdata.taskinfo[taskid]
@@ -125,10 +127,10 @@ function ctemplate:taskdone(resmgr,arg,pid,npc)
 	end
 end
 
-function ctemplate:onwarwin(resmgr,pid)
+function ctemplate:onwarwin(task,pid)
 end
 
-function ctemplate:onwarfail(resmgr,pid)
+function ctemplate:onwarfail(task,pid)
 end
 
 function ctaskcontainer:gettask(taskid,nocheckvalid)
@@ -185,7 +187,7 @@ function ctaskcontainer:addtask(task)
 end
 
 function ctaskcontainer:deltask(taskid,reason)
-	local task = self:get(taskid) -- 不能用gettask,gettask中有调用deltask
+	local task = self:get(taskid)
 	if task then
 		self:log("info","task",string.format("deltask,pid=%d taskid=%d reason=%s",self.pid,taskid,reason))
 		self:del(taskid)
@@ -201,7 +203,6 @@ function ctaskcontainer:updatetask(task,key,val)
 	end
 end
 
--- 可重写
 function ctaskcontainer:finishtask(taskid)
 	self:log("info","task",string.format("finishtask,pid=%d taskid=%d",self.pid,taskid))
 	local task = self:gettask(taskid)
@@ -222,10 +223,10 @@ function ctaskcontainer:addfinishtask(taskid)
 	self.finishtasks[taskid] = true
 end
 
-function ctaskcontainer:submittask(taskid)
+function ctaskcontainer:submittask(taskid,args)
 	local submitscript = self.formdata.taskinfo[taskid].submit
 	local task = self:gettask(taskid)
-	self:execscript(task,submitscript,self.pid)
+	self:execscript(task,submitscript,self.pid,args)
 end
 
 function ctaskcontainer:accepttask(taskid)

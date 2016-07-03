@@ -23,6 +23,7 @@ function citemdb:load(data)
 		return item
 	end)
 	self.expandspace = data.expandspace
+	net.item.S2C.loaditems(self.pid,self.objs)
 end
 
 function citemdb:save()
@@ -80,6 +81,7 @@ function citemdb:additemobj(item,reason)
 	logger.log("info","item",string.format("[additem] pid=%s itemid=%s itemtype=%s num=%s pos=%s reason=%s",self.pid,itemid,itemtype,item.num,pos,reason))
 	item.pos = pos
 	self:add(item,itemid)
+	net.item.S2C.additem(self.pid,item)
 	return item
 end
 
@@ -96,7 +98,6 @@ end
 
 function citemdb:onadd(item)
 	self:_onadd(item)
-	net.item.S2C.syncitem(self.pid,item)
 end
 
 function citemdb:delitemobj(itemid,reason)
@@ -310,13 +311,13 @@ function citemdb:moveitem(itemid,newpos)
 	if item2 then
 		self.pos_id[oldpos] = item2.id
 		item2.pos = oldpos
-		net.item.S2C.syncitem(self.pid,item2)
+		net.item.S2C.updateitem(self.pid,item2,"pos")
 	else
 		self.pos_id[oldpos] = nil
 	end
 	self.pos_id[newpos] = item1.id
 	item1.pos = newpos
-	net.item.S2C.syncitem(self.pid,item1)
+	net.item.S2C.updateitem(self.pid,item1,"pos")
 	return item2
 end
 

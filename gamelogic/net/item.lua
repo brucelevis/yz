@@ -200,8 +200,32 @@ function S2C.detail(pid,item)
 	sendpackage(pid,"item","detail",param)
 end
 
-function S2C.updateitem(pid,item,attrnames)
-	
+function S2C.updateitem(pid,item,...)
+	local attrnames = ...
+	local properties = {}
+	for _,attr in ipairs(attrnames) do
+		table.insert(properties,getproperty(item,attr))
+	end
+	sendpackage(pid,"item","updateitem",{
+		id = item.id,
+		properties = properties,
+	})
+end
+
+local function getproperty(item,attrname)
+	local valuetype,value = 0,table.getattr(item,attr)
+	if type(value) == "integer" then
+		valuetype = 1
+	elseif type(value) == "boolean" then
+		valuetype = 2
+	else
+		valuetype = 3
+	end
+	return {
+		name = attrname,
+		valuetype = valuetype,
+		value = tostring(value),
+	}
 end
 
 return netitem

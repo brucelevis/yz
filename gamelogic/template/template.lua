@@ -34,16 +34,16 @@ function ctemplate:saveres(playunit,data)
 	return data
 end
 
-function ctemplate:execscript(playunit,scriptlist,pid)
-	local resmgr = assert(playunit.resourcemgr)
+function ctemplate:execscript(playunit,scriptlist,pid,...)
+	assert(playunit.resourcemgr)
 	for _,script in ipairs(scriptlist) do
 		for sc,arg in pairs(script) do
 			local func = self.script_handle[sc]
 			if func ~= nil then
-				local npc = self:getcurrentnpc(resmgr)
-				func(resmgr,arg,pid,npc)
+				local npc = self:getcurrentnpc(playunit)
+				func(playunit,arg,pid,npc,...)
 			else
-				local result = self:customexec(resmgr,sc,arg,pid,npc)
+				local result = self:customexec(playunit,sc,arg,pid,npc,...)
 				if not result then
 					logger.log("err","template","unknow script=".. sc .." template=".. self.templateid)
 				end
@@ -52,18 +52,18 @@ function ctemplate:execscript(playunit,scriptlist,pid)
 	end
 end
 
-function ctemplate:getnpc(resmgr,nid)
-	for _,npc in pairs(resmgr.npclist) do
+function ctemplate:getnpc(playunit,nid)
+	for _,npc in pairs(playunit.resourcemgr.npclist) do
 		if npc.nid == nid then
 			return npc
 		end
 	end
 end
 
-function ctemplate:getcurrentnpc(resmgr)
+function ctemplate:getcurrentnpc(playunit)
 end
 
-function ctemplate:createscene(resmgr,scid)
+function ctemplate:createscene(playunit,scid)
 	local sceneinfo = self.formdata.sceneinfo[scid]
 	local mapid,name = sceneinfo.map,sceneinfo.name
 	local newscene = object.cscene.new({
@@ -71,11 +71,11 @@ function ctemplate:createscene(resmgr,scid)
 		name = name,
 		scid = scid,
 	})
-	resmgr:addscene(newscene)
+	playunit.resourcemgr:addscene(newscene)
 	return newscene
 end
 
-function ctemplate:createnpc(resmgr,nid)
+function ctemplate:createnpc(playunit,nid)
 	local npcinfo = self.formdata.npcinfo[nid]
 	local shape = self:transcode(npcinfo.shape)
 	local name = self:transcode(npcinfo.name)
@@ -93,27 +93,26 @@ function ctemplate:createnpc(resmgr,nid)
 		clientnpc = isclient,
 	})
 	newnpc:setlocation(scid,x,y)
-	resmgr:addnpc(newnpc)
+	playunit.resourcemgr:addnpc(newnpc)
 	return newnpc
 end
 
-function ctemplate:createwar(resmgr,warid,pid)
+function ctemplate:createwar(playunit,warid,pid)
 	local newwar = object.cwar.new(warid)
 	return newwar
 end
 
 function ctemplate:onwarend(war,pid,iswin)
-	local resmgr = war.playunit.resourcemgr
 	if iswin then
-		self:onwarwin(resmgr,pid)
+		self:onwarwin(playunit,pid)
 	else
-		self:onwarfail(resmgr,pid)
+		self:onwarfail(playunit,pid)
 	end
 end
 
 
 --<<  overrides  >>
-function ctemplate:customexec(resmgr,sc,arg,pid,npc)
+function ctemplate:customexec(playunit,sc,arg,pid,npc)
 	return false
 end
 
@@ -131,39 +130,39 @@ end
 function ctemplate:getfakedata(fakeid,faketype)
 end
 
-function ctemplate:onwarwin(resmgr,pid)
+function ctemplate:onwarwin(playunit,pid)
 end
 
-function ctemplate:onwarfail(resmgr,pid)
+function ctemplate:onwarfail(playunit,pid)
 end
 
 
 --<<  script func  >>
-function ctemplate:npctalk(resmgr,arg,pid,npc)
+function ctemplate:npctalk(playunit,arg,pid,npc)
 	local textid = arg
 	local text = self.formdata.textinfo[textid]
 	text = self:transtext(text,pid,npc)
 	npc:say(pid,text)
 end
 
-function ctemplate:insertnpc(resmgr,arg,pid,npc)
+function ctemplate:insertnpc(playunit,arg,pid,npc)
 	local nid = arg
-	local newnpc = self:createnpc(resmgr,nid)
+	local newnpc = self:createnpc(playunit,nid)
 	if not newnpc:isclientnpc() then
 		newnpc:enterscene()
 	end
 end
 
-function ctemplate:raisewar(resmgr,arg,pid,npc)
+function ctemplate:raisewar(playunit,arg,pid,npc)
 	local warid = tonumber(arg)
 	if warid < 0 then
 		warid = self:getfakedata(warid,"warid")
 	end
-	local newwar = self:createwar(resmgr,warid,pid)
+	local newwar = self:createwar(playunit,warid,pid)
 	newwar:start(self.onwarend)
 end
 
-function ctemplate:doreward(resmgr,arg,pid)
+function ctemplate:doreward(playunit,arg,pid)
 end
 
 function ctemplate:release(playunit)
