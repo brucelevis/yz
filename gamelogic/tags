@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 Astar.addpoint	base/algorithm/Astar.lua	/^function Astar.addpoint(point)$/;"	f
 Astar.canreach	base/algorithm/Astar.lua	/^function Astar.canreach(point1,point2)$/;"	f
 Astar.findinopen	base/algorithm/Astar.lua	/^function Astar.findinopen(parent,child)$/;"	f
@@ -26,6 +26,7 @@ C2S.apply_jointeam	net/team.lua	/^function C2S.apply_jointeam(player,request)$/;
 C2S.automatch	net/team.lua	/^function C2S.automatch(player,request)$/;"	f
 C2S.backteam	net/team.lua	/^function C2S.backteam(player,request)$/;"	f
 C2S.changecaptain	net/team.lua	/^function C2S.changecaptain(player,request)$/;"	f
+C2S.changesuit	net/item.lua	/^function C2S.changesuit(player,request)$/;"	f
 C2S.changetarget	net/team.lua	/^function C2S.changetarget(player,request)$/;"	f
 C2S.createrole	net/login.lua	/^function C2S.createrole(obj,request)$/;"	f
 C2S.createteam	net/team.lua	/^function C2S.createteam(player,request)$/;"	f
@@ -33,38 +34,56 @@ C2S.delallmail	net/mail.lua	/^function C2S.delallmail(player,request)$/;"	f
 C2S.delapplyers	net/team.lua	/^function C2S.delapplyers(player,request)$/;"	f
 C2S.delfriend	net/friend.lua	/^function C2S.delfriend(player,request)$/;"	f
 C2S.delmail	net/mail.lua	/^function C2S.delmail(player,request)$/;"	f
+C2S.delrole	net/login.lua	/^function C2S.delrole(obj,request)$/;"	f
+C2S.destroyitem	net/item.lua	/^function C2S.destroyitem(player,request)$/;"	f
 C2S.dismissteam	net/team.lua	/^function C2S.dismissteam(player,request)$/;"	f
 C2S.echo	net/test.lua	/^function C2S.echo(player,request)$/;"	f
 C2S.enter	net/scene.lua	/^function C2S.enter(player,request)$/;"	f
 C2S.entergame	net/login.lua	/^function C2S.entergame(obj,request)$/;"	f
-C2S.exitgame	net/login.lua	/^function C2S.exitgame(player)$/;"	f
+C2S.exitgame	net/login.lua	/^function C2S.exitgame(player,request)$/;"	f
 C2S.finishtask	net/task.lua	/^function C2S.finishtask(player,request)$/;"	f
 C2S.getattach	net/mail.lua	/^function C2S.getattach(player,request)$/;"	f
 C2S.giveuptask	net/task.lua	/^function C2S.giveuptask(player,request)$/;"	f
-C2S.gm	net/test.lua	/^function C2S.gm(player,request)$/;"	f
 C2S.gohome	net/kuafu.lua	/^function C2S.gohome(player,request)$/;"	f
 C2S.gosrv	net/kuafu.lua	/^function C2S.gosrv(player,request)$/;"	f
+C2S.hornmsg	net/msg.lua	/^function C2S.hornmsg(player,request)$/;"	f
 C2S.invite_jointeam	net/team.lua	/^function C2S.invite_jointeam(player,request)$/;"	f
 C2S.jointeam	net/team.lua	/^function C2S.jointeam(player,request)$/;"	f
 C2S.leaveteam	net/team.lua	/^function C2S.leaveteam(player,request)$/;"	f
 C2S.login	net/login.lua	/^function C2S.login(obj,request)$/;"	f
+C2S.look_publishteams	net/team.lua	/^function C2S.look_publishteams(player,request)$/;"	f
+C2S.mergeto	net/item.lua	/^function C2S.mergeto(player,request)$/;"	f
 C2S.move	net/scene.lua	/^function C2S.move(player,request)$/;"	f
 C2S.onmessagebox	net/msg.lua	/^function C2S.onmessagebox(player,request)$/;"	f
 C2S.openmailbox	net/mail.lua	/^function C2S.openmailbox(player)$/;"	f
 C2S.openui_team	net/team.lua	/^function C2S.openui_team(player,request)$/;"	f
+C2S.orgmsg	net/msg.lua	/^function C2S.orgmsg(player,request)$/;"	f
+C2S.pickitem	net/item.lua	/^function C2S.pickitem(player,request)$/;"	f
+C2S.produceitem	net/item.lua	/^function C2S.produceitem(player,request)$/;"	f
 C2S.publishsteam	net/team.lua	/^function C2S.publishsteam(player,request)$/;"	f
+C2S.query	net/scene.lua	/^function C2S.query(player,request)$/;"	f
 C2S.quitteam	net/team.lua	/^function C2S.quitteam(player,request)$/;"	f
 C2S.readmail	net/mail.lua	/^function C2S.readmail(player,request)$/;"	f
 C2S.recallmember	net/team.lua	/^function C2S.recallmember(player,request)$/;"	f
 C2S.register	net/login.lua	/^function C2S.register(obj,request)$/;"	f
 C2S.reject_addfriend	net/friend.lua	/^function C2S.reject_addfriend(player,request)$/;"	f
+C2S.scenemsg	net/msg.lua	/^function C2S.scenemsg(player,request)$/;"	f
+C2S.sellitem	net/item.lua	/^function C2S.sellitem(player,request)$/;"	f
 C2S.sendmail	net/mail.lua	/^function C2S.sendmail(player,request)$/;"	f
 C2S.sendmsg	net/friend.lua	/^function C2S.sendmsg(player,request)$/;"	f
-C2S.setpos	net/scene.lua	/^function C2S.setpos(player,request)$/;"	f
-C2S.stop	net/scene.lua	/^function C2S.stop(player,request)$/;"	f
+C2S.sendmsgto	net/msg.lua	/^function C2S.sendmsgto(player,request)$/;"	f
+C2S.set_curtitle	net/title.lua	/^function C2S.set_curtitle(player,request)$/;"	f
+C2S.setsuit	net/item.lua	/^function C2S.setsuit(player,request)$/;"	f
 C2S.submittask	net/task.lua	/^function C2S.submittask(player,request)$/;"	f
 C2S.syncteam	net/team.lua	/^function C2S.syncteam(player,request)$/;"	f
+C2S.teammsg	net/msg.lua	/^function C2S.teammsg(player,request)$/;"	f
+C2S.tokenlogin	net/login.lua	/^function C2S.tokenlogin(obj,request)$/;"	f
 C2S.unautomatch	net/team.lua	/^function C2S.unautomatch(player,request)$/;"	f
+C2S.unset_curtitle	net/title.lua	/^function C2S.unset_curtitle(player,request)$/;"	f
+C2S.unwield	net/item.lua	/^function C2S.unwield(player,request)$/;"	f
+C2S.useitem	net/item.lua	/^function C2S.useitem(player,request)$/;"	f
+C2S.wield	net/item.lua	/^function C2S.wield(player,request)$/;"	f
+C2S.worldmsg	net/msg.lua	/^function C2S.worldmsg(player,request)$/;"	f
 CMD.addroute	cluster/route.lua	/^function CMD.addroute(srvname,pids)$/;"	f
 CMD.assert	service/testd.lua	/^function CMD.assert(a,b)$/;"	f
 CMD.create	resume/resumemgr.lua	/^function CMD.create(srvname,pid,data)$/;"	f
@@ -81,14 +100,20 @@ CMD.retfalse	service/testd.lua	/^function CMD.retfalse()$/;"	f
 CMD.retfalse2	service/testd.lua	/^function CMD.retfalse2()$/;"	f
 CMD.sync	resume/resumemgr.lua	/^function CMD.sync(srvname,pid,data)$/;"	f
 CMD.sync_finish	cluster/route.lua	/^function CMD.sync_finish(srvname)$/;"	f
+S2C.additem	net/item.lua	/^function S2C.additem(pid,item)$/;"	f
 S2C.addlist	net/friend.lua	/^function S2C.addlist(pid,typ,pids,newflag)$/;"	f
 S2C.addmsgs	net/friend.lua	/^function S2C.addmsgs(pid,srcpid,msgs)$/;"	f
 S2C.bulletin	net/msg.lua	/^function S2C.bulletin(msg,func)$/;"	f
 S2C.createrole_result	net/login.lua	/^function S2C.createrole_result(obj,request)$/;"	f
+S2C.delitem	net/item.lua	/^function S2C.delitem(pid,itemid)$/;"	f
 S2C.dellist	net/friend.lua	/^function S2C.dellist(pid,typ,pids)$/;"	f
+S2C.delrole_result	net/login.lua	/^function S2C.delrole_result(obj,request)$/;"	f
+S2C.detail	net/item.lua	/^function S2C.detail(pid,item)$/;"	f
 S2C.echo	net/test.lua	/^function S2C.echo(pid,request)$/;"	f
 S2C.entergame_result	net/login.lua	/^function S2C.entergame_result(obj,request)$/;"	f
+S2C.info	net/msg.lua	/^function S2C.info(pid,msg)$/;"	f
 S2C.kick	net/login.lua	/^function S2C.kick(obj)$/;"	f
+S2C.loaditems	net/item.lua	/^function S2C.loaditems(pid,items)$/;"	f
 S2C.login_result	net/login.lua	/^function S2C.login_result(obj,request)$/;"	f
 S2C.messagebox	net/msg.lua	/^function S2C.messagebox(pid,type,title,content,attach,buttons,callback,lifetime)$/;"	f
 S2C.notify	net/msg.lua	/^function S2C.notify(pid,msg)$/;"	f
@@ -97,10 +122,13 @@ S2C.reentergame	net/login.lua	/^function S2C.reentergame(obj,request)$/;"	f
 S2C.register_result	net/login.lua	/^function S2C.register_result(obj,request)$/;"	f
 S2C.sync	net/friend.lua	/^function S2C.sync(pid,request)$/;"	f
 S2C.syncmail	net/mail.lua	/^function S2C.syncmail(pid,maildata)$/;"	f
+S2C.tokenlogin_result	net/login.lua	/^function S2C.tokenlogin_result(obj,request)$/;"	f
+S2C.updateitem	net/item.lua	/^function S2C.updateitem(pid,item,attrnames)$/;"	f
 __hotfix	achieve/achievedb.lua	/^function __hotfix(oldmod)$/;"	f
 __hotfix	cluster/clustermgr.lua	/^function __hotfix(oldmod)$/;"	f
 __hotfix	cluster/netcluster.lua	/^function __hotfix(oldmod)$/;"	f
 __hotfix	gm/init.lua	/^function __hotfix(oldmod)$/;"	f
+__hotfix	item/item.lua	/^function __hotfix(oldmod)$/;"	f
 __hotfix	net/init.lua	/^function __hotfix(oldmod)$/;"	f
 __hotfix	test/test_db.lua	/^function __hotfix(oldmod)$/;"	f
 _dump	base/util/table.lua	/^	local function _dump(t,space,name)$/;"	f
@@ -112,10 +140,11 @@ arithmetic_fail	test/test_error.lua	/^local function arithmetic_fail()$/;"	f
 assert_fail	test/test_error.lua	/^local function assert_fail()$/;"	f
 autosave	base/saveobj.lua	/^function autosave(obj)$/;"	f
 award.__player	award/init.lua	/^function award.__player(pid,bonus,reason,btip)$/;"	f
-award.getaward	award/init.lua	/^function award.getaward(rewards)$/;"	f
-award.org	award/init.lua	/^function award.org(orgid,bonuss,reason,btip)$/;"	f
+award.getaward	award/init.lua	/^function award.getaward(reward,func)$/;"	f
+award.mergebonus	award/init.lua	/^function award.mergebonus(bonuss)$/;"	f
+award.org	award/init.lua	/^function award.org(orgid,bonus,reason,btip)$/;"	f
 award.orgaward	award/init.lua	/^function award.orgaward(orgid,reward)$/;"	f
-award.player	award/init.lua	/^function award.player(pid,bonuss,reason,btip)$/;"	f
+award.player	award/init.lua	/^function award.player(pid,bonus,reason,btip)$/;"	f
 cachievedb.getbyevent	achieve/achievedb.lua	/^function cachievedb.getbyevent(eventname)$/;"	f
 cachievedb:addachieve	achieve/achievedb.lua	/^function cachievedb:addachieve(achieve)$/;"	f
 cachievedb:checkachieve	achieve/achievedb.lua	/^function cachievedb:checkachieve(achieveid,num)$/;"	f
@@ -219,8 +248,9 @@ channel.get	channel.lua	/^function channel.get(name,...)$/;"	f
 channel.init	channel.lua	/^function channel.init()$/;"	f
 channel.publish	channel.lua	/^function channel.publish(name,...)$/;"	f
 channel.subscribe	channel.lua	/^function channel.subscribe(name,pid)$/;"	f
-channel.unsubscribe	channel.lua	/^function channel.unsubscribe(name,pid,reason)$/;"	f
+channel.unsubscribe	channel.lua	/^function channel.unsubscribe(name,pid)$/;"	f
 checkargs	base/util/functions.lua	/^function checkargs(args,...)$/;"	f
+checksign	auxilary/http.lua	/^function checksign(tbl)$/;"	f
 choosekey	base/util/functions.lua	/^function choosekey(dct,func)$/;"	f
 choosevalue	base/util/functions.lua	/^function choosevalue(dct,func)$/;"	f
 chuodong:checkhuodong	huodong/init.lua	/^function chuodong:checkhuodong()$/;"	f
@@ -236,32 +266,47 @@ chuodong:onready	huodong/init.lua	/^function chuodong:onready()$/;"	f
 chuodong:onstarthuodong	huodong/init.lua	/^function chuodong:onstarthuodong()$/;"	f
 chuodong:save	huodong/init.lua	/^function chuodong:save()$/;"	f
 chuodong:settime	huodong/init.lua	/^function chuodong:settime(times)$/;"	f
-citem:init	item/init.lua	/^function citem:init(param)$/;"	f
-citem:load	item/init.lua	/^function citem:load(data)$/;"	f
-citem:save	item/init.lua	/^function citem:save()$/;"	f
+citem:afteruse	item/item.lua	/^function citem:afteruse(player,target,num)$/;"	f
+citem:canuse	item/item.lua	/^function citem:canuse(player,target)$/;"	f
+citem:get	item/item.lua	/^function citem:get(what)$/;"	f
+citem:getuseitem	item/item.lua	/^function citem:getuseitem(target)$/;"	f
+citem:init	item/item.lua	/^function citem:init(param)$/;"	f
+citem:load	item/item.lua	/^function citem:load(data)$/;"	f
+citem:save	item/item.lua	/^function citem:save()$/;"	f
+citem:use	item/item.lua	/^function citem:use(player,target,num)$/;"	f
+citem:useitem_501001	item/use/drag.lua	/^function citem:useitem_501001(player,target,num)$/;"	f
 citemdb.order_costitem	item/itemdb.lua	/^function citemdb.order_costitem(item1,item2)$/;"	f
-citemdb:__additembytype	item/itemdb.lua	/^function citemdb:__additembytype(itemtype,num,bind,reason)$/;"	f
-citemdb:additem	item/itemdb.lua	/^function citemdb:additem(item,reason)$/;"	f
+citemdb:_onadd	item/itemdb.lua	/^function citemdb:_onadd(item)$/;"	f
+citemdb:additem	item/itemdb.lua	/^function citemdb:additem(packitem,reason)$/;"	f
+citemdb:additembyid	item/itemdb.lua	/^function citemdb:additembyid(itemid,num,reason)$/;"	f
 citemdb:additembytype	item/itemdb.lua	/^function citemdb:additembytype(itemtype,num,bind,reason)$/;"	f
+citemdb:additemobj	item/itemdb.lua	/^function citemdb:additemobj(item,reason)$/;"	f
+citemdb:canmerge	item/itemdb.lua	/^function citemdb:canmerge(srcitem,toitem)$/;"	f
 citemdb:clear	item/itemdb.lua	/^function citemdb:clear()$/;"	f
+citemdb:costitembyid	item/itemdb.lua	/^function citemdb:costitembyid(itemid,num,reason)$/;"	f
 citemdb:costitembytype	item/itemdb.lua	/^function citemdb:costitembytype(itemtype,num,reason)$/;"	f
-citemdb:delitem	item/itemdb.lua	/^function citemdb:delitem(itemid,reason)$/;"	f
+citemdb:delitemobj	item/itemdb.lua	/^function citemdb:delitemobj(itemid,reason)$/;"	f
 citemdb:expandspace	item/itemdb.lua	/^function citemdb:expandspace(addspace)$/;"	f
 citemdb:genid	item/itemdb.lua	/^function citemdb:genid()$/;"	f
 citemdb:getfreepos	item/itemdb.lua	/^function citemdb:getfreepos()$/;"	f
 citemdb:getfreespace	item/itemdb.lua	/^function citemdb:getfreespace()$/;"	f
-citemdb:getitem	item/itemdb.lua	/^function citemdb:getitem(itemid)$/;"	f
-citemdb:getitemsbytype	item/itemdb.lua	/^function citemdb:getitemsbytype(itemtype)$/;"	f
+citemdb:getitembypos	item/itemdb.lua	/^function citemdb:getitembypos(pos)$/;"	f
+citemdb:getitemobj	item/itemdb.lua	/^function citemdb:getitemobj(itemid)$/;"	f
+citemdb:getitemsbytype	item/itemdb.lua	/^function citemdb:getitemsbytype(itemtype,filter)$/;"	f
 citemdb:getnumbytype	item/itemdb.lua	/^function citemdb:getnumbytype(itemtype)$/;"	f
 citemdb:getspace	item/itemdb.lua	/^function citemdb:getspace()$/;"	f
 citemdb:getusespace	item/itemdb.lua	/^function citemdb:getusespace()$/;"	f
-citemdb:init	item/itemdb.lua	/^function citemdb:init(pid)$/;"	f
+citemdb:init	item/itemdb.lua	/^function citemdb:init(conf)$/;"	f
 citemdb:init	test/test_container.lua	/^	function citemdb:init(param)$/;"	f
 citemdb:load	item/itemdb.lua	/^function citemdb:load(data)$/;"	f
+citemdb:moveitem	item/itemdb.lua	/^function citemdb:moveitem(itemid,newpos)$/;"	f
 citemdb:newitem	item/itemdb.lua	/^function citemdb:newitem(itemdata)$/;"	f
+citemdb:onadd	item/itemdb.lua	/^function citemdb:onadd(item)$/;"	f
 citemdb:onadd	test/test_container.lua	/^	function citemdb:onadd(obj)$/;"	f
+citemdb:onclear	item/itemdb.lua	/^function citemdb:onclear(objs)$/;"	f
 citemdb:onclear	test/test_container.lua	/^	function citemdb:onclear(objs)$/;"	f
 citemdb:oncreate	item/itemdb.lua	/^function citemdb:oncreate(player)$/;"	f
+citemdb:ondel	item/itemdb.lua	/^function citemdb:ondel(item)$/;"	f
 citemdb:ondel	test/test_container.lua	/^	function citemdb:ondel(obj)$/;"	f
 citemdb:onlogin	item/itemdb.lua	/^function citemdb:onlogin(player)$/;"	f
 citemdb:onlogoff	item/itemdb.lua	/^function citemdb:onlogoff(player)$/;"	f
@@ -315,6 +360,7 @@ cnode:isleaf	base/node.lua	/^function cnode:isleaf()$/;"	f
 cnode:rename	base/node.lua	/^function cnode:rename(oldname,newname)$/;"	f
 cnode:rename2	base/node.lua	/^function cnode:rename2(newname)$/;"	f
 cnode:splitpath	base/node.lua	/^function cnode:splitpath(path)$/;"	f
+cnpc:init	template/object.lua	/^function cnpc:init(templ)$/;"	f
 cobject.new	object.lua	/^function cobject.new()$/;"	f
 cobject:exitgame	object.lua	/^function cobject:exitgame()$/;"	f
 cobject:whenConnected	object.lua	/^function cobject:whenConnected(connectionId,addr,agenthandle)$/;"	f
@@ -328,20 +374,25 @@ cond 	profiler.lua	/^	cond = cond or function (prof) return true end$/;"	f
 console.init	console/init.lua	/^function console.init()$/;"	f
 console_main_loop	console/init.lua	/^local function console_main_loop()$/;"	f
 copy	base/util/functions.lua	/^function copy(o)$/;"	f
-cplayer:addchip	player.lua	/^function cplayer:addchip(val,reason)$/;"	f
+cplayer:addcoin	player.lua	/^function cplayer:addcoin(val,reason)$/;"	f
 cplayer:addgold	player.lua	/^function cplayer:addgold(val,reason)$/;"	f
-cplayer:additem	player.lua	/^function cplayer:additem(itemid,num,reason)$/;"	f
-cplayer:additem2	player.lua	/^function cplayer:additem2(itemdata,reason,btip)$/;"	f
-cplayer:additems	player.lua	/^function cplayer:additems(items,reason)$/;"	f
+cplayer:additembytype	player.lua	/^function cplayer:additembytype(itemtype,num,bind,reason)$/;"	f
 cplayer:addlv	player.lua	/^function cplayer:addlv(val,reason)$/;"	f
 cplayer:addres	player.lua	/^function cplayer:addres(typ,num,reason,btip)$/;"	f
+cplayer:addsilver	player.lua	/^function cplayer:addsilver(val,reason)$/;"	f
 cplayer:authority	player.lua	/^function cplayer:authority()$/;"	f
+cplayer:canenter	player.lua	/^function cplayer:canenter(sceneid,pos)$/;"	f
+cplayer:canmove	player.lua	/^function cplayer:canmove()$/;"	f
 cplayer:comptible_process	player.lua	/^function cplayer:comptible_process()$/;"	f
 cplayer:create	player.lua	/^function cplayer:create(conf)$/;"	f
 cplayer:disconnect	player.lua	/^function cplayer:disconnect(reason)$/;"	f
 cplayer:entergame	player.lua	/^function cplayer:entergame()$/;"	f
-cplayer:enterscene	player.lua	/^function cplayer:enterscene(sceneid,pos,noleave)$/;"	f
+cplayer:enterscene	player.lua	/^function cplayer:enterscene(sceneid,pos)$/;"	f
 cplayer:exitgame	player.lua	/^function cplayer:exitgame()$/;"	f
+cplayer:genid	player.lua	/^function cplayer:genid()$/;"	f
+cplayer:getitem	player.lua	/^function cplayer:getitem(itemid)$/;"	f
+cplayer:getitemdb	player.lua	/^function cplayer:getitemdb(itemtype)$/;"	f
+cplayer:gettarget	player.lua	/^function cplayer:gettarget(targetid)$/;"	f
 cplayer:getteamid	player.lua	/^function cplayer:getteamid()$/;"	f
 cplayer:init	player.lua	/^function cplayer:init(pid)$/;"	f
 cplayer:ip	player.lua	/^function cplayer:ip()$/;"	f
@@ -361,7 +412,7 @@ cplayer:onweek2update	player.lua	/^function cplayer:onweek2update()$/;"	f
 cplayer:onweekupdate	player.lua	/^function cplayer:onweekupdate()$/;"	f
 cplayer:packmember	player.lua	/^function cplayer:packmember()$/;"	f
 cplayer:packresume	player.lua	/^function cplayer:packresume()$/;"	f
-cplayer:packscene	player.lua	/^function cplayer:packscene()$/;"	f
+cplayer:packscene	player.lua	/^function cplayer:packscene(sceneid,pos)$/;"	f
 cplayer:player_captain_lv	formula/keyword.lua	/^function cplayer:player_captain_lv()$/;"	f
 cplayer:player_lv	formula/keyword.lua	/^function cplayer:player_lv()$/;"	f
 cplayer:player_org_lv	formula/keyword.lua	/^function cplayer:player_org_lv()$/;"	f
@@ -370,16 +421,24 @@ cplayer:player_team_avglv	formula/keyword.lua	/^function cplayer:player_team_avg
 cplayer:player_team_avglv2	formula/keyword.lua	/^function cplayer:player_team_avglv2(state)$/;"	f
 cplayer:player_team_maxlv	formula/keyword.lua	/^function cplayer:player_team_maxlv(state)$/;"	f
 cplayer:port	player.lua	/^function cplayer:port()$/;"	f
+cplayer:refreshequip	player.lua	/^function cplayer:refreshequip()$/;"	f
 cplayer:save	player.lua	/^function cplayer:save()$/;"	f
 cplayer:savetodatabase	player.lua	/^function cplayer:savetodatabase()$/;"	f
 cplayer:setauthority	player.lua	/^function cplayer:setauthority(auth)$/;"	f
 cplayer:setlv	player.lua	/^function cplayer:setlv(val,reason)$/;"	f
-cplayer:setpos	player.lua	/^function cplayer:setpos(pos,nosync)$/;"	f
-cplayer:stop	player.lua	/^function cplayer:stop()$/;"	f
+cplayer:setpos	player.lua	/^function cplayer:setpos(sceneid,pos)$/;"	f
 cplayer:synctoac	player.lua	/^function cplayer:synctoac()$/;"	f
 cplayer:teamstate	player.lua	/^function cplayer:teamstate()$/;"	f
 cplayer:unpackresume	player.lua	/^function cplayer:unpackresume(resume)$/;"	f
+cplayer:unwield	player.lua	/^function cplayer:unwield(equip)$/;"	f
 cplayer:validpay	player.lua	/^function cplayer:validpay(typ,num,notify)$/;"	f
+cplayer:wield	player.lua	/^function cplayer:wield(equip)$/;"	f
+cprivatemsg:clear	attrblock/privatemsg.lua	/^function cprivatemsg:clear()$/;"	f
+cprivatemsg:init	attrblock/privatemsg.lua	/^function cprivatemsg:init(pid)$/;"	f
+cprivatemsg:load	attrblock/privatemsg.lua	/^function cprivatemsg:load(data)$/;"	f
+cprivatemsg:pop	attrblock/privatemsg.lua	/^function cprivatemsg:pop(pos)$/;"	f
+cprivatemsg:push	attrblock/privatemsg.lua	/^function cprivatemsg:push(packmsg)$/;"	f
+cprivatemsg:save	attrblock/privatemsg.lua	/^function cprivatemsg:save()$/;"	f
 cranks:__del	base/ranks.lua	/^function cranks:__del(rank)$/;"	f
 cranks:__get	base/ranks.lua	/^function cranks:__get(id,ispos)$/;"	f
 cranks:__id	base/ranks.lua	/^function cranks:__id(ids)$/;"	f
@@ -400,6 +459,12 @@ cranks:load	base/ranks.lua	/^function cranks:load(data)$/;"	f
 cranks:register	base/ranks.lua	/^function cranks:register(callback)$/;"	f
 cranks:save	base/ranks.lua	/^function cranks:save()$/;"	f
 cranks:update	base/ranks.lua	/^function cranks:update(newrank)$/;"	f
+cresourcemgr:addnpc	template/object.lua	/^function cresourcemgr:addnpc(npc)$/;"	f
+cresourcemgr:addscene	template/object.lua	/^function cresourcemgr:addscene(scene)$/;"	f
+cresourcemgr:init	template/object.lua	/^function cresourcemgr:init(templ)$/;"	f
+cresourcemgr:load	template/object.lua	/^function cresourcemgr:load(data)$/;"	f
+cresourcemgr:release	template/object.lua	/^function cresourcemgr:release()$/;"	f
+cresourcemgr:save	template/object.lua	/^function cresourcemgr:save()$/;"	f
 cresume:addref	resume/init.lua	/^function cresume:addref(pid)$/;"	f
 cresume:create	resume/init.lua	/^function cresume:create(resume)$/;"	f
 cresume:deletefromdatabase	resume/init.lua	/^function cresume:deletefromdatabase()$/;"	f
@@ -412,9 +477,20 @@ cresume:save	resume/init.lua	/^function cresume:save()$/;"	f
 cresume:savetodatabase	resume/init.lua	/^function cresume:savetodatabase()$/;"	f
 cresume:set	resume/init.lua	/^function cresume:set(key,val,notsync)$/;"	f
 cresume:sync	resume/init.lua	/^function cresume:sync(data)$/;"	f
+cscene:allpids	scene/init.lua	/^function cscene:allpids()$/;"	f
+cscene:broadcast	scene/init.lua	/^function cscene:broadcast(protoname,subprotoname,request)$/;"	f
+cscene:dump	scene/init.lua	/^function cscene:dump()$/;"	f
+cscene:enter	scene/init.lua	/^function cscene:enter(player,pos)$/;"	f
 cscene:exit	scene/init.lua	/^function cscene:exit()$/;"	f
-cscene:init	scene/init.lua	/^function cscene:init(sceneid)$/;"	f
-cscene:set	scene/init.lua	/^function cscene:set(pid,key,val)$/;"	f
+cscene:init	scene/init.lua	/^function cscene:init(param)$/;"	f
+cscene:init	template/object.lua	/^function cscene:init(templ)$/;"	f
+cscene:leave	scene/init.lua	/^function cscene:leave(player)$/;"	f
+cscene:move	scene/init.lua	/^function cscene:move(player,package)$/;"	f
+cscene:onenter	scene/init.lua	/^function cscene:onenter(player,pos)$/;"	f
+cscene:onleave	scene/init.lua	/^function cscene:onleave(player)$/;"	f
+cscene:query	scene/init.lua	/^function cscene:query(pid,targetid)$/;"	f
+cscene:reload	scene/init.lua	/^function cscene:reload(pid)$/;"	f
+cscene:set	scene/init.lua	/^function cscene:set(pid,attrs,nosync)$/;"	f
 cserver.getsrvname	server.lua	/^function cserver.getsrvname()$/;"	f
 cserver.isdatacenter	server.lua	/^function cserver.isdatacenter(srvname)$/;"	f
 cserver.isfrdsrv	server.lua	/^function cserver.isfrdsrv(srvname)$/;"	f
@@ -432,34 +508,62 @@ cserver:load	server.lua	/^function cserver:load(data)$/;"	f
 cserver:loadfromdatabase	server.lua	/^function cserver:loadfromdatabase()$/;"	f
 cserver:save	server.lua	/^function cserver:save()$/;"	f
 cserver:savetodatabase	server.lua	/^function cserver:savetodatabase()$/;"	f
-ctask:get	task/init.lua	/^function ctask:get(key)$/;"	f
-ctask:init	task/init.lua	/^function ctask:init(conf)$/;"	f
-ctask:load	task/init.lua	/^function ctask:load(data)$/;"	f
-ctask:pack	task/init.lua	/^function ctask:pack()$/;"	f
-ctask:save	task/init.lua	/^function ctask:save()$/;"	f
-ctask:set	task/init.lua	/^function ctask:set(key,val)$/;"	f
-ctaskdb:__newtask	task/taskdb.lua	/^function ctaskdb:__newtask(conf)$/;"	f
-ctaskdb:accepttask	task/taskdb.lua	/^function ctaskdb:accepttask(taskdata)$/;"	f
-ctaskdb:addfinishtask	task/taskdb.lua	/^function ctaskdb:addfinishtask(taskid)$/;"	f
-ctaskdb:addtask	task/taskdb.lua	/^function ctaskdb:addtask(task)$/;"	f
-ctaskdb:bonus_helpwar	task/taskdb.lua	/^function ctaskdb:bonus_helpwar(taskid)$/;"	f
-ctaskdb:bonustask	task/taskdb.lua	/^function ctaskdb:bonustask(taskid)$/;"	f
-ctaskdb:can_accepttask	task/taskdb.lua	/^function ctaskdb:can_accepttask(taskid)$/;"	f
-ctaskdb:can_giveuptask	task/taskdb.lua	/^function ctaskdb:can_giveuptask(taskid)$/;"	f
-ctaskdb:can_submittask	task/taskdb.lua	/^function ctaskdb:can_submittask(taskid)$/;"	f
+csuitequip:changesuit	item/suitequip.lua	/^function csuitequip:changesuit(suitno)$/;"	f
+csuitequip:init	item/suitequip.lua	/^function csuitequip:init(pid)$/;"	f
+csuitequip:load	item/suitequip.lua	/^function csuitequip:load(data)$/;"	f
+csuitequip:save	item/suitequip.lua	/^function csuitequip:save()$/;"	f
+csuitequip:setsuit	item/suitequip.lua	/^function csuitequip:setsuit(suitno)$/;"	f
+cswitch:allswitch	attrblock/switch.lua	/^function cswitch:allswitch()$/;"	f
+cswitch:init	attrblock/switch.lua	/^function cswitch:init(conf)$/;"	f
+cswitch:isopen	attrblock/switch.lua	/^function cswitch:isopen(switchtype)$/;"	f
+cswitch:setswitch	attrblock/switch.lua	/^function cswitch:setswitch(switchtype,state)$/;"	f
+ctask:get	task/task.lua	/^function ctask:get(key)$/;"	f
+ctask:init	task/task.lua	/^function ctask:init(conf)$/;"	f
+ctask:load	task/task.lua	/^function ctask:load(data)$/;"	f
+ctask:pack	task/task.lua	/^function ctask:pack()$/;"	f
+ctask:save	task/task.lua	/^function ctask:save()$/;"	f
+ctask:set	task/task.lua	/^function ctask:set(key,val)$/;"	f
+ctaskcontainer:__newtask	task/taskcontainer.lua	/^function ctaskcontainer:__newtask(conf)$/;"	f
+ctaskcontainer:accepttask	task/taskcontainer.lua	/^function ctaskcontainer:accepttask(taskid)$/;"	f
+ctaskcontainer:addfinishtask	task/taskcontainer.lua	/^function ctaskcontainer:addfinishtask(taskid)$/;"	f
+ctaskcontainer:addtask	task/taskcontainer.lua	/^function ctaskcontainer:addtask(task)$/;"	f
+ctaskcontainer:can_accepttask	task/taskcontainer.lua	/^function ctaskcontainer:can_accepttask(taskid)$/;"	f
+ctaskcontainer:can_clientfinish	task/taskcontainer.lua	/^function ctaskcontainer:can_clientfinish(taskid)$/;"	f
+ctaskcontainer:can_giveuptask	task/taskcontainer.lua	/^function ctaskcontainer:can_giveuptask(taskid)$/;"	f
+ctaskcontainer:can_submittask	task/taskcontainer.lua	/^function ctaskcontainer:can_submittask(taskid)$/;"	f
+ctaskcontainer:clear	task/taskcontainer.lua	/^function ctaskcontainer:clear()$/;"	f
+ctaskcontainer:deltask	task/taskcontainer.lua	/^function ctaskcontainer:deltask(taskid,reason)$/;"	f
+ctaskcontainer:finishtask	task/taskcontainer.lua	/^function ctaskcontainer:finishtask(taskid)$/;"	f
+ctaskcontainer:gettask	task/taskcontainer.lua	/^function ctaskcontainer:gettask(taskid,nocheckvalid)$/;"	f
+ctaskcontainer:giveuptask	task/taskcontainer.lua	/^function ctaskcontainer:giveuptask(taskid)$/;"	f
+ctaskcontainer:init	task/taskcontainer.lua	/^function ctaskcontainer:init(conf)$/;"	f
+ctaskcontainer:load	task/taskcontainer.lua	/^function ctaskcontainer:load(data)$/;"	f
+ctaskcontainer:log	task/taskcontainer.lua	/^function ctaskcontainer:log(levelmode,filename,...)$/;"	f
+ctaskcontainer:onadd	task/taskcontainer.lua	/^function ctaskcontainer:onadd(task)$/;"	f
+ctaskcontainer:onclear	task/taskcontainer.lua	/^function ctaskcontainer:onclear(tasks)$/;"	f
+ctaskcontainer:ondel	task/taskcontainer.lua	/^function ctaskcontainer:ondel(task)$/;"	f
+ctaskcontainer:onlogin	task/taskcontainer.lua	/^function ctaskcontainer:onlogin(player)$/;"	f
+ctaskcontainer:onlogoff	task/taskcontainer.lua	/^function ctaskcontainer:onlogoff(player)$/;"	f
+ctaskcontainer:save	task/taskcontainer.lua	/^function ctaskcontainer:save()$/;"	f
+ctaskcontainer:submittask	task/taskcontainer.lua	/^function ctaskcontainer:submittask(taskid)$/;"	f
+ctaskcontainer:updatetask	task/taskcontainer.lua	/^function ctaskcontainer:updatetask(task,key,val)$/;"	f
+ctaskdb:addtaskcontainer	task/taskdb.lua	/^function ctaskdb:addtaskcontainer(taskcontainer)$/;"	f
 ctaskdb:clear	task/taskdb.lua	/^function ctaskdb:clear()$/;"	f
-ctaskdb:deltask	task/taskdb.lua	/^function ctaskdb:deltask(taskid,reason)$/;"	f
-ctaskdb:finishtask	task/taskdb.lua	/^function ctaskdb:finishtask(taskid)$/;"	f
-ctaskdb:gettask	task/taskdb.lua	/^function ctaskdb:gettask(taskid,nocheckvalid)$/;"	f
-ctaskdb:giveuptask	task/taskdb.lua	/^function ctaskdb:giveuptask(taskid)$/;"	f
-ctaskdb:init	task/taskdb.lua	/^function ctaskdb:init(conf)$/;"	f
+ctaskdb:gettask	task/taskdb.lua	/^function ctaskdb:gettask(taskid)$/;"	f
+ctaskdb:gettaskcontainer	task/taskdb.lua	/^function ctaskdb:gettaskcontainer(name)$/;"	f
+ctaskdb:gettaskcontainer_bytaskid	task/taskdb.lua	/^function ctaskdb:gettaskcontainer_bytaskid(taskid)$/;"	f
+ctaskdb:init	task/taskdb.lua	/^function ctaskdb:init(pid)$/;"	f
 ctaskdb:load	task/taskdb.lua	/^function ctaskdb:load(data)$/;"	f
-ctaskdb:log	task/taskdb.lua	/^function ctaskdb:log(levelmode,filename,...)$/;"	f
+ctaskdb:onadditem	task/taskdb.lua	/^function ctaskdb:onadditem(itemtype,num)$/;"	f
+ctaskdb:onaddpet	task/taskdb.lua	/^function ctaskdb:onaddpet(pettype,num)$/;"	f
+ctaskdb:onchangelv	task/taskdb.lua	/^function ctaskdb:onchangelv(oldlv,newlv)$/;"	f
+ctaskdb:oncreate	task/taskdb.lua	/^function ctaskdb:oncreate(player)$/;"	f
+ctaskdb:ondelitem	task/taskdb.lua	/^function ctaskdb:ondelitem(itemtype,num)$/;"	f
+ctaskdb:ondelpet	task/taskdb.lua	/^function ctaskdb:ondelpet(pettype,num)$/;"	f
+ctaskdb:onfivehourupdate	task/taskdb.lua	/^function ctaskdb:onfivehourupdate()$/;"	f
 ctaskdb:onlogin	task/taskdb.lua	/^function ctaskdb:onlogin(player)$/;"	f
 ctaskdb:onlogoff	task/taskdb.lua	/^function ctaskdb:onlogoff(player)$/;"	f
 ctaskdb:save	task/taskdb.lua	/^function ctaskdb:save()$/;"	f
-ctaskdb:submittask	task/taskdb.lua	/^function ctaskdb:submittask(taskid)$/;"	f
-ctaskdb:updatetask	task/taskdb.lua	/^function ctaskdb:updatetask(task,key,val)$/;"	f
 ctaskmgr:addtaskdb	task/taskmgr.lua	/^function ctaskmgr:addtaskdb(taskdb)$/;"	f
 ctaskmgr:clear	task/taskmgr.lua	/^function ctaskmgr:clear()$/;"	f
 ctaskmgr:gettask	task/taskmgr.lua	/^function ctaskmgr:gettask(taskid)$/;"	f
@@ -477,6 +581,7 @@ ctaskmgr:onfivehourupdate	task/taskmgr.lua	/^function ctaskmgr:onfivehourupdate(
 ctaskmgr:onlogin	task/taskmgr.lua	/^function ctaskmgr:onlogin(player)$/;"	f
 ctaskmgr:onlogoff	task/taskmgr.lua	/^function ctaskmgr:onlogoff(player)$/;"	f
 ctaskmgr:save	task/taskmgr.lua	/^function ctaskmgr:save()$/;"	f
+cteam:_quit	team/init.lua	/^function cteam:_quit(pid)$/;"	f
 cteam:addapplyer	team/init.lua	/^function cteam:addapplyer(player)$/;"	f
 cteam:back	team/init.lua	/^function cteam:back(player)$/;"	f
 cteam:broadcast	team/init.lua	/^function cteam:broadcast(func)$/;"	f
@@ -485,25 +590,20 @@ cteam:choose_newcaptain	team/init.lua	/^function cteam:choose_newcaptain()$/;"	f
 cteam:clearapplyer	team/init.lua	/^function cteam:clearapplyer()$/;"	f
 cteam:create	team/init.lua	/^function cteam:create(player,param)$/;"	f
 cteam:delapplyer	team/init.lua	/^function cteam:delapplyer(pid,ispos)$/;"	f
-cteam:delfromdatabase	team/init.lua	/^function cteam:delfromdatabase()$/;"	f
 cteam:getapplyer	team/init.lua	/^function cteam:getapplyer(pid,ispos)$/;"	f
 cteam:init	team/init.lua	/^function cteam:init(teamid,param)$/;"	f
 cteam:ismember	team/init.lua	/^function cteam:ismember(pid)$/;"	f
 cteam:join	team/init.lua	/^function cteam:join(player)$/;"	f
 cteam:leaveteam	team/init.lua	/^function cteam:leaveteam(player)$/;"	f
-cteam:len	team/init.lua	/^function cteam:len(state)$/;"	f
-cteam:load	team/init.lua	/^function cteam:load(data)$/;"	f
-cteam:loadfromdatabase	team/init.lua	/^function cteam:loadfromdatabase()$/;"	f
+cteam:len	team/init.lua	/^function cteam:len(teamstate)$/;"	f
 cteam:maxlen	team/init.lua	/^function cteam:maxlen()$/;"	f
-cteam:members	team/init.lua	/^function cteam:members(state)$/;"	f
+cteam:members	team/init.lua	/^function cteam:members(teamstate)$/;"	f
 cteam:onlogin	team/init.lua	/^function cteam:onlogin(player)$/;"	f
 cteam:onlogoff	team/init.lua	/^function cteam:onlogoff(player)$/;"	f
 cteam:pack	team/init.lua	/^function cteam:pack()$/;"	f
 cteam:packmember	team/init.lua	/^function cteam:packmember(player)$/;"	f
 cteam:packmembers	team/init.lua	/^function cteam:packmembers()$/;"	f
 cteam:quit	team/init.lua	/^function cteam:quit(player)$/;"	f
-cteam:save	team/init.lua	/^function cteam:save()$/;"	f
-cteam:savetodatabase	team/init.lua	/^function cteam:savetodatabase()$/;"	f
 cteam:teamstate	team/init.lua	/^function cteam:teamstate(pid)$/;"	f
 cteammgr.startgame	team/teammgr.lua	/^function cteammgr.startgame()$/;"	f
 cteammgr:addteam	team/teammgr.lua	/^function cteammgr:addteam(teamid,team)$/;"	f
@@ -513,7 +613,7 @@ cteammgr:after_createteam	team/teammgr.lua	/^function cteammgr:after_createteam(
 cteammgr:after_jointeam	team/teammgr.lua	/^function cteammgr:after_jointeam(player,teamid)$/;"	f
 cteammgr:after_leaveteam	team/teammgr.lua	/^function cteammgr:after_leaveteam(player,teamid)$/;"	f
 cteammgr:after_quitteam	team/teammgr.lua	/^function cteammgr:after_quitteam(player,teamid)$/;"	f
-cteammgr:automatch	team/teammgr.lua	/^function cteammgr:automatch(player,target,stage)$/;"	f
+cteammgr:automatch	team/teammgr.lua	/^function cteammgr:automatch(player,target,lv)$/;"	f
 cteammgr:backteam	team/teammgr.lua	/^function cteammgr:backteam(player)$/;"	f
 cteammgr:before_backteam	team/teammgr.lua	/^function cteammgr:before_backteam(player,teamid)$/;"	f
 cteammgr:before_changecaptain	team/teammgr.lua	/^function cteammgr:before_changecaptain(teamid,pid)$/;"	f
@@ -522,7 +622,7 @@ cteammgr:before_jointeam	team/teammgr.lua	/^function cteammgr:before_jointeam(pl
 cteammgr:before_leaveteam	team/teammgr.lua	/^function cteammgr:before_leaveteam(player,teamid)$/;"	f
 cteammgr:before_quitteam	team/teammgr.lua	/^function cteammgr:before_quitteam(player,teamid)$/;"	f
 cteammgr:changecaptain	team/teammgr.lua	/^function cteammgr:changecaptain(teamid,tid)$/;"	f
-cteammgr:changetarget	team/teammgr.lua	/^function cteammgr:changetarget(player,target,stage)$/;"	f
+cteammgr:changetarget	team/teammgr.lua	/^function cteammgr:changetarget(player,target,lv)$/;"	f
 cteammgr:check_match_team	team/teammgr.lua	/^function cteammgr:check_match_team(player)$/;"	f
 cteammgr:clear	team/teammgr.lua	/^function cteammgr:clear()$/;"	f
 cteammgr:createteam	team/teammgr.lua	/^function cteammgr:createteam(player,param)$/;"	f
@@ -530,22 +630,47 @@ cteammgr:delpublishteam	team/teammgr.lua	/^function cteammgr:delpublishteam(team
 cteammgr:delteam	team/teammgr.lua	/^function cteammgr:delteam(teamid)$/;"	f
 cteammgr:dismissteam	team/teammgr.lua	/^function cteammgr:dismissteam(player)$/;"	f
 cteammgr:genid	team/teammgr.lua	/^function cteammgr:genid()$/;"	f
-cteammgr:getpublishteam	team/teammgr.lua	/^function cteammgr:getpublishteam(teamid)$/;"	f
 cteammgr:getteam	team/teammgr.lua	/^function cteammgr:getteam(teamid)$/;"	f
 cteammgr:init	team/teammgr.lua	/^function cteammgr:init()$/;"	f
 cteammgr:jointeam	team/teammgr.lua	/^function cteammgr:jointeam(player,teamid)$/;"	f
 cteammgr:leaveteam	team/teammgr.lua	/^function cteammgr:leaveteam(player)$/;"	f
-cteammgr:load	team/teammgr.lua	/^function cteammgr:load(data)$/;"	f
-cteammgr:loadfromdatabase	team/teammgr.lua	/^function cteammgr:loadfromdatabase()$/;"	f
-cteammgr:publishteam	team/teammgr.lua	/^function cteammgr:publishteam(player,publish)$/;"	f
+cteammgr:pack_publishteam	team/teammgr.lua	/^function cteammgr:pack_publishteam(teamid)$/;"	f
+cteammgr:publishteam	team/teammgr.lua	/^function cteammgr:publishteam(player,param)$/;"	f
 cteammgr:quitteam	team/teammgr.lua	/^function cteammgr:quitteam(player)$/;"	f
-cteammgr:save	team/teammgr.lua	/^function cteammgr:save()$/;"	f
-cteammgr:savetodatabase	team/teammgr.lua	/^function cteammgr:savetodatabase()$/;"	f
 cteammgr:starttimer_automatch	team/teammgr.lua	/^function cteammgr:starttimer_automatch()$/;"	f
 cteammgr:starttimer_check_publishteam	team/teammgr.lua	/^function cteammgr:starttimer_check_publishteam()$/;"	f
 cteammgr:team_automatch	team/teammgr.lua	/^function cteammgr:team_automatch(teamid)$/;"	f
 cteammgr:team_unautomatch	team/teammgr.lua	/^function cteammgr:team_unautomatch(teamid,reason)$/;"	f
-cteammgr:unautomatch	team/teammgr.lua	/^function cteammgr:unautomatch(pid,reason)$/;"	f
+cteammgr:unautomatch	team/teammgr.lua	/^function cteammgr:unautomatch(pid)$/;"	f
+ctemplate:createnpc	template/template.lua	/^function ctemplate:createnpc(resmgr,nid)$/;"	f
+ctemplate:createscene	template/template.lua	/^function ctemplate:createscene(resmgr,scid)$/;"	f
+ctemplate:createwar	template/template.lua	/^function ctemplate:createwar(resmgr,warid,pid)$/;"	f
+ctemplate:customexec	template/template.lua	/^function ctemplate:customexec(resmgr,sc,arg,pid,npc)$/;"	f
+ctemplate:doreward	template/template.lua	/^function ctemplate:doreward(resmgr,arg,pid)$/;"	f
+ctemplate:execscript	template/template.lua	/^function ctemplate:execscript(playunit,scriptlist,pid)$/;"	f
+ctemplate:findnpc	task/taskcontainer.lua	/^function ctemplate:findnpc(resmgr,arg,pid,npc)$/;"	f
+ctemplate:getcurrentnpc	template/template.lua	/^function ctemplate:getcurrentnpc(resmgr)$/;"	f
+ctemplate:getfakedata	template/template.lua	/^function ctemplate:getfakedata(fakeid,faketype)$/;"	f
+ctemplate:getnpc	template/template.lua	/^function ctemplate:getnpc(resmgr,nid)$/;"	f
+ctemplate:handinitem	task/taskcontainer.lua	/^function ctemplate:handinitem(resmgr,arg,pid,npc)$/;"	f
+ctemplate:init	template/template.lua	/^function ctemplate:init(conf)$/;"	f
+ctemplate:insertnpc	template/template.lua	/^function ctemplate:insertnpc(resmgr,arg,pid,npc)$/;"	f
+ctemplate:loadres	template/template.lua	/^function ctemplate:loadres(playunit,data)$/;"	f
+ctemplate:needitem	task/taskcontainer.lua	/^function ctemplate:needitem(resmgr,arg,pid,npc)$/;"	f
+ctemplate:npctalk	template/template.lua	/^function ctemplate:npctalk(resmgr,arg,pid,npc)$/;"	f
+ctemplate:onwarend	template/template.lua	/^function ctemplate:onwarend(war,pid,iswin)$/;"	f
+ctemplate:onwarfail	task/taskcontainer.lua	/^function ctemplate:onwarfail(resmgr,pid)$/;"	f
+ctemplate:onwarfail	template/template.lua	/^function ctemplate:onwarfail(resmgr,pid)$/;"	f
+ctemplate:onwarwin	task/taskcontainer.lua	/^function ctemplate:onwarwin(resmgr,pid)$/;"	f
+ctemplate:onwarwin	template/template.lua	/^function ctemplate:onwarwin(resmgr,pid)$/;"	f
+ctemplate:patrolwar	task/taskcontainer.lua	/^function ctemplate:patrolwar(resmgr,arg,pid,npc)$/;"	f
+ctemplate:progressbar	task/taskcontainer.lua	/^function ctemplate:progressbar(resmgr,arg,pid,npc)$/;"	f
+ctemplate:raisewar	template/template.lua	/^function ctemplate:raisewar(resmgr,arg,pid,npc)$/;"	f
+ctemplate:release	template/template.lua	/^function ctemplate:release(playunit)$/;"	f
+ctemplate:saveres	template/template.lua	/^function ctemplate:saveres(playunit,data)$/;"	f
+ctemplate:taskdone	task/taskcontainer.lua	/^function ctemplate:taskdone(resmgr,arg,pid,npc)$/;"	f
+ctemplate:transcode	template/template.lua	/^function ctemplate:transcode(value,pid,npc)$/;"	f
+ctemplate:transtext	template/template.lua	/^function ctemplate:transtext(text,pid,npc)$/;"	f
 ctest:init	test/test_saveobj.lua	/^	function ctest:init(id)$/;"	f
 ctest:savetodatabase	test/test_saveobj.lua	/^	function ctest:savetodatabase()$/;"	f
 cthistemp:__delete	base/time.lua	/^function cthistemp:__delete(key,lastkey,lastmod)$/;"	f
@@ -567,6 +692,22 @@ cthisweek2:checkvalid	base/time.lua	/^function cthisweek2:checkvalid()$/;"	f
 cthisweek2:init	base/time.lua	/^function cthisweek2:init(conf)$/;"	f
 cthisweek:checkvalid	base/time.lua	/^function cthisweek:checkvalid() $/;"	f
 cthisweek:init	base/time.lua	/^function cthisweek:init(conf)$/;"	f
+ctitledb:addtitle	attrblock/titledb.lua	/^function ctitledb:addtitle(id)$/;"	f
+ctitledb:clear	attrblock/titledb.lua	/^function ctitledb:clear()$/;"	f
+ctitledb:deltitle	attrblock/titledb.lua	/^function ctitledb:deltitle(id)$/;"	f
+ctitledb:getdatatable	attrblock/titledb.lua	/^function ctitledb:getdatatable()$/;"	f
+ctitledb:gettitle	attrblock/titledb.lua	/^function ctitledb:gettitle(title)$/;"	f
+ctitledb:gettitledata	attrblock/titledb.lua	/^function ctitledb:gettitledata(id)$/;"	f
+ctitledb:init	attrblock/titledb.lua	/^function ctitledb:init(param)$/;"	f
+ctitledb:load	attrblock/titledb.lua	/^function ctitledb:load(data)$/;"	f
+ctitledb:name2id	attrblock/titledb.lua	/^function ctitledb:name2id(title)$/;"	f
+ctitledb:onadd	attrblock/titledb.lua	/^function ctitledb:onadd(title)$/;"	f
+ctitledb:ondel	attrblock/titledb.lua	/^function ctitledb:ondel(title)$/;"	f
+ctitledb:onupdate	attrblock/titledb.lua	/^function ctitledb:onupdate(titleid,attrs)$/;"	f
+ctitledb:save	attrblock/titledb.lua	/^function ctitledb:save()$/;"	f
+ctitledb:set_curtitle	attrblock/titledb.lua	/^function ctitledb:set_curtitle(id)$/;"	f
+ctitledb:sync_curtitle	attrblock/titledb.lua	/^function ctitledb:sync_curtitle()$/;"	f
+ctitledb:unset_curtitle	attrblock/titledb.lua	/^function ctitledb:unset_curtitle()$/;"	f
 ctoday:add	base/time.lua	/^function ctoday:add(key,val)$/;"	f
 ctoday:checkvalid	base/time.lua	/^function ctoday:checkvalid()$/;"	f
 ctoday:clear	base/time.lua	/^function ctoday:clear()$/;"	f
@@ -599,6 +740,7 @@ cvotemgr:ondelvote	vote/votemgr.lua	/^function cvotemgr:ondelvote(vote)$/;"	f
 cvotemgr:onupdatevote	vote/votemgr.lua	/^function cvotemgr:onupdatevote(vote)$/;"	f
 cvotemgr:quit_vote	vote/votemgr.lua	/^function cvotemgr:quit_vote(typ,pid)$/;"	f
 cvotemgr:voteto	vote/votemgr.lua	/^function cvotemgr:voteto(typ,pid,topid)$/;"	f
+cwar:init	template/object.lua	/^function cwar:init(templ)$/;"	f
 dbmgr.getdb	db/dbmgr.lua	/^function dbmgr.getdb(srvname)$/;"	f
 dbmgr.init	db/dbmgr.lua	/^function dbmgr.init()$/;"	f
 dbmgr.shutdown	db/dbmgr.lua	/^function dbmgr.shutdown()$/;"	f
@@ -606,7 +748,7 @@ debugcreaterole	net/login.lua	/^local function debugcreaterole(obj,request)$/;"	
 debuglogin	net/login.lua	/^local function debuglogin(obj,request)$/;"	f
 deepcopy	base/util/functions.lua	/^function deepcopy(o,seen)$/;"	f
 del_saveobj	base/saveobj.lua	/^function del_saveobj(obj)$/;"	f
-doaward	award/init.lua	/^function doaward(typ,id,rewards,reason,btip)$/;"	f
+doaward	award/init.lua	/^function doaward(typ,id,reward,reason,btip)$/;"	f
 docmd	cluster/modmethod.lua	/^local function docmd(srvname,modname,methodname,...)$/;"	f
 docmd	cluster/playermethod.lua	/^local function docmd(srvname,pid,methodname,...)$/;"	f
 docmd	cluster/rpc.lua	/^local function docmd(srvname,cmd,...)$/;"	f
@@ -623,6 +765,8 @@ event.register	event/init.lua	/^function event.register(name,func)$/;"	f
 execformula	formula/init.lua	/^function execformula(player,formulaid)$/;"	f
 format	base/util/functions.lua	/^function format(fmt,...)$/;"	f
 func 	base/util/table.lua	/^	func = func or function (...)$/;"	f
+function_desc 	data/data_0401_ItemDrug.lua	/^		function_desc = "回血",$/;"	f
+function_desc 	data/data_0401_ItemMaterial.lua	/^		function_desc = "用于装备的升级与精炼",$/;"	f
 functor	base/functor.lua	/^function functor(func,...)$/;"	f
 functor_fail	test/test_error.lua	/^local function functor_fail()$/;"	f
 g_serverinfo.exeGmshell	serverinfo.lua	/^function g_serverinfo.exeGmshell(gmstr,pid,args)$/;"	f
@@ -639,23 +783,28 @@ get_saveobj	base/saveobj.lua	/^function get_saveobj(id)$/;"	f
 getawarddata	award/init.lua	/^function getawarddata(awardid)$/;"	f
 getcmd	base/util/functions.lua	/^local function getcmd(t,cmd)$/;"	f
 getcmd	cluster/rpc.lua	/^local function getcmd(t,cmd)$/;"	f
-getcmd	gm/init.lua	/^local function getcmd(cmds,cmd)$/;"	f
 getdayhour	base/util/functions.lua	/^function getdayhour(now)$/;"	f
 getdayno	base/util/functions.lua	/^function getdayno(flag)$/;"	f
 getdaysecond	base/util/functions.lua	/^function getdaysecond(now)$/;"	f
 getdayzerotime	base/util/functions.lua	/^function getdayzerotime(now)$/;"	f
+getdistance	base/util/functions.lua	/^function getdistance(pos1,pos2)$/;"	f
 getformula	formula/init.lua	/^function getformula(formulaid)$/;"	f
 getfunc	gm/init.lua	/^local function getfunc(cmds,cmd)$/;"	f
 getfuncname	profiler.lua	/^local function getfuncname(func)$/;"	f
 gethideip	base/util/functions.lua	/^function gethideip(ip)$/;"	f
 gethourminute	base/util/functions.lua	/^function gethourminute(now)$/;"	f
 gethourno	base/util/functions.lua	/^function gethourno(flag)$/;"	f
+getitemdata	item/init.lua	/^function getitemdata(itemtype)$/;"	f
+getmaintype	item/init.lua	/^function getmaintype(itemtype)$/;"	f
+getminortype	item/init.lua	/^function getminortype(itemtype)$/;"	f
 getminutesecond	base/util/functions.lua	/^function getminutesecond(now)$/;"	f
 getmonthday	base/util/functions.lua	/^function getmonthday(now)$/;"	f
 getmonthzerotime	base/util/functions.lua	/^function getmonthzerotime(now)$/;"	f
 getrunningfunc	profiler.lua	/^local function getrunningfunc()$/;"	f
 getsecond	base/util/functions.lua	/^function getsecond(now)$/;"	f
 getsrvname	award/init.lua	/^function getsrvname(typ,id)$/;"	f
+gettaskdata	task/auxilary.lua	/^local function gettaskdata(taskid)$/;"	f
+gettasktype	task/auxilary.lua	/^local function gettasktype(taskid)$/;"	f
 getweek2zerotime	base/util/functions.lua	/^function getweek2zerotime(now)$/;"	f
 getweekday	base/util/functions.lua	/^function getweekday(now)$/;"	f
 getweekno	base/util/functions.lua	/^function getweekno(flag)$/;"	f
@@ -666,6 +815,7 @@ globalmgr.init	globalmgr.lua	/^function globalmgr.init()$/;"	f
 gm.buildgmdoc	gm/helper.lua	/^function gm.buildgmdoc()$/;"	f
 gm.countonline	gm/sys.lua	/^function gm.countonline(args)$/;"	f
 gm.docmd	gm/init.lua	/^function gm.docmd(pid,cmdline)$/;"	f
+gm.dumpproto	gm/other.lua	/^function gm.dumpproto(args)$/;"	f
 gm.echo	gm/other.lua	/^function gm.echo(args)$/;"	f
 gm.getdoc	gm/helper.lua	/^function gm.getdoc()$/;"	f
 gm.help	gm/helper.lua	/^function gm.help(args)$/;"	f
@@ -678,7 +828,6 @@ gm.offline	gm/sys.lua	/^function gm.offline(args)$/;"	f
 gm.reloadproto	gm/sys.lua	/^function gm.reloadproto(args)$/;"	f
 gm.runcmd	gm/sys.lua	/^function gm.runcmd(args)$/;"	f
 gm.saveall	gm/sys.lua	/^function gm.saveall(args)$/;"	f
-gm.setauthority	gm/init.lua	/^function gm.setauthority(args)$/;"	f
 gm.shutdown	gm/sys.lua	/^function gm.shutdown(args)$/;"	f
 gm.test	gm/test.lua	/^function gm.test(args)$/;"	f
 heartbeat	player.lua	/^local function heartbeat(pid)$/;"	f
@@ -701,7 +850,6 @@ huodongmgr.onlogoff	huodong/huodongmgr.lua	/^function huodongmgr.onlogoff(player
 huodongmgr.save	huodong/huodongmgr.lua	/^function huodongmgr.save()$/;"	f
 huodongmgr.savetodatabase	huodong/huodongmgr.lua	/^function huodongmgr.savetodatabase()$/;"	f
 huodongmgr.startgame	huodong/huodongmgr.lua	/^function huodongmgr.startgame()$/;"	f
-if cmds[cmd] and type(cmds[cmd]) 	gm/init.lua	/^	if cmds[cmd] and type(cmds[cmd]) == "function" then$/;"	f
 if type(caller) 	base/util/functions.lua	/^	if type(caller) == "function" then$/;"	f
 if type(caller) 	cluster/rpc.lua	/^	if type(caller) == "function" then$/;"	f
 if type(env.__hotfix) 	hotfix/init.lua	/^	if type(env.__hotfix) == "function" then$/;"	f
@@ -709,9 +857,7 @@ if type(func) 	base/functor.lua	/^	if type(func) == "function" then$/;"	f
 if type(func) ~	cluster/modmethod.lua	/^	if type(func) ~= "function" then$/;"	f
 if type(func) ~	cluster/playermethod.lua	/^	if type(func) ~= "function" then$/;"	f
 if type(v) 	formula/init.lua	/^			if type(v) == "function" then$/;"	f
-if type(v) 	gm/init.lua	/^		if type(v) == "function" and string.lower(k) == cmd then$/;"	f
 ignore_c	test/test_profiler.lua	/^local function ignore_c(prof)$/;"	f
-init	init.lua	/^local function init()$/;"	f
 init	main.lua	/^local function init(...)$/;"	f
 is_pack_function	base/util/functions.lua	/^function is_pack_function(func)$/;"	f
 ishit	base/util/functions.lua	/^function ishit(num,limit)$/;"	f
@@ -725,9 +871,20 @@ isvalid_accountname	base/util/functions.lua	/^function isvalid_accountname(accou
 isvalid_name	base/util/functions.lua	/^function isvalid_name(name)$/;"	f
 isvalid_passwd	base/util/functions.lua	/^function isvalid_passwd(passwd)$/;"	f
 isvalid_roletype	base/util/functions.lua	/^function isvalid_roletype(roletype)$/;"	f
+language.format	language/init.lua	/^function language.format(fmt,...)$/;"	f
+language.format2	language/init.lua	/^function language.format2(fmt,...)$/;"	f
+language.formatto	language/init.lua	/^function language.formatto(language_name,fmt,...)$/;"	f
+language.getstrid	language/init.lua	/^function language.getstrid(str)$/;"	f
+language.getstring	language/init.lua	/^function language.getstring(id,language_name)$/;"	f
+language.init	language/init.lua	/^function language.init(option)$/;"	f
+language.packstring	language/init.lua	/^function language.packstring(fmt,...)$/;"	f
+language.translateto	language/init.lua	/^function language.translateto(packstr,language_name)$/;"	f
+language.unpackstring	language/init.lua	/^function language.unpackstring(packstr,language_name)$/;"	f
 less_than	base/util/table.lua	/^local function less_than(lhs,rhs)$/;"	f
 level 	base/util/functions.lua	/^	level = level + 1 -- skip self function 'collect_localval'$/;"	f
 level 	test/test_error.lua	/^	level = level + 1 -- skip self function 'collect_localval'$/;"	f
+local data 	item/itemdb.lua	/^	local data = ccontainer.save(self,function (item)$/;"	f
+local data 	task/taskcontainer.lua	/^	local data = ccontainer.save(function(obj)$/;"	f
 local f 	db/init.lua	/^		local f = function (self,...)$/;"	f
 local f 	test/test_redis.lua	/^		local f = function (self,...)$/;"	f
 local func 	attrblock/delaytonextlogin.lua	/^		local func = unpack_function(packfunc)$/;"	f
@@ -767,6 +924,8 @@ maintain.init	oscmd/maintain.lua	/^function maintain.init()$/;"	f
 maintain.need_maintain	oscmd/maintain.lua	/^function maintain.need_maintain()$/;"	f
 maintain.onfiveminuteupdate	oscmd/maintain.lua	/^function maintain.onfiveminuteupdate()$/;"	f
 maintain.starttimer_maintain	oscmd/maintain.lua	/^function maintain.starttimer_maintain()$/;"	f
+make_request	auxilary/http.lua	/^function make_request(tbl)$/;"	f
+makesign	auxilary/http.lua	/^function makesign(tbl)$/;"	f
 mergeto	base/saveobj.lua	/^function mergeto(obj1,obj2)$/;"	f
 mytostring	base/util/functions.lua	/^function mytostring(obj)$/;"	f
 needret_retpack	service/testd.lua	/^function needret_retpack(noret,...)$/;"	f
@@ -787,6 +946,9 @@ netcluster_modmethod.dispatch	cluster/modmethod.lua	/^function netcluster_modmet
 netcluster_playermethod.dispatch	cluster/playermethod.lua	/^function netcluster_playermethod.dispatch(srvname,cmd,...)$/;"	f
 netcluster_rpc.dispatch	cluster/rpc.lua	/^function netcluster_rpc.dispatch(srvname,cmd,...)$/;"	f
 netcluster_war.dispatch	cluster/war.lua	/^function netcluster_war.dispatch(source,cmd,...)$/;"	f
+netmsg.packsender	net/msg.lua	/^function netmsg.packsender(player)$/;"	f
+netmsg.sendquickmsg	net/msg.lua	/^function netmsg.sendquickmsg(msg)$/;"	f
+netscene.isvalid_move	net/scene.lua	/^function netscene.isvalid_move(srcpos,topos)$/;"	f
 new	base/class.lua	/^	local function new(istemp)$/;"	f
 nowsave	base/saveobj.lua	/^function nowsave(obj)$/;"	f
 onbuysomething	net/msg.lua	/^function onbuysomething(player,request,buttonid)$/;"	f
@@ -797,7 +959,7 @@ onerror	test/test_error.lua	/^local function onerror(msg)$/;"	f
 ontimer	base/saveobj.lua	/^local function ontimer(id)$/;"	f
 opensave	base/saveobj.lua	/^function opensave(obj)$/;"	f
 pack_function	base/util/functions.lua	/^function pack_function(cmd,...)$/;"	f
-packbody	auxilary/http.lua	/^function packbody(errcode,result)$/;"	f
+pack_response	auxilary/http.lua	/^function pack_response(errcode,result)$/;"	f
 playermanager:CreatePlayerObject	playermanager.lua	/^function playermanager:CreatePlayerObject(conf)$/;"	f
 playermanager:GetPlayer	playermanager.lua	/^function playermanager:GetPlayer(pid)$/;"	f
 playermgr.__delobject	playermgr.lua	/^function playermgr.__delobject(obj,reason)$/;"	f
@@ -819,6 +981,7 @@ playermgr.gettoken	playermgr.lua	/^function playermgr.gettoken(token)$/;"	f
 playermgr.gohome	playermgr/kuafu.lua	/^function playermgr.gohome(player)$/;"	f
 playermgr.gosrv	playermgr/kuafu.lua	/^function playermgr.gosrv(player,go_srvname,home_srvname)$/;"	f
 playermgr.init	playermgr.lua	/^function playermgr.init()$/;"	f
+playermgr.isroleexist	playermgr.lua	/^function playermgr.isroleexist(pid)$/;"	f
 playermgr.kick	playermgr.lua	/^function playermgr.kick(pid,reason)$/;"	f
 playermgr.kickall	playermgr.lua	/^function playermgr.kickall(reason)$/;"	f
 playermgr.loadofflineplayer	playermgr.lua	/^function playermgr.loadofflineplayer(pid)$/;"	f
@@ -842,6 +1005,7 @@ profiler.sort	profiler.lua	/^function profiler.sort(key)$/;"	f
 profiler.start	profiler.lua	/^function profiler.start()$/;"	f
 profiler.stop	profiler.lua	/^function profiler.stop()$/;"	f
 profiler.trace	profiler.lua	/^function profiler.trace(event,line)$/;"	f
+protoitem	net/item.lua	/^local function protoitem(item)$/;"	f
 randlist	base/util/functions.lua	/^function randlist(list)$/;"	f
 reload_class	base/class.lua	/^local function reload_class(name)$/;"	f
 reqnet:netcommad	net/init.lua	/^function reqnet:netcommad(obj,request)$/;"	f
@@ -869,35 +1033,55 @@ rpc.dispatch 	cluster/init.lua	/^function rpc.dispatch (_,session,source,_,srvna
 rpc.init	cluster/init.lua	/^function rpc.init()$/;"	f
 rpc.pcall	cluster/init.lua	/^function rpc.pcall(srvname,protoname,cmd,...)$/;"	f
 saveall	base/saveobj.lua	/^function saveall()$/;"	f
-scene.broadcast	service/scened.lua	/^function scene.broadcast(func)$/;"	f
-scene.canmove	service/scened.lua	/^function scene.canmove(pid)$/;"	f
-scene.canseen	service/scened.lua	/^function scene.canseen(obj,player)$/;"	f
+scene.addtoblock	service/scened.lua	/^function scene.addtoblock(player,row,col,func)$/;"	f
+scene.allpids	service/scened.lua	/^function scene.allpids(source)$/;"	f
+scene.broadcast	service/scened.lua	/^function scene.broadcast(package)$/;"	f
+scene.broadcast_all	service/scened.lua	/^function scene.broadcast_all(func)$/;"	f
+scene.broadcast_around	service/scened.lua	/^function scene.broadcast_around(row,col,func)$/;"	f
+scene.changeblock	service/scened.lua	/^function scene.changeblock(player,oldrow,oldcol,row,col)$/;"	f
+scene.delfromblock	service/scened.lua	/^function scene.delfromblock(player,row,col,func)$/;"	f
+scene.dump	service/scened.lua	/^function scene.dump()$/;"	f
 scene.enter	service/scened.lua	/^function scene.enter(player)$/;"	f
 scene.exit	service/scened.lua	/^function scene.exit()$/;"	f
+scene.getblock	service/scened.lua	/^function scene.getblock(row,col)$/;"	f
 scene.getplayer	service/scened.lua	/^function scene.getplayer(pid)$/;"	f
-scene.init	service/scened.lua	/^function scene.init(sceneid)$/;"	f
-scene.leave	service/init.lua	/^function scene.leave(pid)$/;"	f
+scene.getrowcol	service/scened.lua	/^function scene.getrowcol(x,y)$/;"	f
+scene.init	service/scened.lua	/^function scene.init(param)$/;"	f
+scene.initblocks	service/scened.lua	/^function scene.initblocks(param)$/;"	f
+scene.isvalid_col	service/scened.lua	/^function scene.isvalid_col(col)$/;"	f
+scene.isvalid_row	service/scened.lua	/^function scene.isvalid_row(row)$/;"	f
 scene.leave	service/scened.lua	/^function scene.leave(pid)$/;"	f
 scene.move	service/scened.lua	/^function scene.move(pid,package)$/;"	f
+scene.query	service/scened.lua	/^function scene.query(pid,targetid)$/;"	f
+scene.reload	service/scened.lua	/^function scene.reload(pid)$/;"	f
 scene.sendpackage	service/scened.lua	/^function scene.sendpackage(uid,protoname,cmd,package)$/;"	f
-scene.set	service/scened.lua	/^function scene.set(pid,key,val)$/;"	f
-scene.setpos	service/scened.lua	/^function scene.setpos(pid,pos)$/;"	f
-scene.stop	service/scened.lua	/^function scene.stop(pid)$/;"	f
+scene.set	service/scened.lua	/^function scene.set(pid,attrs,nosync)$/;"	f
 scene.test	service/init.lua	/^function scene.test(...)$/;"	f
+scenemgr.__delitem	scene/scenemgr.lua	/^function scenemgr.__delitem(itemid,sceneid)$/;"	f
 scenemgr.__delnpc	scene/scenemgr.lua	/^function scenemgr.__delnpc(npcid,sceneid)$/;"	f
+scenemgr.additem	scene/scenemgr.lua	/^function scenemgr.additem(item,sceneid)$/;"	f
 scenemgr.addnpc	scene/scenemgr.lua	/^function scenemgr.addnpc(npc,sceneid)$/;"	f
-scenemgr.addscene	scene/scenemgr.lua	/^function scenemgr.addscene(sceneid)$/;"	f
+scenemgr.addscene	scene/scenemgr.lua	/^function scenemgr.addscene(mapid,sceneid)$/;"	f
+scenemgr.checkitem	scene/scenemgr.lua	/^function scenemgr.checkitem(item)$/;"	f
 scenemgr.checknpc	scene/scenemgr.lua	/^function scenemgr.checknpc(npc)$/;"	f
+scenemgr.delitem	scene/scenemgr.lua	/^function scenemgr.delitem(itemid,sceneid)$/;"	f
 scenemgr.delnpc	scene/scenemgr.lua	/^function scenemgr.delnpc(npcid,sceneid)$/;"	f
 scenemgr.delscene	scene/scenemgr.lua	/^function scenemgr.delscene(sceneid)$/;"	f
+scenemgr.gen_sceneid	scene/scenemgr.lua	/^function scenemgr.gen_sceneid()$/;"	f
+scenemgr.genitemid	scene/scenemgr.lua	/^function scenemgr.genitemid()$/;"	f
 scenemgr.gennpcid	scene/scenemgr.lua	/^function scenemgr.gennpcid()$/;"	f
+scenemgr.getitem	scene/scenemgr.lua	/^function scenemgr.getitem(itemid,sceneid)$/;"	f
+scenemgr.getmap	scene/scenemgr.lua	/^function scenemgr.getmap(mapid)$/;"	f
 scenemgr.getnpc	scene/scenemgr.lua	/^function scenemgr.getnpc(npcid,sceneid)$/;"	f
 scenemgr.getscene	scene/scenemgr.lua	/^function scenemgr.getscene(sceneid)$/;"	f
 scenemgr.init	scene/scenemgr.lua	/^function scenemgr.init()$/;"	f
+scenemgr.starttimer_checkallitem	scene/scenemgr.lua	/^function scenemgr.starttimer_checkallitem()$/;"	f
 scenemgr.starttimer_checkallnpc	scene/scenemgr.lua	/^function scenemgr.starttimer_checkallnpc()$/;"	f
+scenemgr.updateitem	scene/scenemgr.lua	/^function scenemgr.updateitem(item,updateattr)$/;"	f
 scenemgr.updatenpc	scene/scenemgr.lua	/^function scenemgr.updatenpc(npc,updateattr)$/;"	f
 sendpackage	base/util/functions.lua	/^function sendpackage(pid,protoname,subprotoname,request)$/;"	f
 sendpackage	service/scened.lua	/^local function sendpackage(agent,protoname,subprotoname,request)$/;"	f
+sendtowarsrv	base/util/functions.lua	/^function sendtowarsrv(protoname,subprotoname,request)$/;"	f
 seperator:" .. tostring	cluster/modmethod.lua	/^		error("Invalid function seperator:" .. tostring(sep))$/;"	f
 seperator:" .. tostring	cluster/playermethod.lua	/^		error("Invalid function seperator:" .. tostring(sep))$/;"	f
 serverinfo:loadfromdb	serverinfo.lua	/^function serverinfo:loadfromdb(attrName)$/;"	f
@@ -909,6 +1093,7 @@ setmetatable(self,{__index 	test/test_redis.lua	/^	setmetatable(self,{__index = 
 settaskname	constant/task.lua	/^function settaskname(tasktype,name)$/;"	f
 setvalue	base/netcache.lua	/^local function setvalue(tbl,val,...)$/;"	f
 shuffle	base/util/functions.lua	/^function shuffle(list,inplace,limit)$/;"	f
+sortforsign	auxilary/http.lua	/^function sortforsign(tbl)$/;"	f
 starttimer	base/saveobj.lua	/^local function starttimer(obj)$/;"	f
 starttimer_check_messagebox	net/msg.lua	/^function starttimer_check_messagebox()$/;"	f
 string.hexstr	base/util/string.lua	/^function string.hexstr(str)$/;"	f
@@ -924,6 +1109,7 @@ string.urlencodechar	base/util/string.lua	/^function string.urlencodechar(char)$
 table.all	base/util/table.lua	/^function table.all(set,func)$/;"	f
 table.any	base/util/table.lua	/^function table.any(set,func)$/;"	f
 table.count	base/util/table.lua	/^function table.count(tbl)$/;"	f
+table.diff_set	base/util/table.lua	/^function table.diff_set(set1,set2)$/;"	f
 table.dump	base/util/table.lua	/^function table.dump(t,space,name)$/;"	f
 table.equal	base/util/table.lua	/^function table.equal(lhs,rhs)$/;"	f
 table.extend	base/util/table.lua	/^function table.extend(tbl1,tbl2)$/;"	f
@@ -931,6 +1117,7 @@ table.filter	base/util/table.lua	/^function table.filter(tbl,func)$/;"	f
 table.find	base/util/table.lua	/^function table.find(tbl,func)$/;"	f
 table.getattr	base/util/table.lua	/^function table.getattr(tbl,attr)$/;"	f
 table.hasattr	base/util/table.lua	/^function table.hasattr(tbl,attr)$/;"	f
+table.intersect_set	base/util/table.lua	/^function table.intersect_set(set1,set2)$/;"	f
 table.isempty	base/util/table.lua	/^function table.isempty(tbl)$/;"	f
 table.keys	base/util/table.lua	/^function table.keys(t)$/;"	f
 table.lower_bound	base/util/table.lua	/^function table.lower_bound(t,val,cmp)$/;"	f
@@ -941,9 +1128,13 @@ table.remove_val	base/util/table.lua	/^function table.remove_val(t,val,maxcnt)$/
 table.setattr	base/util/table.lua	/^function table.setattr(tbl,attr,val,bforce)$/;"	f
 table.slice	base/util/table.lua	/^function table.slice(list,b,e,step)$/;"	f
 table.tolist	base/util/table.lua	/^function table.tolist(t)$/;"	f
+table.toset	base/util/table.lua	/^function table.toset(tbl)$/;"	f
+table.union_set	base/util/table.lua	/^function table.union_set(set1,set2)$/;"	f
 table.update	base/util/table.lua	/^function table.update(tbl1,tbl2)$/;"	f
 table.upper_bound	base/util/table.lua	/^function table.upper_bound(t,val,cmp)$/;"	f
 table.values	base/util/table.lua	/^function table.values(t)$/;"	f
+tasktypename	task/auxilary.lua	/^local function tasktypename(taskid)$/;"	f
+test	language/test.lua	/^local function test()$/;"	f
 test	test/test.lua	/^local function test()$/;"	f
 test	test/test_award.lua	/^local function test(pid)$/;"	f
 test	test/test_class/init.lua	/^local function test()$/;"	f
@@ -955,14 +1146,18 @@ test	test/test_error.lua	/^local function test()$/;"	f
 test	test/test_event.lua	/^local function test(pid)$/;"	f
 test	test/test_friend.lua	/^local function test(pid1,pid2)$/;"	f
 test	test/test_gm.lua	/^local function test()$/;"	f
+test	test/test_item.lua	/^local function test(pid)$/;"	f
 test	test/test_logger.lua	/^local function test()$/;"	f
 test	test/test_mail.lua	/^local function test(pid1,pid2)$/;"	f
 test	test/test_messagebox.lua	/^local function test(pid,choice)$/;"	f
 test	test/test_profiler.lua	/^local function test(...)$/;"	f
 test	test/test_saveobj.lua	/^local function test()$/;"	f
+test	test/test_scene.lua	/^local function test(pid1,pid2,pid3)$/;"	f
 test	test/test_team.lua	/^local function test(pid1,pid2,pid3)$/;"	f
+test	test/test_title.lua	/^local function test(pid)$/;"	f
 test	test/test_vote.lua	/^local function test()$/;"	f
-test 	service/scened.lua	/^	test = function (...) $/;"	f
+test2	test/test_item.lua	/^local function test2(pid)$/;"	f
+test3	test/test_item.lua	/^local function test3(pid)$/;"	f
 timectrl.day_update	timectrl/init.lua	/^function timectrl.day_update(now)$/;"	f
 timectrl.error_handle	timectrl/init.lua	/^function timectrl.error_handle(...)$/;"	f
 timectrl.fiveminute_update	timectrl/init.lua	/^function timectrl.fiveminute_update()$/;"	f
@@ -993,9 +1188,26 @@ timer.timeout	base/timer.lua	/^function timer.timeout(name,delay,callback)$/;"	f
 timer.timeout2	base/timer.lua	/^function timer.timeout2(name,delay,callback)$/;"	f
 timer.untimeout	base/timer.lua	/^function timer.untimeout(name,id)$/;"	f
 typename	base/class.lua	/^function typename(obj)$/;"	f
-typenameof	auxilary/functions.lua	/^function typenameof(itemtype)$/;"	f
 uniqueflag	base/saveobj.lua	/^function uniqueflag(obj)$/;"	f
 unpack_function	base/util/functions.lua	/^function unpack_function(pack_data)$/;"	f
-unpackbody	auxilary/http.lua	/^function unpackbody(body)$/;"	f
+unpack_response	auxilary/http.lua	/^function unpack_response(body)$/;"	f
 update_hierarchy	base/class.lua	/^local function update_hierarchy(name)$/;"	f
 uuid	base/util/functions.lua	/^function uuid(len)$/;"	f
+warmgr.addwar	war/warmgr.lua	/^function warmgr.addwar(warid,war)$/;"	f
+warmgr.broadcast_inwar	war/warmgr.lua	/^function warmgr.broadcast_inwar(warid,func)$/;"	f
+warmgr.can_startwar	war/warmgr.lua	/^function warmgr.can_startwar(attackers,defensers,war)$/;"	f
+warmgr.delwar	war/warmgr.lua	/^function warmgr.delwar(warid)$/;"	f
+warmgr.force_endwar	war/warmgr.lua	/^function warmgr.force_endwar(warid,reason)$/;"	f
+warmgr.genwarid	war/warmgr.lua	/^function warmgr.genwarid()$/;"	f
+warmgr.getwar	war/warmgr.lua	/^function warmgr.getwar(warid)$/;"	f
+warmgr.init	war/warmgr.lua	/^function warmgr.init()$/;"	f
+warmgr.onendwar	war/warmgr.lua	/^function warmgr.onendwar(warid,result)$/;"	f
+warmgr.onlogin	war/warmgr.lua	/^function warmgr.onlogin(player)$/;"	f
+warmgr.onlogoff	war/warmgr.lua	/^function warmgr.onlogoff(player)$/;"	f
+warmgr.packplayer	war/warmgr.lua	/^function warmgr.packplayer(player)$/;"	f
+warmgr.packresume	war/warmgr.lua	/^function warmgr.packresume(player)$/;"	f
+warmgr.packwar	war/warmgr.lua	/^function warmgr.packwar(war)$/;"	f
+warmgr.quit_watchwar	war/warmgr.lua	/^function warmgr.quit_watchwar(player,warid)$/;"	f
+warmgr.quitwar	war/warmgr.lua	/^function warmgr.quitwar(player,warid)$/;"	f
+warmgr.startwar	war/warmgr.lua	/^function warmgr.startwar(attackers,defensers,war)$/;"	f
+warmgr.watchwar	war/warmgr.lua	/^function warmgr.watchwar(player,warid,towatch_pid)$/;"	f
