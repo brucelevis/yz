@@ -1,0 +1,70 @@
+return {
+	p = "scene",
+	si = 5000, -- [5000,6000)
+	src = [[
+
+scene_move 5000 {  #移动
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		srcpos 2 : PosType
+		dstpos 3 : PosType
+		time 4 : integer
+	}
+}
+
+#停止移动
+scene_stop 5001 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+#进入一个场景（玩家A进入场景S，会给S场景所有玩家广播A的信息)
+scene_enter 5002 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		name 2 : string
+		lv 3 : integer
+		roletype 4 : integer
+		teamid 5 : integer
+		teamstate 6 : integer
+		warstate 7 : integer
+		pos 8 : PosType
+	}
+}
+
+#离开一个场景
+scene_leave 5003 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+# 更新玩家场景信息（不包括位置)
+scene_update 5004 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		name 2 : string
+		lv 3 : integer
+		roletype 4 : integer
+		teamid 5 : integer
+		teamstate 6 : integer
+		warstate 7 : integer
+	}
+}
+
+scene_setpos 5005 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		pos 2 : PosType
+	}
+}
+
+]]
+}

@@ -1,0 +1,34 @@
+return {
+	p = "task",
+	si = 7000, -- [7000,8000)
+	src = [[
+
+task_opentask 7000 {
+	request {
+		base 0 : basetype
+		tasktype 1 : integer # 任务类型
+	}
+}
+
+task_accepttask 7001 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer # 任务ID
+	}
+}
+
+task_submittask 7002 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+	}
+}
+
+task_giveuptask 7003 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+	}
+}
+]]
+}

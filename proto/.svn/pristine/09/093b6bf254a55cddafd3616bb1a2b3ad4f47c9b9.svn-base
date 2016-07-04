@@ -1,0 +1,44 @@
+return {
+	p = "item",
+	si = 5500,
+	src = [[
+
+item_additem 5500 {
+	request {
+		base 0 : basetype
+		item 1 : ItemType
+	}
+}
+
+item_addlist 5501 {
+	request {
+		base 0 : basetype
+		items 1 : *ItemType
+	}
+}
+
+item_delitem 5502 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+	}
+}
+
+item_detail 5503 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+	}
+}
+
+item_updateitem 5504 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+		properties 2 : *PropertyType
+	}
+}
+
+]]
+}
+

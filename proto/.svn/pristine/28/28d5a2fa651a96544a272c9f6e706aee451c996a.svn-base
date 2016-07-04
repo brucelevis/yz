@@ -1,0 +1,27 @@
+return {
+	p = "mail",
+	si = 4000, -- [4000,5000)
+	src = [[
+
+mail_syncmail 4000 {
+	request {
+		base 0 : basetype
+		mail 1 : MailType
+	}
+}
+
+mail_allmail 4001 {
+	request {
+		base 0 : basetype
+		mails 1 : *MailType
+	}
+}
+
+mail_delmail_result 4002 {
+	request {
+		base 0 : basetype
+		result 1 : boolean
+	}
+}
+]]
+}

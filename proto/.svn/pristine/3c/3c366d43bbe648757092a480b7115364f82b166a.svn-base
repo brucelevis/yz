@@ -1,0 +1,16 @@
+
+
+return {
+	p = "msg",
+	si = 4500, -- [4500,5000)
+	src = [[
+msg_onmessagebox 4500 { # 回复messgebox
+	request {
+		base 0 : basetype
+		id 1 : integer
+		buttonid 2 : integer
+	}
+}
+
+]]
+}

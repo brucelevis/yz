@@ -6,69 +6,88 @@ local C2S = nettask.C2S
 local S2C = nettask.S2C
 
 function C2S.accepttask(player,request)
-	local pid = player.pid
 	local taskid = request.taskid
 	local taskcontainer = player.taskdb:gettaskcontainer_bytaskid(taskid)
-	local isok,msg = taskcontainer:can_accepttask(taskid)
+	local isok,msg = taskcontainer:can_accept(taskid)
 	if not isok then
 		if msg then
-			net.msg.S2C.notify(player,msg)
+			net.msg.S2C.notify(player.pid,rmsg)
 		end
 		return
 	end
-	taskcontainer:accepttask(taskid)
+	taskcontainer:accepttask(taskid,request.npcid)
+end
+
+function C2S.executetask(player,request)
+	local taskid = request.taskid
+	local taskcontainer = player.taskdb:gettaskcontainer_bytaskid(taskid)
+	local isok,msg = taskcontainer:can_execute(taskid)
+	if not isok then
+		if msg then
+			net.msg.S2C.notify(player.pid,msg)
+		end
+		return
+	end
+	taskcontainer:executetask(taskid,request.npcid,request.ext)
 end
 
 function C2S.finishtask(player,request)
 	local taskid = request.taskid
 	local taskcontainer = player.taskdb:gettaskcontainer_bytaskid(taskid)
-	if not taskcontainer:can_clientfinish(taskid) then
+	local isok,msg = taskcontainer:can_clientfinish(taskid)
+	if not isok then
+		if msg then
+			net.msg.S2C.notify(player.pid,msg)
+		end
 		return
 	end
-	local task = player.taskdb:gettask(taskid)
-	if not task then
-		return
-	end
-	taskcontainer:finishtask(task)
+	taskcontainer:clientfinishtask(taskid)
 end
 
 function C2S.submittask(player,request)
-	local pid = player.pid
 	local taskid = request.taskid
-	local task = player.taskdb:gettask(taskid)
-	if not task then
-		return
-	end
 	local taskcontainer = player.taskdb:gettaskcontainer_bytaskid(taskid)
-	local isok,msg = taskcontainer:can_submittask(taskid)
+	local isok,msg = taskcontainer:can_submit(taskid)
 	if not isok then
 		if msg then
-			net.msg.S2C.notify(pid,msg)
+			net.msg.S2C.notify(player.pid,msg)
 		end
 		return
 	end
-	taskcontainer:submittask(task)
+	taskcontainer:submittask(taskid,request.npcid)
 end
 
 function C2S.giveuptask(player,request)
-	local pid = player.pid
 	local taskid = request.taskid
 	local task = player.taskddb:gettask(taskid)
 	if not task then
-		sendpackage(pid,"task","deltask",{taskid=taskid})
+		nettask.S2C.deltask(pid,taskid)
 		return
 	end
 	local taskcontainer = player.taskdb:gettaskcontainer_bytskid(taskid)
-	local isok,msg = taskcontainer:can_giveuptask(taskid)
+	local isok,msg = taskcontainer:can_giveup(taskid)
 	if not isok then
 		if msg then
 			net.msg.S2C.notify(pid,msg)
 		end
 		return
 	end
-	taskcontainer:giveuptask(task)
+	taskcontainer:giveuptask(taskid)
 end
 
 
 -- s2c
+function S2C.addtask(pid,task)
+end
+
+function S2C.alltask(pid,tasks)
+end
+
+function S2C.deltask(pid,taskid)
+	sendpackage(pid,"task","deltask",{ taskid = taskid })
+end
+
+function S2C.updatetask(pid,task)
+end
+
 return nettask

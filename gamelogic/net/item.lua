@@ -152,31 +152,7 @@ function C2S.pickitem(player,request)
 end
 
 -- s2c
-function S2C.additem(pid,item)
-	sendpackage(pid,"item","additem",{
-		item = protoitem(item),
-	})
-end
-
-function S2C.loaditems(pid,items)
-	local params = {}
-	local itemlst = {}
-	local num = 0
-	local len = table.count(items)
-	for _,item in pairs(items) do
-		table.insert(itemlst,protoitem(item))
-		num = num + 1
-		if num % 50 == 0 or num == len then
-			table.insert(params,{ items = itemlst })
-			itemlst = {}
-		end
-	end
-	for _,param in ipairs(params) do
-		sendpackage(pid,"item","loaditems",param)
-	end
-end
-
-local function protoitem(item)
+local function packitem(item)
 	return {
 		id = item.id,
 		type = item.type,
@@ -187,45 +163,39 @@ local function protoitem(item)
 	}
 end
 
+function S2C.additem(pid,item)
+	sendpackage(pid,"item","additem",{
+		item = packitem(item),
+	})
+end
+
+function S2C.allitem(pid,items)
+	local params = {}
+	local itemlst = {}
+	local num = 0
+	local len = table.count(items)
+	for _,item in pairs(items) do
+		table.insert(itemlst,packitem(item))
+		num = num + 1
+		if num % 50 == 0 or num == len then
+			table.insert(params,{ items = itemlst })
+			itemlst = {}
+		end
+	end
+	for _,param in ipairs(params) do
+		sendpackage(pid,"item","allitem",param)
+	end
+end
+
 function S2C.delitem(pid,itemid)
 	sendpackage(pid,"item","delitem",{
 		id = itemid,
 	})
 end
 
-function S2C.detail(pid,item)
-	local param = {
-		id = item.id,
-	}
-	sendpackage(pid,"item","detail",param)
-end
-
-function S2C.updateitem(pid,item,...)
-	local attrnames = ...
-	local properties = {}
-	for _,attr in ipairs(attrnames) do
-		table.insert(properties,getproperty(item,attr))
-	end
-	sendpackage(pid,"item","updateitem",{
-		id = item.id,
-		properties = properties,
-	})
-end
-
-local function getproperty(item,attrname)
-	local valuetype,value = 0,table.getattr(item,attr)
-	if type(value) == "integer" then
-		valuetype = 1
-	elseif type(value) == "boolean" then
-		valuetype = 2
-	else
-		valuetype = 3
-	end
-	return {
-		name = attrname,
-		valuetype = valuetype,
-		value = tostring(value),
-	}
+function S2C.updateitem(pid,item)
+	assert(item.id)
+	sendpackage(pid,"item","updateitem",item)
 end
 
 return netitem

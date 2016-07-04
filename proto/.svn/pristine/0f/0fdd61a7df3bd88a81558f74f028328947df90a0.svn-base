@@ -1,0 +1,79 @@
+return {
+	p = "item",
+	si = 11000,
+	src = [[
+
+item_useitem 11000 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer		#物品ID
+		targetid 2 : integer	#目标ID，不发默认对主角使用
+		num 3 : integer			#使用数量，不发由服务端决定数量
+	}
+}
+
+item_sellitem 11001 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+		num 2 : integer		#出售数量，不发默认出售1个
+	}
+}
+
+item_produceitem 11002 {
+	request {
+		base 0 : basetype
+		itemtype 1 : integer	#物品类型
+		num 2 : integer			#制造数量，不发默认制造1个
+	}
+}
+
+# 销毁物品，如某些无法出售的物品，为了防止占用格子，主动销毁
+item_destroyitem 11003 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+#将from_itemid物品合并到to_itemid物品
+item_mergeto 11004 {
+	request {
+		base 0 : basetype
+		from_itemid 1 : integer
+		to_itemid 2 : integer
+		num 3 : integer			#合并过去的数量，不发尝试合并整个from_itemid物品
+	}
+}
+
+item_wield 11005 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+item_unwield 11006 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+#变更套装suitno
+item_changesuit 11007 {
+	request {
+		base 0 : basetype
+		suitno 1 : integer
+	}
+}
+
+item_setsuit 11008 {
+	request {
+		base 0 : basetype
+		suitno 1 : integer
+	}
+}
+
+]]
+}

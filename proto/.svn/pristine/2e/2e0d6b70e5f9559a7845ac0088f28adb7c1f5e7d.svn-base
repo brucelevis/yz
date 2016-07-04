@@ -1,0 +1,83 @@
+return {
+	p = "team",
+	si = 8000, -- [8000,9000)
+	src = [[
+
+team_selfteam 8000 {
+	request {
+		base 0 : basetype
+		team 1 : TeamType
+	}
+}
+
+team_addmember 8001 {
+	request {
+		base 0 : basetype
+		teamid 1 : integer
+		member 2 : MemberType
+	}
+}
+
+team_updatemember 8002 {
+	request {
+		base 0 : basetype
+		teamid 1 : integer
+		member 2 : MemberType
+	}
+}
+
+team_delmember 8003 {
+	request {
+		base 0 : basetype
+		teamid 1 : integer
+		pid 2 : integer
+	}
+}
+
+team_publishteam 8004 {
+	request {
+		base 0 : basetype
+		teamid 1 : integer
+		time 2 : integer
+		target 3 : integer
+		stage 4 : integer
+		captain 5 : MemberType
+	}
+}
+
+team_syncteam 8005 {
+	request {
+		base 0 : basetype
+		team 1 : TeamType
+	}
+}
+
+team_addapplyer 8006 {
+	request {
+		base 0 : basetype
+		.TeamApplyerType {
+			pid 0 : integer
+			name 1 : string
+			lv 2 : integer
+			roletype 3 : integer
+		}
+		applyers 1 : *TeamApplyerType
+	}
+}
+
+team_delapplyer 8007 {
+	request {
+		base 0 : basetype
+		applyers 1 : *integer
+	}
+}
+
+team_openui_team 8008 {
+	request {
+		base 0 : basetype
+		teams 1 : *TeamType
+		automatch 2 : boolean
+	}
+}
+]]
+}

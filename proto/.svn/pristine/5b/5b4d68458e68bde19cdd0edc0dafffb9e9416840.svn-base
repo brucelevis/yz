@@ -1,0 +1,19 @@
+return {
+	p = "kuafu",
+	si = 3000, -- [3000,4000)
+	src = [[
+
+kuafu_gosrv 3000 {
+	request {
+		base 0 : basetype
+		go_srvname 1 : string
+	}
+}
+
+kuafu_gohome 3001 {
+	request {
+		base 0 : basetype
+	}
+}
+]]
+}

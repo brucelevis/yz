@@ -1,0 +1,16 @@
+
+
+return {
+	p = "msg",
+	si = 9000, -- [9000,10000)
+	src = [[
+msg_onmessagebox 9000 { # 回复messgebox
+	request {
+		base 0 : basetype
+		id 1 : integer
+		buttonid 2 : integer
+	}
+}
+
+]]
+}

@@ -1,0 +1,42 @@
+return {
+	p = "friend",
+	si = 6000, -- [6000,7000)
+	src = [[
+
+friend_apply_addfriend 6000 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+friend_agree_addfriend 6001 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+friend_reject_addfriend 6002 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+friend_delfriend 6003 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+friend_sendmsg 6004 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		msg 2 : string
+	}
+}
+]]
+}

@@ -1,0 +1,49 @@
+return {
+	p = "mail",
+	si = 4000, -- [4000,5000)
+	src = [[
+
+mail_openmailbox 4000 {
+	request {
+		base 0 : basetype
+	}
+}
+
+mail_readmail 4001 {
+	request {
+		base 0 : basetype
+		mailid 1 : integer
+	}
+}
+
+mail_delmail 4002 {
+	request {
+		base 0 : basetype
+		mailid 1 : integer
+	}
+}
+
+mail_getattach 4003 {
+	request {
+		base 0 : basetype
+		mailid 1 : integer
+	}
+}
+
+mail_sendmail 4004 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		title 2 : string
+		content 3 : string
+		attach 4 : *ResOrItemType
+	}
+}
+
+mail_delallmail 4005 {
+	request {
+		base 0 : basetype
+	}
+}
+]]
+}

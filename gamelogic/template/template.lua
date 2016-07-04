@@ -35,32 +35,38 @@ function ctemplate:saveres(playunit,data)
 end
 
 function ctemplate:execscript(playunit,scriptlist,pid,...)
-	assert(playunit.resourcemgr)
+	local result = nil	--单次脚本执行结果，如果返回非nil表示失败，停止后续执行
 	for _,script in ipairs(scriptlist) do
 		for sc,arg in pairs(script) do
 			local func = self.script_handle[sc]
 			if func ~= nil then
 				local npc = self:getcurrentnpc(playunit)
-				func(playunit,arg,pid,npc,...)
+				result = func(playunit,arg,pid,npc,...)
 			else
-				local result = self:customexec(playunit,sc,arg,pid,npc,...)
-				if not result then
-					logger.log("err","template","unknow script=".. sc .." template=".. self.templateid)
-				end
+				result = self:customexec(playunit,sc,arg,pid,npc,...)
+			end
+			if result ~= nil then
+				return result
 			end
 		end
 	end
 end
 
 function ctemplate:getnpc(playunit,nid)
-	for _,npc in pairs(playunit.resourcemgr.npclist) do
-		if npc.nid == nid then
-			return npc
+	for _,npcobj in pairs(playunit.resourcemgr.npclist) do
+		if npcobj.nid == nid then
+			return npcobj
 		end
 	end
+	return npc.globalnpc(nid)
+end
+
+function ctemplate:setcurrentnpc(playunit,npcid)
+	playunit.resourcemgr.curnpc = npcid
 end
 
 function ctemplate:getcurrentnpc(playunit)
+	return self:getnpc(playunit,playunit.resourcemgr.curnpc)
 end
 
 function ctemplate:createscene(playunit,scid)
@@ -102,18 +108,10 @@ function ctemplate:createwar(playunit,warid,pid)
 	return newwar
 end
 
-function ctemplate:onwarend(war,pid,iswin)
-	if iswin then
-		self:onwarwin(playunit,pid)
-	else
-		self:onwarfail(playunit,pid)
-	end
-end
-
 
 --<<  overrides  >>
 function ctemplate:customexec(playunit,sc,arg,pid,npc)
-	return false
+	logger.log("err","template",string.format("unknow script=%s template=%d",sc,self.templateid))
 end
 
 function ctemplate:transtext(text,pid,npc)
@@ -130,10 +128,7 @@ end
 function ctemplate:getfakedata(fakeid,faketype)
 end
 
-function ctemplate:onwarwin(playunit,pid)
-end
-
-function ctemplate:onwarfail(playunit,pid)
+function ctemplate:onwarend(warid,result)
 end
 
 
