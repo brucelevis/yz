@@ -1,5 +1,3 @@
-require "gamelogic.task.auxilary"
-require "gamelogic.task.taskcontainer"
 
 ctaskdb = class("ctaskdb")
 
@@ -8,9 +6,9 @@ function ctaskdb:init(pid)
 	self.loadstate = "unload"
 	self.taskcontainers = {}
 	for templateid,data in pairs(g_alltaskdata) do
-		local formdata,tasktype = data[1],data[2]
+		local formdata,tasktype,name = data[1],data[2],data[3]
 		local taskcontainer = ctaskcontainer.new({
-			name = TASK_TYPE_NAME[tasktype],
+			name = name,
 			pid = pid,
 			formdata = formdata,
 			templateid = templateid,
@@ -59,7 +57,11 @@ function ctaskdb:gettaskcontainer(name)
 end
 
 function ctaskdb:gettaskcontainer_bytaskid(taskid)
-	local _,name = auxilary.tasktypename(taskid)
+	local templateid = templateid_bytaskid(taskid)
+	if not templateid or not g_alltaskdata[templateid] then
+		return
+	end
+	local name = g_alltaskdata[templateid][3]
 	return self:gettaskcontainer(name)
 end
 

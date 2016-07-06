@@ -29,6 +29,10 @@ function language.format2(fmt,...)
 	return language.translateto(packstr,language.language_to)
 end
 
+function language.untranslate(str)
+	return string.format("%s%s",language.untranslate_char,str)
+end
+
 
 --/*
 -- @functions 根据(字符串ID,语言名字)获取该语言对应的字符串,该函数需要由使用者定义

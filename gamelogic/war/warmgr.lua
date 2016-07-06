@@ -480,6 +480,11 @@ function warmgr.onendwar(warid,result)
 			result = -result,
 		})
 	end
+	local wartype = assert(war.wartype)
+	local callback = warmgr.onendwar_callback[wartype]
+	if callback then
+		xpcall(callback,onerror,warid,result)
+	end
 	-- dosomething
 	warmgr.delwar(warid)
 end

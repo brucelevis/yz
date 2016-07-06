@@ -12,7 +12,7 @@ local data_language = {
 }
 
 local function test()
-	local language = require "gamelogic.init"
+	local language = require "gamelogic.language.init"
 	language.init({
 		language_from = "cn",
 		language_to = "en",
@@ -63,5 +63,5 @@ local function test()
 	print(str)
 end
 
--- test()
+--test()
 

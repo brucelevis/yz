@@ -43,12 +43,12 @@ function C2S.sellitem(player,request)
 		return
 	end
 	if item.num < num then
-		net.msg.S2C.notify(player.pid,language.format("物品数量不足#<R>%d#个",num))
+		net.msg.S2C.notify(player.pid,language.format("物品数量不足#<R>{1}#个",num))
 		return
 	end
 	local reason = "sellitem"
 	itemdb:costitembyid(itemid,num,reason)
-	local itemdata = getitemdata(item.type)
+	local itemdata = itemaux.getitemdata(item.type)
 	local addcoin = itemdata.coin_price * num
 	player:addcoin(addcoin,reason)
 end
@@ -60,7 +60,7 @@ function C2S.destroyitem(player,request)
 	local itemid = assert(request.itemid)
 	local item,itemdb = player:getitem(itemid)
 	if item then
-		itemdb:delitemobj(itemid,"destroyitem")
+		itemdb:delitem(itemid,"destroyitem")
 	end
 end
 
@@ -79,7 +79,7 @@ function C2S.mergeto(player,request)
 	if fromitemdb ~= toitemdb then
 		return
 	end
-	local itemdata = getitemdata(toitem.type)
+	local itemdata = itemaux.getitemdata(toitem.type)
 	assert(itemdata)
 	num = num or fromitem.num
 	local itemdb = fromitemdb
@@ -102,7 +102,7 @@ function C2S.wield(player,request)
 	if not equip then
 		return
 	end
-	local itemtype = getmaintype(equip.type)
+	local itemtype = itemaux.getmaintype(equip.type)
 	if itemtype ~= ItemMainType.EQUIP then
 		return
 	end
@@ -115,7 +115,7 @@ function C2S.unwield(player,request)
 	if not equip then
 		return
 	end
-	local itemtype = getmaintype(equip.type)
+	local itemtype = itemaux.getmaintype(equip.type)
 	if itemtype ~= ItemMainType.EQUIP then
 		return
 	end
@@ -151,21 +151,216 @@ function C2S.pickitem(player,request)
 	player:additembytype(item.type,item.num,item.bind,"pickitem")
 end
 
--- s2c
-local function packitem(item)
-	return {
-		id = item.id,
-		type = item.type,
-		num = item.num,
-		bind = item.bind,
-		createtime = item.createtime,
-		pos = item.pos,
-	}
+function C2S.upgradeitem(player,request)
+	local itemid = assert(request.itemid)
+	local item,itemdb = player:getitem(itemid)
+	if not item then
+		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
+		return
+	end
+	local itemdata = itemaux.getitemdata(item.type)
+	local next_itemtype = item.type + 1
+	local next_itemdata = itemaux.getitemdata(next_itemtype)
+	if not next_itemdata or next_itemdata.equiptype ~= itemdata.equiptype then
+		net.msg.S2C.notify(player.pid,language.format("该物品已无法升级"))
+		return
+	end
+	local costitem = next_itemdata.upgrade_costitem
+	local costcoin = next_itemdata.upgrade_costcoin
+	for itemtype,num in pairs(costitem) do
+		-- 材料和装备一定是在同一个背包中!
+		if num ~= 0 and itemdb:getnumbytype(itemtype) < num then
+
+			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+			return
+		end
+	end
+	if not player:validpay("coin",costcoin,true) then
+		return
+	end
+
+	local reason = "upgradeitem"
+	for itemtype,num in pairs(costitem) do
+		itemdb:costitembytype(itemtype,num,reason)
+	end
+	player:addcoin(-costcoin,reason)
+	itemdb:update(itemid,{type=next_itemtype})
 end
 
+function C2S.refineitem(player,request)
+	local itemid = assert(request.itemid)
+	local item,itemdb = player:getitem(itemid)
+	if not item then
+		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
+		return
+	end
+	local maintype = itemaux.getmaintype(item.type)
+	if maintype ~= ItemMainType.EQUIP then
+		net.msg.S2C.notify(player.pid,language.format("非装备类型无法精炼"))
+		return
+	end
+	local equiplv = item:get("equiplv")
+	local need_equiplv = data_0801_PromoteEquipVar.RefineNeedEquipLv
+	if equiplv < need_equiplv then
+		net.msg.S2C.notify(player.pid,language.format("装备等级不足#<R>{1}#级",need_equiplv))
+		return
+	end
+	local cnt = item.refine.cnt or 0
+	local refinedata = data_0801_Refine[cnt+1]
+	if not refinedata then
+		net.msg.S2C.notify(player.pid,language.format("精炼次数已达上限"))
+		return
+	end
+	if cnt >= player.lv then
+		net.msg.S2C.notify(player.pid,language.format("精炼次数已超过角色等级"))
+		return
+	end
+	if cnt >= equiplv + 9 then
+		net.msg.S2C.notify(player.pid,language.format("精炼次数已超过装备等级+9"))
+		return
+	end
+	local itemdata = itemaux.getitemdata(item.type)
+	local costitem = itemaux.isweapon(itemdata.equiptype) and refinedata.weapon_costitem or refinedata.costitem
+	local costcoin = refinedata.costcoin
+	for itemtype,num in pairs(costitem) do
+		if itemdb:getnumbytype(itemtype) < num then
+			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+			return
+		end
+	end
+	if not player:validpay("coin",costcoin,true) then
+		return
+	end
+	local reason = "refineitem"
+	for itemtype,num in pairs(costitem) do
+		itemdb:costitembytype(itemtype,num,reason)
+	end
+	player:addcoin(-costcoin,reason)
+
+	local succ_ratio = item.refine.succ_ratio or refinedata.init_succ_ratio
+	if not ishit(succ_ratio,100) then
+		net.msg.S2C.notify(player.pid,language.format("精炼失败"))
+		item.refine.succ_ratio = math.min(succ_ratio+data_0801_PromoteEquipVar.RefineFailAddRatio,100)
+		net.item.S2C.updateitem(player.pid,{
+			id = item.id,
+			refine = item.refine,
+		})
+		--itemdb:update(item.id,{
+		--	refine = item.refine,
+		--})
+		return
+	end
+	item.refine.succ_ratio = nil
+	item.refine.cnt = cnt + 1
+	net.item.S2C.updateitem(player.pid,{
+		id = item.id,
+		refine = item.refine
+	})
+end
+
+function C2S.fumoitem(player,request)
+	local itemid = assert(request.itemid)
+	local item,itemdb = player:getitem(itemid)
+	if not item then
+		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
+		return
+	end
+	local minortype = itemaux.getminortype(item.type)
+	local minortype_name = assert(EQUIP_MINORTYPE_NAME[minortype],"Invalid item minortype:" .. tostring(minortype))
+	local equiplv = item:get("equiplv")
+	local need_equiplv = data_0801_PromoteEquipVar.FumoNeedEquipLv
+	if equiplv < need_equiplv then
+		net.msg.S2C.notify(player.pid,language.format("装备等级不足#<R>{1}#级",need_equiplv))
+		return
+	end
+	local fumodata = assert(data_0801_Fumo[equiplv],"Invalid equiplv:" .. tostring(equiplv))
+	local costitem = fumodata.costitem
+	local costcoin = fumodata.costcoin
+	for itemtype,num in pairs(costitem) do
+		if itemdb:getnumbytype(itemtype) < num then
+			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+			return
+		end
+	end
+	if not player:validpay("coin",costcoin,true) then
+		return
+	end
+	local reason = "fumoitem"
+	for itemtype,num in pairs(costitem) do
+		itemdb:costitembytype(itemtype,num,reason)
+	end
+	player:addcoin(-costcoin,reason)
+	local attrnum = choosekey(data_0801_PromoteEquipVar.FumoShowAttrNumRatio)
+	local attrs = {}
+	-- 随机attrnum条不重复的属性
+	for i=1,attrnum do
+		local attr = choosekey(data_0801_FumoAttrRatio,function (v)
+			-- 已出现属性，强制将其概率改成0
+			if attrs[attr] then
+				return 0
+			end
+			local key = string.format("%s_ratio",minortype_name)
+			return v[key]
+		end)
+		local data = data_0801_FumoAttrRatio[attr]
+		local attr_factor = data[string.format("%s_factor",minortype_name)]
+		local maxlv = math.floor(fumodata[attr] * attr_factor)
+		local minlv = math.floor(maxlv * 0.2)
+		attrs[attr] = math.random(minlv,maxlv)
+	end
+	attrs.exceedtime = os.time() + 3 * DAY_SECS
+	item.tmpfumo = attrs
+	C2S.confirm_fumoitem(player,{itemid=item.id})
+end
+
+function C2S.confirm_fumoitem(player,request)
+	local itemid = assert(request.itemid)
+	local item,itemdb = player:getitem(itemid)
+	if not item then
+		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
+		return
+	end
+	if table.isempty(item.tmpfumo) then
+		return
+	end
+	local tmpfumo = item.tmpfumo
+	tmpfumo.exceedtime = nil
+	item.tmpfumo = nil
+	itemdb:update(itemid,{
+		fumo = tmpfumo,
+	})
+end
+
+function C2S.insertcard(player,request)
+	local itemid = assert(request.itemid)
+	local cardid = assert(request.cardid)
+	local item,itemdb = player:getitem(itemid)
+	if not item then
+		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
+		return
+	end
+	local card,carddb = player:getitem(cardid)
+	if not card then
+		net.msg.S2C.notify(player.pid,language.format("卡片不存在"))
+		return
+	end
+	if item.card then
+		net.msg.S2C.notify(player.pid,language.format("无法重复插入卡片"))
+		return
+	end
+	local reason = "insertcard"
+	carddb:delitem(cardid,reason)
+	item.card = card
+	net.item.S2C.updateitem(player.pid,{
+		id = item.id,
+		card = card:pack(),
+	})
+end
+
+-- s2c
 function S2C.additem(pid,item)
 	sendpackage(pid,"item","additem",{
-		item = packitem(item),
+		item = item:pack(),
 	})
 end
 
@@ -175,7 +370,7 @@ function S2C.allitem(pid,items)
 	local num = 0
 	local len = table.count(items)
 	for _,item in pairs(items) do
-		table.insert(itemlst,packitem(item))
+		table.insert(itemlst,item:pack())
 		num = num + 1
 		if num % 50 == 0 or num == len then
 			table.insert(params,{ items = itemlst })
@@ -195,7 +390,9 @@ end
 
 function S2C.updateitem(pid,item)
 	assert(item.id)
-	sendpackage(pid,"item","updateitem",item)
+	sendpackage(pid,"item","updateitem",{
+		item = item,
+	})
 end
 
 return netitem

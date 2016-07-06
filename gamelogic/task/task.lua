@@ -5,6 +5,7 @@ function ctask:init(conf)
 	self.taskid = assert(conf.taskid)
 	self.state = assert(conf.state)
 	self.type = assert(conf.type)
+	self.owner  = assert(conf.owner)
 	self.exceedtime = conf.exceedtime
 	self.data = conf.data or {}
 end

@@ -59,12 +59,12 @@ end
 
 function C2S.giveuptask(player,request)
 	local taskid = request.taskid
-	local task = player.taskddb:gettask(taskid)
+	local task = player.taskdb:gettask(taskid)
 	if not task then
 		nettask.S2C.deltask(pid,taskid)
 		return
 	end
-	local taskcontainer = player.taskdb:gettaskcontainer_bytskid(taskid)
+	local taskcontainer = player.taskdb:gettaskcontainer_bytaskid(taskid)
 	local isok,msg = taskcontainer:can_giveup(taskid)
 	if not isok then
 		if msg then
@@ -78,16 +78,31 @@ end
 
 -- s2c
 function S2C.addtask(pid,task)
+	--[[
+	sendpackage(pid,"task","addtask",{
+		task = task,
+	})
+	--]]
 end
 
 function S2C.alltask(pid,tasks)
+	--[[
+	sendpackage(pid,"task","alltask",{
+		tasks = tasks,
+	})
+	--]]
 end
 
 function S2C.deltask(pid,taskid)
-	sendpackage(pid,"task","deltask",{ taskid = taskid })
+	--sendpackage(pid,"task","deltask",{ taskid = taskid })
 end
 
 function S2C.updatetask(pid,task)
+	--[[
+	sendpackage(pid,"task","updatetask",{
+		task = task,
+	})
+	--]]
 end
 
 return nettask

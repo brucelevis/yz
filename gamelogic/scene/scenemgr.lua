@@ -2,7 +2,7 @@ scenemgr = scenemgr or {}
 
 function scenemgr.init()
 	scenemgr.scenes = {}
-	local normal_map = data_0501_Map
+	local normal_map = data_0401_Map
 	for mapid,v in pairs(normal_map) do
 		-- 普通地图：场景ID保持和地图ID一致，其他副本场景均从100ID开始
 		scenemgr.addscene(mapid,mapid)
@@ -16,7 +16,7 @@ function scenemgr.init()
 end
 
 function scenemgr.getmap(mapid)
-	return data_0501_Map[mapid]
+	return data_0401_Map[mapid]
 end
 
 function scenemgr.gen_sceneid()

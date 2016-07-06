@@ -8,7 +8,20 @@ local npcinfo = {
 		location = {scene = 1001,x = 100,y = 80,},
 		clientnpc = 0,
 	},
+	[1002] = {
+		name = "路人乙",
+		shape = 101,
+		location = {scene = 1001,x = 100,y = 80,},
+		clientnpc = 0,
+	},
+	[1003] = {
+		name = "路人丙",
+		shape = 101,
+		location = {scene = 1001,x = 100,y = 80,},
+		clientnpc = 0,
+	},
 }
+
 --<<npc导表结束>>
 
 
@@ -48,54 +61,82 @@ local textinfo = {
 
 --<<任务导表开始>>
 local taskinfo = {
-	[1001] = {
+	[10001] = {
+		type = 1,
 		name = "测试找人",
 		accept = {
-			{ npc = 1001,},{ find = 1001,},{ talk = 1001,},
-		}
+			{ sc = "npc", arg = 1001,},
+			{ sc = "find", arg = 1001,},
+			{ sc = "talk", arg = 1001,},
+		},
+		execution = {
+			{ sc = "verify", arg = 1,},
+		},
 		submit = {
-			{ done = 1,},
-		}
-		done = {
-	t		{ reward = 1001,},
-		}
+			{ sc = "reward", arg = 1001,},
+		},
 		fail = {
 		},
+		finishbyclient = 1,
+		submitnpc = 0,
+		cangiveup = 1,
+		lvlimit = 0,
+		joblimit = {},
+		exceedtime = 0,
+		pretask = {},
+		donelimit = {},
+		starttime = 0,
+		endtime = 0,
 	},
-	[1002] = {
+	[10002] = {
+		type = 1,
 		name = "测试寻物",
 		accept = {
-			{ item = { type = 1000,num = 1,},},{ find = 1002,},{ talk = 1002,},
+			{ sc = "item", arg = { type = 501001, num = 1,},},
+			{ sc = "npc", arg = 1002,},
+			{ sc = "find", arg = 1002,},
+			{ sc = "talk", arg = 1002,},
+		},
+		execution = {
+			{ sc = "verify", arg = 1,},
+			{ sc = "handin", arg = 1,},
 		},
 		submit = {
-			{ handin = 1,},
-		},
-		done = {
-			{ reward = 1001,},
+			{ sc ="reward", arg = 1001,},
 		},
 		fail = {
-			{ talk = 1003,},
+			{ sc ="talk", arg = 1003,},
 		},
+		finishbyclient = 0,
+		submitnpc = 0,
+		cangiveup = 1,
 	},
-	[1003] = {
+	[10003] = {
+		type = 1,
 		name = "测试战斗",
 		accept = {
-			{ find = 1003,},{ talk = 1004,},
+			{ sc = "npc", arg = 1003,},
+			{ sc = "find", arg = 1003,},
+			{ sc = "talk", arg = 1004,},
+		},
+		execution = {
+			{ sc = "verify", arg = 1,},
+			{ sc = "war", arg = 1001,},
 		},
 		submit = {
-			{ war = 1001,},
-		},
-		done = {
-			{ reward = 1002,},
+			{ sc = "reward", arg = 1002,},
 		},
 		fail = {
-			{ talk = 1005,},
+			{ sc = "talk", arg = 1005,},
 		},
+		finishbyclient = 0,
+		submitnpc = 1001,
+		cangiveup = 1,
 	},
 }
 --<<任务导表结束>>
 
-data_testtask = {
+data_tasktest = {
 	npcinfo = npcinfo,
 	sceneinfo = sceneinfo,
 	rewardinfo = rewardinfo,
@@ -103,5 +144,5 @@ data_testtask = {
 	taskinfo = taskinfo,
 }
 
-return data_testtask
+return data_tasktest
 

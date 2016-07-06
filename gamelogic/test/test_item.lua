@@ -1,4 +1,4 @@
-local function test(pid)
+local function test1(pid)
 	local player = playermgr.getplayer(pid)
 	if not player then
 		return
@@ -12,7 +12,7 @@ local function test(pid)
 	player.itemdb:additembytype(itemtype,1,nil,reason)
 	local hasnum = player.itemdb:getnumbytype(itemtype)
 	assert(hasnum == 1)
-	local itemdata = getitemdata(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
 	player.itemdb:additembytype(itemtype,itemdata.maxnum,nil,reason)
 	local hasnum = player.itemdb:getnumbytype(itemtype)
 	assert(hasnum == 1 + itemdata.maxnum)
@@ -27,7 +27,7 @@ local function test(pid)
 		num = 2,
 	})
 	assert(item.num == itemdata.maxnum-2)
-	local itemdata = getitemdata(item.type)
+	local itemdata = itemaux.getitemdata(item.type)
 	local hasnum = item.num
 	request.sellitem(player,{
 		itemid = item.id,
@@ -48,12 +48,12 @@ local function test(pid)
 		type = itemtype,
 		num = 1,
 	})
-	local item1 = player.itemdb:additemobj(item1,reason)
+	local item1 = player.itemdb:additem(item1,reason)
 	local item2 = player.itemdb:newitem({
 		type = itemtype,
 		num = 2,
 	})
-	local item2 = player.itemdb:additemobj(item2,reason)
+	local item2 = player.itemdb:additem(item2,reason)
 	request.mergeto(player,{
 		from_itemid = item1.id,
 		to_itemid = item2.id,
@@ -115,4 +115,11 @@ local function test3(pid)
 	player.itemdb:clear()
 end
 
-return {test = test,test2 = test2,test3 = test3} 
+local function test(pid)
+	test1(pid)
+	test2(pid)
+	test3(pid)
+end
+
+return test
+

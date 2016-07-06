@@ -21,6 +21,7 @@ STATUS_BANIP		 = -19			--禁止登录ip
 STATUS_REDIRECT_SERVER = -20		-- 重定向服务器
 STATUS_CHANNEL_ERR = -21			-- 非法渠道
 STATUS_SIGN_ERR = -22				-- 签名错误
+STATUS_SEX_INVALID = -23			-- 性别非法
 
 
 ErrorStringForCode = {
@@ -46,4 +47,5 @@ ErrorStringForCode = {
 	[STATUS_REDIRECT_SERVER] 		= "重定向服务器",
 	[STATUS_CHANNEL_ERR]		= "非法渠道",
 	[STATUS_SIGN_ERR]			= "签名错误",
+	[STATUS_SEX_INVALID]		= "性别非法",
 }

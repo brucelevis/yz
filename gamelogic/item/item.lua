@@ -11,6 +11,65 @@ function citem:init(param)
 	self.createtime = param.createtime
 	-- 位置一般是放入容器后才有的属性
 	self.pos = param.pos
+
+	-- 精炼增加的属性
+	self.refine = {
+		cnt = nil,					-- 精炼次数
+		succ_ratio = nil,			-- 精炼当前成功概率(基数为100）
+
+		maxhp = nil,				-- 血量上限
+		maxmp = nil,				-- 魔法上限
+		atk = nil,					-- 攻击力
+		latk = nil,					-- 远程攻击力
+		def = nil,					-- 防御
+		sp = nil,					-- 物理攻击速度
+		fsp = nil,					-- 法术攻击速度(咏唱速度)
+		dfsp = nil,					-- 咏唱延迟(delay 法术攻击速度)
+		fdef = nil,					-- 法术防御
+		fsqd = nil,					-- 法术强度
+		hpr = nil,					-- 生命值回复(hp recorver)
+		mpr = nil,					-- 魔法值回复(mp recorver)
+		jzfs = nil,					-- 近战反伤
+		ycfs = nil,					-- 远程反伤
+		mffs = nil,					-- 魔法反伤
+		hjct = nil,					-- 护甲穿透
+		fsct = nil,					-- 法术穿透
+		bt = nil,					-- 霸体
+		xx = nil,					-- 吸血
+		fsxx = nil,					-- 法术吸血
+	}
+
+	-- 附魔增加的属性
+	self.fumo = {
+		maxhp = nil,			-- 血量上限
+		maxmp = nil,			-- 魔法上限
+		atk = nil,				-- 攻击力
+		latk = nil,				-- 远程攻击力
+		def = nil,				-- 防御
+		sp = nil,				-- 速度
+		fq = nil,				-- 法强
+		mz = nil,				-- 命中
+		bj = nil,				-- 暴击
+		fsp = nil,				-- 法术攻击速度(咏唱速度)
+		dfsp = nil,					-- 咏唱延迟(delay 法术攻击速度)
+		fdef = nil,				-- 法术防御
+		fsqd = nil,				-- 法术强度
+		ds = nil,				-- 躲闪
+		rx = nil,				-- 韧性
+		hpr = nil,				-- 生命值回复
+		mpr = nil,				-- 魔法值回复
+		jzfs = nil,				-- 近战反伤
+		ycfs = nil,				-- 远程反伤
+		mffs = nil,				-- 魔法反伤
+		hjct = nil,				-- 护甲穿透
+		fsct = nil,				-- 法术穿透
+		bt = nil,				-- 霸体
+		xx = nil,				-- 吸血
+		fsxx = nil,				-- 法术吸血
+	}
+	-- 附魔后属性先存到tmpfumo中，确认附魔后再移到fumo中，属性格式同fumo
+	self.tmpfumo = nil
+	self.card = nil  -- 插入的卡片物品
 end
 
 function citem:load(data)
@@ -23,6 +82,21 @@ function citem:load(data)
 	self.bind = data.bind
 	self.createtime = data.createtime or os.time()
 	self.pos = data.pos
+
+	self.refine = data.refine or {}
+	self.fumo = data.fumo or {}
+	tmpfumo = data.tmpfumo
+	if tmpfumo then
+		local now = os.time()
+		if not tmpfumo.exceedtime or tmpfumo.exceedtime > now then
+			self.tmpfumo = tmpfumo
+		end
+	end
+	if data.card then
+		local card = citem.new()
+		card:load(data.card)
+		self.card = card
+	end
 end
 
 function citem:save()
@@ -33,24 +107,39 @@ function citem:save()
 	data.bind = self.bind
 	data.createtime = self.createtime
 	data.pos = self.pos
+
+	data.refine = self.refine
+	data.fumo = self.fumo
+	data.tmpfumo = self.tmpfumo
+	if self.card then
+		-- 防止死递归
+		assert(self.card.cardid ~= self.id)
+		data.card = self.card:save()
+	end
+	return data
+end
+
+-- for s2c
+function citem:pack()
+	local data = self:save()
 	return data
 end
 
 function citem:canuse(player,target)
 	local itemtype = self.type
-	local itemdata = getitemdata(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
 	--if not itemdata.canuse or itemdata.canuse == 0 then
 	if not istrue(itemdata.canuse) then
 		return false,language.format("该物品无法使用")
 	end
 	if player.lv < itemdata.needlv then
-		return false,language.format("需要#<G>%d级#才能使用该物品",itemdata.needlv)
+		return false,language.format("需要#<G>{1}级#才能使用该物品",itemdata.needlv)
 	end
 	if itemdata.usecnt_perday and itemdata.usecnt_perday > 0 then
 		local key = string.format("itemusecnt.%s",itemtype)
 		local has_usecnt = player.today:query(key,0)
 		if has_usecnt >= itemdata.usecnt_perday then
-			return false,language.format("每天最多使用#<R>%d#次#<G>%s#",itemdata.usecnt_perday,itemdata.name)
+			return false,language.format("每天最多使用#<R>{1}#次#<G>{2}#",itemdata.usecnt_perday,itemdata.name)
 		end
 	end
 	if itemdata.canuse_afterdays and itemdata.canuse_afterdays > 0 then
@@ -58,7 +147,7 @@ function citem:canuse(player,target)
 		canuse_time = getdayzerotime(canuse_time) + 5 * HOUR_SECS
 		local now = os.time()
 		if now < canuse_time then
-			return false,language.format("%s后才可以使用该物品",os.date("%m/%d %H:%M",canuse_time))
+			return false,language.format("{1}后才可以使用该物品",os.date("%m/%d %H:%M",canuse_time))
 		end
 	end
 	return true
@@ -66,7 +155,7 @@ end
 
 function citem:afteruse(player,target,num)
 	local itemtype = self.type
-	local itemdata = getitemdata(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
 	if itemdata.usecnt_perday and itemdata.usecnt_perday > 0 then
 		local key = string.format("itemusecnt.%s",itemtype)
 		player.today:add(key,1)
@@ -74,7 +163,7 @@ function citem:afteruse(player,target,num)
 end
 
 -- 默认对目标使用时消耗的数量
-function citem:getuseitem(target)
+function citem:getusenum(target)
 	return 1
 end
 
@@ -93,7 +182,7 @@ function citem:use(player,target,num)
 		num = self:getusenum(target)
 	end
 	if self.num < num then
-		net.msg.S2C.notify(player.pid,language.format("物品数量不足#<R>#个",num))
+		net.msg.S2C.notify(player.pid,language.format("物品数量不足#<R>{1}#个",num))
 		return
 	end
 
@@ -119,7 +208,7 @@ end
 
 -- getter
 function citem:get(what)
-	local itemdata = getitemdata(self.type)
+	local itemdata = itemaux.getitemdata(self.type)
 	return itemdata[what]
 end
 

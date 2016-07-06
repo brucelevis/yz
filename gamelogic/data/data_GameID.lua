@@ -18,7 +18,7 @@ data_GameID = {
 
 	item = {
 		startid = 100000,
-		endid = 1000000,
+		endid = 10000000,
 	},
 
 }

@@ -128,6 +128,7 @@ end
 local function debugcreaterole(obj,request)
 	local account = assert(obj.account or request.acct)
 	local roletype = assert(request.roletype)
+	local sex = assert(request.sex)
 	local name = assert(request.name)
 	if account:sub(1,1) == "#" then
 		local pid = assert(tonumber(account:sub(2,-1)),account)
@@ -141,6 +142,7 @@ local function debugcreaterole(obj,request)
 		local player = playermgr.createplayer(pid,{
 			account = account,
 			roletype = roletype,
+			sex = sex,
 			name = name,
 			__ip = obj.__ip,
 			__port = obj.__port,
@@ -153,6 +155,7 @@ end
 function C2S.createrole(obj,request)
 	local account = assert(obj.account or request.acct)
 	local roletype = assert(request.roletype)
+	local sex = assert(request.sex)
 	local name = assert(request.name)
 	if not obj.passlogin then
 		netlogin.S2C.createrole_result(obj,{errcode = STATUS_UNAUTH})
@@ -160,6 +163,10 @@ function C2S.createrole(obj,request)
 	end
 	if not isvalid_roletype(roletype) then
 		netlogin.S2C.createrole_result(obj,{errcode = STATUS_ROLETYPE_INVALID})
+		return
+	end
+	if not isvalid_sex(sex) then
+		netlogin.S2C.createrole_result(obj,{errcode = STATUS_SEX_INVALID})
 		return
 	end
 	if not isvalid_name(name) then
@@ -183,6 +190,7 @@ function C2S.createrole(obj,request)
 	local newrole = {
 		roleid = pid,
 		roletype = roletype,
+		sex = sex,
 		name = name,
 		lv = 0,
 		gold = 0,
@@ -195,7 +203,7 @@ function C2S.createrole(obj,request)
 		srvname = cserver.getsrvname(),
 		acct = account,
 		roleid = pid,
-		role = data,
+		role = data
 	})
 	local status,response = httpc.post(cserver.accountcenter.host,url,request)
 	if status == 200 then
@@ -204,6 +212,7 @@ function C2S.createrole(obj,request)
 			local player = playermgr.createplayer(pid,{
 				account = account,
 				roletype = roletype,
+				sex = sex,
 				name = name,
 				__ip = obj.__ip,
 				__port = obj.__port,

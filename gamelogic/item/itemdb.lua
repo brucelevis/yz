@@ -61,7 +61,7 @@ function citemdb:newitem(itemdata)
 	return citem.new(itemdata)
 end
 
-function citemdb:additemobj(item,reason)
+function citemdb:additem(item,reason)
 	local itemid = item.id
 	local itemtype = item.type
 	local pos = self:getfreepos()
@@ -100,8 +100,8 @@ function citemdb:onadd(item)
 	net.item.S2C.additem(self.pid,item)
 end
 
-function citemdb:delitemobj(itemid,reason)
-	local item = self:getitemobj(itemid)
+function citemdb:delitem(itemid,reason)
+	local item = self:getitem(itemid)
 	if item then
 		local pos = assert(item.pos,"No pos item:" .. tostring(itemid))
 		local itemtype = item.type
@@ -134,14 +134,19 @@ function citemdb:onclear(objs)
 	end
 end
 
+function citemdb:onupdate(itemid,attr)
+	attr.id = itemid
+	net.item.S2C.updateitem(self.pid,attr)
+end
 
-function citemdb:getitemobj(itemid)
+
+function citemdb:getitem(itemid)
 	return self:get(itemid)
 end
 
 function citemdb:getitembypos(pos)
 	local itemid = self.pos_id[pos]
-	return self:getitemobj(itemid)
+	return self:getitem(itemid)
 end
 
 function citemdb:canmerge(srcitem,toitem)
@@ -159,7 +164,7 @@ function citemdb:getitemsbytype(itemtype,filter)
 	if ids then
 		local items = {}
 		for i,itemid in ipairs(ids) do
-			local item = self:getitemobj(itemid)
+			local item = self:getitem(itemid)
 			if not filter or filter(item) then
 				table.insert(items,item)
 			end
@@ -180,11 +185,11 @@ end
 
 function citemdb:costitembyid(itemid,num,reason)
 	assert(num > 0)
-	local item = self:getitemobj(itemid)
+	local item = self:getitem(itemid)
 	assert(item.num >= num)
 	item.num = item.num - num
 	if item.num <= 0 then
-		self:delitemobj(itemid,reason)
+		self:delitem(itemid,reason)
 	else
 		logger.log("info","item",string.format("[costitembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
 	end
@@ -192,18 +197,20 @@ end
 
 function citemdb:additembyid(itemid,num,reason)
 	assert(num > 0)
-	local item = self:getitemobj(itemid)
-	local itemdata = getitemdata(item.type)
+	local item = self:getitem(itemid)
+	local itemdata = itemaux.getitemdata(item.type)
 	assert(item.num + num <= itemdata.maxnum)
 	logger.log("info","item",string.format("[additembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
 	item.num = item.num + num
 end
 
-function citemdb:additem(packitem,reason)
+-- 增加一个序列化的物品
+-- packitem: 序列化的物品
+function citemdb:addpackitem(packitem,reason)
 	local itemtype = packitem.type
 	local num = packitem.num
 	local allnum = num
-	local itemdata = assert(getitemdata(itemtype),"Invalid itemtype:" .. tostring(itemtype))
+	local itemdata = assert(itemaux.getitemdata(itemtype),"Invalid itemtype:" .. tostring(itemtype))
 	local items = self:getitemsbytype(itemtype)
 	for i,item in ipairs(items) do
 		if num > 0 then
@@ -226,7 +233,7 @@ function citemdb:additem(packitem,reason)
 			packitem.num = itemnum
 			packitem.createtime = now
 			local item = self:newitem(packitem)
-			self:additemobj(item,reason)
+			self:additem(item,reason)
 		end
 	end
 	return allnum-num,num
@@ -241,11 +248,11 @@ function citemdb:costitembytype(itemtype,num,reason)
 	local items = self:getitemsbytype(itemtype)
 	if items and next(items) then
 		local costnum = num
-		items = table.sort(items,citemdb.order_costitem)
+		table.sort(items,citemdb.order_costitem)
 		for i,item in ipairs(items) do
 			if costnum >= item.num then
 				costnum = costnum - item.num
-				self:delitemobj(item.id,reason)
+				self:delitem(item.id,reason)
 			else
 				self:costitembyid(item.id,costnum,reason)
 				break
@@ -258,7 +265,11 @@ end
 -- 返回成功增加的数量,剩余未加成功的数量
 function citemdb:additembytype(itemtype,num,bind,reason)
 	assert(num > 0)
-	return self:additem({
+	if bind then
+		-- 防止忘记写bind字段
+		assert(type(bind) == "number")
+	end
+	return self:addpackitem({
 		type = itemtype,
 		num = num,
 		bind = bind,
@@ -302,7 +313,7 @@ function citemdb.order_costitem(item1,item2)
 end
 
 function citemdb:moveitem(itemid,newpos)
-	local item1 = self:getitemobj(itemid)
+	local item1 = self:getitem(itemid)
 	if item1 == nil then
 		return
 	end

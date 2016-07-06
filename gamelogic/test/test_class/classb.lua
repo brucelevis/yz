@@ -1,4 +1,4 @@
-print(">>>",classa1,classa2)
+--print(">>>",classa1,classa2)
 classb = class("classb",classa1,classa2)
 
 function classb:init(param)

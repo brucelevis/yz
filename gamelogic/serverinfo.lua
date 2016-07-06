@@ -81,4 +81,5 @@ function g_serverinfo:_reloadmodule(modname)
 	return result and "[ok]" or "[no change]"
 end
 
-
+-- 一次会话调用耗时>=0.05会在sknprofile中做日志
+g_serverinfo.profileThreshold = 0.05

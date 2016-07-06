@@ -32,7 +32,7 @@ function playermgr.loadofflineplayer(pid)
 		return player
 	end
 	player = cplayer.new(pid)
-	player:loadfromdatabase(true)
+	player:loadfromdatabase()
 	if player:isloaded() then
 		player.__state = "offline"
 		playermgr.addobject(player,"loadofflineplayer")

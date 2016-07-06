@@ -4,10 +4,12 @@ require "gamelogic.game"
 
 local function init(...)
 	game.init()
+	g_serverinfo.sproto4shareinit()
 end
 
 
 local function main(...)
+	-- 迟于init调用
 end
 
 

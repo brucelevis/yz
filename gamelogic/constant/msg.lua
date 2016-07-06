@@ -1,0 +1,1 @@
+MB_TYPE_INVITE_QIECUO = 1	-- 邀请切磋

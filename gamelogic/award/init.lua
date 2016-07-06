@@ -62,7 +62,7 @@ function award.__player(pid,bonus,reason,btip)
 			for i,item in ipairs(bonus.items) do
 				item = deepcopy(item)
 				local itemdb = player:getitemdb(item.type)
-				local hasbonus_num = itemdb:additem(item,reason)
+				local hasbonus_num = itemdb:addpackitem(item,reason)
 				if btip then
 					-- dosomething
 				end
@@ -91,8 +91,8 @@ end
 function award.player(pid,bonus,reason,btip)
 	local lackbonus = award.__player(pid,bonus,reason,btip)
 	-- 1.玩家不在线，2.由于背包不足/资源过剩没有加到的资源/物品,需要发邮件
-	if next(bonus) then
-		local attach = bonus
+	if not table.isempty(lackbonus) then
+		local attach = lackbonus
 		mailmgr.sendmail(pid,{
 			srcid = SYSTEM_MAIL,
 			author = "系统",

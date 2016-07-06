@@ -81,6 +81,7 @@ function gm.init()
 	require "gamelogic.gm.helper"
 	require "gamelogic.gm.test"
 	require "gamelogic.gm.other"
+	require "gamelogic.gm.player"
 end
 
 function __hotfix(oldmod)

@@ -22,6 +22,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10002,
 	},
 
 	[10002] = {
@@ -47,6 +48,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10003,
 	},
 
 	[10003] = {
@@ -72,6 +74,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10004,
 	},
 
 	[10004] = {
@@ -97,6 +100,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10005,
 	},
 
 	[10005] = {
@@ -122,6 +126,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10006,
 	},
 
 	[10006] = {
@@ -147,6 +152,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10007,
 	},
 
 	[10007] = {
@@ -172,6 +178,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10008,
 	},
 
 	[10008] = {
@@ -197,6 +204,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10009,
 	},
 
 	[10009] = {
@@ -222,6 +230,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10010,
 	},
 
 	[10010] = {
@@ -247,6 +256,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10011,
 	},
 
 	[10011] = {
@@ -272,6 +282,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10012,
 	},
 
 	[10012] = {
@@ -297,6 +308,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10013,
 	},
 
 	[10013] = {
@@ -322,6 +334,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10014,
 	},
 
 	[10014] = {
@@ -347,6 +360,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10015,
 	},
 
 	[10015] = {
@@ -372,6 +386,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10016,
 	},
 
 	[10016] = {
@@ -397,6 +412,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10017,
 	},
 
 	[10017] = {
@@ -422,6 +438,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10018,
 	},
 
 	[10018] = {
@@ -447,6 +464,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10019,
 	},
 
 	[10019] = {
@@ -472,6 +490,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10020,
 	},
 
 	[10020] = {
@@ -497,6 +516,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10021,
 	},
 
 	[10021] = {
@@ -522,6 +542,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10022,
 	},
 
 	[10022] = {
@@ -547,6 +568,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10023,
 	},
 
 	[10023] = {
@@ -572,6 +594,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10024,
 	},
 
 	[10024] = {
@@ -597,6 +620,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10025,
 	},
 
 	[10025] = {
@@ -622,6 +646,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10026,
 	},
 
 	[10026] = {
@@ -647,6 +672,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10027,
 	},
 
 	[10027] = {
@@ -672,6 +698,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10028,
 	},
 
 	[10028] = {
@@ -697,6 +724,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10029,
 	},
 
 	[10029] = {
@@ -722,6 +750,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10030,
 	},
 
 	[10030] = {
@@ -747,6 +776,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 10031,
 	},
 
 	[10031] = {
@@ -772,6 +802,7 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		NEXT_JOB = 0,
 	},
 
 }

@@ -1,4 +1,5 @@
 require "gamelogic.base.container"
+require "gamelogic.template.template"
 
 ctaskcontainer = class("ctaskcontainer",ccontainer,ctemplate)
 
@@ -8,13 +9,14 @@ function ctaskcontainer:init(conf)
 	self.finishtasks = {}
 	self.nowtaskid = nil  -- 仅对同时只有一个任务的任务类有效
 	--脚本注册
-	self.scirpt_handle.find = self.findnpc
-	self.script_handle.verify = self.verifynpc
-	self.script_handle.item = self.needitem
-	self.script_handle.patrol = self.setpatrol
-	self.script_handle.progress = self.progressbar
-	self.script_handle.handin = self.handinitem
-	self.script_handle.finish = self.finishtask
+	self.script_handle.find = "findnpc"
+	self.script_handle.verify = "verifynpc"
+	self.script_handle.item = "needitem"
+	self.script_handle.patrol = "setpatrol"
+	self.script_handle.progress = "progressbar"
+	self.script_handle.handin = "handinitem"
+	self.script_handle.nexttask = "givenexttask"
+	self.script_handle.finish = "finishtask"
 end
 
 function ctaskcontainer:load(data)
@@ -23,12 +25,12 @@ function ctaskcontainer:load(data)
 	end
 	ccontainer.load(self,data,function(objdata)
 		local taskid = objdata.taskid
-		local task = __new({taskid = taskid})
+		local task = self:__newtask({taskid = taskid})
 		if not task then
 			self:log("info","task",string.format("[load unknow task] pid=%s taskid=%s",self.pid,taskid))
 			return nil
 		end
-		task.load(objdata)
+		task:load(objdata)
 		self:loadres(task,objdata)
 		return task
 	end)
@@ -40,8 +42,8 @@ function ctaskcontainer:load(data)
 end
 
 function ctaskcontainer:save()
-	local data = ccontainer.save(function(obj)
-		local data = obj.save()
+	local data = ccontainer.save(self,function(obj)
+		local data = obj:save()
 		self:saveres(obj,data)
 		return data
 	end)
@@ -57,15 +59,9 @@ function ctaskcontainer:clear()
 	--self.finishtasks = {}
 end
 
-function ctaskcontainer:log(levelmode,filename,...)
-	levelmode = string.upper(levelmode)
-	local msg = table.concat({...},"\t")
-	msg = string.format("[%s] [name=%s] %s",levelmode,self.name,msg)
-	logger.log(filename,msg)
-end
 
 function ctaskcontainer:onlogin(player)
-	net.task.S2C.alltask(self.pid,self.objs)
+	self:sendalltask()
 end
 
 function ctaskcontainer:onlogoff(player)
@@ -83,7 +79,7 @@ function ctaskcontainer:ondel(task)
 end
 
 function ctaskcontainer:onadd(task)
-	net.task.S2C.addtask(self.pid,task)
+	net.task.S2C.addtask(self.pid,self:pack(task))
 end
 
 function ctaskcontainer:onwarend(warid,result)
@@ -99,6 +95,23 @@ function ctaskcontainer:onwarend(warid,result)
 			self:failtask(task)
 		end
 	end
+end
+
+function ctaskcontainer:doscript(playunit,script,pid,...)
+	local result = ctemplate.doscript(self,playunit,script,pid,...)
+	if not result then
+		return TASK_SCRIPT_FINISH
+	end
+	return result
+end
+
+function ctaskcontainer:raisewar(playunit,arg,pid,npc)
+	ctemplate.raisewar(self,playunit,arg,pid,npc)
+	return TASK_SCRIPT_SUSPEND
+end
+
+function ctaskcontainer:isdonelimit(player,count,spacing)
+	return false
 end
 
 --内部接口
@@ -125,6 +138,7 @@ function ctaskcontainer:__newtask(conf)
 	if taskdata then
 		conf.state = TASK_STATE_ACCEPT
 		conf.type = taskdata.type
+		conf.owner = self.pid
 		if taskdata.exceedtime then
 			if taskdata.exceedtime == "today" then
 				conf.exceedtime = getdayzerotime() + DAY_SECS + 5 * HOUR_SECS
@@ -166,14 +180,19 @@ function ctaskcontainer:deltask(taskid,reason)
 	end
 end
 
-function ctaskcontainer:updatetask(task,key,val)
-	task:set(key,val)
-	if self.onupdatetask then
-		self:onupdatetask(task,key,val)
+function ctaskcontainer:sendalltask()
+	local tasks = {}
+	for _,task in ipairs(self.objs) do
+		table.insert(tasks,self:pack(task))
 	end
+	net.task.S2C.alltask(self.pid,tasks)
 end
 
-function ctaskcontainer:nexttask(taskid)
+function ctaskcontainer:refreshtask(taskid)
+	local task = self:gettask(taskid)
+	if task then
+		net.task.S2C.updatetask(self.pid,self:pack(task))
+	end
 end
 
 function ctaskcontainer:addfinishtask(taskid)
@@ -181,8 +200,37 @@ function ctaskcontainer:addfinishtask(taskid)
 end
 
 function ctaskcontainer:failtask(task)
-	local failscript = self.formdata.taskinfo[taskid].fail
-	self:execscript(task,failscript,self.pid)
+	local failscript = self.formdata.taskinfo[task.taskid].fail
+	for _,script in ipairs(failscript) do
+		self:doscript(task,script,self.pid)
+	end
+end
+
+function ctaskcontainer:pack(task)
+	local data = {}
+	data.taskid = task.taskid
+	data.state = task.state
+	data.exceedtime = task.exceedtime
+	data.findnpc = task.resourcemgr:get("findnpc")
+	data.patrol = task.resourcemgr:get("patrol")
+	data.progress = task.resourcemgr:get("progresstime")
+	local itemneed = task.resourcemgr:get("itemneed")
+	if itemneed then
+		data.items = {}
+		for itemtype,num in pairs(itemneed) do
+			table.insert(data.items,{
+				type = itemtype,
+				num = num,
+			})
+		end
+	end
+	if next(task.resourcemgr.npclist) then
+		data.npcs = {}
+		for _,npc in pairs(task.resourcemgr.npclist) do
+			table.insert(data.npcs,npc:pack())
+		end
+	end
+	return data
 end
 
 
@@ -194,8 +242,8 @@ end
 
 function ctaskcontainer:verifynpc(task,arg,pid,npc)
 	local findnpc = task.resourcemgr:get("findnpc")
-	if findnpc ~= npc.nid then
-		return TASK_SCRIPT_SUSPEND
+	if not npc or findnpc ~= npc.nid then
+		return TASK_SCRIPT_FAIL
 	end
 end
 
@@ -211,48 +259,53 @@ function ctaskcontainer:needitem(task,arg)
 end
 
 function ctaskcontainer:handinitem(task,arg,pid,npc,ext)
-	local iteminfo = self.formdata.taskinfo[task.taskid]
+	local taskinfo = self.formdata.taskinfo[task.taskid]
 	local player = playermgr.getplayer(self.pid)
 	local itemneed = task.resourcemgr:get("itemneed")
 	if not itemneed then
 		return
 	end
-	if iteminfo.autohandin ~= 1 then
-		if not ext then
-			return TASK_SCRIPT_SUSPEND
-		end
-		local type_num = {}
-		for _,value in ipairs(ext) do
-			local itemid = value.itemid
-			local num = value.num
-			local itemobj = player.itemdb:getitemobj(itemid)
-			if not itemobj or itemobj.num <= num then
-				return TASK_SCRIPT_SUSPEND
-			end
-			if not itemneed[itemobj.type] then
-				if npc then
-					npc:say(self.pid,language.format("%s不是需求的物品",itemobj.name))
-				end
-				return TASK_SCRIPT_SUSPEND
-			end
-			type_num[itemobj.type] = (type_num[itenobj.type] or 0) + num
-		end
-		for type,num in pairs(itemneed) do
-			if not type_num[type] or type_num[type] < num then
-				if npc then
-					npc:say(self.pid,"物品数量不足")
-				end
-				return TASK_SCRIPT_SUSPEND
-			end
-		end
-		self:truehandin(player,ext)
+	local handinlst = nil
+	if taskinfo.autohandin ~= 1 then
+		handinlst,msg = self:manualhandin(player,itemneed,ext)
 	else
-		local handinlst = self:autohandin(player,itemneed)
-		if not handinlst then
-			return TASK_SCRIPT_SUSPEND
-		end
-		self:truehandin(player,handinlst)
+		handinlst,msg = self:autohandin(player,itemneed)
 	end
+	if not handinlst then
+		if msg and npc then
+			npc:say(self.pid,msg)
+		end
+		return TASK_SCRIPT_FAIL
+	end
+	self:log("info","task",string.format("handin,pid=%d,item=%s",pid,mytostring(itemneed)))
+	self:truehandin(player,handinlst)
+end
+
+function ctaskcontainer:manualhandin(player,itemneed,ext)
+	if not ext or not next(ext) then
+		return
+	end
+	local type_num = {}
+	local handinlst = {}
+	for _,value in ipairs(ext) do
+		local itemid = value.itemid
+		local num = value.num
+		local itemobj = player.itemdb:getitem(itemid)
+		if not itemobj or itemobj.num < num then
+			return
+		end
+		if not itemneed[itemobj.type] then
+			return nil,language.format("%s不是需求的物品",itemobj.name)
+		end
+		type_num[itemobj.type] = (type_num[itemobj.type] or 0) + num
+		handinlst[itemid] = (handinlst[itemid] or 0) + num
+	end
+	for type,num in pairs(itemneed) do
+		if not type_num[type] or type_num[type] < num then
+			return nil,"物品数量不足"
+		end
+	end
+	return handinlst
 end
 
 function ctaskcontainer:autohandin(player,itemneed)
@@ -284,25 +337,44 @@ function ctaskcontainer:autohandin(player,itemneed)
 end
 
 function ctaskcontainer:truehandin(player,handinlst)
-	for _,value in ipairs(handinlst) do
-		player.itemdb:costitembyid(value.itemid,value.num)
+	for itemid,num in pairs(handinlst) do
+		player.itemdb:costitembyid(itemid,num,string.format("task_%s",self.name))
 	end
 end
 
 function ctaskcontainer:setpatrol(task,arg,pid,npc)
+	local scid,x,y = arg.scene,arg.x,arg.y
+	scid,x,y = self:transcode(scid)
+	if not x and not y then
+		--x,y = self:randompos(scid)
+	end
+	task.resourcemgr:set("patrol",{scid,x,y})
 end
 
 function ctaskcontainer:progressbar(task,arg,pid,npc)
+	local time = arg
+	task.resourcemgr:set("progresstime",time)
 end
 
 function ctaskcontainer:finishtask(task)
+	local taskid = task.taskid
 	self:log("info","task",string.format("finishtask,pid=%d taskid=%d",self.pid,task.taskid))
-	self:updatetask(task,"state",TASK_STATE_FINISH)
-	local taskdata = self.formdata.taskifno[taskid]
-	if istrue(taskdata.autosubmit) then
-		-- 无需判断是否可以提交，任务可能已经失效，调用者调用了finishtask,就必须知道可能会“无条件”提交的行为！
+	task.state = TASK_STATE_FINISH
+	local taskdata = self.formdata.taskinfo[taskid]
+	if taskdata.submitnpc == 0 then
 		self:submittask(taskid)
+	else
+		self:refreshtask(taskid)
 	end
+end
+
+function ctaskcontainer:givenexttask(task,arg,pid,npc)
+	local newtaskid = arg
+	local isok = self:can_accepttask(newtaskid)
+	if not isok then
+		return
+	end
+	self:accepttask(newtaskid,npc.nid)
 end
 
 
@@ -310,29 +382,52 @@ end
 function ctaskcontainer:accepttask(taskid,npcid)
 	local task = self:__newtask({taskid = taskid})
 	if task then
-		self:addtask(task)
 		self:setcurrentnpc(task,npcid)
 		local acceptscript = self.formdata.taskinfo[taskid].accept
-		self.execscript(task,acceptscript,self.pid)
+		for _,script in ipairs(acceptscript) do
+			self:doscript(task,script,self.pid)
+		end
+		self:addtask(task)
 	end
 end
 
-function ctaskcontainer:can_accepttask(taskid)
+function ctaskcontainer:can_accept(taskid)
 	local player = playermgr.getplayer(self.pid)
 	if not player then
 		return false
 	end
 	local taskdata = self.formdata.taskinfo[taskid]
-	local isok = true
+	if taskdata.lvlimit and taskdata.lvlimit > player.lv then
+		return false,language.format("玩家等级到达%s级才可以领取该任务",taskdata.lvlimit)
+	end
+	if taskdata.joblimit and next(taskdata.joblimit) then
+		local isok = false
+		for _,job in ipairs(taskdata.joblimit) do
+			if player.job == job then
+				isok = true
+				break
+			end
+		end
+		if not isok then
+			return false,"职业不符合领取条件"
+		end
+	end
 	if taskdata.pretask and next(taskdata.pretask) then
+		local isok = true
 		for i,taskid in ipairs(taskdata.pretask) do
 			if not self.finishtasks[taskid] then
 				isok = false
 			end
 		end
+		if not isok then
+			return false,"前置任务未完成"
+		end
 	end
-	if not isok then
-		return false,"前置任务未完成"
+	if taskdata.donelimit and next(taskdata.donelimit) then
+		local islimit,msg = self:isdonelimit(player,taskdata.donelimit.count,taskdata.donelimit.spacing)
+		if islimit then
+			return false,msg
+		end
 	end
 	return true
 end
@@ -357,7 +452,20 @@ function ctaskcontainer:executetask(taskid,npcid,ext)
 	local task = self:gettask(taskid)
 	self:setcurrentnpc(task,npcid)
 	local executescript = self.formdata.taskinfo[taskid].execution
-	self:execscript(task,executescript,self.pid)
+	local result = TASK_SCRIPT_FINISH
+	for _,script in ipairs(executescript) do
+		result = self:doscript(task,script,self.pid,ext)
+		if result ==TASK_SCRIPT_SUSPEND then
+			return
+		end
+		if result == TASK_SCRIPT_FAIL then
+			self:failtask(task)
+			return
+		end
+	end
+	if result ==TASK_SCRIPT_FINISH then
+		self:finishtask(task)
+	end
 end
 
 function ctaskcontainer:can_execute(taskid)
@@ -369,23 +477,17 @@ function ctaskcontainer:can_execute(taskid)
 		return false
 	end
 	return true
+end
 
 function ctaskcontainer:submittask(taskid,npcid)
 	local task = self:gettask(taskid)
-	self:setcurrentnpc(task,taskid)
-	local submitscript = self.formdata.taskinfo[taskid].submit
-	self:execscript(task,submitscript,self.pid)
-	self:deltask(taskid,"taskdone")
+	self:setcurrentnpc(task,npcid)
 	self:addfinishtask(taskid)
-	local taskdata = self.formdata.taskinfo[taskid]
-	if istrue(taskdata.autoaccept) then
-		local nexttask = self:nexttask(taskid)
-		if nexttask then
-			if self:can_accepttask(nexttask.taskid) then
-				self:accepttask(nexttask)
-			end
-		end
+	local submitscript = self.formdata.taskinfo[taskid].submit
+	for _,script in ipairs(submitscript) do
+		self:doscript(task,script,self.pid)
 	end
+	self:deltask(taskid,"taskdone")
 end
 
 function ctaskcontainer:can_submit(taskid)

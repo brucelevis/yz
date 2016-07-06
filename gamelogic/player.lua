@@ -1,7 +1,7 @@
 
 require "gamelogic.friend.frienddb"
 require "gamelogic.achieve.achievedb"
---require "gamelogic.task.taskdb"
+require "gamelogic.task.taskdb"
 require "gamelogic.item.itemdb"
 
 cplayer = class("cplayer",cdatabaseable)
@@ -12,18 +12,8 @@ function cplayer:init(pid)
 		pid = pid,
 		flag = self.flag,
 	})
-	-- resume
 	self.pid = pid
-	self.name = nil
-	self.account = nil
-	self.lv = nil
-	self.viplv = nil
-	self.roletype = nil
-	self.gold = nil
-	self.silver = nil
-	self.coin = nil
-	self.objid = 0
-
+	
 	self.data = {}
 	self.frienddb = cfrienddb.new(self.pid)
 	self.achievedb = cachievedb.new(self.pid)
@@ -49,7 +39,7 @@ function cplayer:init(pid)
 		thisweek = self.thisweek,
 		thisweek2 = self.thisweek2,
 	}
-	--self.taskdb = ctaskdb.new(self.pid)
+	self.taskdb = ctaskdb.new(self.pid)
 	-- 一般物品背包
 	self.itemdb = citemdb.new({
 		pid = self.pid,
@@ -97,8 +87,20 @@ end
 function cplayer:save()
 	local data = {}
 	data.data = self.data
-	data.resume = self:packresume()
 	data.basic = {
+		gold = self.gold,
+		silver = self.silver,
+		coin = self.coin,
+		viplv = self.viplv,
+		account = self.account,
+		name = self.name,
+		lv = self.lv,
+		exp = self.exp,
+		roletype = self.roletype,
+		jobzs = self.jobzs,
+		joblv = self.joblv,
+		jobexp = self.jobexp,
+
 		teamid = self.teamid,
 		sceneid = self.sceneid,
 		pos = self.pos,
@@ -116,8 +118,20 @@ function cplayer:load(data)
 		return
 	end
 	self.data = data.data
-	self:unpackresume(data.resume)
 	if data.basic then
+		self.gold = data.basic.gold
+		self.silver = data.basic.silver
+		self.coin = data.basic.coin
+		self.viplv = data.basic.viplv
+		self.account = data.basic.account
+		self.name = data.basic.name
+		self.lv = data.basic.lv
+		self.exp = data.basic.exp
+		self.roletype = data.basic.roletype
+		self.jobzs = data.basic.jobzs or 0
+		self.joblv = data.basic.joblv
+		self.jobexp = data.basic.jobexp
+
 		self.teamid = data.basic.teamid
 		self.sceneid = data.basic.sceneid
 		self.pos = data.basic.pos
@@ -136,24 +150,13 @@ function cplayer:packresume()
 		account = self.account,
 		name = self.name,
 		lv = self.lv,
-		viplv = self.viplv,
 		roletype = self.roletype,
+		jobzs = self.jobzs,
+		joblv = self.joblv,
 	}
 	return resume
 end
 
-function cplayer:unpackresume(resume)
-	self.gold = resume.gold
-	self.silver = resume.silver or 0
-	self.coin = resume.coin or 0
-	self.account = resume.account
-	self.name = resume.name
-	self.lv = resume.lv
-	self.viplv = resume.viplv
-	self.roletype = resume.roletype
-end
-
-		
 function cplayer:savetodatabase()
 	assert(self.pid)
 	if self.nosavetodatabase then
@@ -229,17 +232,26 @@ function cplayer:create(conf)
 	local name = assert(conf.name)
 	local roletype =assert(conf.roletype)
 	local account = assert(conf.account)
+	local sex = assert(conf.sex)
 	logger.log("info","createrole",string.format("[createrole] account=%s pid=%s name=%s roletype=%s ip=%s:%s",account,self.pid,name,roletype,conf.__ip,conf.__port))
 
 	self.loadstate = "loaded"
+
 	self.account = account
 	self.name = name
-	self.roletype = roletype
+	self.roletype = roletype		-- 角色类型(职业类型)
+	self.sex = sex					-- 性别(1--男,2--女)
 	self.gold = conf.gold or 0
 	self.silver = conf.silver or 0
 	self.coin = conf.coin or 0
-	self.lv = conf.lv or 25
+	self.lv = conf.lv or 1
+	self.exp = conf.exp or 0
+	self.jobzs = conf.jobzs or 0
+	self.joblv = conf.joblv or 1
+	self.jobexp = conf.jobexp or 0
 	self.viplv = conf.viplv or 0
+	self.objid = 0
+
 	-- scene
 	self.sceneid = BORN_SCENEID
 	self.pos = randlist(ALL_BORN_LOCS)
@@ -290,6 +302,8 @@ function cplayer:synctoac()
 		gold = self.gold,
 		lv = self.lv,
 		roletype = self.roletype,
+		joblv = self.joblv,
+		sex = self.sex,
 	}
 	local url = string.format("/sync")
 	local request = make_request({
@@ -313,7 +327,7 @@ local function heartbeat(pid)
 end
 
 function cplayer:oncreate(conf)
-	logger.log("info","createrole",string.format("[createrole end] account=%s pid=%d name=%s roletype=%d lv=%s gold=%d ip=%s:%s",self.account,self.pid,self.name,self.roletype,self.lv,self.gold,conf.__ip,conf.__port))
+	logger.log("info","createrole",string.format("[createrole end] account=%s pid=%d name=%s roletype=%d sex=%s lv=%s gold=%d ip=%s:%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,conf.__ip,conf.__port))
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.oncreate then
 			obj:oncreate(self)
@@ -328,10 +342,22 @@ function cplayer:comptible_process()
 end
 
 function cplayer:onlogin()
-	logger.log("info","login",string.format("[login] account=%s pid=%s name=%s roletype=%s lv=%s gold=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.lv,self.gold,self:ip(),self:port(),self.__agent))
+	logger.log("info","login",string.format("[login] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self:ip(),self:port(),self.__agent))
 	self:comptible_process()
 	local server = globalmgr.server
 	heartbeat(self.pid)
+	--  玩家基本/简介信息
+	sendpackage(self.pid,"player","sync",{
+		roletype = self.roletype,
+		sex = self.sex,
+		name = self.name,
+		lv = self.lv,
+		exp = self.exp,
+		jobzs = self.jobzs,
+		joblv = self.joblv,
+		jobexp = self.jobexp,
+		viplv = self.viplv,
+	})
 	sendpackage(self.pid,"player","resource",{
 		gold = self.gold,
 	})
@@ -353,7 +379,7 @@ function cplayer:onlogin()
 end
 
 function cplayer:onlogoff()
-	logger.log("info","login",string.format("[logoff] account=%s pid=%s name=%s roletype=%s lv=%s gold=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.lv,self.gold,self:ip(),self:port(),self.__agent))
+	logger.log("info","login",string.format("[logoff] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self:ip(),self:port(),self.__agent))
 	mailmgr.onlogoff(self)
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onlogoff then
@@ -368,7 +394,7 @@ end
 
 function cplayer:ondisconnect(reason)
 
-	logger.log("info","login",string.format("[disconnect] account=%s pid=%s name=%s roletype=%s lv=%s gold=%s ip=%s:%s reason=%s",self.account,self.pid,self.name,self.roletype,self.lv,self.gold,self:ip(),self:port(),reason))
+	logger.log("info","login",string.format("[disconnect] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s ip=%s:%s reason=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self:ip(),self:port(),reason))
 	loginqueue.pop()
 end
 
@@ -408,6 +434,7 @@ end
 
 function cplayer:setlv(val,reason)
 	local oldval = self.lv
+	assert(val <= playeraux.getmaxlv())
 	logger.log("info","lv",string.format("[setlv] pid=%d lv=%d->%d reason=%s",self.pid,oldval,val,reason))
 	self.lv = val
 end
@@ -415,8 +442,96 @@ end
 function cplayer:addlv(val,reason)
 	local oldval = self.lv
 	local newval = oldval + val
+	assert(newval <= playeraux.getmaxlv())
 	logger.log("info","lv",string.format("[addlv] pid=%d lv=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
-	self.resume:set("lv",newval)
+	self.lv = newval
+	sendpackage(self.pid,"player","update",{lv=self.lv})
+end
+
+
+function cplayer:addexp(val,reason)
+	local oldval = self.exp
+	local newval = oldval + val
+	logger.log("debug","lv",string.format("[addexp] pid=%d addexp=%d reason=%s",self.pid,val,reason))
+	local addlv = 0
+	for lv=self.lv,playeraux.getmaxlv()-1 do
+		local maxexp = playeraux.getmaxexp(lv)
+		if newval >= maxexp then
+			newval = newval - maxexp
+			addlv = addlv + 1
+		else
+			break
+		end
+	end
+	self.exp = newval
+	sendpackage(self.pid,"player","update",{exp=self.exp})
+	if addlv > 0 then
+		self:addlv(addlv,reason)
+	end
+end
+
+-- 增加职业转生等级
+function cplayer:addjobzs(val,reason)
+	local oldval = self.jobzs
+	local newval = oldval + val
+	assert(newval <= MAX_JOBZS)
+	logger.log("info","lv",string.format("[addjobzs] pid=%s jobzs=%d+%d=%d reason=%s",self.pid,oldval,newval,reason))
+	self.jobzs = newval
+	sendpackage(self.pid,"player","update",{jobzs=self.jobzs})
+end
+
+function cplayer:setjoblv(val,reason)
+	local oldval = self.joblv
+	assert(val <= playeraux.getmaxjoblv(self.jobzs))
+	logger.log("info","lv",string.format("[setjoblv] pid=%d joblv=%d->%d reason=%s",self.pid,oldval,val,reason))
+	self.joblv = val
+	sendpackage(self.pid,"player","update",{jobzs=self.jobzs})
+end
+
+function cplayer:addjoblv(val,reason)
+	local oldval = self.joblv
+	local newval = oldval + val
+	assert(newval <= playeraux.getmaxjoblv(self.jobzs))
+	logger.log("info","lv",string.format("[addjoblv] pid=%d joblv=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
+	self.joblv = newval
+	sendpackage(self.pid,"player","update",{joblv=self.joblv})
+end
+
+function cplayer:addjobexp(val,reason)
+	local oldval = self.jobexp
+	local newval = oldval + val
+	logger.log("debug","lv",string.format("[addjobexp] pid=%d addjobexp=%d reason=%s",self.pid,val,reason))
+	local addlv = 0
+	for lv=self.joblv,playeraux.getmaxjoblv(self.jobzs)-1 do
+		local maxexp = playeraux.getmaxjobexp(self.jobzs,lv)
+		if newval >= maxexp then
+			newval = newval - maxexp
+			addlv = addlv + 1
+		else
+			break
+		end
+	end
+	self.jobexp = newval
+	sendpackage(self.pid,"player","update",{jobexp=self.jobexp})
+	if addlv > 0 then
+		self:addjoblv(addlv,reason)
+	end
+end
+
+-- 转职(职业ID,就是角色类型ID)
+function cplayer:changejob(tojobid)
+	if not isvalid_roletype(tojobid) then
+		net.msg.S2C.notify(self.pid,language.format("非法职业ID"))
+		return
+	end
+	-- TODO: check more
+	local jobdata = data_0101_Hero[self.roletype]
+	if jobdata.NEXT_JOB ~= tojobid then
+		net.msg.S2C.notify(self.pid,language.format("你无法转成该职业"))
+		return
+	end
+	self.roletype = tojobid
+	sendpackage(self.pid,"player","update",{roletype=self.roletype})
 end
 
 function cplayer:addgold(val,reason)
@@ -467,7 +582,7 @@ function cplayer:additembytype(itemtype,num,bind,reason)
 end
 
 function cplayer:getitemdb(itemtype)
-	local maintype = getmaintype(itemtype)
+	local maintype = itemaux.getmaintype(itemtype)
 	if maintype == ItemMainType.FASHION_SHOW then
 		return self.fashowshowdb
 	elseif maintype == ItemMainType.CARD then
@@ -478,22 +593,22 @@ function cplayer:getitemdb(itemtype)
 end
 
 function cplayer:getitem(itemid)
-	local item = self.itemdb:getitemobj(itemid)
+	local item = self.itemdb:getitem(itemid)
 	if item then
 		return item,self.itemdb
 	end
-	item = self.carddb:getitemobj(itemid)
+	item = self.carddb:getitem(itemid)
 	if item then
 		return item,self.carddb
 	end
-	item = self.fashionshowdb:getitemobj(itemid)
+	item = self.fashionshowdb:getitem(itemid)
 	if item then
 		return item,self.fashionshowdb
 	end
 end
 
 function cplayer:wield(equip)
-	local itemdata = getitemdata(equip.type)
+	local itemdata = itemaux.getitemdata(equip.type)
 	if equip.pos == itemdata.wieldpos then
 		return
 	end
@@ -502,7 +617,7 @@ function cplayer:wield(equip)
 end
 
 function cplayer:unwield(equip)
-	local itemdata = getitemdata(equip.type)
+	local itemdata = itemaux.getitemdata(equip.type)
 	if equip.pos ~= itemdata.wieldpos then
 		return
 	end
@@ -599,6 +714,7 @@ function cplayer:packmember()
 		name = self.name,
 		lv = self.lv,
 		roletype = self.roletype,
+		sex = self.sex,
 		state = self:teamstate(),
 	}
 end
