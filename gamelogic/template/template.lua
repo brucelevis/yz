@@ -4,140 +4,122 @@ ctemplate = class("ctemplate")
 
 function ctemplate:init(conf)
 	self.name = assert(conf.name)
-	self.templateid = assert(conf.templateid)
 	self.type = assert(conf.type)
-	self.formdata = assert(conf.formdata)
 	self.script_handle = {
-		talk	= "npctalk",
-		npc		= "insertnpc",
-		war		= "raisewar",
-		reward	= "doreward",
+		talkto = true,
+		addnpc = true,
+		delnpc = true,
+		raisewar = true,
 	}
 end
 
 function ctemplate:loadres(playunit,data)
-	if playunit.resourcemgr then
-		return
+	if not playunit.resourcemgr then
+		local resmgr = cresourcemgr.new(self,playunit)
+		playunit.resourcemgr = resmgr
 	end
-	local resmgr = object.cresourcemgr.new(self,playunit)
-	if data ~= nil and data.resource ~= nil then
-		resmgr.load(data.resource)
-	end
-	playunit.resourcemgr = resmgr
+	playunit.resourcemgr:load(data)
 end
 
-function ctemplate:saveres(playunit,data)
+function ctemplate:saveres(playunit)
 	if not playunit.resourcemgr then
-		return data
+		return
 	end
-	data.resource = playunit.resourcemgr:save()
-	return data
+	return playunit.resourcemgr:save()
 end
 
 function ctemplate:doscript(playunit,script,pid,...)
-	local sc = script.sc
-	local arg = script.arg
-	local npc = self:getcurrentnpc(playunit)
-	local funcname = self.script_handle[sc]
-	local func = self[funcname]
-	if func ~= nil and type(func) == "function" then
-		return func(self,playunit,arg,pid,npc,...)
+	local cmd = script.cmd
+	local args = script.args
+	if self.script_handle[cmd] then
+		local func = self[cmd]
+		if func ~= nil and type(func) == "function" then
+			return func(self,playunit,args,pid,...)
+		end
 	end
-	return self:customexec(playunit,sc,arg,pid,npc,...)
+	return self:customexec(playunit,cmd,args,pid,...)
 end
 
 function ctemplate:getnpc(playunit,npcid)
-	local npcobj = playunit.resourcemgr.npclist[npcid]
-	if not npcobj then
-		--npcobj = npc.globalnpc(npcid)
+	local npc = playunit.resourcemgr.npclist[npcid]
+	if not npc then
+		npc = data_0601_NPC[npcid]
 	end
-	return npcobj
+	return npc
 end
 
 function ctemplate:getnpc_bynid(playunit,nid)
-	for _,npcobj in pairs(playunit.resourcemgr.npclist) do
-		if npcobj.nid == nid then
-			return npcobj
+	for _,npc in pairs(playunit.resourcemgr.npclist) do
+		if npc.nid == nid then
+			return npc
 		end
 	end
-	return --npc.globalnpc_bynid(nid)
+	return data_0601_NPC[nid]
 end
 
-function ctemplate:setcurrentnpc(playunit,npcid)
-	playunit.resourcemgr.curnpc = npcid
-end
-
-function ctemplate:getcurrentnpc(playunit)
-	return self:getnpc(playunit,playunit.resourcemgr.curnpc)
-end
-
-function ctemplate:createscene(playunit,scid)
-	local sceneinfo = self.formdata.sceneinfo[scid]
-	local mapid,name = sceneinfo.map,sceneinfo.name
-	local newscene = instance_scene()
-	newscene:config({
-		mapid = mapid,
-		name = name,
-		scid = scid,
-	})
-	playunit.resourcemgr:addscene(newscene)
-	return newscene
+function ctemplate:createscene(playunit,mapid)
+	local scene = playunit.resourcemgr:addscene(mapid)
+	scene = self.transscene(playunit,scene)
+	return scene
 end
 
 function ctemplate:createnpc(playunit,nid)
-	local npcinfo = self.formdata.npcinfo[nid]
-	local shape = self:transcode(npcinfo.shape)
-	local name = self:transcode(npcinfo.name)
-	local scid,x,y = npcinfo.location.scene,npcinfo.location.x,npcinfo.location.y
-	if type(scid) == "string" then
-		scid,x,y = self:transcode(scid)
-	end
-	if x == 0 and y == 0 then
-	--	x,y = self:randompos(scid)
-	end
-	local newnpc = self:instance_npc()
-	newnpc:config({
-		shape = shape,
-		name = name,
+	local npcdata = self:getformdata("npc")[nid]
+	local newnpc = {
 		nid = nid,
-		clientnpc = isclient,
-	})
-	newnpc:setlocation(scid,x,y)
+		type = npcdata.type,
+		name = npcdata.name,
+		mapid = npcdata.mapid,
+		pos = npcdata.pos,
+		isclient = npcdata.isclient,
+	}
+	newnpc = self:transnpc(playunit,newnpc)
 	playunit.resourcemgr:addnpc(newnpc)
 	return newnpc
 end
 
-function ctemplate:createwar(playunit,warid,pid)
-	local newwar = self:instance_war()
-	newwar:config({
-		warid = warid,
-	})
-	return newwar
+function ctemplate:isnearby(player,npc,dis)
+	if player.testman then
+		return true
+	end
+	if not player or not npc then
+		return false
+	end
+	dis = dis or MAX_NEAR_DISTANCE
+	if dis ~= "ignore" and getdistance(player.pos,npc.pos) > dis then
+		return false
+	end
+	return true
 end
 
-
---<<  overrides  >>
-function ctemplate:instance_npc()
-	return object.cnpc.new(self.templateid)
+function ctemplate:raisepvpwar(playunit,pid,target)
 end
 
-function ctemplate:instance_scene()
-	return object.cscene.new(self.templateid)
+--<<  可重写方法  >>
+function ctemplate:getformdata(formname)
 end
 
-function ctemplate:instance_war()
-	return object.cwar.new(self.templateid)
+function ctemplate:transnpc(playunit,npc)
+	return npc
 end
 
-function ctemplate:customexec(playunit,sc,arg,pid,npc)
+function ctemplate:transscene(playunit,scene)
+	return scene
+end
+
+function ctemplate:transwar(playunit,war,attackers,defensers)
+	return war,attackers,defensers
+end
+
+function ctemplate:customexec(playunit,sc,arg,pid)
 	self:log("err","err",string.format("unsc,script=%s pid=%d",sc,pid))
 end
 
-function ctemplate:transtext(text,pid,npc)
+function ctemplate:transtext(text,pid)
 	return text
 end
 
-function ctemplate:transcode(value,pid,npc)
+function ctemplate:transcode(value,pid)
 	if type(value) ~= "string" then
 		return value
 	end
@@ -145,7 +127,7 @@ function ctemplate:transcode(value,pid,npc)
 end
 
 function ctemplate:getfakedata(fakeid,faketype)
-	local fakedata = self.formdata.fadkeinfo[fakeid]
+	local fakedata = self:getformdata("fake")[fakeid]
 	if not fakedata then
 		return
 	end
@@ -156,49 +138,71 @@ function ctemplate:onwarend(warid,result)
 end
 
 
---<<  script func  >>
-function ctemplate:npctalk(playunit,arg,pid,npc)
-	local textid = arg
-	local text = self.formdata.textinfo[textid]
+--<<  脚本方法  >>
+function ctemplate:talkto(playunit,args,pid)
+	local nid = args.nid
+	local textid = args.textid
+	local npc = self:getnpc_bynid(playunit,nid)
+	local text = self:getformdata("text")[textid]
 	text = self:transtext(text,pid,npc)
+	net.msg.S2C.npcsay(pid,npc,text)
+end
+
+function ctemplate:addnpc(playunit,args)
+	local nid = args.nid
+	local npc = self:createnpc(playunit,nid)
+	if not npc.isclient then
+		playunit.resourcemgr:enterscene(newnpc)
+	end
+end
+
+function ctemplate:delnpc(playunit,args)
+	local nid = args.nid
+	local npc = self:getnpc_bynid(playunit,nid)
 	if npc then
-		npc:say(pid,text)
+		playunit.resourcemgr:delnpc(npc)
 	end
 end
 
-function ctemplate:insertnpc(playunit,arg,pid,npc)
-	local nid = arg
-	local newnpc = self:createnpc(playunit,nid)
-	if not newnpc:isclientnpc() then
-		newnpc:enterscene()
-	end
-end
-
-function ctemplate:raisewar(playunit,arg,pid,npc)
-	local warid = tonumber(arg)
+function ctemplate:raisewar(playunit,args,pid)
+	local warid = args.warid
 	if warid < 0 then
 		warid = self:getfakedata(-warid,"war")
 	end
-	local newwar = self:createwar(playunit,warid,pid)
-	newwar:start(self.onwarend)
-	return newwar
+	local war = {
+		wardataid = warid,
+		attack_helpers = {},
+		defense_helpers = {},
+	}
+	local attackers = {pid,}
+	local defensers = {}
+	local player = playermgr.getplayer(pid)
+	if player:teamstate() == TEAM_STATE_CAPTAIN then
+		local team = teammgr.getteam(player.teamid)
+		table.extend(attackers,team.members())
+	end
+	war,attackers,defensers = self:transwar(playunit,war,attackers,defensers)
+	warmgr.startwar(attackers,defensers,war)
 end
 
-function ctemplate:doreward(playunit,arg,pid,npc)
-	local rewardid = arg
-	local reward = nil
-	if rewardid < 0 then
-		reward = self:getfakedata(-rewardid,"reward")
+
+function ctemplate:doaward(awardid,pid)
+	if type(awardid) == "table" then
+		awardid = choosekey(awardid)
+	end
+	local award = nil
+	if awardid < 0 then
+		award = self:getfakedata(-awardid,"award")
 	else
-		reward = self.formdata.rewardinfo[rewardid]
+		award = self:getformdata("award")[awardid]
 	end
-	reward = deepcopy(reward)
-	for res,value in pairs(reward) do
-		value = self:transcode(value,pid,npc)
-		reward[res] = value
+	award = deepcopy(award)
+	for res,value in pairs(award) do
+		value = self:transcode(value,pid)
+		award[res] = value
 	end
-	self:log("info","award",string.format("tplaward,pid=%d,rid=%d",pid,rewardid))
-	--doaward("player",pid,reward,string.format("%s.template",self.name))
+	self:log("info","award",string.format("tplaward,pid=%d,rid=%d",pid,awardid))
+	--doaward("player",pid,award,string.format("%s.template",self.name))
 end
 
 function ctemplate:release(playunit)
@@ -210,7 +214,7 @@ end
 
 function ctemplate:log(levelmode,filename,...)
 	local msg = table.concat({...},"\t")
-	msg = string.format("[%s_%d] %s",self.name,self.templateid,msg)
+	msg = string.format("[%s] %s",self.name,msg)
 	logger.log(levelmode,filename,msg)
 end
 

@@ -293,4 +293,22 @@ function S2C.bulletin(msg,func)
 	--end
 end
 
+function S2C.npcsay(pid,npc,msg)
+	if type(msg) == "table" then  -- 打包的消息
+		local lang
+		local player = playermgr.getplayer(pid)
+		if player and typename(player) == "cplayer" then
+			lang = player:query("lang") or language.language_to
+		else
+			lang = language_from
+		end
+		msg = language.translateto(msg,lang)
+	end
+	sendpackage(pid,"msg","npcsay",{
+		name = npc.name,
+		type = npc.type,
+		msg = msg,
+	})
+end
+
 return netmsg

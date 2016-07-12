@@ -21,7 +21,7 @@ end
 
 function scenemgr.gen_sceneid()
 	if scenemgr.sceneid > MAX_NUMBER then
-		scenemgr.sceneid = 100
+		scenemgr.sceneid = data_GameID.npc.endid
 	end
 	scenemgr.sceneid = scenemgr.sceneid + 1
 	return scenemgr.sceneid
@@ -30,9 +30,20 @@ end
 function scenemgr.addscene(mapid,sceneid)
 	require "gamelogic.scene.init"
 	sceneid = sceneid or scenemgr.gen_sceneid()
+	local map
+	local mapname
+	if type(mapid) == "table" then
+		map = mapid
+		mapname = map.name
+		map = scenemgr.getmap(map.mapid)
+	else
+		map = scenemgr.getmap(mapid)
+	end
+	mapname = mapname or map.name
 	local map = scenemgr.getmap(mapid)
 	local param = {
 		mapid = mapid,
+		mapname = mapname,
 		width = map.width,
 		height = map.height,
 		block_width = map.block_width,
@@ -43,6 +54,7 @@ function scenemgr.addscene(mapid,sceneid)
 	local scene = cscene.new(param)
 	logger.log("info","scene",string.format("[addscene] sceneid=%s mapid=%s",sceneid,mapid))
 	scenemgr.scenes[sceneid] = scene
+	return scene
 end
 
 function scenemgr.delscene(sceneid)

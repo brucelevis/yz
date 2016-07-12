@@ -5,13 +5,11 @@ function ctaskdb:init(pid)
 	self.pid = pid
 	self.loadstate = "unload"
 	self.taskcontainers = {}
-	for templateid,data in pairs(g_alltaskdata) do
-		local formdata,tasktype,name = data[1],data[2],data[3]
+	for name,data in pairs(data_GlobalTaskData) do
+		local tasktype = data.tasktype
 		local taskcontainer = ctaskcontainer.new({
 			name = name,
 			pid = pid,
-			formdata = formdata,
-			templateid = templateid,
 			type = tasktype,
 		})
 		self:addtaskcontainer(taskcontainer)
@@ -23,7 +21,7 @@ function ctaskdb:load(data)
 		return
 	end
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		taskcontainer:load(data[name])
 	end
 end
@@ -31,7 +29,7 @@ end
 function ctaskdb:save()
 	local data = {}
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		data[name] = taskcontainer:save()
 	end
 	return data
@@ -39,7 +37,7 @@ end
 
 function ctaskdb:clear()
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		taskcontainer:clear()
 	end
 end
@@ -51,29 +49,21 @@ function ctaskdb:addtaskcontainer(taskcontainer)
 	self[name] = taskcontainer
 end
 
-function ctaskdb:gettaskcontainer(name)
-	assert(self.taskcontainers[name] ~= nil)
+function ctaskdb:gettaskcontainer(taskid)
+	local tasktype = math.floor(taskid / 1000)
+	local name = TASK_TYPE_NAME[tasktype]
 	return self[name]
 end
 
-function ctaskdb:gettaskcontainer_bytaskid(taskid)
-	local templateid = templateid_bytaskid(taskid)
-	if not templateid or not g_alltaskdata[templateid] then
-		return
-	end
-	local name = g_alltaskdata[templateid][3]
-	return self:gettaskcontainer(name)
-end
-
 function ctaskdb:gettask(taskid)
-	local taskcontainer = self:gettaskcontainer_bytaskid(taskid)
+	local taskcontainer = self:gettaskcontainer(taskid)
 	local task = taskcontainer:gettask(taskid)
 	return task
 end
 
 function ctaskdb:oncreate(player)
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		if taskcontainer.oncreate then
 			taskcontainer:oncreate(player)
 		end
@@ -82,14 +72,14 @@ end
 
 function ctaskdb:onlogin(player)
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		taskcontainer:onlogin(player)
 	end
 end
 
 function ctaskdb:onlogoff(player)
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		taskcontainer:onlogoff(player)
 	end
 end
@@ -115,7 +105,7 @@ end
 function ctaskdb:onfivehourupdate()
 	local player = playermgr.getplayer(self.pid)
 	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self:gettaskcontainer(name)
+		local taskcontainer = self[name]
 		if taskcontainer.onfivehourupdate then
 			taskcontainer:onfivehourupdate(player)
 		end

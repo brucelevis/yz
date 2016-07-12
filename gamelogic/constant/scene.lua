@@ -17,8 +17,8 @@ DEFAULT_SEEN = {
 
 BORN_SCENEID = 1 -- 出生场景
 ALL_BORN_LOCS = { -- 出生位置
-	{x=10,y=10,dir=1},
-	{x=20,y=20,dir=1},
-	{x=30,y=30,dir=1},
+	{x=800,y=800,dir=1},
 }
+
+MAX_NEAR_DISTANCE = 100		--最大临近距离
 

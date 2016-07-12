@@ -1,0 +1,28 @@
+netscene = netscene or {
+	C2S = {},
+	S2C = {},
+}
+local C2S = netscene.C2S
+local S2C = netscene.S2C
+
+function C2S.move(player,request)
+	request.srcpos = request.srcpos or player.pos
+	player:move(request)
+end
+
+function C2S.stop(player,request)
+	player:stop()
+end
+
+function C2S.setpos(player,request)
+	player:setpos(request.pos)
+end
+
+function C2S.enter(player,request)
+	player:enterscene(request.sceneid,request.pos)
+end
+
+-- s2c
+
+return netscene
+
