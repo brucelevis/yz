@@ -217,11 +217,7 @@ function ctaskcontainer:pack(task)
 	data.exceedtime = task.exceedtime
 	data.type = task.type
 	data.findnpc = task.resourcemgr:get("findnpc")
-	local patrol = task.resourcemgr:get("patrol")
-	if patrol then
-		data.patrolmap = patrol.mapid
-		data.patrolpos =  patrol.pos
-	end
+	data.patrol = self:getpatrol(task)
 	data.progress = task.resourcemgr:get("progresstime")
 	data.items = task.resourcemgr:get("itemneed")
 	if next(task.resourcemgr.npclist) then
@@ -295,6 +291,24 @@ function ctaskcontainer:verifynpc(task)
 		return false
 	end
 	return true
+end
+
+function ctaskcontainer:getpatrol(task)
+	local patrol = task.resourcemgr:get("patrol")
+	if not patrol then
+		return
+	end
+	local scenes = task.resourcemgr:getscenes(patrol.mapid)
+	local scene = nil
+	if not isempty(scenes) then
+		scene = scenes[1]
+	else
+		scene = scenemgr.getscene(patrol.mapid)
+	end
+	if not scene then
+		return
+	end
+	return { sceneid = scene.id, pos = patrol.pos }
 end
 
 
