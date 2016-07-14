@@ -51,7 +51,7 @@ function cplayer:init(pid)
 		name = "fashinoshowdb",
 	})
 	-- 怪物卡片
-	self.carddb = citemdb.new({
+	self.carddb = ccarddb.new({
 		pid = self.pid,
 		name = "carddb",
 	})
@@ -97,6 +97,7 @@ function cplayer:save()
 		coin = self.coin,
 		viplv = self.viplv,
 		account = self.account,
+		channel = self.channel,
 		name = self.name,
 		lv = self.lv,
 		exp = self.exp,
@@ -129,6 +130,7 @@ function cplayer:load(data)
 		self.coin = data.basic.coin
 		self.viplv = data.basic.viplv
 		self.account = data.basic.account
+		self.channel = data.channel
 		self.name = data.basic.name
 		self.lv = data.basic.lv
 		self.exp = data.basic.exp
@@ -346,6 +348,21 @@ function cplayer:comptible_process()
 	if not self.scene_strategy then
 		self.scene_strategy = STRATEGY_SEE_ALL
 	end
+
+	local scene = scenemgr.getscene(self.sceneid)
+	if not scene or not self:canenter(self.sceneid,self.pos) then
+		if scene then
+			self:leavescene(self.sceneid)
+		end
+		local born_sceneid = BORN_SCENEID
+		local born_pos = randlist(ALL_BORN_LOCS)
+		self:setpos(born_sceneid,born_pos)
+	end
+	-- 防止地图大小变后，玩家所在位置超出地图界限
+	local scene = scenemgr.getscene(self.sceneid)
+	if not scene:isvalidpos(self.pos) then
+		self:setpos(self.sceneid,scene:fixpos(self.pos))
+	end
 end
 
 function cplayer:onlogin()
@@ -372,16 +389,12 @@ function cplayer:onlogin()
 		gold = self.gold,
 	})
 	sendpackage(self.pid,"player","switch",self.switch:allswitch())
+	self:enterscene(self.sceneid,self.pos)
 	mailmgr.onlogin(self)
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onlogin then
 			obj:onlogin(self)
 		end
-	end
-	if not self.sceneid or not self:enterscene(self.sceneid,self.pos) then
-		local born_sceneid = BORN_SCENEID
-		local born_pos = randlist(ALL_BORN_LOCS)
-		self:enterscene(born_sceneid,born_pos)
 	end
 	warmgr.onlogin(self)
 	channel.subscribe("world",self.pid)
@@ -820,6 +833,8 @@ function cplayer:canenter(sceneid,pos)
 end
 
 function cplayer:setpos(sceneid,pos)
+	local scene = scenemgr.getscene(sceneid)
+	pos = scene:fixpos(pos)
 	self.sceneid = sceneid
 	self.pos = pos
 	local teamstate = self:teamstate()

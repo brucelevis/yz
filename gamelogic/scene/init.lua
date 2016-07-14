@@ -6,6 +6,11 @@ function cscene:init(param)
 	self.sceneid = assert(param.sceneid)
 	self.mapid = assert(param.mapid)
 	self.mapname = assert(param.mapname)
+	self.width = assert(param.width)
+	self.height = assert(param.height)
+	self.block_width = assert(param.block_width)
+	self.block_height = assert(param.block_height)
+
 	self.npcs = {}
 	self.items = {}
 	self.scenesrv = skynet.newservice("gamelogic/service/scened")
@@ -94,6 +99,22 @@ function cscene:broadcast(protoname,subprotoname,request)
 		subprotoname = subprotoname,
 		request = request,
 	})
+end
+
+function cscene:isvalidpos(pos)
+	if (0 <= pos.x and pos.x < self.width) and
+		(0 <= pos.y and pos.y < self.height) then
+		return true
+	end
+	return false
+end
+
+function cscene:fixpos(pos)
+	local x = pos.x
+	local y = pos.y
+	pos.x = math.max(0,math.min(x,self.width-1))
+	pos.y = math.max(0,math.min(y,self.height-1))
+	return pos
 end
 
 -- test cmd

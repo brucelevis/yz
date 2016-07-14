@@ -16,7 +16,8 @@ function isvalid_sex(sex)
 end
 
 function isvalid_accountname(account)
-	return string.match(account,"%w+@%w+%.%w+")
+	--return string.match(account,"%w+@%w+%.%w+")
+	return true
 end
 
 function isvalid_passwd(passwd)

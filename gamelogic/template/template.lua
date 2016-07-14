@@ -33,11 +33,11 @@ function ctemplate:doscript(playunit,script,pid,...)
 	local args = script.args
 	if self.script_handle[cmd] then
 		local func = self[cmd]
-		if func ~= nil and type(func) == "function" then
+		if func and type(func) == "function" then
 			return func(self,playunit,args,pid,...)
 		end
 	end
-	return self:customexec(playunit,cmd,args,pid,...)
+	return self:customexec(playunit,script,pid,...)
 end
 
 function ctemplate:getnpc(playunit,npcid)
@@ -92,8 +92,6 @@ function ctemplate:isnearby(player,npc,dis)
 	return true
 end
 
-function ctemplate:raisepvpwar(playunit,pid,target)
-end
 
 --<<  可重写方法  >>
 function ctemplate:getformdata(formname)
@@ -111,8 +109,10 @@ function ctemplate:transwar(playunit,war,attackers,defensers)
 	return war,attackers,defensers
 end
 
-function ctemplate:customexec(playunit,sc,arg,pid)
-	self:log("err","err",string.format("unsc,script=%s pid=%d",sc,pid))
+function ctemplate:customexec(playunit,script,pid)
+	local cmd = script.cmd
+	local args = script.args
+	self:log("err","err",format("[unknow script] script=%s pid=%d",script,pid))
 end
 
 function ctemplate:transtext(text,pid)
@@ -152,7 +152,7 @@ function ctemplate:addnpc(playunit,args)
 	local nid = args.nid
 	local npc = self:createnpc(playunit,nid)
 	if not npc.isclient then
-		playunit.resourcemgr:enterscene(newnpc)
+		playunit.resourcemgr:enterscene(npc)
 	end
 end
 
@@ -179,7 +179,7 @@ function ctemplate:raisewar(playunit,args,pid)
 	local player = playermgr.getplayer(pid)
 	if player:teamstate() == TEAM_STATE_CAPTAIN then
 		local team = teammgr.getteam(player.teamid)
-		table.extend(attackers,team.members())
+		table.extend(attackers,team.members(TEAM_STATE_FOLLOW))
 	end
 	war,attackers,defensers = self:transwar(playunit,war,attackers,defensers)
 	warmgr.startwar(attackers,defensers,war)
@@ -201,7 +201,7 @@ function ctemplate:doaward(awardid,pid)
 		value = self:transcode(value,pid)
 		award[res] = value
 	end
-	self:log("info","award",string.format("tplaward,pid=%d,rid=%d",pid,awardid))
+	self:log("info","award",string.format("[tplaward] pid=%d awardid=%d",pid,awardid))
 	--doaward("player",pid,award,string.format("%s.template",self.name))
 end
 

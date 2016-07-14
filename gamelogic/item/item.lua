@@ -69,7 +69,9 @@ function citem:init(param)
 	}
 	-- 附魔后属性先存到tmpfumo中，确认附魔后再移到fumo中，属性格式同fumo
 	self.tmpfumo = nil
-	self.card = nil  -- 插入的卡片物品
+	self.cardtype = nil  -- 插入的卡片物品类型
+	self.isopen = nil    -- 卡片是否开启
+	self.lv = nil		 -- 卡片等级
 end
 
 function citem:load(data)
@@ -92,11 +94,9 @@ function citem:load(data)
 			self.tmpfumo = tmpfumo
 		end
 	end
-	if data.card then
-		local card = citem.new()
-		card:load(data.card)
-		self.card = card
-	end
+	self.cardtype = data.cardtype
+	self.isopen = data.isopen
+	self.lv = data.lv
 end
 
 function citem:save()
@@ -111,11 +111,9 @@ function citem:save()
 	data.refine = self.refine
 	data.fumo = self.fumo
 	data.tmpfumo = self.tmpfumo
-	if self.card then
-		-- 防止死递归
-		assert(self.card.cardid ~= self.id)
-		data.card = self.card:save()
-	end
+	data.cardtype = self.cardtype
+	data.isopen = self.isopen
+	data.lv = self.lv
 	return data
 end
 

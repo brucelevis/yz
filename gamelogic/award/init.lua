@@ -62,7 +62,7 @@ function award.__player(pid,bonus,reason,btip)
 			for i,item in ipairs(bonus.items) do
 				item = deepcopy(item)
 				local itemdb = player:getitemdb(item.type)
-				local hasbonus_num = itemdb:addpackitem(item,reason)
+				local hasbonus_num = itemdb:additem2(item,reason)
 				if btip then
 					-- dosomething
 				end

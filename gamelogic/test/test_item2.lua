@@ -16,7 +16,7 @@ local function test(pid)
 	assert(#items == 4)
 	local item = items[1]
 	-- 升级材料不足
-	net.item.C2S.upgradeitem(player,{
+	net.item.C2S.upgradeequip(player,{
 		itemid = item.id,
 	})
 	local item = assert(itemdb:getitem(item.id))
@@ -30,7 +30,7 @@ local function test(pid)
 	player:addcoin(costcoin,reason)
 	local next_itemtype = item.type + 1
 	assert(itemdb:getnumbytype(next_itemtype) == 0)
-	net.item.C2S.upgradeitem(player,{
+	net.item.C2S.upgradeequip(player,{
 		itemid = item.id,
 	})
 	assert(item.type == next_itemtype)
@@ -43,7 +43,7 @@ local function test(pid)
 	local item = items[2]
 	assert(table.isempty(item.refine))
 	-- 精炼材料不足
-	net.item.C2S.refineitem(player,{
+	net.item.C2S.refineequip(player,{
 		itemid = item.id,
 	})
 	assert(player.coin == 0)
@@ -57,7 +57,7 @@ local function test(pid)
 		player:additembytype(itemtype,num,nil,reason)
 	end
 	player:addcoin(costcoin,reason)
-	net.item.C2S.refineitem(player,{
+	net.item.C2S.refineequip(player,{
 		itemid = item.id
 	})
 	for itemtype,num in pairs(costitem) do
@@ -71,11 +71,11 @@ local function test(pid)
 	local item = items[3]
 	assert(table.isempty(item.fumo))
 	-- 附魔材料不足
-	net.item.C2S.fumoitem(player,{
+	net.item.C2S.fumoequip(player,{
 		itemid = item.id,
 	})
 	if not table.isempty(item.tmpfumo) then
-		net.item.C2S.confirm_fumoitem(player,{
+		net.item.C2S.confirm_fumoequip(player,{
 			itemid = item.id
 		})
 	end
@@ -90,11 +90,11 @@ local function test(pid)
 		player:additembytype(itemtype,num,nil,reason)
 	end
 	player:addcoin(costcoin,reason)
-	net.item.C2S.fumoitem(player,{
+	net.item.C2S.fumoequip(player,{
 		itemid = item.id
 	})
 	if not table.isempty(item.tmpfumo) then
-		net.item.C2S.confirm_fumoitem(player,{
+		net.item.C2S.confirm_fumoequip(player,{
 			itemid = item.id
 		})
 	end

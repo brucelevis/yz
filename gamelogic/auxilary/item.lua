@@ -38,6 +38,7 @@ function itemaux.getitemdata(itemtype)
 		end
 	elseif maintype == ItemMainType.FASHION_SHOW then
 	elseif maintype == ItemMainType.CARD then
+		return data_0501_ItemCard[itemtype]
 	elseif maintype == ItemMainType.MATERIAL then
 		return data_0501_ItemMaterial[itemtype]
 	elseif maintype == ItemMainType.DRUG then
@@ -142,6 +143,28 @@ end
 -- 盾
 function itemaux.isshield(eqiuptype)
 	return 20 <= equiptype and equiptype <= 20
+end
+
+-- 缓存的（cardtype,lv)->cardsuitid的映射
+itemaux.cardtype_lv_cardsuitid = {
+}
+-- 根据卡片组合类型+等级获取套卡ID
+function itemaux.getcardsuitid(cardtype_set,lv)
+	local cardtypes = table.keys(cardtype_set)
+	table.sort(cardtypes)
+	local cardtype_str = table.concat(cardtypes,",")
+	local key = string.format("%s#%d",cardtype_str,lv)
+	if not itemaux.cardtype_lv_cardsuitid[key] then
+		for cardsuit_id,data in pairs(data_0501_CardSuitEffect) do
+			local cardtype_str2 = table.concat(data.need_cardtypes,",")
+			local key2 = string.format("%s#%d",cardtype_str2,data.lv)
+			if key == key2 then
+				itemaux.cardtype_lv_cardsuitid[key] = cardsuit_id
+				break
+			end
+		end
+	end
+	return itemaux.cardtype_lv_cardsuitid[key]
 end
 
 return itemaux

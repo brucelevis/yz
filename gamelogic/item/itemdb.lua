@@ -17,7 +17,7 @@ function citemdb:load(data)
 		return
 	end
 	ccontainer.load(self,data,function (itemdata)
-		local item = citem.new()
+		local item = self:newitem()
 		item:load(itemdata)
 		self:_onadd(item)
 		return item
@@ -56,27 +56,17 @@ function citemdb:genid()
 end
 
 function citemdb:newitem(itemdata)
-	assert(itemdata.num > 0)
-	itemdata.createtime = itemdata.createtime or os.time()
+	if itemdata then
+		assert(itemdata.num > 0)
+		itemdata.createtime = itemdata.createtime or os.time()
+	end
 	return citem.new(itemdata)
 end
 
 function citemdb:additem(item,reason)
-	local itemid = item.id
 	local itemtype = item.type
 	local pos = self:getfreepos()
-	if not pos then
-		--mailmgr.sendmail(self.pid,{
-		--	srcid = 0,
-		--	author = "系统",
-		--	title = "背包空间不足",
-		--	content = "背包空间不足",
-		--	attach = {
-		--		item,
-		--	},
-		--})
-		return
-	end
+	assert(pos)
 	local itemid = self:genid()
 	logger.log("info","item",string.format("[additem] pid=%s itemid=%s itemtype=%s num=%s pos=%s reason=%s",self.pid,itemid,itemtype,item.num,pos,reason))
 	item.pos = pos
@@ -84,21 +74,6 @@ function citemdb:additem(item,reason)
 	return item
 end
 
-function citemdb:_onadd(item)
-	local itemid = item.id
-	local pos = item.pos
-	local itemtype = item.type
-	self.pos_id[pos] = itemid
-	if not self.type_ids[itemtype] then
-		self.type_ids[itemtype] = {}
-	end
-	table.insert(self.type_ids[itemtype],itemid)
-end
-
-function citemdb:onadd(item)
-	self:_onadd(item)
-	net.item.S2C.additem(self.pid,item)
-end
 
 function citemdb:delitem(itemid,reason)
 	local item = self:getitem(itemid)
@@ -109,34 +84,6 @@ function citemdb:delitem(itemid,reason)
 		self:del(itemid)
 		return item
 	end
-end
-
-function citemdb:ondel(item)
-	local itemid = item.id
-	local pos = item.pos
-	local itemtype = item.type
-	item.pos = nil
-	self.pos_id[pos] = nil
-	if self.type_ids[itemtype] then
-		for pos,id in ipairs(self.type_ids[itemtype]) do
-			if id == itemid then
-				table.remove(self.type_ids[itemtype],pos)
-				break
-			end
-		end
-	end
-	net.item.S2C.delitem(self.pid,itemid)
-end
-
-function citemdb:onclear(objs)
-	for id,_ in pairs(objs) do
-		net.item.S2C.delitem(self.pid,id)
-	end
-end
-
-function citemdb:onupdate(itemid,attr)
-	attr.id = itemid
-	net.item.S2C.updateitem(self.pid,attr)
 end
 
 
@@ -187,35 +134,41 @@ function citemdb:costitembyid(itemid,num,reason)
 	assert(num > 0)
 	local item = self:getitem(itemid)
 	assert(item.num >= num)
-	item.num = item.num - num
+	--item.num = item.num - num
+	self:update(item.id,{
+		num = item.num - num,
+	})
+
+	logger.log("info","item",string.format("[costitembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
 	if item.num <= 0 then
 		self:delitem(itemid,reason)
-	else
-		logger.log("info","item",string.format("[costitembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
 	end
 end
 
 function citemdb:additembyid(itemid,num,reason)
 	assert(num > 0)
 	local item = self:getitem(itemid)
-	local itemdata = itemaux.getitemdata(item.type)
-	assert(item.num + num <= itemdata.maxnum)
+	local maxnum = self:getmaxnum(item.type)
+	assert(item.num + num <= maxnum)
 	logger.log("info","item",string.format("[additembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
-	item.num = item.num + num
+	--item.num = item.num + num
+	self:update(item.id,{
+		num = item.num + num,
+	})
 end
 
 -- 增加一个序列化的物品
 -- packitem: 序列化的物品
-function citemdb:addpackitem(packitem,reason)
+function citemdb:additem2(packitem,reason)
 	local itemtype = packitem.type
 	local num = packitem.num
 	local allnum = num
-	local itemdata = assert(itemaux.getitemdata(itemtype),"Invalid itemtype:" .. tostring(itemtype))
+	local maxnum = self:getmaxnum(itemtype)
 	local items = self:getitemsbytype(itemtype)
 	for i,item in ipairs(items) do
 		if num > 0 then
-			if item.num < itemdata.maxnum and self:canmerge(packitem,item) then
-				local addnum = itemdata.maxnum - item.num
+			if item.num < maxnum and self:canmerge(packitem,item) then
+				local addnum = maxnum - item.num
 				addnum = math.min(addnum,num)
 				self:additembyid(item.id,addnum,reason)
 				num = num - addnum
@@ -224,11 +177,11 @@ function citemdb:addpackitem(packitem,reason)
 	end
 	local now = os.time()
 	if num > 0 then
-		local needpos = math.ceil(num/itemdata.maxnum)
+		local needpos = math.ceil(num/maxnum)
 		local freepos = self:getfreepos()
 		local usepos = math.min(needpos,freepos)
 		for i=1,usepos do
-			local itemnum = math.min(itemdata.maxnum,num)
+			local itemnum = math.min(maxnum,num)
 			num = num - itemnum
 			packitem.num = itemnum
 			packitem.createtime = now
@@ -252,7 +205,9 @@ function citemdb:costitembytype(itemtype,num,reason)
 		for i,item in ipairs(items) do
 			if costnum >= item.num then
 				costnum = costnum - item.num
-				self:delitem(item.id,reason)
+				self:costitembyid(item.id,item.num,reason)
+				-- costitembyid will delitem when item.num == 0
+				--self:delitem(item.id,reason)
 			else
 				self:costitembyid(item.id,costnum,reason)
 				break
@@ -269,7 +224,7 @@ function citemdb:additembytype(itemtype,num,bind,reason)
 		-- 防止忘记写bind字段
 		assert(type(bind) == "number")
 	end
-	return self:addpackitem({
+	return self:additem2({
 		type = itemtype,
 		num = num,
 		bind = bind,
@@ -321,21 +276,71 @@ function citemdb:moveitem(itemid,newpos)
 	local item2 = self:getitembypos(newpos)
 	if item2 then
 		self.pos_id[oldpos] = item2.id
-		item2.pos = oldpos
-		net.item.S2C.updateitem(self.pid,{
-			id = item2.id,
-			pos = item2.pos,
+		self:update(item2.id,{
+			pos = oldpos,
 		})
 	else
 		self.pos_id[oldpos] = nil
 	end
 	self.pos_id[newpos] = item1.id
-	item1.pos = newpos
-	net.item.S2C.updateitem(self.pid,{
-		id = item1.id,
-		pos = item1.pos,
+	self:update(item1.id,{
+		pos = newpos,
 	})
 	return item2
 end
+
+function citemdb:getmaxnum(itemtype)
+	local itemdata = assert(itemaux.getitemdata(itemtype),"Invalid itemtype:" .. tostring(itemtype))
+	if not itemdata.maxnum or itemdata.maxnum <= 0 then
+		return MAX_NUMBER
+	end
+	return itemdata.maxnum
+end
+
+function citemdb:_onadd(item)
+	local itemid = item.id
+	local pos = item.pos
+	local itemtype = item.type
+	self.pos_id[pos] = itemid
+	if not self.type_ids[itemtype] then
+		self.type_ids[itemtype] = {}
+	end
+	table.insert(self.type_ids[itemtype],itemid)
+end
+
+function citemdb:onadd(item)
+	self:_onadd(item)
+	net.item.S2C.additem(self.pid,item)
+end
+
+function citemdb:ondel(item)
+	local itemid = item.id
+	local pos = item.pos
+	local itemtype = item.type
+	item.pos = nil
+	self.pos_id[pos] = nil
+	if self.type_ids[itemtype] then
+		for pos,id in ipairs(self.type_ids[itemtype]) do
+			if id == itemid then
+				table.remove(self.type_ids[itemtype],pos)
+				break
+			end
+		end
+	end
+	net.item.S2C.delitem(self.pid,itemid)
+end
+
+function citemdb:onclear(objs)
+	for id,_ in pairs(objs) do
+		net.item.S2C.delitem(self.pid,id)
+	end
+end
+
+function citemdb:onupdate(itemid,attr)
+	attr.id = itemid
+	net.item.S2C.updateitem(self.pid,attr)
+end
+
+
 
 return citemdb

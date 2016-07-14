@@ -34,16 +34,29 @@ local skynet = require "gamelogic.skynet"
 
 local MAINSRV_NAME="SKYNETSERVICE"
 
-local function sendpackage(agent,protoname,subprotoname,request)
-	print(format("agent=%s protoname=%s subprotoname=%s request=%s",agent,protoname,subprotoname,request))
+
+local scene = {}
+
+local function sendpackage(pid,protoname,subprotoname,request)
+	local player = scene.getplayer(pid)
+	if not player then
+		return
+	end
+	local agent = player.agent
+	logger.log("debug","netclient",format("[send] pid=%s agent=%s protoname=%s subprotoname=%s request=%s",pid,agent,protoname,subprotoname,request))
 	skynet.send(agent,"lua","senddata",{
 		p = protoname,
 		s = subprotoname,
 		a = request,
 	})
+	if subprotoname == "addplayer" then
+		local targetid = request.pid
+		player.seeplayers[targetid] = true
+	elseif subprotoname == "delplayer" then
+		local targetid = request.pid
+		player.seeplayers[targetid] = nil
+	end
 end
-
-local scene = {}
 
 function scene.init(param)
 	--[[
@@ -67,6 +80,9 @@ function scene.init(param)
 			agent 
 			row 所在块行号
 			col 所在块列号
+
+			-- 辅助字段
+			seeplayers  #看到的玩家，{[pid]=true}
 		}
 	]]
 	scene.players = {}
@@ -101,6 +117,7 @@ function scene.set(pid,attrs,nosync)
 	end
 end
 
+
 -- 受限发包
 function scene.sendpackage(uid,protoname,cmd,package)
 	local pid = package.pid
@@ -110,20 +127,20 @@ function scene.sendpackage(uid,protoname,cmd,package)
 		return
 	end
 	if obj.agent then
-		if obj.scene_strategy then
-			if obj.scene_strategy == STRATEGY_SEE_SELF_TEAM then
-				if obj.teamid and obj.teamid == player.teamid then
-					sendpackage(obj.agent,protoname,cmd,package)
-				end
-			elseif obj.scene_strategy == STRATEGY_SEE_CAPTAIN then
-				if player.teamstate == TEAM_STATE_CAPTAIN or
-					player.teamstate == TEAM_STATE_LEAVE or
-					not player.teamid then
-					sendpackage(obj.agent,protoname,cmd,package)
-				end
-			elseif obj.scene_strategy == STRATEGY_SEE_ALL then
-				sendpackage(obj.agent,protoname,cmd,package)
+		assert(obj.scene_strategy)
+		if obj.scene_strategy == STRATEGY_SEE_SELF_TEAM then
+			if obj.teamid and obj.teamid == player.teamid then
+				sendpackage(obj.pid,protoname,cmd,package)
 			end
+		elseif obj.scene_strategy == STRATEGY_SEE_CAPTAIN then
+			if player.teamstate == TEAM_STATE_CAPTAIN or
+				player.teamstate == TEAM_STATE_LEAVE or
+				not player.teamid then
+				sendpackage(obj.pid,protoname,cmd,package)
+			end
+		else
+			assert(obj.scene_strategy == STRATEGY_SEE_ALL)
+			sendpackage(obj.pid,protoname,cmd,package)
 		end
 	end
 end
@@ -161,16 +178,17 @@ end
 function scene.enter(player)
 	local pid = player.pid
 	if scene.getplayer(pid) then  -- 正常流程不会走到这来，除非上层同场景切换时没有先调用离开场景
-		logger.log("warning","scene",format("[reenter] address=%s sceneid=%d mapid=%d pid=%d player=%s",scene.address,scene.sceneid,pid,scene.mapid,pid,player))
+		logger.log("warning","scene",format("[reenter] address=%s sceneid=%d mapid=%d pid=%d",scene.address,scene.sceneid,pid,scene.mapid,pid))
 		scene.leave(pid)
 	end
 	logger.log("info","scene",format("[enter] address=%s sceneid=%d mapid=%d pid=%d player=%s",scene.address,scene.sceneid,scene.mapid,pid,player))
 	player.sceneid = scene.sceneid
 	player.mapid = scene.mapid
 	player.mapname = scene.mapname
+	player.seeplayers = {}
 	local row,col = scene.getrowcol(player.pos.x,player.pos.y)
 	scene.players[pid] = player
-	sendpackage(player.agent,"scene","enter",player)
+	sendpackage(player.pid,"scene","enter",player)
 	scene.addtoblock(player,row,col,function (uid)
 		if uid == player.pid then
 			return
@@ -199,7 +217,7 @@ function scene.leave(pid)
 		-- 广播给其他可以看见自己的玩家
 		scene.sendpackage(uid,"scene","delplayer",player)
 	end)
-	sendpackage(player.agent,"scene","leave",player)
+	sendpackage(player.pid,"scene","leave",player)
 	-- 放到最后
 	scene.players[pid] = nil
 	skynet.ret(skynet.pack(true))
@@ -209,7 +227,8 @@ end
 -- 当玩家选用的场景策略改变时需要reload场景
 function scene.reload(pid)
 	local player = scene.getplayer(pid)
-	assert(player,pid)
+	local pid = assert(player,pid)
+	logger.log("info","scene",string.format("[reload] address=%s sceneid=%s mapid=%s pid=%s",scene.address,scene.sceneid,scene.mapid,pid))
 	scene.leave(pid)
 	scene.enter(player)
 end
@@ -221,10 +240,10 @@ function scene.query(pid,targetid)
 	end
 	local target = scene.getplayer(targetid)
 	if not target then
-		sendpackage(player.agent,"scene","delplayer",{pid=targetid})
+		sendpackage(player.pid,"scene","delplayer",{pid=targetid})
 		return
 	end
-	sendpackage(player.agent,"scene","addplayer",target)
+	sendpackage(player.pid,"scene","addplayer",target)
 end
 
 -- call方式
@@ -326,10 +345,11 @@ function scene.addtoblock(player,row,col,func)
 end
 
 function scene.getrowcol(x,y)
-	x = math.max(0,math.min(x,scene.width))
-	y = math.max(0,math.min(y,scene.height))
-	local row = math.ceil(y/scene.block_height)
-	local col = math.ceil(x/scene.block_width)
+	x = math.max(0,math.min(x,scene.width-1))
+	y = math.max(0,math.min(y,scene.height-1))
+	-- row，col编号是从0开始，需要向下取整
+	local row = math.floor(y/scene.block_height)
+	local col = math.floor(x/scene.block_width)
 	return row,col
 end
 
@@ -381,7 +401,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 	scene.delfromblock(player,oldrow,oldcol)
 	scene.addtoblock(player,row,col)
 	if row == oldrow and col - oldcol == -1 then				-- 水平左移
-		print(string.format("[block] move left:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move left:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local col1 = oldcol + 1
 		if scene.isvalid_col(col1) then
 			for row1=oldrow-1,oldrow+1 do
@@ -405,7 +425,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 			end
 		end
 	elseif row == oldrow and col - oldcol == 1 then		-- 水平右移
-		print(string.format("[block] move right:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move right:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local col1 = oldcol - 1
 		if scene.isvalid_col(col1) then
 			for row1=oldrow-1,oldrow+1 do
@@ -429,7 +449,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 			end
 		end
 	elseif col == oldcol and row - oldrow == 1 then		-- 垂直上移
-		print(string.format("[block] move up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local row1 = oldrow - 1
 		if scene.isvalid_row(row1) then
 			for col1=oldcol-1,oldcol+1 do
@@ -453,7 +473,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 			end
 		end
 	elseif col == oldcol and row - oldrow == -1 then			-- 垂直下移
-		print(string.format("[block] move down:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move down:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local row1 = oldrow + 1
 		if scene.isvalid_row(row1) then
 			for col1=oldcol-1,oldcol+1 do
@@ -477,7 +497,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 			end
 		end
 	elseif row - oldrow == -1 and col - oldcol == -1 then		-- 左下移动
-		print(string.format("[block] move leftdown:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move leftdown:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local row1 = oldrow + 1
 		if scene.isvalid_row(row1) then
 			for col1=oldcol-1,oldcol+1 do
@@ -523,7 +543,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 			end
 		end
 	elseif row - oldrow == 1 and col - oldcol == -1 then	-- 左上移动
-		print(string.format("[block] move left_up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move left_up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local row1 = oldrow - 1
 		if scene.isvalid_row(row1) then
 			for col1=oldcol-1,oldcol+1 do
@@ -569,7 +589,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 			end
 		end
 	elseif row - oldrow == 1 and col - oldcol == 1 then	-- 右上移动
-		print(string.format("[block] move right_up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move right_up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local row1 = oldrow - 1
 		if scene.isvalid_row(row1) then
 			for col1=oldcol-1,oldcol+1 do
@@ -616,7 +636,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 		end
 
 	elseif row - oldrow == -1 and col - oldcol == 1 then	-- 右下移动
-		print(string.format("[block] move right_down:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
+		--print(string.format("[block] move right_down:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
 		local row1 = oldrow + 1
 		if scene.isvalid_row(row1) then
 			for col1=oldcol-1,oldcol+1 do
@@ -665,16 +685,34 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 		-- 移动包跨度是否过大，由上层逻辑检查，这里仅作警告日志
 		logger.log("warning","scene",string.format("[changeblock too large] pid=%s block=(%s,%s)->(%s,%s)",player.pid,oldrow,oldcol,row,col))
 		scene.broadcast_around(oldrow,oldcol,function (uid)
-			if uid ~= player.pid then
-				scene.sendpackage(uid,"scene","delplayer",player)
+			if uid == player.pid then
+				return
 			end
+			scene.sendpackage(uid,"scene","delplayer",player)
 		end)
 		scene.broadcast_around(row,col,function (uid)
-			if uid ~= player.pid then
-				scene.sendpackage(uid,"scene","addplayer",player)
+			if uid == player.pid then
+				return
 			end
+			scene.sendpackage(uid,"scene","addplayer",player)
 		end)
 	end
+	scene.broadcast_around(oldrow,oldcol,function (uid)
+		if uid == player.pid then
+			return
+		end
+		local obj = scene.getplayer(uid)
+		sendpackage(player.pid,"scene","delplayer",obj)
+	end)
+	-- 将自己可以看见的玩家同步给自己
+	-- sendpackage向A发addplayer B时，如果A已经看到B，则会忽略下次addplayer B的包
+	scene.broadcast_around(row,col,function (uid)
+		if uid == player.pid then
+			return
+		end
+		local obj = scene.getplayer(uid)
+		sendpackage(player.pid,"scene","addplayer",obj)
+	end)
 end
 
 function scene.dump()
@@ -687,7 +725,7 @@ end
 -- 广播给本场景所有人
 function scene.broadcast(package)
 	scene.broadcast_all(function (player)
-		sendpackage(player.agent,package.protoname,package.subprotoname,package.request)
+		sendpackage(player.pid,package.protoname,package.subprotoname,package.request)
 	end)
 end
 

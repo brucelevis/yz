@@ -10,6 +10,7 @@ local S2C = netlogin.S2C
 function C2S.register(obj,request)
 	local account = assert(request.acct)
 	local passwd = assert(request.passwd)
+	local channel = request.channel or "inner"
 	if not isvalid_accountname(account) then
 		netlogin.S2C.register_result(obj,{errcode = STATUS_ACCT_FMT_ERR})
 		return
@@ -22,6 +23,7 @@ function C2S.register(obj,request)
 	local request = make_request({
 		acct = account,
 		passwd = passwd,
+		channel = channel,
 	})
 	local status,response = httpc.post(cserver.accountcenter.host,url,request)
 	if status == 200 then
@@ -47,16 +49,18 @@ local function debuglogin(obj,request)
 		local pid = assert(tonumber(account:sub(2,-1)),account)
 		if passwd == "1" then
 			obj.passlogin = true
+			obj.account = account
+			obj.channel = "inner"
 			local isroleexist = false
 			local player = playermgr.getplayer(pid)
 			if not player then
 				player = playermgr.loadofflineplayer(pid)
 			end
+
 			if not player then
 				-- return STATUS_ROLE_NOEXIST
 				return STATUS_OK,{}
 			else
-				obj.account = assert(player.account)
 				return STATUS_OK,{
 					{
 						roleid = player.pid,
@@ -75,8 +79,6 @@ end
 function C2S.login(obj,request)
 	local account = assert(request.acct)
 	local passwd = assert(request.passwd)
-	obj.account = account
-	obj.passwd = passwd
 	if skynet.getenv("servermode") == "DEBUG" then
 		local errcode,roles = debuglogin(obj,request)	
 		if errcode then
@@ -95,6 +97,8 @@ function C2S.login(obj,request)
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then
 			obj.passlogin = true
+			obj.account = account
+			obj.channel = result.channel
 			url = string.format("/rolelist")
 			local request = make_request({
 				gameflag = cserver.gameflag,
@@ -277,7 +281,7 @@ function C2S.entergame(obj,request)
 			net.msg.S2C.notify(oldplayer,string.format("您的帐号被%s替换下线",gethideip(obj.__ip)))
 			net.msg.S2C.notify(obj,string.format("%s的帐号已被你替换下线",gethideip(oldplayer.__ip)))
 		end
-		netlogin.S2C.kick(oldplayer,"replace")
+		playermgr.kick(oldplayer,"replace")
 		-- kick will delobject
 		--playermgr.delobject(oldplayer.pid,"replace")
 		if go_srvname then
@@ -347,6 +351,8 @@ function C2S.tokenlogin(obj,request)
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then
 			obj.passlogin = true
+			obj.account = account
+			obj.channel = channel
 		end
 		netlogin.S2C.tokenlogin_result(obj,{errcode=errcode,result=result})
 	else
@@ -356,8 +362,7 @@ end
 
 -- S2C
 function S2C.kick(obj)
-	sendpackage(obj,"login","kick")
-	playermgr.kick(obj)
+	sendpackage(obj,"login","kick",{})
 end
 
 function S2C.queue(obj,request)

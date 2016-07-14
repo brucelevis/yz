@@ -37,7 +37,7 @@ function clustermgr.onconnect(srvname)
 	clustermgr.connection[srvname] = true
 	if not oldstate then
 		local self_srvname = cserver.getsrvname()
-		logger.log("info","cluster",string.format("server(%s->%s) connected",self_srvname,srvname))
+		logger.log("info","cluster",string.format("%s connected %s",self_srvname,srvname))
 		if cserver.isdatacenter(srvname) then
 			playermgr.broadcast(function (player)
 				sendpackage(player.pid,"player","switch",{
@@ -56,7 +56,7 @@ function clustermgr.disconnect(srvname)
 	local oldstate = clustermgr.connection[srvname]
 	clustermgr.connection[srvname] = nil
 	if oldstate then
-		logger.log("critical","cluster",string.format("server(%s->%s) lost connect",cserver.getsrvname(),srvname))
+		logger.log("critical","cluster",string.format("%s lost connect %s",cserver.getsrvname(),srvname))
 		if cserver.isdatacenter(srvname) then
 			playermgr.broadcast(function (player)
 				sendpackage(player.pid,"player","switch",{

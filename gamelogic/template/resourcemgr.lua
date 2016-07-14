@@ -7,7 +7,7 @@ function cresourcemgr:init(templ,playunit)
 	self.template = templ
 	self.playunit = playunit
 	cdatabaseable.init(self,{
-		pid = self.playunit.owner,
+		pid = self.playunit.pid,
 		flag = string.format("res_%s",self.template.name)
 	})
 	self.data = {}

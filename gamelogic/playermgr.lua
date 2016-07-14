@@ -150,8 +150,13 @@ function playermgr.kick(pid,reason)
 	end
 	if obj then
 		logger.log("info","playermgr",string.format("[kick] pid=%d agent=%s fd=%s state=%s reason=%s",obj.pid,obj.__agent,obj.__fd,obj.__state,reason))
+		net.login.S2C.kick(obj)
 		playermgr.delobject(obj.pid,"kick")
-		g_gamenet:disconnect(obj,"kick")
+		local linkobj = playermgr.getlinkobjbyfd(obj.__fd)
+		if linkobj then
+			linkobj.passlogin = nil -- 标记为未认证
+			g_gamenet:disconnect(linkobj,"kick")
+		end
 	end
 end
 
@@ -229,6 +234,12 @@ function playermgr.nettransfer(obj1,obj2)
 	local id1,id2 = obj1.pid,obj2.pid
 	logger.log("info","playermgr",string.format("[nettransfer] id1=%s fd1=%s id2=%s fd2=%s",id1,obj1.__fd,id2,obj2.__fd))
 	local agent = assert(obj1.__agent,"link object havn't agent,pid:" .. tostring(id1))
+	obj2.m_agent = obj1.m_agent
+	obj2.m_connectionId = obj1.m_connectionId
+	obj2.m_ID = obj1.m_ID
+	obj2.m_addr = obj1.m_addr
+	
+	-- __agent == m_agent; __fd == m_connectionId; pid == m_ID
 	obj2.__agent = agent
 	obj2.__fd = obj1.__fd
 	obj2.__ip = obj1.__ip
@@ -243,8 +254,10 @@ end
 -- 转移标记
 --*/
 function playermgr.transfer_mark(obj1,obj2)
-	obj2.account = obj1.account
-	obj2.passwd = obj1.passwd
+	-- 防止obj1中无帐号/渠道信息，把obj2中的帐号密码信息覆盖掉
+	-- obj1中无帐号/渠道信息的典型情况是：跨服登录
+	obj2.account = obj1.account or obj2.account
+	obj2.channel = obj1.channel or obj2.channel		-- 渠道
 	obj2.passlogin = obj1.passlogin
 end
 

@@ -14,6 +14,9 @@ function netscene.isvalid_move(srcpos,topos)
 end
 
 function C2S.move(player,request)
+	local scene = scenemgr.getscene(player.sceneid)
+	request.srcpos = scene:fixpos(request.srcpos)
+	request.dstpos = scene:fixpos(request.dstpos)
 	if netscene.isvalid_move(player.pos,request.srcpos) then
 		return
 	end
@@ -25,6 +28,11 @@ function C2S.enter(player,request)
 	--if request.sceneid == player.sceneid then
 	--	return
 	--end
+	local scene = scenemgr.getscene(request.sceneid)
+	if not scene then
+		return
+	end
+	request.pos = scene:fixpos(request.pos)
 	player:enterscene(request.sceneid,request.pos)
 end
 

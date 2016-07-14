@@ -2,7 +2,6 @@
 
 cbasicattr = class("cbasicattr",cdatabaseable)
 function cbasicattr:init(conf)
-	print(cbasicattr.init,cdatabaseable.init)
 	cdatabaseable.init(self,conf)
 	self.data = {}
 end

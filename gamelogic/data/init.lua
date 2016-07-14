@@ -37,12 +37,11 @@ require "gamelogic.data.data_0801_FumoAttrRatio"
 require "gamelogic.data.data_1001_LvExp"
 require "gamelogic.data.data_1101_SignInCtrl"
 require "gamelogic.data.data_1101_PerMonthSignIn"
-require "gamelogic.data.data_TaskTest"
-require "gamelogic.data.data_TaskTestNpc"
-require "gamelogic.data.data_TaskTestAward"
-require "gamelogic.data.data_TaskTestFake"
-require "gamelogic.data.data_TaskTestText"
 require "gamelogic.data.data_GlobalTaskData"
+require "gamelogic.data.data_TaskTest_Process"
+require "gamelogic.data.data_TaskTest_Npc"
+require "gamelogic.data.data_TaskTest_Award"
+require "gamelogic.data.data_TaskTest_Text"
 
 -- 别名
 RESTYPE = data_ResType

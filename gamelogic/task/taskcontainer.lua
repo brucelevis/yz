@@ -119,7 +119,7 @@ function ctaskcontainer:transwar(task,war,attackers,defensers)
 end
 
 function ctaskcontainer:getformdata(formname)
-	return gettaskdata(self.name,formname)
+	return taskaux.gettaskdata(self.name,formname)
 end
 
 function ctaskcontainer:failtask(task)
@@ -149,7 +149,7 @@ function ctaskcontainer:__newtask(conf)
 	if taskdata then
 		conf.state = TASK_STATE_ACCEPT
 		conf.type = taskdata.type
-		conf.owner = self.pid
+		conf.pid = self.pid
 		if taskdata.exceedtime then
 			if taskdata.exceedtime == "today" then
 				conf.exceedtime = getdayzerotime() + DAY_SECS + 5 * HOUR_SECS
@@ -176,14 +176,14 @@ end
 function ctaskcontainer:addtask(task)
 	local taskid = task.taskid
 	assert(self:get(taskid) == nil,"Repeat taskid:" .. tostring(taskid))
-	self:log("info","task",string.format("addtask,pid=%d taskid=%d",self.pid,taskid))
+	self:log("info","task",string.format("[addtask] pid=%d taskid=%d",self.pid,taskid))
 	self:add(task,taskid)
 end
 
 function ctaskcontainer:deltask(taskid,reason)
 	local task = self:get(taskid)
 	if task then
-		self:log("info","task",string.format("deltask,pid=%d taskid=%d reason=%s",self.pid,taskid,reason))
+		self:log("info","task",string.format("[deltask] pid=%d taskid=%d reason=%s",self.pid,taskid,reason))
 		self:del(taskid)
 		return task
 	end
@@ -240,35 +240,31 @@ function ctaskcontainer:nexttask(taskid)
 	if not newtaskid then
 		return
 	end
-	newtaskid = self:choosetask(args.taskid,task)
+	newtaskid = self:choosetask(newtaskid,taskid)
 	if newtaskid then
-		self:log("info","task",string.format("nexttask,pid=%d,taskid=%d",self.pid,newtaskid))
+		self:log("info","task",string.format("[nexttask] pid=%d taskid=%d",self.pid,newtaskid))
 		self:accepttask(newtaskid)
 	end
 end
 
-function ctaskcontainer:choosetask(taskid,task)
-	if type(taskid) == "integer" then
-		return taskid
+function ctaskcontainer:choosetask(newtaskid,taskid)
+	if type(newtaskid) == "integer" then
+		return newtaskid
 	end
 	local taskids = {}
 	local taskdata = self:getformdata("task")
 	for id,data in pairs(taskdata) do
-		while true do
-			if taskid == "other" then
-				if taskid == id then
-					break
+		if self:can_accept(id) then
+			if newtaskid == "other" then
+				if taskid ~= id then
+					taskids[id] = data.ratio
 				end
-			elseif taskid == "all" then
+			elseif newtaskid == "all" then
+				taskids[id] = data.ratio
 			else
-				self:log("err","task",string.format("wrongchoose,pid=%d,taskid=%s",self.pid,taskid))
+				self:log("error","task",string.format("[wrongchoose] pid=%d taskid=%s",self.pid,newtaskid))
 				return
 			end
-			if not self:can_accept(id) then
-				break
-			end
-			taskids[id] = data.ratio
-			break
 		end
 	end
 	if next(taskids) then
@@ -278,10 +274,10 @@ end
 
 function ctaskcontainer:finishtask(task,reason)
 	local taskid = task.taskid
-	self:log("info","task",string.format("finishtask,pid=%d taskid=%d reason=%s",self.pid,task.taskid,reason))
+	self:log("info","task",string.format("[finishtask] pid=%d taskid=%d reason=%s",self.pid,task.taskid,reason))
 	task.state = TASK_STATE_FINISH
 	local taskdata = self:getformdata("task")[taskid]
-	if not taskdata.submitnpc or taskdata.submitnpc == 0 then
+	if not istrue(taskdata.submitnpc) then
 		self:submittask(taskid)
 	else
 		net.task.S2C.finishtask(self.pid,taskid)
@@ -335,6 +331,7 @@ function ctaskcontainer:needitemnum(itemneed,itemtype)
 			return item.num
 		end
 	end
+	return 0
 end
 
 function ctaskcontainer:handinitem(task,args,pid,itemlst)
@@ -361,12 +358,12 @@ function ctaskcontainer:handinitem(task,args,pid,itemlst)
 		end
 		return TASK_SCRIPT_FAIL
 	end
-	self:log("info","task",format("handin,pid=%d,item=%s",pid,itemneed))
+	self:log("info","task",format("[handin] pid=%d,item=%s",pid,itemneed))
 	self:truehandin(player,handinlst)
 end
 
 function ctaskcontainer:manualhandin(player,itemneed,itemlst)
-	if not itemlst or not next(itemlst) then
+	if table.isempty(itemlst) then
 		return
 	end
 	local type_num = {}
@@ -378,7 +375,7 @@ function ctaskcontainer:manualhandin(player,itemneed,itemlst)
 		if not item or item.num < num then
 			return
 		end
-		if not self:needitemnum(itemneed,item.type) then
+		if 0 == self:needitemnum(itemneed,item.type) then
 			return nil,language.format("携带着非需求的物品")
 		end
 		type_num[item.type] = (type_num[item.type] or 0) + num
@@ -458,10 +455,10 @@ function ctaskcontainer:opentask()
 	if not taskid then
 		return
 	end
-	if next(self.finishtasks) then
+	if next(self.finishtasks) then	--暂时设置开启任务是未完成过的
 		return
 	end
-	self:log("info","task",string.format("opentask,pid=%d taskid=%d",self.pid,taskid))
+	self:log("info","task",string.format("[opentask] pid=%d taskid=%d",self.pid,taskid))
 	self:accepttask(taskid)
 end
 
@@ -495,7 +492,9 @@ function ctaskcontainer:can_accept(taskid)
 	if taskdata.needjob and next(taskdata.needjob) then
 		local isok = false
 		for _,job in ipairs(taskdata.needjob) do
-			if player.job == job then
+			--if player.job == job then
+			-- roletype就是职业ID，命名不够好（历史残留问题)
+			if player.roletype == job then
 				isok = true
 				break
 			end
@@ -555,7 +554,7 @@ end
 
 function ctaskcontainer:executetask(taskid,ext)
 	local task = self:gettask(taskid,true)
-	if self:verifynpc(task) then
+	if not self:verifynpc(task) then
 		return
 	end
 	local executescript = self:getformdata("task")[taskid].execution
@@ -594,7 +593,7 @@ function ctaskcontainer:submittask(taskid)
 	local taskdata = self:getformdata("task")[taskid]
 	if taskdata.submitnpc then
 		local player = playermgr.getplayer(self.pid)
-		local npc = self:getnpc_bynid(taskdata.submitnpc)
+		local npc = self:getnpc_bynid(task,taskdata.submitnpc)
 		if npc and not self:isnearby(player,npc) then
 			return
 		end

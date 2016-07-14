@@ -32,29 +32,30 @@ local allow_proto_before_passlogin = {
 -- c2s
 local reqnet = net_reqnet
 function reqnet:netcommad(obj,request)
-	local pid = obj.pid
 	local protoname = request.p
 	local subprotoname = request.s
 	local request = request.a
-	logger.log("debug","netclient",format("[recv] pid=%s agent=%s protoname=%s subprotoname=%s request=%s",pid,obj.__agent,protoname,subprotoname,request))
+	local player = playermgr.getobjectbyfd(obj.__fd)
+	if not player then
+		player = obj
+	end
+	local link_pid = obj.pid
+	local pid = player.pid
+	logger.log("debug","netclient",format("[recv] link_pid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",link_pid,pid,obj.__agent,protoname,subprotoname,request))
 	if not obj.passlogin and not allow_proto_before_passlogin[protoname] then
-		logger.log("warning","netclient",format("[not passlogin] pid=%s request=%s",pid,request))
+		logger.log("warning","netclient",format("[not passlogin] link_pid=%s pid=%s request=%s",link_pid,pid,request))
 		return
 	end
 	if not net[protoname] then
-		logger.log("warning","netclient",format("[unknow proto] pid=%s request=%s",pid,request))
+		logger.log("warning","netclient",format("[unknow proto] link_pid=%s pid=%s request=%s",link_pid,pid,request))
 		return
 	end
 	local C2S = net[protoname].C2S
     local func = C2S[subprotoname]
     if not func then
-        logger.log("warning","netclient",format("[unknow cmd] pid=%s request=%s",pid,request))
+        logger.log("warning","netclient",format("[unknow cmd] link_pid=%s pid=%s request=%s",link_pid,pid,request))
         return
     end
-	local player = playermgr.getobjectbyfd(obj.__fd)
-	if not player then
-		player = obj
-	end
 	local r = func(player,request)
 	return r
 end

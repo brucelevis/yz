@@ -8,7 +8,7 @@ function scenemgr.init()
 		scenemgr.addscene(mapid,mapid)
 	end
 	assert(#normal_map < 100)
-	scenemgr.sceneid = 100
+	scenemgr.sceneid = 1000
 	scenemgr.npcid = 0
 	scenemgr.itemid = 0
 	scenemgr.starttimer_checkallnpc()
@@ -21,7 +21,7 @@ end
 
 function scenemgr.gen_sceneid()
 	if scenemgr.sceneid > MAX_NUMBER then
-		scenemgr.sceneid = data_GameID.npc.endid
+		scenemgr.sceneid = 1000
 	end
 	scenemgr.sceneid = scenemgr.sceneid + 1
 	return scenemgr.sceneid
