@@ -1,10 +1,10 @@
 
 gm = require "gamelogic.gm.init"
 
--- cmd: playerset
--- usage: playerset 属性名 属性值 [玩家ID]
--- e.g: playerset lv 10 <=> 不指定玩家ID，将自身等级设置成10级
--- e.g: playerset lv 10 1000001 <=> 将1000001玩家等级设置成10级
+--- 指令: playerset
+--- 用法: playerset 属性名 属性值 [玩家ID]
+--- 举例: playerset lv 10 <=> 不指定玩家ID，将自身等级设置成10级
+--- 举例: playerset lv 10 1000001 <=> 将1000001玩家等级设置成10级
 function gm.playerset(args)
 	local isok,args = checkargs(args,"string","string","*")
 	if not isok then
@@ -25,6 +25,7 @@ function gm.playerset(args)
 		return
 	end
 	player[key] = val
+	net.msg.S2C.notify(master_pid,string.format("重新登录生效"))
 end
 
 return gm

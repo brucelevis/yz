@@ -28,6 +28,13 @@ function ctemplate:saveres(playunit)
 	return playunit.resourcemgr:save()
 end
 
+--[[
+	@functions 执行脚本接口
+	@param object playunit 数据独立的玩法单元，例如任务，活动等
+	@param table script 策划脚本数据 { cmd = "", args = {} }
+	@param integer pid 执行者
+	@param ... 扩展参数
+]]--
 function ctemplate:doscript(playunit,script,pid,...)
 	local cmd = script.cmd
 	local args = script.args
@@ -57,8 +64,11 @@ function ctemplate:getnpc_bynid(playunit,nid)
 	return data_0601_NPC[nid]
 end
 
-function ctemplate:createscene(playunit,mapid)
-	local scene = playunit.resourcemgr:addscene(mapid)
+function ctemplate:createscene(playunit,mapid,name)
+	local scene = playunit.resourcemgr:addscene({
+		mapid = mapid,
+		name = name,
+	})
 	scene = self.transscene(playunit,scene)
 	return scene
 end
@@ -78,6 +88,42 @@ function ctemplate:createnpc(playunit,nid)
 	return newnpc
 end
 
+function ctemplate:createwar(warid,playunit,pid)
+	local war = {
+		wardataid = warid,
+		attack_helpers = {},
+		defense_helpers = {},
+	}
+	local attackers = {pid,}
+	local defensers = {}
+	local player = playermgr.getplayer(pid)
+	if player:teamstate() == TEAM_STATE_CAPTAIN then
+		local team = teammgr.getteam(player.teamid)
+		table.extend(attackers,team.members(TEAM_STATE_FOLLOW))
+	end
+	war,attackers,defensers = self:transwar(playunit,war,attackers,defensers)
+	warmgr.startwar(attackers,defensers,war)
+end
+
+function ctemplate:doaward(awardid,pid)
+	if type(awardid) == "table" then
+		awardid = choosekey(awardid)
+	end
+	local award = nil
+	if awardid < 0 then
+		award = self:getfakedata(-awardid,"award")
+	else
+		award = self:getformdata("award")[awardid]
+	end
+	award = deepcopy(award)
+	for res,value in pairs(award) do
+		value = self:transcode(value,pid)
+		award[res] = value
+	end
+	self:log("info","award",string.format("[tplaward] pid=%d awardid=%d",pid,awardid))
+	--doaward("player",pid,award,string.format("%s.template",self.name))
+end
+
 function ctemplate:isnearby(player,npc,dis)
 	if player.testman then
 		return true
@@ -90,6 +136,19 @@ function ctemplate:isnearby(player,npc,dis)
 		return false
 	end
 	return true
+end
+
+function ctemplate:release(playunit)
+	if not playunit.resourcemgr then
+		return
+	end
+	playunit.resourcemgr:release()
+end
+
+function ctemplate:log(levelmode,filename,...)
+	local msg = table.concat({...},"\t")
+	msg = string.format("[%s] %s",self.name,msg)
+	logger.log(levelmode,filename,msg)
 end
 
 
@@ -123,7 +182,16 @@ function ctemplate:transcode(value,pid)
 	if type(value) ~= "string" then
 		return value
 	end
-	return value
+	local player = playermgr.getplayer(pid)
+	if value == "playerlv" then
+		return player.lv
+	elseif value == "playername" then
+		return player.name
+	elseif value == "playerpos" then
+		return player.sceneid,player.pos
+	else
+		return value
+	end
 end
 
 function ctemplate:getfakedata(fakeid,faketype)
@@ -169,53 +237,8 @@ function ctemplate:raisewar(playunit,args,pid)
 	if warid < 0 then
 		warid = self:getfakedata(-warid,"war")
 	end
-	local war = {
-		wardataid = warid,
-		attack_helpers = {},
-		defense_helpers = {},
-	}
-	local attackers = {pid,}
-	local defensers = {}
-	local player = playermgr.getplayer(pid)
-	if player:teamstate() == TEAM_STATE_CAPTAIN then
-		local team = teammgr.getteam(player.teamid)
-		table.extend(attackers,team.members(TEAM_STATE_FOLLOW))
-	end
-	war,attackers,defensers = self:transwar(playunit,war,attackers,defensers)
-	warmgr.startwar(attackers,defensers,war)
-end
-
-
-function ctemplate:doaward(awardid,pid)
-	if type(awardid) == "table" then
-		awardid = choosekey(awardid)
-	end
-	local award = nil
-	if awardid < 0 then
-		award = self:getfakedata(-awardid,"award")
-	else
-		award = self:getformdata("award")[awardid]
-	end
-	award = deepcopy(award)
-	for res,value in pairs(award) do
-		value = self:transcode(value,pid)
-		award[res] = value
-	end
-	self:log("info","award",string.format("[tplaward] pid=%d awardid=%d",pid,awardid))
-	--doaward("player",pid,award,string.format("%s.template",self.name))
-end
-
-function ctemplate:release(playunit)
-	if not playunit.resourcemgr then
-		return
-	end
-	playunit.resourcemgr:release()
-end
-
-function ctemplate:log(levelmode,filename,...)
-	local msg = table.concat({...},"\t")
-	msg = string.format("[%s] %s",self.name,msg)
-	logger.log(levelmode,filename,msg)
+	self:createwar(warid,playunit,pid)
 end
 
 return ctemplate
+

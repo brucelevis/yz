@@ -358,7 +358,7 @@ function C2S.insertcard(player,request)
 		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
 		return
 	end
-	if item.cardtype then
+	if item.cardid then
 		net.msg.S2C.notify(player.pid,language.format("无法重复插入卡片"))
 		return
 	end
@@ -368,8 +368,13 @@ function C2S.insertcard(player,request)
 		net.msg.S2C.notify(player.pid,language.format("卡片不存在"))
 		return
 	end
-	local maintype = itemaux.getmaintype(card.type)
-	if maintype ~= ItemMainType.CARD then
+	local maintype1 = itemaux.getmaintype(item.type)
+	if maintype1 ~= ItemMainType.EQUIP then
+		net.msg.S2C.notify(player.pid,language.format("非装备无法插入卡片"))
+		return
+	end
+	local maintype2 = itemaux.getmaintype(card.type)
+	if maintype2 ~= ItemMainType.CARD then
 		net.msg.S2C.notify(player.pid,language.format("插入的物品非卡片类型"))
 		return
 	end
@@ -377,11 +382,18 @@ function C2S.insertcard(player,request)
 		net.msg.S2C.notify(player.pid,language.format("该卡片尚未开启"))
 		return
 	end
+	local itemdata1 = itemaux.getitemdata(item.type)
+	local itemdata2 = itemaux.getitemdata(card.type)
+	if itemdata1.equippos ~= itemdata2.equippos then
+		net.msg.S2C.notify(player.pid,language.format("卡片和装备类型不相符"))
+		return
+	end
 	local reason = string.format("insertcard#%d",card.id)
-	item.cardtype = card.type
+	logger.log("info","item",string.format("[insertcard] pid=%s itemid=%s cardid=%s",player.pid,itemid,cardid))
+	item.cardid = card.id
 	net.item.S2C.updateitem(player.pid,{
 		id = item.id,
-		cardtype = cardtype,
+		cardid = card.id,
 	})
 end
 

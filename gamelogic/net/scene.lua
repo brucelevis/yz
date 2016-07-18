@@ -7,17 +7,22 @@ local S2C = netscene.S2C
 
 function netscene.isvalid_move(srcpos,topos)
 	local distance = getdistance(srcpos,topos)
-	if distance > 40 then
+	if distance > 320 then  -- 32*10
 		return false
 	end
 	return true
 end
 
 function C2S.move(player,request)
+	if table.equal(player.pos,request.srcpos) then
+		return
+	end
 	local scene = scenemgr.getscene(player.sceneid)
 	request.srcpos = scene:fixpos(request.srcpos)
 	request.dstpos = scene:fixpos(request.dstpos)
-	if netscene.isvalid_move(player.pos,request.srcpos) then
+	if not netscene.isvalid_move(player.pos,request.srcpos) then
+		sendpackage(player.pid,"scene","fixpos",{pos=player.pos})
+		logger.log("warning","scene",string.format("[invalid_move] pid=%s pos=%s->%s",player.pid,player.pos,request.srcpos))
 		return
 	end
 	player:move(request)

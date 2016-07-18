@@ -48,6 +48,17 @@ function netmsg.sendquickmsg(msg)
 	})
 end
 
+function netmsg.filter(msg)
+	local isok,msg = wordfilter.filter(msg)
+	if not isok then
+		return false,language.format("未支持的消息格式")
+	end
+	if wordfilter.utf8len(msg) > MAX_MSG_LEN then
+		return false,language.format("信息长度过长")
+	end
+	return true,msg
+end
+
 function C2S.onmessagebox(player,request)
 	local id = request.id
 	if id == 0 then
@@ -66,7 +77,23 @@ end
 
 function C2S.worldmsg(player,request)
 	local msg = assert(request.msg)
+	local rawmsg = msg
 	-- check can send worldmsg
+	local isok,msg = netmsg.filter(msg)
+	if not isok then
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
+	-- 检查重复发言
+	local len = #player.privatemsg.worldmsgs
+	if len > 0 then
+		local lastmsg = player.privatemsg.worldmsgs[len]
+		local similar = wordfilter.get_similar(lastmsg,rawmsg)
+		if similar >= 0.9 then
+			net.msg.S2C.notify(player.pid,language.format("不能重复发送多条一样的消息"))
+			return
+		end
+	end
 	local sender = netmsg.packsender(player)
 	local packmsg = {
 		sender = sender,
@@ -77,11 +104,20 @@ function C2S.worldmsg(player,request)
 		s = "worldmsg",
 		a = packmsg,
 	})
+	if len >= 3 then
+		table.remove(player.privatemsg.worldmsgs,1)
+	end
+	table.insert(player.privatemsg.worldmsgs,rawmsg)
 end
 
 function C2S.scenemsg(player,request)
 	local msg = assert(request.msg)
 	-- check can send scenemsg
+	local isok,msg = netmsg.filter(msg)
+	if not isok then
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
 	local sceneid = player.sceneid
 	local scene = scenemgr.getscene(sceneid)
 	if not scene then
@@ -103,6 +139,11 @@ end
 function C2S.teammsg(player,request)
 	local msg = assert(request.msg)
 	-- check can send teammsg
+	local isok,msg = netmsg.filter(msg)
+	if not isok then
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
 	local teamid = player:getteamid()
 	local team = teammgr:getteam(teamid)
 	if not team then
@@ -122,11 +163,24 @@ function C2S.teammsg(player,request)
 end
 
 function C2S.orgmsg(player,request)
+	local msg = assert(request.msg)
+	-- check can send orgmsg
+	local isok,msg = netmsg.filter(msg)
+	if not isok then
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
+
 end
 
 function C2S.hornmsg(player,request)
 	local msg = assert(request.msg)
 	-- check can send hornmsg
+	local isok,msg = netmsg.filter(msg)
+	if not isok then
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
 	local sender = netmsg.packsender(player)
 	local packmsg = {
 		sender = sender,
@@ -141,6 +195,11 @@ end
 
 function C2S.sendmsgto(player,request)
 	local msg = assert(request.msg)
+	local isok,msg = netmsg.filter(msg)
+	if not isok then
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
 	local targetid = assert(request.targetid)
 	local target = playermgr.getplayer(targetid)
 	if not target then
@@ -181,6 +240,7 @@ function S2C.notify(pid,msg)
 	sendpackage(pid,"msg","notify",{msg=msg,})
 end
 
+-- 个人信息
 function S2C.info(pid,msg)
 	local player
 	if type(pid) == "table" then

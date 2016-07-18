@@ -16,6 +16,9 @@ end
 function cteam:onlogin(player)
 	local pid = player.pid
 	sendpackage(pid,"team","addapplyer",self.applyers)
+	sendpackage(pid,"team","selfteam",{
+		team = self:pack(),
+	})
 end
 
 function cteam:onlogoff(player)
@@ -165,9 +168,9 @@ function cteam:_quit(pid)
 	self:broadcast(function (uid)
 		sendpackage(uid,"team","delmember",{
 			teamid = self.teamid,
-			pid = oldcaptain,
+			pid = pid,
 		})
-		if self.captain then
+		if self.captain ~= oldcaptain then
 			sendpackage(uid,"team","updatemember",{
 				teamid = self.teamid,
 				member = {

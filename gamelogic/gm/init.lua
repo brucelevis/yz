@@ -25,7 +25,7 @@ end
 
 
 local function docmd(player,cmdline)
-	local cmd,leftcmd = string.match(cmdline,"([%w_]+)%s*(.*)")
+	local cmd,leftcmd = string.match(cmdline,"^([%w_]+)%s+(.*)$")
 	if cmd then
 		local func = getfunc(gm,cmd)
 		if func then
@@ -71,7 +71,7 @@ function gm.docmd(pid,cmdline)
 	end
 	logger.log("info","gm",format("[gm.docmd] pid=%s cmd='%s' issuccess=%s result=%s",pid,cmdline,issuccess,result))
 	if pid ~= 0 then
-		net.msg.S2C.notify(pid,string.format("执行%s\n%s",issuccess and "成功" or "失败",result))
+		net.msg.S2C.notify(pid,string.format("执行%s\n%s",issuccess and "未报错" or "报错了",result))
 	end
 	return issuccess,result
 end

@@ -57,8 +57,24 @@ local function test(pid)
 	net.task.C2S.giveuptask(player,{taskid = 900001})
 	task = player.taskdb:gettask(900001)
 	assert(not task)
-	net.task.C2S.accepttask(player,{taskid = 900002})
+	--限时任务
 	net.task.C2S.accepttask(player,{taskid = 900003})
+	net.task.C2S.accepttask(player,{taskid = 900001})
+	local now = os.time()
+	task = player.taskdb:gettask(900003)
+	local task2 = player.taskdb:gettask(900001)
+	assert(task)
+	task.exceedtime = now + 5
+	task2.exceedtime = now + 5
+	timer.timeout(format("task%d",player.pid),6,functor(test2,player,task.taskid))
+	net.task.C2S.executetask(player,{taskid = 900003})
 end
 
+function test2(player,taskid)
+	local container = player.taskdb:gettaskcontainer(taskid)
+	assert(container:gettask(taskid))
+	assert(not container:gettask(900001))
+	container:onwarend({taskid = taskid},{win = false})
+	assert(not container:gettask(taskid))
+end
 return test

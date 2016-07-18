@@ -1,4 +1,3 @@
-
 ctaskdb = class("ctaskdb")
 
 function ctaskdb:init(pid)
@@ -113,3 +112,4 @@ function ctaskdb:onfivehourupdate()
 end
 
 return ctaskdb
+

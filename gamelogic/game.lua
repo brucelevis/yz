@@ -89,6 +89,11 @@ function game.init()
 		language_from = skynet.getenv("language_from"),
 		language_to = skynet.getenv("language_to"),
 	})
+	wordfilter.init({
+		filter_words = data_FilterWord,
+		exclude_words = data_ExcludeWord,
+	})
+
 	game.initall = true
 	game.startgame() -- 初始化完后启动的逻辑
 	logger.log("info","startserver",string.format("[startgame] runno=%s",globalmgr.server:query("runno",0)))

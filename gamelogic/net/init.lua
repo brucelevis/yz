@@ -2,6 +2,7 @@ net = net or {}
 function net.init()
 	net.test = require "gamelogic.net.test"
 	net.login = require "gamelogic.net.login"
+	net.player = require "gamelogic.net.player"
 	net.msg = require "gamelogic.net.msg"
 	net.friend = require "gamelogic.net.friend"
 	net.mail = require "gamelogic.net.mail"

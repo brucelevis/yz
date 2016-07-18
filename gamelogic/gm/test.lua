@@ -1,8 +1,8 @@
 
 gm = require "gamelogic.gm.init"
 
---- cmd: test
---- usage: test test_filename json_str
+--- 指令: test
+--- 用法: test test_filename json_str
 function gm.test(args)
 	local isok,args = checkargs(args,"string","string")
 	if not isok then

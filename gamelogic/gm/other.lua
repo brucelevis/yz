@@ -1,8 +1,6 @@
 
 gm = require "gamelogic.gm.init"
 
---- cmd: echo
---- usage: echo msg
 function gm.echo(args)
 	local isok,args = checkargs(args,"string")
 	if not isok then
@@ -14,8 +12,8 @@ function gm.echo(args)
 	net.msg.S2C.notify(master_pid,msg)
 end
 
---- cmd dumpproto
---- usage: dumpproto
+--- 指令: dumpproto
+--- 用法: dumpproto
 function gm.dumpproto(args)
 	local proto = require "proto.init"
 	local c2s = proto.getc2s()

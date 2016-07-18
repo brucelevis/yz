@@ -1,6 +1,6 @@
 
 local DEFAULT_SWICH = {
-	gm = false,
+	gm = skynet.getenv("servermode") == "DEBUG" and true or false,
 	friend = true,
 	automatch = true,
 }

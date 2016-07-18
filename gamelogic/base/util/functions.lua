@@ -25,6 +25,9 @@ function mytostring(obj)
 	if type(obj) ~= "table" then
 		return tostring(obj)
 	end
+	if obj.__type then  -- 类实例
+		return tostring(obj)
+	end
 	local cache = {}
 	table.insert(cache,"{")
 	for k,v in pairs(obj) do
@@ -444,14 +447,14 @@ function checkargs(args,...)
 	end
 	local ret = {}
 	for i = 1,#typs do
-		if not args[i] then
-			return nil,string.format("argument not enough(%d < %d)",#args,#typs)
-		end
 		if typs[i] == "*" then -- ignore check
 			for j=i,#args do
 				table.insert(ret,args[j])
 			end
 			return true,ret
+		end
+		if not args[i] then
+			return nil,string.format("argument not enough(%d < %d)",#args,#typs)
 		end
 		local typ = typs[i]
 		local range_begin,range_end
@@ -589,7 +592,7 @@ function istrue(val)
 end
 
 function getdistance(pos1,pos2)
-	return math.sqrt((pos1.x-pos2.x)^2 + (pos1.y-pos2.y)^2)
+	return math.ceil(math.sqrt((pos1.x-pos2.x)^2 + (pos1.y-pos2.y)^2))
 end
 
 -- pack_function/unpack_function [START]

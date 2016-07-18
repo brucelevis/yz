@@ -7,11 +7,11 @@ data_GlobalTaskData = {
 		award = "data_TaskTest_Award",
 		text = "data_TaskTest_Text",
 		fake = "nil",
-		tasktype = 4,
+		tasktype = 900,
 		donelimit = 0,
-		spacing = nil,
-		start = nil,
-		over = nil,
+		interval = nil,
+		starttime = nil,
+		endtime = nil,
 	},
 
 	shimen = {
@@ -20,11 +20,11 @@ data_GlobalTaskData = {
 		award = "nil",
 		text = "nil",
 		fake = "nil",
-		tasktype = 3,
+		tasktype = 100,
 		donelimit = 0,
-		spacing = nil,
-		start = nil,
-		over = nil,
+		interval = nil,
+		starttime = nil,
+		endtime = nil,
 	},
 
 }

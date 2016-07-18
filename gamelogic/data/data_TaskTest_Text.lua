@@ -1,15 +1,52 @@
 --<<data_TaskTest_Text 导表开始>>
 data_TaskTest_Text = {
 
-	[101] = "去$target找到$npc",
+	[101] = {
+		type = 1,
+		texts = {
+			
+			{ npc1 = 1001, emoji1 = 1, name = "a", talk = 1001, npc2 = 0, emoji2 = 0, content = "这是单人对白", },
 
-	[102] = "找到$needitem,交给$target的$npc",
+		},
+	},
 
-	[103] = "这并不是我要的$needitem",
+	[102] = {
+		type = 2,
+		texts = {
+			
+			{ npc1 = 1002, emoji1 = 1, name = "b", talk = 1002, npc2 = 1001, emoji2 = 1, content = "这是双人对白1", },
 
-	[104] = "去$target挑战$npc",
+			{ npc1 = 1002, emoji1 = 2, name = "a", talk = 1001, npc2 = 1001, emoji2 = 1, content = "这是双人对白2", },
 
-	[105] = "再接再厉",
+		},
+	},
+
+	[103] = {
+		type = 1,
+		texts = {
+			
+			{ npc1 = 1003, emoji1 = 1, name = "a", talk = 1003, npc2 = 0, emoji2 = 0, content = "这是单人对白2", },
+
+		},
+	},
+
+	[104] = {
+		type = 3,
+		texts = {
+			
+			{ npc1 = 0, emoji1 = 0, name = "0.0", talk = 0, npc2 = 0, emoji2 = 0, content = "这是故事对白", },
+
+		},
+	},
+
+	[105] = {
+		type = 4,
+		texts = {
+			
+			{ npc1 = 1001, emoji1 = 1, name = "a", talk = 1001, npc2 = 0, emoji2 = 0, content = "这是气泡对白", },
+
+		},
+	},
 
 }
 return data_TaskTest_Text

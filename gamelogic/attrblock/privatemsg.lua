@@ -4,6 +4,9 @@ function cprivatemsg:init(pid)
 	self.pid = pid
 	self.msgs = {}
 	self.maxlen = 200
+
+	-- 记录最近3条世界发言，不存盘
+	self.worldmsgs = {}
 end
 
 function cprivatemsg:load(data)

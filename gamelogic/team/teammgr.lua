@@ -16,6 +16,19 @@ function cteammgr:clear()
 	self.publish_teams = {}
 end
 
+function cteammgr:onlogin(player)
+	local teamid = player:getteamid()
+	if teamid then
+		local team = self:getteam(teamid)
+		if team then
+			team:onlogin(player)
+		end
+	end
+end
+
+function cteammgr:onlogoff(player)
+end
+
 function cteammgr:publishteam(player,param)
 	local teamid = player:getteamid()
 	if not teamid then
@@ -383,6 +396,11 @@ function cteammgr:starttimer_automatch()
 			end
 		end
 	end
+end
+
+function cteammgr:packteam(teamid)
+	local team = self:getteam(teamid)
+	return team:pack()
 end
 
 function cteammgr:before_createteam(player,param)

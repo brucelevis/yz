@@ -13,6 +13,17 @@ usage: help 关键字
 cmd: echo
 usage: echo msg
 
+cmd dumpproto
+usage: dumpproto
+
+
+
+[player]
+cmd: playerset
+usage: playerset 属性名 属性值 [玩家ID]
+e.g: playerset lv 10 <=> 不指定玩家ID，将自身等级设置成10级
+e.g: playerset lv 10 1000001 <=> 将1000001玩家等级设置成10级
+
 
 
 [sys]

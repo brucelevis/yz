@@ -49,13 +49,6 @@ local function sendpackage(pid,protoname,subprotoname,request)
 		s = subprotoname,
 		a = request,
 	})
-	if subprotoname == "addplayer" then
-		local targetid = request.pid
-		player.seeplayers[targetid] = true
-	elseif subprotoname == "delplayer" then
-		local targetid = request.pid
-		player.seeplayers[targetid] = nil
-	end
 end
 
 function scene.init(param)
@@ -81,8 +74,6 @@ function scene.init(param)
 			row 所在块行号
 			col 所在块列号
 
-			-- 辅助字段
-			seeplayers  #看到的玩家，{[pid]=true}
 		}
 	]]
 	scene.players = {}
@@ -129,7 +120,8 @@ function scene.sendpackage(uid,protoname,cmd,package)
 	if obj.agent then
 		assert(obj.scene_strategy)
 		if obj.scene_strategy == STRATEGY_SEE_SELF_TEAM then
-			if obj.teamid and obj.teamid == player.teamid then
+			if (obj.teamid and obj.teamid == player.teamid) or 
+				obj.pid == player.pid then
 				sendpackage(obj.pid,protoname,cmd,package)
 			end
 		elseif obj.scene_strategy == STRATEGY_SEE_CAPTAIN then
@@ -163,14 +155,17 @@ function scene.move(pid,package)
 		scene.changeblock(player,oldrow,oldcol,row,col)
 	end
 	-- 减少跟随队员移动的发包，客户端会无视跟随队员的移动包
-	if player.teamstate == TEAM_STATE_FOLLOW then
-		return
+	if player.teamstate ~= TEAM_STATE_FOLLOW then
+		package.pid = pid
+		scene.broadcast_around(row,col,function (uid)
+			-- 转发移动包给所有可以看见自己的玩家
+			if uid ~= pid then
+				scene.sendpackage(uid,"scene","move",package)
+			end
+		end)
+		-- 同步给自己
+		scene.sendpackage(pid,"scene","move",package)
 	end
-	package.pid = pid
-	scene.broadcast_around(row,col,function (uid)
-		-- 转发移动包给所有可以看见自己的玩家
-		scene.sendpackage(uid,"scene","move",package)
-	end)
 end
 
 -- 进入场景/离开场景改成用call方式,这样方便逻辑层确保进入场景成功再执行后续切入场景逻辑
@@ -185,10 +180,15 @@ function scene.enter(player)
 	player.sceneid = scene.sceneid
 	player.mapid = scene.mapid
 	player.mapname = scene.mapname
-	player.seeplayers = {}
 	local row,col = scene.getrowcol(player.pos.x,player.pos.y)
 	scene.players[pid] = player
-	sendpackage(player.pid,"scene","enter",player)
+	sendpackage(player.pid,"scene","enter",{
+		pid = player.pid,
+		sceneid = player.sceneid,
+		mapid = player.mapid,
+		pos = player.pos,
+		mapname = player.mapname,
+	})
 	scene.addtoblock(player,row,col,function (uid)
 		if uid == player.pid then
 			return
@@ -217,7 +217,7 @@ function scene.leave(pid)
 		-- 广播给其他可以看见自己的玩家
 		scene.sendpackage(uid,"scene","delplayer",player)
 	end)
-	sendpackage(player.pid,"scene","leave",player)
+	sendpackage(player.pid,"scene","leave",{pid=pid})
 	-- 放到最后
 	scene.players[pid] = nil
 	skynet.ret(skynet.pack(true))
@@ -400,319 +400,45 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 	end
 	scene.delfromblock(player,oldrow,oldcol)
 	scene.addtoblock(player,row,col)
-	if row == oldrow and col - oldcol == -1 then				-- 水平左移
-		--print(string.format("[block] move left:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local col1 = oldcol + 1
-		if scene.isvalid_col(col1) then
-			for row1=oldrow-1,oldrow+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
+	local set1 = {}
+	for i = oldrow -1,oldrow + 1 do
+		for j = oldcol - 1,oldcol + 1 do
+			if scene.isvalid_row(i) and scene.isvalid_col(j) then
+				set1[i*scene.cols+j] = true
 			end
 		end
-		local col1 = col - 1
-		if scene.isvalid_col(col1) then
-			for row1=row-1,row+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	elseif row == oldrow and col - oldcol == 1 then		-- 水平右移
-		--print(string.format("[block] move right:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local col1 = oldcol - 1
-		if scene.isvalid_col(col1) then
-			for row1=oldrow-1,oldrow+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = col + 1
-		if scene.isvalid_col(col1) then
-			for row1=row-1,row+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	elseif col == oldcol and row - oldrow == 1 then		-- 垂直上移
-		--print(string.format("[block] move up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local row1 = oldrow - 1
-		if scene.isvalid_row(row1) then
-			for col1=oldcol-1,oldcol+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local row1 = row + 1
-		if scene.isvalid_row(row1) then
-			for col1=col-1,col+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	elseif col == oldcol and row - oldrow == -1 then			-- 垂直下移
-		--print(string.format("[block] move down:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local row1 = oldrow + 1
-		if scene.isvalid_row(row1) then
-			for col1=oldcol-1,oldcol+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local row1 = row - 1
-		if scene.isvalid_row(row1) then
-			for col1=col-1,col+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	elseif row - oldrow == -1 and col - oldcol == -1 then		-- 左下移动
-		--print(string.format("[block] move leftdown:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local row1 = oldrow + 1
-		if scene.isvalid_row(row1) then
-			for col1=oldcol-1,oldcol+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = oldcol + 1
-		if scene.isvalid_col(col1) then
-			for row1=oldrow-1,row do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local row1 = row - 1
-		if scene.isvalid_row(row1) then
-			for col1=col-1,col+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = col - 1
-		if scene.isvalid_col(col1) then
-			for row1=row,row+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	elseif row - oldrow == 1 and col - oldcol == -1 then	-- 左上移动
-		--print(string.format("[block] move left_up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local row1 = oldrow - 1
-		if scene.isvalid_row(row1) then
-			for col1=oldcol-1,oldcol+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = oldcol + 1
-		if scene.isvalid_col(col1) then
-			for row1=oldrow,row+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local row1 = row + 1
-		if scene.isvalid_row(row1) then
-			for col1=col-1,col+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = col - 1
-		if scene.isvalid_col(col1) then
-			for row1=row-1,row do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	elseif row - oldrow == 1 and col - oldcol == 1 then	-- 右上移动
-		--print(string.format("[block] move right_up:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local row1 = oldrow - 1
-		if scene.isvalid_row(row1) then
-			for col1=oldcol-1,oldcol+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = oldcol - 1
-		if scene.isvalid_col(col1) then
-			for row1=oldrow,oldrow+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local row1 = row + 1
-		if scene.isvalid_row(row1) then
-			for col1=col-1,col+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = col + 1
-		if scene.isvalid_col(col1) then
-			for row1=row-1,row do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-
-	elseif row - oldrow == -1 and col - oldcol == 1 then	-- 右下移动
-		--print(string.format("[block] move right_down:(%s,%s)->(%s,%s)",oldrow,oldcol,row,col))
-		local row1 = oldrow + 1
-		if scene.isvalid_row(row1) then
-			for col1=oldcol-1,oldcol+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = oldcol - 1
-		if scene.isvalid_col(col1) then
-			for row1=oldrow-1,oldrow do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","delplayer",player)
-					end
-				end
-			end
-		end
-		local row1 = row - 1
-		if scene.isvalid_row(row1) then
-			for col1=col-1,col+1 do
-				if scene.isvalid_col(col1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-		local col1 = col + 1
-		if scene.isvalid_col(col1) then
-			for row1=row,row+1 do
-				if scene.isvalid_row(row1) then
-					local inblock_pids = scene.getblock(row1,col1)
-					for uid,_ in pairs(inblock_pids) do
-						scene.sendpackage(uid,"scene","addplayer",player)
-					end
-				end
-			end
-		end
-	else															-- 非邻接格子移动(正常移动不会走到这)
-		-- 移动包跨度是否过大，由上层逻辑检查，这里仅作警告日志
-		logger.log("warning","scene",string.format("[changeblock too large] pid=%s block=(%s,%s)->(%s,%s)",player.pid,oldrow,oldcol,row,col))
-		scene.broadcast_around(oldrow,oldcol,function (uid)
-			if uid == player.pid then
-				return
-			end
-			scene.sendpackage(uid,"scene","delplayer",player)
-		end)
-		scene.broadcast_around(row,col,function (uid)
-			if uid == player.pid then
-				return
-			end
-			scene.sendpackage(uid,"scene","addplayer",player)
-		end)
 	end
-	scene.broadcast_around(oldrow,oldcol,function (uid)
-		if uid == player.pid then
-			return
+	local set2 = {}
+	for i = row -1,row + 1 do
+		for j = col - 1,col + 1 do
+			if scene.isvalid_row(i) and scene.isvalid_col(j) then
+				set2[i*scene.cols+j] = true
+			end
 		end
-		local obj = scene.getplayer(uid)
-		sendpackage(player.pid,"scene","delplayer",obj)
-	end)
-	-- 将自己可以看见的玩家同步给自己
-	-- sendpackage向A发addplayer B时，如果A已经看到B，则会忽略下次addplayer B的包
-	scene.broadcast_around(row,col,function (uid)
-		if uid == player.pid then
-			return
+	end
+	local delplayer_blocks = table.diff_set(set1,set2)
+	local addplayer_blocks = table.diff_set(set2,set1)
+	for idx in pairs(delplayer_blocks) do
+		local row = math.floor(idx / scene.cols)
+		local col = idx % scene.cols
+		local inblock_pids = scene.getblock(row,col)
+		for uid,_ in pairs(inblock_pids) do
+			scene.sendpackage(uid,"scene","delplayer",{pid=player.pid})
+			scene.sendpackage(player.pid,"scene","delplayer",{pid=uid})
 		end
-		local obj = scene.getplayer(uid)
-		sendpackage(player.pid,"scene","addplayer",obj)
-	end)
+	end
+	for idx in pairs(addplayer_blocks) do
+		local row = math.floor(idx / scene.cols)
+		local col = idx % scene.cols
+		local inblock_pids = scene.getblock(row,col)
+		for uid,_ in pairs(inblock_pids) do
+			scene.sendpackage(uid,"scene","addplayer",player)
+			local obj = scene.getplayer(uid)
+			if obj then
+				scene.sendpackage(player.pid,"scene","addplayer",obj)
+			end
+		end
+	end
 end
 
 function scene.dump()

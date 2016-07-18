@@ -1,12 +1,14 @@
 gm = require "gamelogic.gm.init"
 
---- cmd: buildgmdoc
+--- 指令: buildgmdoc
+--- 功能: 构建GM指令文档.txt
 function gm.buildgmdoc()
 	local tmpfilename = ".gmdoc.tmp"
-	local docprefix = "../src/gamelogic/gm/"
-	local docfilename = docprefix .. "gmdoc.txt"
-	-- all filename in $docprefix
-	os.execute("ls -l " .. docprefix .. " | awk '{print $9}' > " .. tmpfilename)
+	local gmcode_path = "../src/gamelogic/gm/"
+	local docpath = "../../design_doc/GM/"   -- 确保策划文档路径检出了!
+	local docfilename = docpath .. "GM指令文档.txt"
+	-- all filename in $gmcode_path
+	os.execute("ls -l " .. gmcode_path .. " | awk '{print $9}' > " .. tmpfilename)
 
 	local fdin = io.open(tmpfilename,"rb")
 	local fdout = io.open(docfilename,"wb")
@@ -14,11 +16,11 @@ function gm.buildgmdoc()
 		--print(filename)
 		if not string.match(filename,"^%s*$") then
 			if filename:sub(-4) == ".lua" then
-				local fd = io.open(docprefix .. filename,"rb")	
+				local fd = io.open(gmcode_path .. filename,"rb")	
 				local tbl = {}
 				local open = false
 				for line in fd:lines("*l") do
-					line = string.match(line,"^---%s*([^-]+)$")	
+					line = string.match(line,"^%-%-%-%s*(.+)$")	
 					if line then
 						table.insert(tbl,line .. "\n")	
 						open = true	
@@ -43,10 +45,13 @@ function gm.buildgmdoc()
 	fdout:close()
 	os.execute("rm -rf " .. tmpfilename)
 	gm.__doc = nil
+	os.execute(string.format("svn add %s",docfilename))
+	os.execute(string.format("svn commit %s -m 'buildgmdoc'",docfilename))
 end
 
---- cmd: help
---- usage: help 关键字
+--- 指令: help
+--- 功能: 查找包含关键字的相关指令
+--- 用法: help 关键字
 function gm.help(args)
 	local isok,args = checkargs(args,"string")
 	if not isok then
@@ -90,7 +95,7 @@ end
 function gm.getdoc()
 	if not gm.__doc then
 		gm.__doc = {}
-		local doc_filename = "../src/gamelogic/gm/gmdoc.txt"
+		local doc_filename = "../../design_doc/GM/GM指令文档.txt"
 		local isok,fd = pcall(io.open,doc_filename,"rb")
 		if not isok then
 			gm.buildgmdoc()

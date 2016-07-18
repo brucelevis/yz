@@ -87,7 +87,7 @@ function cmailbox:delallmail()
 	end
 end
 
-function cmailbox:iscan_getattach(player,mail)
+function cmailbox:can_getattach(player,mail)
 	-- TODO:
 	return true
 end
@@ -95,12 +95,17 @@ end
 --[[
 附件格式:
 {
-	{
-		type = 资源ID/物品ID,
-		num = 数量,
-		#其他字段，如对于物品，bind字段
-	}
-	...
+	gold = 金币,
+	silver = 银币,
+	coin = 铜钱,
+	items = {
+		物品类型,
+		...
+	},
+	pets = {
+		宠物类型,
+		...
+	},
 }
 ]]
 function cmailbox:getattach(mailid)
@@ -113,7 +118,7 @@ function cmailbox:getattach(mailid)
 	if not mail then
 		return
 	end
-	if not self:iscan_getattach(player,mail) then
+	if not self:can_getattach(player,mail) then
 		return
 	end
 	logger.log("info","mail",format("[getattach] pid=%d srcid=%d mailid=%d attach=%s",pid,mail.srcid,mailid,mail.attach))

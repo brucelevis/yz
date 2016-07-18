@@ -130,6 +130,16 @@ function cserver.iswarsrvmgr(srvname)
 	return string.find(srvname,"warsrvmgr") ~= nil
 end
 
+
+-- 仅对游戏服有效
+function cserver.isinnersrv(srvname)
+	local data = data_RoGameSrvList[srvname]
+	if data.zonename == "inner" then
+		return true
+	end
+	return false
+end
+
 -- 得到自身服务器名
 function cserver.getsrvname()
 	return skynet.getenv("srvname")

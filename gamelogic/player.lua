@@ -144,7 +144,7 @@ function cplayer:load(data)
 		self.sceneid = data.basic.sceneid
 		self.pos = data.basic.pos
 		self.warid = data.basic.warid
-		watch_warid = self.watch_warid
+		self.watch_warid = data.basic.watch_warid
 		self.objid = data.basic.objid
 	end
 end
@@ -258,7 +258,18 @@ function cplayer:create(conf)
 	self.joblv = conf.joblv or 1
 	self.jobexp = conf.jobexp or 0
 	self.viplv = conf.viplv or 0
-	self.objid = 0
+	self.objid = 100
+	-- 素质点
+	self:set("qualitypoint",{
+		sum = 48,
+		expand = 0,
+		liliang = 1,
+		mingjie = 1,
+		tili = 1,
+		lingqiao = 1,
+		zhili = 1,
+		xingyun = 1,
+	})
 
 	-- scene
 	self.sceneid = BORN_SCENEID
@@ -384,6 +395,9 @@ function cplayer:onlogin()
 		joblv = self.joblv,
 		jobexp = self.jobexp,
 		viplv = self.viplv,
+		qualitypoint = self:query("qualitypoint"),
+		huoli = self:query("huoli") or 0,
+		storehp = self:query("storehp") or 0,
 	})
 	sendpackage(self.pid,"player","resource",{
 		gold = self.gold,
@@ -396,6 +410,7 @@ function cplayer:onlogin()
 			obj:onlogin(self)
 		end
 	end
+	teammgr:onlogin(self)
 	warmgr.onlogin(self)
 	channel.subscribe("world",self.pid)
 	self:synctoac()
@@ -469,6 +484,12 @@ function cplayer:addlv(val,reason)
 	logger.log("info","lv",string.format("[addlv] pid=%d lv=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
 	self.lv = newval
 	sendpackage(self.pid,"player","update",{lv=self.lv})
+	self:onaddlv(val,reason)
+end
+
+function cplayer:onaddlv(val,reason)
+	local add_qualitypoint = math.floor(self.lv / 5 + 3)
+	self:add_qualitypoint(add_qualitypoint,"onaddlv")
 end
 
 
@@ -591,9 +612,75 @@ function cplayer:addcoin(val,reason)
 	return val
 end
 
+-- 增加素质点
+function cplayer:add_qualitypoint(val,reason)
+	self:add("qualitypoint.sum",val)
+	sendpackage(self.pid,"player","update",{
+		qualitypoint = self:query("qualitypoint"),
+	})
+end
+
+-- 获取消耗的素质点
+function cplayer:get_cost_qualitpoint(typ,val)
+	local key = string.format("qualitypoint.%s",typ)
+	local hasnum = self:query(key,0)
+	local costnum = 0
+	for i=0,val-1 do
+		costnum = costnum + math.floor((hasnum+i-1)/10+2)
+	end
+	return  costnum
+end
+
+function cplayer:can_alloc_qualitypoint_to(typ,val)
+	assert(val > 0)
+	if not data_1001_PlayerVar.ValidQualityPointType[typ] then
+		return false,language.format("非法素质点类型")
+	end
+	local maxnum = data_1001_PlayerVar.MaxUseQualityPoint[self.jobzs]
+	local costnum = self:get_cost_qualitpoint(typ,val)
+	local hasnum = self:query("qualitypoint." .. typ) or 0
+	local sumnum = self:query("qualitypoint.sum",0) + self:query("qualitypoint.expand",0)
+	if costnum >= sumnum then
+		return false,language.format("可分配点不足#<R>{1}#点",val)
+	end
+	if costnum + hasnum > maxnum then
+		return false,language.format("分配的单项素质点无法超过#<R>{1}#点",maxnum)
+	end
+	return true
+end
+
+-- 分配指定素质点
+function cplayer:alloc_qualitypoint_to(typ,val)
+	assert(val > 0)
+	local key = string.format("qualitypoint.%s",typ)
+	local costnum = self:get_cost_qualitpoint(typ,val)
+	self:add("qualitypoint.sum",-costnum)
+	self:add(key,val)
+	sendpackage(self.pid,"player","update",{
+		qualitypoint = self:query("qualitypoint"),
+	})
+end
+
+function cplayer:reset_qualitypoint()
+	local addnum = 0
+	for typ in pairs(data_1001_PlayerVar.ValidQualityPointType) do
+		local hasnum = self:query("qualitypoint." .. typ,0)
+		for i=1,hasnum-1 do
+			addnum = addnum + math.floor((i-1)/10+2)
+		end
+	end
+	self:add("qualitypoint.sum",addnum)
+	for typ in pairs(data_1001_PlayerVar.ValidQualityPointType) do
+		self:set("qualitypoint." .. typ,1)
+	end
+	sendpackage(self.pid,"player","update",{
+		qualitypoint = self:query("qualitypoint"),
+	})
+end
+
 function cplayer:genid()
 	if self.objid > MAX_NUMBER then
-		self.objid = 0
+		self.objid = 100
 	end
 	self.objid = self.objid + 1
 	return self.objid

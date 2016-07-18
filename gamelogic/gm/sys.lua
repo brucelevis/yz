@@ -1,8 +1,9 @@
 gm = require "gamelogic.gm.init"
 require "gamelogic.oscmd.maintain"
 
---- cmd: maintain
---- usage: maintain shutdown_after
+--- 指令: maintain
+--- 功能: 指定时间后服务器进入维护状态
+--- 用法: maintain shutdown_after
 function gm.maintain(args)
 	local isok,args = checkargs(args,"int")	
 	if not isok then
@@ -13,8 +14,9 @@ function gm.maintain(args)
 	maintain.force_maintain(lefttime)
 end
 
---- cmd: shutdown
---- usage: shutdown
+--- 指令: shutdown
+--- 功能: 安全停服
+--- 用法: shutdown
 function gm.shutdown(args)
 	local reason = args[1] or "gm"
 	game.shutdown(reason)
@@ -24,7 +26,9 @@ function gm.saveall(args)
 	game.saveall()
 end
 
---- cmd: kick
+--- 指令: kick
+--- 功能: 将某玩家踢下线
+--- 用法: kick 玩家ID [玩家ID]
 function gm.kick(args)
 	local isok,args = checkargs(args,"int","*")	
 	if not isok then
@@ -36,18 +40,18 @@ function gm.kick(args)
 	end
 end
 
---- cmd: kickall
+--- 指令: kickall
 function gm.kickall(args)
 	playermgr.kickall("gm")
 end
 
---- cmd: reloadproto
+--- 指令: reloadproto
 function gm.reloadproto(args)
 	proto.reloadproto()
 end
 
---- cmd: runcmd
---- usage: runcmd lua脚本 [是否返回结果]
+--- 指令: runcmd
+--- 用法: runcmd lua脚本 [是否返回结果]
 function gm.runcmd(args)
 	local cmdline = args[1]
 	local noresult = args[2]
@@ -58,8 +62,9 @@ function gm.runcmd(args)
 	return func()
 end
 
---- cmd: offline
---- usage: offline 玩家ID 指令 参数
+--- 指令: offline
+--- 功能: 离线载入某个玩家，并让其执行某个指令
+--- 用法: offline 玩家ID 指令 参数
 function gm.offline(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
@@ -74,15 +79,17 @@ function gm.offline(args)
 	return gm.docmd(pid,cmdline)
 end
 
---- cmd: hotfix
---- usage: hotfix 模块名 ...
+--- 指令: hotfix
+--- 功能: 热更新某模块
+--- 用法: hotfix 模块名 ...
 function gm.hotfix(args)
 	for i,modname in ipairs(args) do
 		hotfix.hotfix(modname)
 	end
 end
 
---- cmd: countonline
+--- 指令: countonline
+--- 功能: 获取在线玩家数
 function gm.countonline(args)
 	local onlinenum,num = 0,0
 	for pid,obj in pairs(playermgr.id_obj) do

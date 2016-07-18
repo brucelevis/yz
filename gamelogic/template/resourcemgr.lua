@@ -57,6 +57,7 @@ function cresourcemgr:load(data)
 	end
 	self.data = data.data or {}
 end
+
 --[[
 npc = {
 	nid = 导表id,
@@ -67,7 +68,6 @@ npc = {
 	isclient = 是否仅为客户端npc,
 }
 ]]--
-
 function cresourcemgr:addnpc(npc)
 	assert(npc.nid)
 	assert(npc.mapid)
@@ -106,6 +106,7 @@ function cresourcemgr:enterscene(npc,sceneid)
 			sceneid = scene.id
 		end
 	end
+	assert(sceneid)
 	scenemgr.addnpc(npc,sceneid)
 end
 
@@ -117,13 +118,13 @@ function cresourcemgr:delnpc(npc)
 	scenemgr.delnpc(npc.id,npc.sceneid)
 end
 
-function cresourcemgr:addscene(mapid)
-	local scene = scenemgr.addscene(mapid)
+function cresourcemgr:addscene(map)
+	local scene = scenemgr.addscene(map)
 	if scene then
-		if not self.scenelist[mapid] then
-			self.scenelist[mapid] = {}
+		if not self.scenelist[map.mapid] then
+			self.scenelist[map.mapid] = {}
 		end
-		table.insert(self.scenelist[mapid],scene.id)
+		table.insert(self.scenelist[map.mapid],scene.id)
 		return scene
 	end
 end

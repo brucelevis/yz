@@ -1,10 +1,23 @@
 -- 扩展string
-function string.rtrim(str)
-	return string.gsub(str,"^[ \t\n\r]+","")
+function string.ltrim(str,charset)
+	local patten
+	if charset then
+		patten = string.format("^[%s]+",charset)
+	else
+		patten = string.format("^[ \t\n\r]+")
+	end
+	return string.gsub(str,patten,"")
 end
 
-function string.ltrim(str)
-	return string.gsub(str,"[ \t\n\r]+$","")
+function string.rtrim(str,charset)
+	local patten
+	if charset then
+		patten = string.format("[%s]+$",charset)
+	else
+		patten = string.format("[ \t\n\r]+$")
+	end
+
+	return string.gsub(str,patten,"")
 end
 
 function string.trim(str)

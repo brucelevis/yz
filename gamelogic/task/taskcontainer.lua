@@ -81,16 +81,20 @@ function ctaskcontainer:onadd(task)
 end
 
 function ctaskcontainer:onwarend(war,result)
-	local task =self:gettask(war.taskid,true)
+	local task = self:gettask(war.taskid)
 	if task then
-		if WAR_IS_WIN(result) then
+		if result.win == true then
 			self:finishtask(task,"war")
 		else
 			self:failtask(task)
 		end
+		--战斗结束处理完后，检查任务超时
+		task.inwar = false
+		self:try_timeouttask(task)
 	end
 end
 
+--任务需要返回执行结果，FINISH/FAIL/SUSPEND 完成 失败 挂起（触发战斗则挂起，不继续执行）
 function ctaskcontainer:doscript(task,script,pid,...)
 	local result = ctemplate.doscript(self,task,script,pid,...)
 	if not result then
@@ -104,6 +108,7 @@ function ctaskcontainer:raisewar(task,args,pid)
 		return TASK_SCRIPT_FAIL
 	end
 	ctemplate.raisewar(self,task,args,pid)
+	task.inwar = true
 	return TASK_SCRIPT_SUSPEND
 end
 
@@ -131,13 +136,21 @@ function ctaskcontainer:gettask(taskid,nocheckvalid)
 	local task = self:get(taskid)
 	if task then
 		if not nocheckvalid then
-			if task.exceedtime then
-				local now = os.time()
-				if now >= task.exceedtime then
-					self:deltask(taskid,"timeout")
-					return
-				end
-			end
+			task = self:try_timeouttask(task)
+		end
+	end
+	return task
+end
+
+function ctaskcontainer:try_timeouttask(task)
+	if task.inwar == true then
+		return task
+	end
+	if task.exceedtime then
+		local now = os.time()
+		if now >= task.exceedtime then
+			self:deltask(task.taskid,"timeout")
+			return
 		end
 	end
 	return task
@@ -300,7 +313,7 @@ function ctaskcontainer:getpatrol(task)
 	end
 	local scenes = task.resourcemgr:getscenes(patrol.mapid)
 	local scene = nil
-	if not isempty(scenes) then
+	if not table.isempty(scenes) then
 		scene = scenes[1]
 	else
 		scene = scenemgr.getscene(patrol.mapid)
@@ -462,6 +475,11 @@ function ctaskcontainer:delnpc(task,args)
 	self:refreshtask(task.taskid)
 end
 
+function ctemplate:talkto(playunit,args,pid)
+	local textid = args.textid
+	net.task.S2C.tasktalk(pid,self.name,textid)
+end
+
 
 --<<  外部接口  >>
 function ctaskcontainer:opentask()
@@ -528,13 +546,13 @@ function ctaskcontainer:can_accept(taskid)
 			return false,language.format("前置任务未完成")
 		end
 	end
-	local spacing = data_GlobalTaskData[self.name].spacing
+	local interval = data_GlobalTaskData[self.name].interval
 	local donelimit = data_GlobalTaskData[self.name].donelimit
-	if spacing and donelimit then
+	if interval and donelimit then
 		local count = 0
-		if spacing == "day" then
+		if interval == "day" then
 			count = player.today:query(self:getflag("done"),0)
-		elseif spacing == "week" then
+		elseif interval == "week" then
 			count = player.thisweek:query(self:getflag("done"),0)
 		else
 			count = player.thistemp:query(self:getflag("done"),0)
@@ -649,3 +667,4 @@ function ctaskcontainer:can_clientfinish(taskid)
 end
 
 return ctaskcontainer
+

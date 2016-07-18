@@ -116,4 +116,11 @@ function S2C.updatetask(pid,task)
 	})
 end
 
+function S2C.tasktalk(pid,name,textid)
+	sendpackage(pid,"task","tasktalk",{
+		name = name,
+		textid = textid,
+	})
+end
+
 return nettask

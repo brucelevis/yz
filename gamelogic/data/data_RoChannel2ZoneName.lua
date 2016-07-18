@@ -28,12 +28,20 @@ data_RoChannel2ZoneName = {
 	[4] = {
 		channelno = 1,
 		channel = "inner",
-		devicetype = "window",
+		devicetype = "windows",
 		zonename = "inner",
 		showzonename = "内部区",
 	},
 
 	[5] = {
+		channelno = 1,
+		channel = "inner",
+		devicetype = "mac",
+		zonename = "inner",
+		showzonename = "内部区",
+	},
+
+	[6] = {
 		channelno = 101,
 		channel = "momo",
 		devicetype = "ios",
@@ -41,7 +49,7 @@ data_RoChannel2ZoneName = {
 		showzonename = "陌陌区",
 	},
 
-	[6] = {
+	[7] = {
 		channelno = 101,
 		channel = "momo",
 		devicetype = "ios_yueyu",
@@ -49,7 +57,7 @@ data_RoChannel2ZoneName = {
 		showzonename = "陌陌区",
 	},
 
-	[7] = {
+	[8] = {
 		channelno = 101,
 		channel = "momo",
 		devicetype = "android",
@@ -57,10 +65,18 @@ data_RoChannel2ZoneName = {
 		showzonename = "陌陌区",
 	},
 
-	[8] = {
+	[9] = {
 		channelno = 101,
 		channel = "momo",
-		devicetype = "window",
+		devicetype = "windows",
+		zonename = "momo",
+		showzonename = "陌陌区",
+	},
+
+	[10] = {
+		channelno = 101,
+		channel = "momo",
+		devicetype = "mac",
 		zonename = "momo",
 		showzonename = "陌陌区",
 	},

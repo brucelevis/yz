@@ -7,7 +7,7 @@ data_TaskTest_Process = {
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 101, }, },
 			{ cmd = 'findnpc', args = { nid = 101, }, },
-			{ cmd = 'talkto', args = { nid = 101, textid = 101, }, },
+			{ cmd = 'talkto', args = { textid = 101, }, },
 		},
 		execution = {
 
@@ -30,7 +30,7 @@ data_TaskTest_Process = {
 		accept = {
 			{ cmd = 'needitem', args = { type = 501001, num = 1, }, },
 			{ cmd = 'addnpc', args = { nid = 102, }, },
-			{ cmd = 'talkto', args = { nid = 102, textid = 102, }, },
+			{ cmd = 'talkto', args = { textid = 102, }, },
 		},
 		execution = {
 			{ cmd = 'handinitem', args = { nid = 102, }, },

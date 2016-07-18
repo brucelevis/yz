@@ -6,14 +6,14 @@ data_0902_WarActionParams = {
 		commonActionAndEffect = "1001",
 	},
 
-	[201] = {
-		action = "attack",
-		commonActionAndEffect = "0",
+	[103] = {
+		action = "",
+		commonActionAndEffect = "1002",
 	},
 
-	[202] = {
-		action = "hurt",
-		commonActionAndEffect = "0",
+	[104] = {
+		action = "",
+		commonActionAndEffect = "1002",
 	},
 
 }
