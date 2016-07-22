@@ -27,6 +27,13 @@ function cteammgr:onlogin(player)
 end
 
 function cteammgr:onlogoff(player)
+	local teamid = player:getteamid()
+	if teamid then
+		local team = self:getteam(teamid)
+		if team then
+			team:onlogoff(player)
+		end
+	end
 end
 
 function cteammgr:publishteam(player,param)
@@ -179,10 +186,6 @@ function cteammgr:quitteam(player)
 	local team = self:getteam(teamid)
 	team:quit(player)
 	self:after_quitteam(player,teamid)
-	-- no member
-	if team:len(TEAM_STATE_ALL) == 0 then
-		self:delteam(teamid)
-	end
 	return true
 end
 
@@ -245,8 +248,7 @@ end
 function cteammgr:delteam(teamid)
 	local team = self:getteam(teamid)
 	if team then
-		self.teams[teamid] = nil
-		self:team_unautomatch(teamid,"delteam")
+		channel.del(team.channel)
 		for pid,_ in pairs(team.leave) do
 			team:_quit(pid)
 		end
@@ -256,7 +258,9 @@ function cteammgr:delteam(teamid)
 		if team.captain then
 			team:_quit(team.captain)
 		end
-		channel.del(team.channel)
+		logger.log("info","team",string.format("[delteam] teamid=%d",teamid))
+		self.teams[teamid] = nil
+		self:team_unautomatch(teamid,"delteam")
 		return team
 	end
 end
@@ -324,7 +328,7 @@ end
 function cteammgr:team_unautomatch(teamid,reason)
 	local matchdata = self.automatch_teams[teamid]
 	if matchdata then
-		logger.logger("info","team",string.format("[team_unautomatch] teamid=%d reason=%s",teamid,reason))
+		logger.log("info","team",string.format("[team_unautomatch] teamid=%d reason=%s",teamid,reason))
 		self.automatch_teams[teamid] = nil
 	end
 end

@@ -1,6 +1,6 @@
 local crab_c = require "crab.c"
 local utf8_c = require "utf8.c"
-local levenshtein = require "levenshtein"  -- 字符串相似比较
+local algorithm = require "algorithm"
 
 wordfilter = wordfilter or {}
 
@@ -84,12 +84,52 @@ function wordfilter.utf8chars(input)
 	return chars
 end
 
+
+-- 获取字符串编辑相似度
 function wordfilter.get_similar(str1,str2)
-	local distance = levenshtein.levenshtein(str1,str2)
+	local distance = algorithm.levenshtein(str1,str2)
 	local len1 = string.len(str1)
 	local len2 = string.len(str2)
 	local maxlen = math.max(len1,len2)
 	return 1-distance/maxlen
 end
+
+-- 获取单词发音相似度，返回值越大，相似度越高
+function wordfilter.get_soundex_diff(word1,word2)
+	local str1 = algorithm.soundex(word1)
+	local str2 = algorithm.soundex(word2)
+	local len1 = string.len(str1)
+	local len2 = string.len(str2)
+	assert(len1 == len2)
+	local diff = 0
+	for i=1,len1 do
+		if string.char(str1,i,i) == string.char(str2,i,i) then
+			diff = diff + 1
+		end
+	end
+	return diff
+end
+
+-- 获取字符串发音相似度(仅对中文拼音，拉丁语系有参考意义)
+function wordfilter.get_soundex_similar(str1,str2)
+	local words1 = {}
+	local words2 = {}
+	for word in string.gmatch(str1,"%S+") do
+		table.insert(words1,word)
+	end
+	for word in string.gmatch(str2,"%S+") do
+		table.insert(words2,word)
+	end
+	local len1 = #words1
+	local len2 = #words2
+	local minlen = math.min(len1,len2)
+	local maxlen =  math.max(len1,len2)
+	local diff = 0
+	for i = 1,minlen do
+		diff = diff + wordfilter.get_soundex_diff(words1[i],words2[i])
+	end
+	return diff / (maxlen * 4)
+end
+
 
 return wordfilter

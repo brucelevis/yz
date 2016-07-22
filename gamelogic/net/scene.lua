@@ -22,7 +22,7 @@ function C2S.move(player,request)
 	request.dstpos = scene:fixpos(request.dstpos)
 	if not netscene.isvalid_move(player.pos,request.srcpos) then
 		sendpackage(player.pid,"scene","fixpos",{pos=player.pos})
-		logger.log("warning","scene",string.format("[invalid_move] pid=%s pos=%s->%s",player.pid,player.pos,request.srcpos))
+		logger.log("warning","scene",format("[invalid_move] pid=%s pos=%s->%s",player.pid,player.pos,request.srcpos))
 		return
 	end
 	player:move(request)

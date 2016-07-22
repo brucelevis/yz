@@ -36,7 +36,7 @@ mail_sendmail 2004 {
 		pid 1 : integer
 		title 2 : string
 		content 3 : string
-		attach 4 : *ResOrItemType
+		attach 4 : AttachType
 	}
 }
 

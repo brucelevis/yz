@@ -1,6 +1,0 @@
-return {
-	p = "item",
-	si = 11000,
-	src = [[
-]]
-}

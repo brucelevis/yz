@@ -43,7 +43,7 @@ local function sendpackage(pid,protoname,subprotoname,request)
 		return
 	end
 	local agent = player.agent
-	logger.log("debug","netclient",format("[send] pid=%s agent=%s protoname=%s subprotoname=%s request=%s",pid,agent,protoname,subprotoname,request))
+	logger.log("debug","netclient",format("[send] sceneid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",scene.sceneid,pid,agent,protoname,subprotoname,request))
 	skynet.send(agent,"lua","senddata",{
 		p = protoname,
 		s = subprotoname,
@@ -319,7 +319,7 @@ function scene.delfromblock(player,row,col,func)
 	local pid = player.pid
 	local inblock_pids = scene.getblock(row,col)
 	if inblock_pids[pid] then
-		logger.log("debug","scene",string.format("[delfromblock] pid=%s row=%s col=%s",pid,row,col))
+		logger.log("debug","scene",string.format("[delfromblock] address=%s sceneid=%s mapid=%s pid=%s row=%s col=%s",scene.address,scene.sceneid,scene.mapid,pid,row,col))
 		inblock_pids[pid] = nil
 		if func then
 			scene.broadcast_around(row,col,func)
@@ -334,7 +334,7 @@ function scene.addtoblock(player,row,col,func)
 	local pid = player.pid
 	local inblock_pids = scene.getblock(row,col)
 	if not inblock_pids[pid] then
-		logger.log("debug","scene",string.format("[addtoblock] pid=%s row=%s col=%s",pid,row,col))
+		logger.log("debug","scene",string.format("[addtoblock] address=%s sceneid=%s mapid=%s pid=%s row=%s col=%s",scene.address,scene.sceneid,scene.mapid,pid,row,col))
 		inblock_pids[pid] = true
 		if func then
 			scene.broadcast_around(row,col,func)
@@ -442,7 +442,7 @@ function scene.changeblock(player,oldrow,oldcol,row,col)
 end
 
 function scene.dump()
-	logger.log("info","dumpscene",string.format("sceneid=%s mapid=%s width=%s height=%s block_width=%s block_height=%s rows=%s cols=%s",scene.sceneid,scene.mapid,scene.width,scene.height,scene.block_width,scene.block_height,scene.rows,scene.cols))
+	logger.log("info","dumpscene",string.format("address=%s sceneid=%s mapid=%s width=%s height=%s block_width=%s block_height=%s rows=%s cols=%s",scene.address,scene.sceneid,scene.mapid,scene.width,scene.height,scene.block_width,scene.block_height,scene.rows,scene.cols))
 	logger.log("info","dumpscene",string.format("players:\n%s",table.dump(scene.players)))
 
 	logger.log("info","dumpscene",string.format("blocks:\n%s",table.dump(scene.blocks)))

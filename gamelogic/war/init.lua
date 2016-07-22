@@ -1,2 +1,2 @@
 require "gamelogic.war.warmgr"
-require "gamelogic.war.onendwar"
+require "gamelogic.war.onwarend"

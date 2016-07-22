@@ -4,8 +4,10 @@ nettask = nettask or {
 }
 local C2S = nettask.C2S
 local S2C = nettask.S2C
+
+--c2s
 function C2S.opentask(player,request)
-	local tasktype = request.tasktype
+	local tasktype = assert(request.tasktype)
 	local name = TASK_TYPE_NAME[tasktype]
 	local taskcontainer = player.taskdb[name]
 	if not taskcontainer then
@@ -15,7 +17,7 @@ function C2S.opentask(player,request)
 end
 
 function C2S.accepttask(player,request)
-	local taskid = request.taskid
+	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	local isok,msg = taskcontainer:can_accept(taskid)
 	if not isok then
@@ -28,7 +30,7 @@ function C2S.accepttask(player,request)
 end
 
 function C2S.executetask(player,request)
-	local taskid = request.taskid
+	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	local isok,msg = taskcontainer:can_execute(taskid)
 	if not isok then
@@ -45,7 +47,7 @@ function C2S.executetask(player,request)
 end
 
 function C2S.finishtask(player,request)
-	local taskid = request.taskid
+	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	local isok,msg = taskcontainer:can_clientfinish(taskid)
 	if not isok then
@@ -58,7 +60,7 @@ function C2S.finishtask(player,request)
 end
 
 function C2S.submittask(player,request)
-	local taskid = request.taskid
+	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	local isok,msg = taskcontainer:can_submit(taskid)
 	if not isok then
@@ -71,7 +73,7 @@ function C2S.submittask(player,request)
 end
 
 function C2S.giveuptask(player,request)
-	local taskid = request.taskid
+	local taskid = assert(request.taskid)
 	local task = player.taskdb:gettask(taskid)
 	if not task then
 		nettask.S2C.deltask(pid,taskid)
@@ -116,10 +118,14 @@ function S2C.updatetask(pid,task)
 	})
 end
 
-function S2C.tasktalk(pid,name,textid)
+function S2C.tasktalk(pid,name,textid,transstr)
+	if transstr then
+		transstr = cjson.encode(transstr)
+	end
 	sendpackage(pid,"task","tasktalk",{
 		name = name,
 		textid = textid,
+		transstr = transstr,
 	})
 end
 

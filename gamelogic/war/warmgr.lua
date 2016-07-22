@@ -461,13 +461,13 @@ function warmgr.quitwar(player,warid)
 	end
 end
 
-function warmgr.onendwar(warid,result)
+function warmgr.onwarend(warid,result)
 	local war = warmgr.getwar(warid)
 	if not war then
-		logger.log("error","war",string.format("[onendwar] Invalid_warid=%s result=%s",warid,result))
+		logger.log("error","war",string.format("[onwarend] Invalid_warid=%s result=%s",warid,result))
 		return
 	end
-	logger.log("info","war",format("[onendwar] warid=%s result=%s war=%s",warid,result,war))
+	logger.log("info","war",format("[onwarend] warid=%s result=%s war=%s",warid,result,war))
 	for i,pid in ipairs(war.attackers) do
 		sendpackage(pid,"war","warresult",{
 			warid = warid,
@@ -481,7 +481,7 @@ function warmgr.onendwar(warid,result)
 		})
 	end
 	local wartype = assert(war.wartype)
-	local callback = warmgr.onendwar_callback[wartype]
+	local callback = warmgr.onwarend_callback[wartype]
 	if callback then
 		xpcall(callback,onerror,warid,result)
 	end

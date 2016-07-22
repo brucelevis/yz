@@ -5,4 +5,4 @@ require "gamelogic.attrblock.switch"
 require "gamelogic.attrblock.privatemsg"
 require "gamelogic.attrblock.titledb"
 require "gamelogic.attrblock.signin.init"
-
+require "gamelogic.attrblock.chapterdb"

@@ -98,8 +98,8 @@ function ctemplate:createwar(warid,playunit,pid)
 	local defensers = {}
 	local player = playermgr.getplayer(pid)
 	if player:teamstate() == TEAM_STATE_CAPTAIN then
-		local team = teammgr.getteam(player.teamid)
-		table.extend(attackers,team.members(TEAM_STATE_FOLLOW))
+		local team = teammgr:getteam(player.teamid)
+		table.extend(attackers,team:members(TEAM_STATE_FOLLOW))
 	end
 	war,attackers,defensers = self:transwar(playunit,war,attackers,defensers)
 	warmgr.startwar(attackers,defensers,war)

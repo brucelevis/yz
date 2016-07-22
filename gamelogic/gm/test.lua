@@ -6,7 +6,7 @@ gm = require "gamelogic.gm.init"
 function gm.test(args)
 	local isok,args = checkargs(args,"string","string")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"usage: test test_filename json_str")
+		net.msg.S2C.notify(master_pid,"用法: test test_filename json_str")
 		return
 	end
 	local test_filename = args[1]

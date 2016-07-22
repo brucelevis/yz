@@ -149,32 +149,22 @@ function table.hasattr(tbl,attr)
 			return false
 		end
 	end
-	return true
+	return true,root
 end
 
-function table.setattr(tbl,attr,val,bforce)
-	local attrs = string.split(attr,".")
+function table.setattr(tbl,attr,val)
+	local attrs = type(attr) == "table" and attr or string.split(attr,".")
 	local lastkey = table.remove(attrs)
-	if bforce then
-		local root = tbl
-		for i,attr in ipairs(attrs) do
-			if not root[attr] then
-				root[attr] = {}
-			end
-			root = root[attr]
+	local root = tbl
+	for i,attr in ipairs(attrs) do
+		if not root[attr] then
+			root[attr] = {}
 		end
-		root[lastkey] = val
-		return true
-	else
-		if table.hasattr(tbl,attrs) then
-			local attrval = table.getattr(tbl,attrs)
-			if type(attrval) == "table" then
-				attrval[lastkey] = val
-				return  true
-			end
-		end
+		root = root[attr]
 	end
-	return false
+	local oldval = root[lastkey]
+	root[lastkey] = val
+	return oldval
 end
 
 function table.isempty(tbl)

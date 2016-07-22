@@ -15,13 +15,35 @@ end
 
 function cteam:onlogin(player)
 	local pid = player.pid
+	-- 同步申请者列表
 	sendpackage(pid,"team","addapplyer",self.applyers)
+	-- 同步自身队伍信息
 	sendpackage(pid,"team","selfteam",{
 		team = self:pack(),
 	})
+	-- 尝试归队
+	if pid ~= self.captain then
+		local captain = playermgr.getplayer(self.captain)
+		if captain and captain.sceneid == player.sceneid then
+			teammgr:backteam(player)
+		end
+	end
 end
 
 function cteam:onlogoff(player)
+	-- 下线后暂离队伍，如果是队长则先切换队长
+	if self.captain == player.pid then
+		local newcaptain = self:choose_newcaptain()
+		assert(newcaptain ~= self.captain)
+		if newcaptain then
+			teammgr:changecaptain(self.teamid,newcaptain)
+		else
+			teammgr:quitteam(player)
+		end
+	end
+	if player.teamid then
+		teammgr:leaveteam(player)
+	end
 end
 
 function cteam:create(player,param)
@@ -51,21 +73,6 @@ function cteam:join(player)
 	self:delapplyer(pid)
 	player.teamid = self.teamid
 	self.leave[pid] = true
-	local captain = playermgr.getplayer(self.captain)
-	-- captain is online
-	if player.sceneid == captain.sceneid then
-		if player:jumpto(captain.sceneid,captain.pos) then
-			self.leave[pid] = nil
-			self.follow[pid] = true
-		end
-	end
-	local scene = scenemgr.getscene(player.sceneid)
-	local teamstate = player:teamstate()
-	scene:set(pid,{
-		teamid = self.teamid,
-		teamstate = teamstate,
-	})
-	
 	self:broadcast(function (uid)
 		if uid ~= pid then
 			sendpackage(uid,"team","addmember",{
@@ -77,12 +84,26 @@ function cteam:join(player)
 	sendpackage(pid,"team","selfteam",{
 		team = self:pack(),
 	})
+	local captain = playermgr.getplayer(self.captain)
+	if captain and player.sceneid == captain.sceneid then
+		teammgr:backteam(player)
+	end
+	local scene = scenemgr.getscene(player.sceneid)
+	local teamstate = player:teamstate()
+	scene:set(pid,{
+		teamid = self.teamid,
+		teamstate = teamstate,
+	})
+	
 	channel.subscribe(self.channel,player.pid)
 end
 
 function cteam:back(player)
 	local pid = player.pid
 	local captain = playermgr.getplayer(self.captain)
+	if not captain then
+		return false
+	end
 	if not player:jumpto(captain.sceneid,captain.pos) then
 		return false
 	end
@@ -134,9 +155,25 @@ end
 function cteam:choose_newcaptain()
 	local newcaptain
 	if next(self.follow) then
-		newcaptain = randlist(table.keys(self.follow))
+		local pids = {}
+		for pid in pairs(self.follow) do
+			if playermgr.getplayer(pid) then
+				table.insert(pids,pid)
+			end
+		end
+		if not table.isempty(pids) then
+			newcaptain = randlist(pids)
+		end
 	elseif next(self.leave) then
-		newcaptain = randlist(table.keys(self.leave))
+		local pids = {}
+		for pid in pairs(self.leave) do
+			if playermgr.getplayer(pid) then
+				table.insert(pids,pid)
+			end
+		end
+		if not table.isempty(pids) then
+			newcaptain = randlist(pids)
+		end
 	end
 	return newcaptain
 end
@@ -144,15 +181,13 @@ end
 function cteam:quit(player)
 	local pid = player.pid
 	self:_quit(pid)
-	local scene = scenemgr.getscene(player.sceneid)
-	local teamstate = player:teamstate() -- NO_TEAM
-	scene:set(pid,{
-		teamid = 0,
-		teamstate = teamstate,
-	})
+	if self:len(TEAM_STATE_ALL) == 0 or self:isall_logoff() then
+		teammgr:delteam(self.teamid)
+	end
 end
 
 function cteam:_quit(pid)
+	channel.unsubscribe(self.channel,pid)
 	local oldcaptain = self.captain
 	if oldcaptain == pid then
 		local newcaptain = self:choose_newcaptain()
@@ -162,9 +197,9 @@ function cteam:_quit(pid)
 			self.captain = nil
 		end
 	end
-	player.teamid = nil
 	self.follow[pid] = nil
 	self.leave[pid] = nil
+	sendpackage(pid,"team","selfteam",{})
 	self:broadcast(function (uid)
 		sendpackage(uid,"team","delmember",{
 			teamid = self.teamid,
@@ -180,13 +215,23 @@ function cteam:_quit(pid)
 			})
 		end
 	end)
-	channel.unsubscribe(self.channel,player.pid)
+	local player = playermgr.getplayer(pid)
+	if player then
+		player.teamid = nil
+		local scene = scenemgr.getscene(player.sceneid)
+		scene:set(pid,{
+			teamid = 0,
+			teamstate = NO_TEAM,
+		})
+	end
 end
 
 function cteam:changecaptain(pid)
 	assert(self.captain~=pid)
 	local oldcaptain_pid = self.captain
-	if playermgr.getplayer(oldcaptain_pid) then
+	local oldcaptain = playermgr.getplayer(oldcaptain_pid)
+	local newcaptain = playermgr.getplayer(pid)
+	if oldcaptain then
 		self.follow[oldcaptain_pid] = true
 	else
 		self.leave[oldcaptain_pid] = true
@@ -210,6 +255,23 @@ function cteam:changecaptain(pid)
 			}
 		})
 	end)
+	if oldcaptain then
+		local scene = scenemgr.getscene(oldcaptain.sceneid)
+		local teamstate = oldcaptain:teamstate()
+		scene:set(oldcaptain.pid,{
+			teamid = self.teamid,
+			teamstate = teamstate,
+		})
+	end
+	if newcaptain then
+		local scene = scenemgr.getscene(newcaptain.sceneid)
+		local teamstate = newcaptain:teamstate()	
+		scene:set(newcaptain.pid,{
+			teamid = self.teamid,
+			teamstate = teamstate,
+		})
+	end
+
 end
 
 function cteam:getapplyer(pid,ispos)
@@ -298,15 +360,15 @@ function cteam:packmembers()
 		local member = playermgr.getplayer(pid)
 		if not member then
 			member = resumemgr.getresume(pid)
-			table.insert(members,self:packmember(member))
 		end
+		table.insert(members,self:packmember(member))
 	end
 	for pid,_ in pairs(self.leave) do
 		local member = playermgr.getplayer(pid)
 		if not member then
 			member = resumemgr.getresume(pid)
-			table.insert(members,self:packmember(member))
 		end
+		table.insert(members,self:packmember(member))
 	end
 	return members
 end
@@ -378,4 +440,24 @@ function cteam:maxlen()
 	end
 	return data_0301_TeamTarget[target].maxlen or 5
 end
+
+function cteam:isall_logoff()
+	if self.captain then
+		if playermgr.getplayer(self.captain) then
+			return false
+		end
+	end
+	for pid in pairs(self.follow) do
+		if playermgr.getplayer(pid) then
+			return false
+		end
+	end
+	for pid in pairs(self.leave) do
+		if playermgr.getplayer(pid) then
+			return false
+		end
+	end
+	return true
+end
+
 return cteam

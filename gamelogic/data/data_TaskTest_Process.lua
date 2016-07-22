@@ -1,7 +1,7 @@
 --<<data_TaskTest_Process 导表开始>>
 data_TaskTest_Process = {
 
-	[900001] = {
+	[90000001] = {
 		type = 1,
 		name = "测试找人",
 		accept = {
@@ -22,9 +22,12 @@ data_TaskTest_Process = {
 		ratio = 10,
 		award = {[101]=10},
 		nexttask = nil,
+		chapterid = 0,
+		icon_id = 93051,
+		desc = "长安似乎发生了些什么怪事",
 	},
 
-	[900002] = {
+	[90000002] = {
 		type = 2,
 		name = "测试寻物",
 		accept = {
@@ -45,9 +48,12 @@ data_TaskTest_Process = {
 		ratio = 10,
 		award = {[101]=10,[102]=10},
 		nexttask = nil,
+		chapterid = 0,
+		icon_id = 93051,
+		desc = "长安似乎发生了些什么怪事",
 	},
 
-	[900003] = {
+	[90000003] = {
 		type = 3,
 		name = "测试战斗",
 		accept = {
@@ -66,6 +72,9 @@ data_TaskTest_Process = {
 		ratio = 10,
 		award = {[103]=10},
 		nexttask = "other",
+		chapterid = 0,
+		icon_id = 93051,
+		desc = "长安似乎发生了些什么怪事",
 	},
 
 }

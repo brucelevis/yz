@@ -7,6 +7,7 @@ local C2S = nettest.C2S
 local S2C = nettest.S2C
 
 function C2S.echo(player,request)
+	pprintf("%s",request)
 	nettest.S2C.echo(player,request)
 end
 

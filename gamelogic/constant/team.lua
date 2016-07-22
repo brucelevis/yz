@@ -7,5 +7,4 @@ TEAM_STATE_OFFLINE			= 4
 TEAM_STATE_ALL				= 5
 
 ANY_TARGET					= 0
-ANY_STAGE					= 0
 

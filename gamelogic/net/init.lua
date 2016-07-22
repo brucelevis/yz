@@ -14,6 +14,7 @@ function net.init()
 	net.war = require "gamelogic.net.war"
 	net.title = require "gamelogic.net.title"
 	net.safelock = require "gamelogic.net.safelock"
+	net.chapter = require "gamelogic.net.chapter"
 end
 
 -- 框架初始化完毕后调用，在serverinfo:startgame

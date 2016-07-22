@@ -19,6 +19,7 @@ login_createrole 1001 {
 		acct 1 : string
 		roletype 2 : integer
 		name 3 : string
+		sex 4 : integer  #1--男，2--女
 	}
 }
 
@@ -36,7 +37,7 @@ login_entergame 1003 {
 	request {
 		base 0 : basetype
 		roleid 1 : integer
-		token 2 : string
+		token 2 : string  #跨服需要的字段，正常登录无视
 	}
 }
 

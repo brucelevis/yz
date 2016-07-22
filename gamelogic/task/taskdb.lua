@@ -6,11 +6,7 @@ function ctaskdb:init(pid)
 	self.taskcontainers = {}
 	for name,data in pairs(data_GlobalTaskData) do
 		local tasktype = data.tasktype
-		local taskcontainer = ctaskcontainer.new({
-			name = name,
-			pid = pid,
-			type = tasktype,
-		})
+		local taskcontainer = taskaux.newcontainer(name,pid,tasktype)
 		self:addtaskcontainer(taskcontainer)
 	end
 end
@@ -49,7 +45,7 @@ function ctaskdb:addtaskcontainer(taskcontainer)
 end
 
 function ctaskdb:gettaskcontainer(taskid)
-	local tasktype = math.floor(taskid / 1000)
+	local tasktype = math.floor(taskid / 100000)
 	local name = TASK_TYPE_NAME[tasktype]
 	return self[name]
 end

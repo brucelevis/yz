@@ -1,12 +1,18 @@
 ---------------------------------------------------
 local _require_prefix = nil
+local proto
 
 if PROTOCOL_IS_CLIENT then
 	-- 客户端
 	_require_prefix = "app.net.protocols."
+	proto = {}
 else
 	-- 服务器
 	_require_prefix = "proto."
+	if not g_proto then
+		g_proto = {}
+	end
+	proto = g_proto
 end
 
 local function require_( modulePath )
@@ -14,7 +20,7 @@ local function require_( modulePath )
 end
 
 --[[
-	新增协议proto以及协议定义文件protoc2s.lua,protos2c.lua时
+	新增协议proto以及协议定义文件protoc2s.lua,pros2c.lua时
 	在proto_profix表中增加proto字段
 ]]
 local proto_profix = 
@@ -32,26 +38,20 @@ local proto_profix =
 	"player",	-- 玩家协议[5000,5500)
 	"item",		-- 物品/背包协议[5500,6000)
 	"war",		-- 战斗协议[6000,6500)
-	"title",	-- 称谓协议[6500,7000)
+	"title",	-- 称谓协议[6500,6600)
+	"safelock",	-- 安全锁协议[6600,6700)
+	"chapter",	-- 关卡协议[6700,6800)
 }
 
 ---------------------------------------------------
 
 local protocount = 1
 
-local proto = {}
-
-local proto_c2s = {}
-
-local proto_s2c = {}
+local proto_c2s
+local proto_s2c
 
 local proto_c2s_info = {subfix="c2s.lua"}
 local proto_s2c_info = {subfix="s2c.lua"}
-
-for i,profix in ipairs(proto_profix) do
-	proto_c2s[i] = require_(string.format("%sc2s",profix))
-	proto_s2c[i] = require_(string.format("%ss2c",profix))
-end
 
 
 local basestr = [[
@@ -59,10 +59,20 @@ local basestr = [[
 	type 0 : integer
 	session 1 : integer
 }
-
+.basetypey{
+	key 0 : string
+	src 1 : string
+}
 .basetype {
 	p 0 : string
 	s 1 : string
+	n 2 : integer
+	y 3 : basetypey
+}
+limited_max 30000 {
+	request {
+		base 0 : basetype
+	}
 }
 ]]
 
@@ -127,6 +137,22 @@ function proto.parseErr(protoInfo, parser_state, ctx)
 	end
 	local errinfo = ctx:sub(parser_state.lastpos, parser_state.pos-2)
 	return string.format("%s => '%s'", modulename, errinfo)
+end
+
+function proto.whenSubmoduleUpdated()
+	typeCommonModule = require_("inittypecommon")
+	typeCommonSrc = typeCommonModule.src
+	proto_c2s = {}
+	proto_s2c = {}
+	for i,profix in ipairs(proto_profix) do
+		proto_c2s[i] = require_(string.format("%sc2s",profix))
+		proto_s2c[i] = require_(string.format("%ss2c",profix))
+	end
+end
+
+-----------------------------------------
+if not (proto_s2c and proto_c2s) then
+	proto.whenSubmoduleUpdated()
 end
 
 return proto

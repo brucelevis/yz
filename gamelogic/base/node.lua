@@ -14,6 +14,7 @@ function cnode:init(conf)
 end
 
 function cnode:getpath(node)
+	node = node or self
 	local names = {}
 	while node.parent do
 		table.insert(names,1,node.name)

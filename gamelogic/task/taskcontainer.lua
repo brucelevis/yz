@@ -130,6 +130,10 @@ end
 function ctaskcontainer:failtask(task)
 end
 
+--将texts中所有待替换标识,替换成{ npcname = "Mike" }形式发给客户端
+function ctaskcontainer:transtext(texts)
+end
+
 
 --<<  内部接口  >>
 function ctaskcontainer:gettask(taskid,nocheckvalid)
@@ -477,7 +481,9 @@ end
 
 function ctemplate:talkto(playunit,args,pid)
 	local textid = args.textid
-	net.task.S2C.tasktalk(pid,self.name,textid)
+	local texts = self:getformdata("text")[textid].texts
+	local transstr = self:transtext(texts)
+	net.task.S2C.tasktalk(pid,self.name,textid,transstr)
 end
 
 

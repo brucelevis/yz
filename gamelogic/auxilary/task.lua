@@ -11,5 +11,13 @@ function taskaux.gettaskdata(taskname,tablename)
 	return data
 end
 
+function taskaux.newcontainer(taskname,pid,tasktype)
+	local cls = g_taskcls[taskname]
+	return cls.new({
+		name = taskname,
+		pid = pid,
+		type = tasktype,
+	})
+end
 
 return taskaux

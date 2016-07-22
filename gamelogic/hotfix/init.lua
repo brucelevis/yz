@@ -8,7 +8,10 @@ local srvname = skynet.getenv("srvname")
 hotfix = hotfix or {}
 
 function hotfix.hotfix(modname)
-	if modname:sub(1,9) ~= "gamelogic" then
+	local is_gamelogic = modname:sub(1,9) == "gamelogic"
+	local is_proto = modname:sub(1,5) == "proto"
+	-- 只允许游戏逻辑+协议更新
+	if not (is_gamelogic or is_proto) then
 		logger.log("warning","hotfix",string.format("[cann't hotfix non-script code] module=%s",modname))
 		return
 	end
@@ -53,7 +56,15 @@ function hotfix.hotfix(modname)
 	if type(env.__hotfix) == "function" then
 		env.__hotfix(oldmod)
 	end
+	-- 通知底层更新协议
+	-- 注意: proto.inittypecommon更新后必须加上proto.init的更新才能真正更新到,其他模块无此限制
+	-- 注意: 更新协议时不要轻易更改字段名字，字段名字该后，上层逻辑也要跟着改才行
+	if is_proto then
+		g_serverinfo.newevent("plus_hotifx",{lines={modname,}})
+		
+	end
 	return true
 end
+
 return hotfix
 

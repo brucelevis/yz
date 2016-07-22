@@ -71,6 +71,11 @@ function cplayer:init(pid)
 	-- 签到容器
 	self.signindb = csignindb.new(self.pid)
 
+	self.chapterdb = cchapterdb.new({
+		pid = self.pid,
+		name = "chapterdb",
+	})
+
 	self.autosaveobj = {
 		time = self.timeattr,
 		friend = self.frienddb,
@@ -84,6 +89,7 @@ function cplayer:init(pid)
 		suitequip = self.suitequip,
 		privatemsg = self.privatemsg,
 		signin = self.signindb,
+		chapter = self.chapterdb,
 	}
 	self.loadstate = "unload"
 end
@@ -189,7 +195,7 @@ function cplayer:savetodatabase()
 	-- 临时处理方法，agent发现内存占用过高，暂时每次存盘让玩家对应的agent服gc
 	if self.__agent then
 		skynet.error(self.__agent,"gc")
-		skynet.send(self.__agent,"lua","gc")
+		--skynet.send(self.__agent,"lua","gc")
 	end
 end
 
@@ -264,7 +270,7 @@ function cplayer:create(conf)
 		sum = 48,
 		expand = 0,
 		liliang = 1,
-		mingjie = 1,
+		minjie = 1,
 		tili = 1,
 		lingqiao = 1,
 		zhili = 1,
@@ -403,6 +409,7 @@ function cplayer:onlogin()
 		gold = self.gold,
 	})
 	sendpackage(self.pid,"player","switch",self.switch:allswitch())
+	-- 放到teammgr:onlogin之前
 	self:enterscene(self.sceneid,self.pos)
 	mailmgr.onlogin(self)
 	for k,obj in pairs(self.autosaveobj) do
@@ -424,8 +431,10 @@ function cplayer:onlogoff()
 			obj:onlogoff(self)
 		end
 	end
-	self:leavescene(self.sceneid)
 	warmgr.onlogoff(self)
+	teammgr:onlogoff(self)
+	-- 放到teammgr:onlogoff之后
+	self:leavescene(self.sceneid)
 	channel.unsubscribe("world",self.pid)
 	self:synctoac()
 end
@@ -641,9 +650,9 @@ function cplayer:can_alloc_qualitypoint_to(typ,val)
 	local hasnum = self:query("qualitypoint." .. typ) or 0
 	local sumnum = self:query("qualitypoint.sum",0) + self:query("qualitypoint.expand",0)
 	if costnum >= sumnum then
-		return false,language.format("可分配点不足#<R>{1}#点",val)
+		return false,language.format("可分配点不足#<R>{1}#点",costnum)
 	end
-	if costnum + hasnum > maxnum then
+	if val + hasnum > maxnum then
 		return false,language.format("分配的单项素质点无法超过#<R>{1}#点",maxnum)
 	end
 	return true
@@ -659,6 +668,37 @@ function cplayer:alloc_qualitypoint_to(typ,val)
 	sendpackage(self.pid,"player","update",{
 		qualitypoint = self:query("qualitypoint"),
 	})
+end
+
+-- 分配素质点
+function cplayer:alloc_qualitypoint(tbl)
+	-- 忽略未改变的素质类型
+	for typ,val in pairs(tbl) do
+		if val == 0 then
+			tbl[typ] = nil
+		end
+	end
+	local maxnum = data_1001_PlayerVar.MaxUseQualityPoint[self.jobzs]
+	local costnum = 0
+	for typ,val in pairs(tbl) do
+		local isok,errmsg = self:can_alloc_qualitypoint_to(typ,val)
+		if not isok then
+			return isok,errmsg
+		end
+		costnum = costnum + self:get_cost_qualitpoint(typ,val)
+	end
+	local sumnum = self:query("qualitypoint.sum",0) + self:query("qualitypoint.expand",0)
+	if costnum >= sumnum then
+		return false,language.format("可分配点不足#<R>{1}#点",costnum)
+	end
+	self:add("qualitypoint.sum",-costnum)
+	for typ,val in pairs(tbl) do
+		self:add("qualitypoint." .. typ,val)
+	end
+	sendpackage(self.pid,"player","update",{
+		qualitypoint = self:query("qualitypoint"),
+	})
+	return true
 end
 
 function cplayer:reset_qualitypoint()
@@ -798,20 +838,24 @@ end
 function cplayer:getteamid()
 	if self.teamid then
 		local team = teammgr:getteam(self.teamid)
+		local hasteam = true
 		if not team then
 			logger.log("error","team",string.format("[getteamid but no team] pid=%d teamid=%d",self.pid,self.teamid))
-			sendpackage(self.pid,"team","delmember",{
-				teamid = self.teamid,
-				pid = self.pid,
-			})
-			self.teamid = nil
+			hasteam = false
 		elseif not team:ismember(self.pid) then
 			logger.log("error","team",string.format("[getteamid but not a member] pid=%d teamid=%d",self.pid,self.teamid))
-			sendpackage(self.pid,"team","delmember",{
-				teamid = self.teamid,
-				pid = self.pid,
-			})
+			hasteam = false
+		end
+		if not hasteam then
+			sendpackage(self.pid,"team","delmember",{})
 			self.teamid = nil
+			local scene = scenemgr.getscene(self.sceneid)
+			if scene then
+				scene:set(self.pid,{
+					teamid = 0,
+					teamstate = NO_TEAM,
+				})
+			end
 		end
 	end
 	return self.teamid

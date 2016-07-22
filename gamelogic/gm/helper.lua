@@ -55,7 +55,7 @@ end
 function gm.help(args)
 	local isok,args = checkargs(args,"string")
 	if not isok then
-		return "usage: help 关键字"
+		return "用法: help 关键字"
 	end
 	local patten = args[1]
 	local doc = gm.getdoc()

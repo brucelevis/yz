@@ -19,14 +19,11 @@ end
 
 -- 分配素质点
 function C2S.alloc_qualitypoint(player,request)
-	local typ = assert(request.type)
-	local val = assert(request.val)
-	local isok,errmsg = player:can_alloc_qualitypoint_to(typ,val)
+	local isok,errmsg = player:alloc_qualitypoint(request)
 	if not isok then
 		net.msg.S2C.notify(player.pid,errmsg)
 		return
 	end
-	player:alloc_qualitypoint_to(typ,val)
 end
 
 -- 重置素质点

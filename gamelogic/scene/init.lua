@@ -20,7 +20,7 @@ function cscene:init(param)
 end
 
 function cscene:enter(player,pos)
-	if player.teamstate == TEAM_STATE_CAPTAIN then
+	if player:teamstate() == TEAM_STATE_CAPTAIN then
 		local team = teammgr:getteam(player.teamid)
 		if team then
 			for uid,_ in pairs(team.follow) do
@@ -39,7 +39,7 @@ function cscene:enter(player,pos)
 end
 
 function cscene:leave(player)
-	if player.teamstate == TEAM_STATE_CAPTAIN then
+	if player:teamstate() == TEAM_STATE_CAPTAIN then
 		local team = teammgr:getteam(player.teamid)
 		if team then
 			for uid,_ in pairs(team.follow) do
@@ -56,7 +56,7 @@ function cscene:leave(player)
 end
 
 function cscene:move(player,package)
-	if player.teamstate == TEAM_STATE_CAPTAIN then
+	if player:teamstate() == TEAM_STATE_CAPTAIN then
 		local team = teammgr:getteam(player.teamid)
 		if team then
 			for uid,_ in pairs(team.follow) do

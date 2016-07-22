@@ -75,11 +75,70 @@ item_setsuit 5508 {
 	}
 }
 
+# 拾取物品
 item_pickitem 5509 {
 	request {
 		base 0 : basetype
 		itemid 1 : integer
 		sceneid 2 : integer
+	}
+}
+
+# 升级装备
+item_upgradeequip 5510 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+# 精炼装备
+item_refineequip 5511 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+# 附魔装备
+item_fumoequip 5512 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+#确认附魔（附魔后，附魔属性临时存放，需要玩家确认后才真正附魔)
+item_confirm_fumoequip 5513 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
+
+# 嵌入/插入卡片
+item_insertcard 5514 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+		cardid 2 : integer
+	}
+}
+
+# 升级卡片
+item_upgradecard 5515 {
+	request {
+		base 0 : basetype
+		cardid 1 : integer
+	}
+}
+
+# 开启卡片
+item_opencard 5516 {
+	request {
+		base 0 : basetype
+		cardid 1 : integer
 	}
 }
 

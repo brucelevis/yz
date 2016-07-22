@@ -2,11 +2,12 @@ return {
 	p = "team",
 	si = 4000, -- [4000,4500)
 	src = [[
+# 创建队伍
 team_createteam 4000 {
 	request {
 		base 0 : basetype
-		target 1 : integer
-		lv 2 : integer #等级
+		target 1 : integer	#组队目标
+		lv 2 : integer		#队伍等级
 	}
 }
 
@@ -14,29 +15,33 @@ team_createteam 4000 {
 team_dismissteam 4001 {
 }
 
+# 发布队伍
 team_publishteam 4002 {
 	request {
 		base 0 : basetype
-		target 1 : integer
-		lv 2 : integer
-		time 3 : integer # 发布时间
+		target 1 : integer		# 组队目标
+		lv 2 : integer			# 队伍等级
+		time 3 : integer		# 发布时间
 		captain 4 : MemberType  # 队长信息
 	}
 }
 
+# 加入队伍
 team_jointeam 4003 {
 	request {
 		base 0 : basetype
-		teamid 1 : integer
+		teamid 1 : integer		# 队伍ID
 	}
 }
 
+# 暂离队伍
 team_leaveteam 4004 {
 	request {
 		base 0 : basetype
 	}
 }
 
+# 退出队伍
 team_quitteam 4005 {
 	request {
 		base 0 : basetype
@@ -44,6 +49,7 @@ team_quitteam 4005 {
 
 }
 
+# 归队
 team_backteam 4006 {
 	request {
 		base 0 : basetype
@@ -51,6 +57,7 @@ team_backteam 4006 {
 
 }
 
+# 召回队员
 team_recallmember 4007 {
 	request {
 		base 0 : basetype
@@ -58,12 +65,14 @@ team_recallmember 4007 {
 
 }
 
+# 申请成为队长
 team_apply_become_captain 4008 {
 	request {
 		base 0 : basetype
 	}
 }
 
+# 同意入队
 team_agree_jointeam 4009 {
 	request {
 		base 0 : basetype
@@ -71,13 +80,15 @@ team_agree_jointeam 4009 {
 	}
 }
 
+# 改变队长/提升队长
 team_changecaptain 8010 {
 	request {
 		base 0 : basetype
-		pid 1 : integer
+		pid 1 : integer			#提升为队长的玩家ID
 	}
 }
 
+# 邀请入队
 team_invite_jointeam 8011 {
 	request {
 		base 0 : basetype
@@ -100,18 +111,21 @@ team_openui_team 8013 {
 	}
 }
 
+# 自动匹配
 team_automatch 8014 {
 	request {
 		base 0 : basetype
 	}
 }
 
+# 取消自动匹配
 team_unautomatch 8015 {
 	request {
 		base 0 : basetype
 	}
 }
 
+# 更改组队目标
 team_changetarget 8016 {
 	request {
 		base 0 : basetype
@@ -120,6 +134,7 @@ team_changetarget 8016 {
 	}
 }
 
+# 申请入队
 team_apply_jointeam 8017 {
 	request {
 		base 0 : basetype
@@ -127,6 +142,7 @@ team_apply_jointeam 8017 {
 	}
 }
 
+# 删除：入队申请者
 team_delapplyers 8018 {
 	request {
 		base 0 : basetype

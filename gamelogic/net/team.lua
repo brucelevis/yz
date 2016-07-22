@@ -53,12 +53,12 @@ function C2S.recallmember(player,request)
 	local pids = request.pids
 	for i,uid in ipairs(pids) do
 		if uid ~= pid and team:ismember(uid) then
-			net.msg.messgebox(uid,
+			net.msg.S2C.messgebox(uid,
 				MB_RECALLMEMBER,
-				"召回",
-				string.format("队长#<red>%s#(等级:%d级)召回你归队",player.name,player.lv),
+				language.format("召回"),
+				language..format("队长#<G>{1}#(等级:{2}级)召回你归队",player.name,player.lv),
 				{},
-				{"确认","取消",},
+				{language.format("确认"),language.format("取消"),},
 				function (obj,request,buttonid)
 					if buttonid ~= 1 then
 						return
@@ -101,10 +101,10 @@ function C2S.apply_become_captain(player,request)
 	else
 		net.msg.S2C.messagebox(team.captain,
 			MB_APPLY_BECOME_CAPTAIN,
-			"申请队长",
-			string.format("队员#<red>%s#(等级:%d级)申请成为队长",player.name,player.lv),
+			language.format("申请队长"),
+			language.format("队员#<G>{1}#(等级:{2}级)申请成为队长",player.name,player.lv),
 			{},
-			{"同意","拒绝"},
+			{language.format("同意"),language.format("拒绝"),},
 			function (obj,request,buttonid)
 				if not buttonid ~= 1 then
 					return
@@ -161,18 +161,32 @@ function C2S.invite_jointeam(player,request)
 	if team:ismember(tid) then
 		return
 	end
+	local target = playermgr.getplayer(tid)
+	if not target then
+		net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+		return
+	end
+	if target:getteamid() then
+		net.msg.S2C.notify(obj.pid,language.format("对方已经有队伍"))
+		return
+	end
+
 	net.msg.S2C.messagebox(tid,
 		MB_INVITE_JOINTEAM,
-		"邀请入队",
-		string.format("#<red>%s#(等级:%d级)邀请你加入他的队伍",player.name,player.lv),
+		language.format("邀请入队"),
+		language.format("#<G>{1}#(等级:{2}级)邀请你加入他的队伍",player.name,player.lv),
 		{},
-		{"同意","拒绝"},
+		{language.format("同意"),language.format("拒绝")},
 		function (obj,request,buttonid)
 			if buttonid ~= 1 then
 				return
 			end
 			local team = teammgr:getteam(teamid)
 			if not team then
+				return
+			end
+			if obj:getteamid() then
+				net.msg.S2C.notify(obj.pid,language.format("你已经有队伍"))
 				return
 			end
 			if team:ismember(obj.pid) then

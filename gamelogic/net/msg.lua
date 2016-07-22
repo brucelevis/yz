@@ -305,12 +305,20 @@ netmsg.S2C.messagebox(10001,
 
 
 function S2C.messagebox(pid,type,title,content,attach,buttons,callback,lifetime)
+	local player = playermgr.getplayer(pid)
+	if not player then
+		return
+	end
+	local lang = player:query("lang") or language.language_to
+	for i,button_str in ipairs(buttons) do
+		buttons[i] = language.translateto(button_str,lang)
+	end
 	local id
 	local request = {
 		pid = pid,
 		type = type,
-		title = title,
-		content = content,
+		title = language.translateto(title,lang),
+		content = language.translateto(content,lang),
 		attach = cjson.encode(attach),
 		buttons = buttons,
 	}

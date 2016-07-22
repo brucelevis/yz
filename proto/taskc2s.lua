@@ -17,14 +17,29 @@ task_accepttask 3501 {
 	}
 }
 
-task_submittask 3502 {
+task_executetask 3502 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+		ext 3 : string #扩展数据需要用json解包
+	}
+}
+
+task_finishtask 3503 {
 	request {
 		base 0 : basetype
 		taskid 1 : integer
 	}
 }
 
-task_giveuptask 3503 {
+task_submittask 3504 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+	}
+}
+
+task_giveuptask 3505 {
 	request {
 		base 0 : basetype
 		taskid 1 : integer

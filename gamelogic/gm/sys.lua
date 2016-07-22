@@ -7,7 +7,7 @@ require "gamelogic.oscmd.maintain"
 function gm.maintain(args)
 	local isok,args = checkargs(args,"int")	
 	if not isok then
-		return "usage: maintain shutdown_after"
+		return "用法: maintain shutdown_after"
 	end
 	local lefttime = table.unpack(args)
 	lefttime = math.max(0,math.min(lefttime,300))
@@ -32,7 +32,7 @@ end
 function gm.kick(args)
 	local isok,args = checkargs(args,"int","*")	
 	if not isok then
-		return "usage: kick pid1 pid2 ..."
+		return "用法: kick pid1 pid2 ..."
 	end
 	for i,v in ipairs(args) do
 		local pid = tonumber(v)
@@ -43,11 +43,6 @@ end
 --- 指令: kickall
 function gm.kickall(args)
 	playermgr.kickall("gm")
-end
-
---- 指令: reloadproto
-function gm.reloadproto(args)
-	proto.reloadproto()
 end
 
 --- 指令: runcmd
@@ -68,7 +63,7 @@ end
 function gm.offline(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		return "usage: offline 玩家ID 指令 参数"
+		return "用法: offline 玩家ID 指令 参数"
 	end
 	local pid = table.remove(args,1)
 	local player = playermgr.loadofflineplayer(pid)
@@ -99,6 +94,29 @@ function gm.countonline(args)
 		end
 	end
 	return string.format("onlinenum:%s/%s,num:%s/%s",onlinenum,playermgr.onlinenum,num,playermgr.num)
+end
+
+---指令: setplayermap
+---用法: setplayermap 地图ID 坐标 [玩家ID]
+---举例: setplayermap 1 1 2 <=> 把自身传送到女儿国坐标(1,2)
+---举例: setplayermap 1 2 3 1000001 <=> 把玩家1000001传送到女儿国坐标(2,3)
+function gm.setplayermap(args)
+	local isok,args = checkargs(args,"int","int","int","*")
+	if not isok then
+		net.msg.S2C.notify(master_pid,"用法: setplayermap 地图ID 坐标 [玩家ID]")
+		return
+	end
+	local mapid = args[1]
+	local pos = {}
+	pos.x = args[2]
+	pos.y = args[3]
+	local pid = tonumber(args[4]) or master_pid
+	local player = playermgr.getplayer(pid)
+	if not player then
+		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		return
+	end
+	player:setpos(mapid,pos)
 end
 
 return gm

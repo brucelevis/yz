@@ -3,6 +3,7 @@ return {
 	si = 4000, -- [4000,4500)
 	src = [[
 
+# 自身队伍信息(如果team为nil或者{}，表示自己无队伍，删除队伍时会这样发
 team_selfteam 4000 {
 	request {
 		base 0 : basetype
@@ -10,6 +11,7 @@ team_selfteam 4000 {
 	}
 }
 
+# 队伍：增加一个成员
 team_addmember 4001 {
 	request {
 		base 0 : basetype
@@ -18,6 +20,7 @@ team_addmember 4001 {
 	}
 }
 
+# 队伍: 更新一个成员信息
 team_updatemember 4002 {
 	request {
 		base 0 : basetype
@@ -26,6 +29,7 @@ team_updatemember 4002 {
 	}
 }
 
+# 队伍: 删除一个成员
 team_delmember 4003 {
 	request {
 		base 0 : basetype
@@ -34,6 +38,7 @@ team_delmember 4003 {
 	}
 }
 
+# 发布的队伍信息
 team_publishteam 4004 {
 	request {
 		base 0 : basetype
@@ -45,6 +50,7 @@ team_publishteam 4004 {
 	}
 }
 
+# 同步一个队伍信息
 team_syncteam 4005 {
 	request {
 		base 0 : basetype
@@ -52,6 +58,7 @@ team_syncteam 4005 {
 	}
 }
 
+# 增加若干入队申请者
 team_addapplyer 4006 {
 	request {
 		base 0 : basetype
@@ -65,6 +72,7 @@ team_addapplyer 4006 {
 	}
 }
 
+# 删除若干入队申请者
 team_delapplyer 4007 {
 	request {
 		base 0 : basetype
@@ -72,6 +80,7 @@ team_delapplyer 4007 {
 	}
 }
 
+# 打开队伍界面后需要同步的数据
 team_openui_team 4008 {
 	request {
 		base 0 : basetype
@@ -80,6 +89,7 @@ team_openui_team 4008 {
 	}
 }
 
+# 所有发布的队伍数据
 team_publishteams 4009 {
 	request {
 		base 0 : basetype
