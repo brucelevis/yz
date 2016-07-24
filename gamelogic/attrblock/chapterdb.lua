@@ -25,10 +25,11 @@ function cchapterdb:save()
 	return data
 end
 
-function cchapterdb:onupdate(chapterid)
+function cchapterdb:onupdate(chapterid,attrs)
 	local chapter = self:get(chapterid)
 	self:_onupdate(chapter)
-	net.chapter.S2C.update(self.pid,self:pack(chapter))
+	attrs.chapterid = chapterid
+	net.chapter.S2C.update(self.pid,attrs)
 end
 
 function cchapterdb:_onupdate(chapter)

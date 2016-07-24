@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 Astar.addpoint	base/algorithm/Astar.lua	/^function Astar.addpoint(point)$/;"	f
 Astar.canreach	base/algorithm/Astar.lua	/^function Astar.canreach(point1,point2)$/;"	f
 Astar.findinopen	base/algorithm/Astar.lua	/^function Astar.findinopen(parent,child)$/;"	f
@@ -859,6 +859,15 @@ cvotemgr:ondelvote	vote/votemgr.lua	/^function cvotemgr:ondelvote(vote)$/;"	f
 cvotemgr:onupdatevote	vote/votemgr.lua	/^function cvotemgr:onupdatevote(vote)$/;"	f
 cvotemgr:quit_vote	vote/votemgr.lua	/^function cvotemgr:quit_vote(typ,pid)$/;"	f
 cvotemgr:voteto	vote/votemgr.lua	/^function cvotemgr:voteto(typ,pid,topid)$/;"	f
+cwarskildb:canlearn	skill/warskilldb.lua	/^function cwarskildb:canlearn(skillid)$/;"	f
+cwarskilldb:getwarskilldata	skill/warskilldb.lua	/^function cwarskilldb:getwarskilldata(skillid)$/;"	f
+cwarskilldb:init	skill/warskilldb.lua	/^function cwarskilldb:init(conf)$/;"	f
+cwarskilldb:learnskill	skill/warskilldb.lua	/^function cwarskilldb:learnskill(skillid)$/;"	f
+cwarskilldb:load	skill/warskilldb.lua	/^function cwarskilldb:load(data)$/;"	f
+cwarskilldb:openskill_byjob	skill/warskilldb.lua	/^function cwarskilldb:openskill_byjob(job)$/;"	f
+cwarskilldb:reset_skillpoint	skill/warskilldb.lua	/^function cwarskilldb:reset_skillpoint()$/;"	f
+cwarskilldb:save	skill/warskilldb.lua	/^function cwarskilldb:save()$/;"	f
+cwarskilldb:wieldskill	skill/warskilldb.lua	/^function cwarskilldb:wieldskill(skillid,position)$/;"	f
 dbmgr.getdb	db/dbmgr.lua	/^function dbmgr.getdb(srvname)$/;"	f
 dbmgr.init	db/dbmgr.lua	/^function dbmgr.init()$/;"	f
 dbmgr.shutdown	db/dbmgr.lua	/^function dbmgr.shutdown()$/;"	f
