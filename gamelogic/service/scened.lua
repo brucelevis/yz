@@ -27,7 +27,7 @@
 package.path = package.path  .. ";../src/?.lua;../src/?.luo;../src/?/init.lua;../src/?/init.luo"
 --print("package.path:",package.path)
 --print("package.cpath:",package.cpath)
-require "gamelogic.constant.init"
+require "gamelogic.constant.scene"
 require "gamelogic.base.util.init"
 require "gamelogic.logger.init"
 local skynet = require "gamelogic.skynet"

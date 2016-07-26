@@ -64,7 +64,7 @@ function itemaux.getminortype(itemtype)
 	return math.floor(itemtype/1000)
 end
 
-function itemaux.itemtip(itemtype)
+function itemaux.itemlink(itemtype)
 	local itemdata = itemaux.getitemdata(itemtype)
 	-- TODO: modify
 	return language.untranslate(itemdata.name)

@@ -129,4 +129,8 @@ function S2C.tasktalk(pid,name,textid,transstr)
 	})
 end
 
+function S2C.update_canaccept(pid,taskids)
+	sendpackage(pid,"task","update_canaccept",{ taskids = taskids })
+end
+
 return nettask

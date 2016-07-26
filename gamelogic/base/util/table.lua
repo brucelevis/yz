@@ -280,6 +280,7 @@ function table.equal(lhs,rhs)
 	return false
 end
 
+-- list[b:e] include 'b' and 'e' pos
 function table.slice(list,b,e,step)
 	step = step or 1
 	if not e then

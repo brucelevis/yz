@@ -14,7 +14,6 @@ function cmailbox:init(pid)
 end
 
 function cmailbox:load(data)
-	require "gamelogic.mail.init"
 	if not data or not next(data) then
 		return
 	end

@@ -1,4 +1,3 @@
-require "gamelogic.team.init"
 cteammgr = class("cteammgr")
 
 function cteammgr:init()
@@ -184,9 +183,24 @@ function cteammgr:quitteam(player)
 	end
 	logger.log("info","team",string.format("[quitteam] pid=%d teamid=%d",pid,teamid))
 	local team = self:getteam(teamid)
-	team:quit(player)
-	self:after_quitteam(player,teamid)
+	team:quit(player.pid)
+	self:after_quitteam(player.pid,teamid)
 	return true
+end
+
+function cteammgr:kickmember(player,targetid)
+	local pid = player.pid
+	local teamid = player:getteamid()
+	if not teamid then
+		return
+	end
+	local team = teammgr:getteam(teamid)
+	if team.captain ~= pid then
+		return
+	end
+	logger.log("info","team",string.format("[kickmember] pid=%d teamid=%d targetid=%d",pid,teamid,targetid))
+	team:quit(targetid)
+	self:after_quitteam(targetid,teamid)
 end
 
 -- 暂离队伍
@@ -250,13 +264,13 @@ function cteammgr:delteam(teamid)
 	if team then
 		channel.del(team.channel)
 		for pid,_ in pairs(team.leave) do
-			team:_quit(pid)
+			team:quit(pid)
 		end
 		for pid,_ in pairs(team.follow) do
-			team:_quit(pid)
+			team:quit(pid)
 		end
 		if team.captain then
-			team:_quit(team.captain)
+			team:quit(team.captain)
 		end
 		logger.log("info","team",string.format("[delteam] teamid=%d",teamid))
 		self.teams[teamid] = nil
@@ -446,7 +460,8 @@ function cteammgr:before_quitteam(player,teamid)
 	return true
 end
 
-function cteammgr:after_quitteam(player,teamid)
+-- 踢出成员也会走这里接口
+function cteammgr:after_quitteam(pid,teamid)
 end
 
 

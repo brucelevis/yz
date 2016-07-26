@@ -53,7 +53,7 @@ function netmsg.filter(msg)
 	if not isok then
 		return false,language.format("未支持的消息格式")
 	end
-	if wordfilter.utf8len(msg) > MAX_MSG_LEN then
+	if string.utf8len(msg) > MAX_MSG_LEN then
 		return false,language.format("信息长度过长")
 	end
 	return true,msg
@@ -78,6 +78,12 @@ end
 function C2S.worldmsg(player,request)
 	local msg = assert(request.msg)
 	local rawmsg = msg
+	if string.sub(msg,1,1) == "$" then
+		if player:isgm() then
+			net.player.C2S.gm(player,request)
+			return
+		end
+	end
 	-- check can send worldmsg
 	local isok,msg = netmsg.filter(msg)
 	if not isok then
@@ -88,7 +94,7 @@ function C2S.worldmsg(player,request)
 	local len = #player.privatemsg.worldmsgs
 	if len > 0 then
 		local lastmsg = player.privatemsg.worldmsgs[len]
-		local similar = wordfilter.get_similar(lastmsg,rawmsg)
+		local similar = string.get_similar(lastmsg,rawmsg)
 		if similar >= 0.9 then
 			net.msg.S2C.notify(player.pid,language.format("不能重复发送多条一样的消息"))
 			return

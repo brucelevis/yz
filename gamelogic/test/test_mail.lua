@@ -1,8 +1,3 @@
-
-require "gamelogic.playermgr"
-require "gamelogic.mail.mailmgr"
-require "gamelogic.net.mail"
-
 local function test(pid1,pid2)
 	local player1 = playermgr.getplayer(pid1)
 	local player2 = playermgr.getplayer(pid2)

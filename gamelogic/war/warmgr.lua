@@ -27,6 +27,12 @@ function warmgr.onlogin(player)
 		else
 			player.warid = nil
 		end
+		if not player.warid then
+			local scene = scenemgr.getscene(player.sceneid)
+			scene:set(player.pid,{
+				warid = 0,
+			})
+		end
 	end
 end
 

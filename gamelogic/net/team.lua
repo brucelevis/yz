@@ -51,12 +51,15 @@ function C2S.recallmember(player,request)
 		return
 	end
 	local pids = request.pids
+	if table.isempty(pids) then
+		pids = team:members(TEAM_STATE_LEAVE)
+	end
 	for i,uid in ipairs(pids) do
 		if uid ~= pid and team:ismember(uid) then
-			net.msg.S2C.messgebox(uid,
+			net.msg.S2C.messagebox(uid,
 				MB_RECALLMEMBER,
 				language.format("召回"),
-				language..format("队长#<G>{1}#(等级:{2}级)召回你归队",player.name,player.lv),
+				language.format("队长#<G>{1}#(等级:{2}级)召回你归队",player.name,player.lv),
 				{},
 				{language.format("确认"),language.format("取消"),},
 				function (obj,request,buttonid)
@@ -66,14 +69,14 @@ function C2S.recallmember(player,request)
 					if obj.teamid ~= teamid then
 						return
 					end
-					local team = teammgr:getteam(teamid)	
+					local team = teammgr:getteam(teamid)
 					if not team then
 						return
 					end
 					if not team.leave[obj.pid] then
 						return
 					end
-					team:backteam(obj)
+					teammgr:backteam(obj)
 				end)
 		end
 	end
@@ -106,23 +109,23 @@ function C2S.apply_become_captain(player,request)
 			{},
 			{language.format("同意"),language.format("拒绝"),},
 			function (obj,request,buttonid)
-				if not buttonid ~= 1 then
+				if buttonid ~= 1 then
 					return
 				end
 				if obj.teamid ~= teamid then
 					return
 				end
-				local team = teammgr:gettam(teamid)
+				local team = teammgr:getteam(teamid)
 				if not team then
 					return
 				end
-				if team.captain == obj.pid then
+				if team.captain == pid then
 					return
 				end
-				if not team.follow[obj.pid] then
+				if not team.follow[pid] then
 					return
 				end
-				teammgr:changecaptain(teamid,obj.pid)
+				teammgr:changecaptain(teamid,pid)
 			end)
 	end
 
@@ -147,6 +150,21 @@ function C2S.changecaptain(player,request)
 	teammgr:changecaptain(teamid,pid)
 end
 
+function C2S.kickmember(player,request)
+	local teamid = player:getteamid()
+	if not teamid then
+		net.msg.S2C.notify(player.pid,language.format("你没有队伍"))
+		return
+	end
+	local team = teammgr:getteam(teamid)
+	if team.captain ~= player.pid then
+		net.msg.S2C.notify(player.pid,language.format("你不是队长"))
+		return
+	end
+	local targetid = assert(request.pid)
+	teammgr:kickmember(player,targetid)
+end
+
 function C2S.invite_jointeam(player,request)
 	local pid = player.pid
 	local tid = request.pid
@@ -167,7 +185,7 @@ function C2S.invite_jointeam(player,request)
 		return
 	end
 	if target:getteamid() then
-		net.msg.S2C.notify(obj.pid,language.format("对方已经有队伍"))
+		net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
 		return
 	end
 

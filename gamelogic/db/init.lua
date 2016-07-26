@@ -62,18 +62,4 @@ function cdb:set(key,value)
 	return skynet.call(self.dbsrv,"lua","set",key,value)
 end
 
-
-function cdb:hset(key,field,value)
-	value = cjson.encode(value)	
-	return skynet.call(self.dbsrv,"lua","hset",key,field,value)
-end
-
-function cdb:hvals(key)
-	local r = skynet.call(self.dbsrv,"lua","hvals",key)
-	for k,v in pairs(r) do
-		r[k] = cjson.decode(v)
-	end
-	return r
-end
-
 return cdb

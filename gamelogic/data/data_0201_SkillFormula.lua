@@ -10,5 +10,10 @@ data_0201_SkillFormula = {
 			return value
 		end,
 
+	[10002] = function(ins_skill, ins_logic, attacker, target)
+			local value = ins_logic.powerValue*ins_skill.m_skillLvFix*(0.5+0.5*ins_skill.m_curLv/ins_skill.maxLv)
+			return value
+		end,
+
 }
 

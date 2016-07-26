@@ -223,6 +223,7 @@ function citemdb:additembytype(itemtype,num,bind,reason)
 	if bind then
 		-- 防止忘记写bind字段
 		assert(type(bind) == "number")
+		bind = bind == 1 and 1 or nil
 	end
 	return self:additem2({
 		type = itemtype,

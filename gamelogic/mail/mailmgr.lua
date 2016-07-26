@@ -16,7 +16,6 @@ function mailmgr.onlogoff(player)
 end
 
 function mailmgr.loadmailbox(pid)
-	require "gamelogic.mail.mailbox"
 	local mailbox = cmailbox.new(pid)
 	mailbox:loadfromdatabase()
 	mailmgr.mailboxs[pid] = mailbox
@@ -46,11 +45,10 @@ function mailmgr.sendmail(pid,amail)
 	local self_srvname = cserver.getsrvname()
 	local srvname = route.getsrvname(pid)
 	if not srvname then -- non-exist pid
-		return false
+		return nil
 	end
 	if srvname ~= self_srvname then
-		rpc.call(srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)
-		return true
+		return rpc.call(srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)
 	end
 	amail = deepcopy(amail) -- 防止多个玩家修改同一份邮件
 	amail.sendtime = amail.sendtime or os.time()
@@ -61,7 +59,7 @@ function mailmgr.sendmail(pid,amail)
 	if mail then
 		net.mail.S2C.syncmail(pid,mail:pack())
 	end
-	return mail.mailid,mail
+	return mail.mailid,self_srvname
 end
 
 function mailmgr.sendmails(pids,amail)

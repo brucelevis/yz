@@ -1,7 +1,6 @@
 route = route or {}
 
 function route.init()
-	require "gamelogic.cluster.clustermgr"
 	route.map = {}
 	route.sync_state = {}
 	local self_srvname = skynet.getenv("srvname")
@@ -15,6 +14,20 @@ function route.init()
 	end
 end
 
+function route.onlogin(player)
+	-- 上线时检查一次“玩家路由”是否存在，不存在则设置并同步到其他服，防止由于异常情况（如：内网删除数据库/网络不好每同步到),没有设置正确的“玩家路由”
+	local pid = player.pid
+	-- 上线的玩家可能是跨服过来的玩家
+	if not player.home_srvname then -- 本服玩家
+		if not route.getsrvname(pid) then
+			local self_srvname = skynet.getenv("srvname")
+			local db = dbmgr.getdb()
+			db:hset(db:key("role","list"),pid,1)
+			route.addroute({pid},self_srvname)
+		end
+	end
+end
+
 function route.getsrvname(pid)
 	for srvname,pids in pairs(route.map) do
 		if pids[pid] then
@@ -25,7 +38,6 @@ function route.getsrvname(pid)
 end
 
 function route.addroute(pids,srvname)
-	require "gamelogic.cluster.clustermgr"
 	if type(pids) == "number" then
 		pids = {pids,}
 	end
@@ -47,7 +59,6 @@ function route.addroute(pids,srvname)
 end
 
 function route.delroute(pids,srvname)
-	require "gamelogic.cluster.clustermgr"
 	if type(pids) == "number" then
 		pids = {pids,}
 	end

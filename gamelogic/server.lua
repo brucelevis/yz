@@ -78,7 +78,6 @@ end
 
 
 function cserver:isopen(typ)
-	require "gamelogic.cluster.clustermgr"
 	if typ == "friend" then
 		if not cserver.isgamesrv() then
 			return false

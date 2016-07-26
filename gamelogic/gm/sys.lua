@@ -96,27 +96,44 @@ function gm.countonline(args)
 	return string.format("onlinenum:%s/%s,num:%s/%s",onlinenum,playermgr.onlinenum,num,playermgr.num)
 end
 
----指令: setplayermap
----用法: setplayermap 地图ID 坐标 [玩家ID]
----举例: setplayermap 1 1 2 <=> 把自身传送到女儿国坐标(1,2)
----举例: setplayermap 1 2 3 1000001 <=> 把玩家1000001传送到女儿国坐标(2,3)
-function gm.setplayermap(args)
-	local isok,args = checkargs(args,"int","int","int","*")
+--- 用法: closetuoguan [是否关闭全服托管]
+--- 功能: 关闭托管
+--- 举例: closetuoguan <=> 关闭自身的托管
+--- 举例: closetuoguan 1 <=> 关闭全服的托管
+function gm.closetuoguan(args)
+	local isok,args = checkargs(args,"*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: setplayermap 地图ID 坐标 [玩家ID]")
+		net.msg.S2C.notify(master_pid,"用法: closetuoguan [是否关闭全服托管]")
 		return
 	end
-	local mapid = args[1]
-	local pos = {}
-	pos.x = args[2]
-	pos.y = args[3]
-	local pid = tonumber(args[4]) or master_pid
-	local player = playermgr.getplayer(pid)
-	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+	local closeall = args[1]
+	if closeall then
+		globalmgr.server.closetuoguan = true
+		net.msg.S2C.notify(master_pid,"全服已关闭托管")
+	else
+		master.closetuoguan = true
+		net.msg.S2C.notify(master_pid,"自身已关闭托管")
+	end
+end
+
+--- 用法: opentuoguan [是否打开全服托管]
+--- 功能: 打开托管
+--- 举例: opentuoguan <=> 打开自身的托管
+--- 举例: opentuoguan 1 <=> 打开全服的托管
+function gm.opentuoguan(args)
+	local isok,args = checkargs(args,"*")
+	if not isok then
+		net.msg.S2C.notify(master_pid,"用法: opentuoguan [是否关闭全服托管]")
 		return
 	end
-	player:setpos(mapid,pos)
+	local openall = args[1]
+	if openall then
+		globalmgr.server.closetuoguan = nil
+		net.msg.S2C.notify(master_pid,"全服已打开托管")
+	else
+		master.closetuoguan = nil
+		net.msg.S2C.notify(master_pid,"自身已打开托管")
+	end
 end
 
 return gm

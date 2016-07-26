@@ -1,7 +1,6 @@
 netcluster = netcluster or {}
 
 function netcluster.init()
-	require "gamelogic.server"
 	netcluster.route = require "gamelogic.cluster.route"
 	netcluster.playermethod = require "gamelogic.cluster.playermethod"
 	netcluster.modmethod = require "gamelogic.cluster.modmethod"

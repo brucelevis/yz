@@ -1,9 +1,3 @@
-
-require "gamelogic.friend.frienddb"
-require "gamelogic.achieve.achievedb"
-require "gamelogic.task.taskdb"
-require "gamelogic.item.itemdb"
-
 cplayer = class("cplayer",cdatabaseable)
 
 function cplayer:init(pid)
@@ -70,11 +64,17 @@ function cplayer:init(pid)
 
 	-- 签到容器
 	self.signindb = csignindb.new(self.pid)
-
+	-- 关卡容器
 	self.chapterdb = cchapterdb.new({
 		pid = self.pid,
 		name = "chapterdb",
 	})
+	self.warskilldb = cwarskilldb.new({
+		pid = self.pid,
+		name = "warskill",
+	})
+
+	self.shopdb = cshopdb.new(self.pid)
 
 	self.autosaveobj = {
 		time = self.timeattr,
@@ -90,6 +90,8 @@ function cplayer:init(pid)
 		privatemsg = self.privatemsg,
 		signin = self.signindb,
 		chapter = self.chapterdb,
+		warskill = self.warskilldb,
+		shop = self.shopdb,
 	}
 	self.loadstate = "unload"
 end
@@ -136,7 +138,7 @@ function cplayer:load(data)
 		self.coin = data.basic.coin
 		self.viplv = data.basic.viplv
 		self.account = data.basic.account
-		self.channel = data.channel
+		self.channel = data.basic.channel
 		self.name = data.basic.name
 		self.lv = data.basic.lv
 		self.exp = data.basic.exp
@@ -208,7 +210,7 @@ function cplayer:loadfromdatabase(loadall)
 		self.loadstate = "loading"
 		local db = dbmgr.getdb(cserver.getsrvname(self.pid))
 		local data = db:get(db:key("role",self.pid,"data"))
-		--pprintf("role:data=>%s",data)
+		-- pprintf("role:data=>%s",data)
 		-- 正常角色至少会有基本数据
 		if not data or not next(data) then
 			self.loadstate = "loadnull"
@@ -296,18 +298,52 @@ function cplayer:entergame()
 	--xpcall(self.onlogin,onerror,self)
 end
 
+function cplayer.__exitgame(pid)
+	local player = playermgr.getplayer(pid)
+	if player then
+		player:exitgame()
+	end
+end
+
 
 -- 正常退出游戏
 function cplayer:exitgame()
+	local can_tuoguan,tuoguan_time = self:can_tuoguan()
+	--print(">>>",self.pid,can_tuoguan,self.tuoguan_timerid,self.bforce_exitgame,self.warid)
+	if can_tuoguan and not self.tuoguan_timerid then
+		local timerid = timer.timeout("exitgame.tuoguan",tuoguan_time,functor(cplayer.__exitgame,self.pid))	
+
+		self.tuoguan_timerid = timerid  -- 托管标志
+		return
+	end
+	-- 战斗中延迟下线(顶号时会设置强制下线标志:bforce_exitgame)
+	if not self.bforce_exitgame and self.warid then
+		local timerid = timer.timeout("exitgame.inwar",60,functor(cplayer.__exitgame,self.pid))
+		self.inwar_timerid = timerid
+		return
+	end
+	if self.tuoguan_timerid then
+		-- 托管玩家被顶号会走到这里
+		timer.deltimerbyid(self.tuoguan_timerid)
+	end
+	if self.inwar_timerid then
+		timer.deltimerbyid(self.inwar_timerid)
+	end
 	xpcall(self.onlogoff,onerror,self)
-	self:savetodatabase()
+	-- playermgr.delobject 会触发存盘
+	playermgr.delobject(self.pid,"exitgame")
+	self.tuoguan_timerid = nil
+	self.inwar_timerid = nil
 end
 
 
 -- 客户端主动掉线处理
 function cplayer:disconnect(reason)
+	-- 已经在托管/战斗延迟下线的玩家，不做disconnect日志了，上次下线已经做过一次!
+	if not self.tuoguan_timerid and not self.inwar_timerid then
+		self:ondisconnect(reason)
+	end
 	self:exitgame()
-	self:ondisconnect(reason)
 end
 
 
@@ -317,6 +353,21 @@ end
 
 -- 回到原服前处理流程
 function cplayer:ongohome()
+end
+
+-- 是否可以离线托管
+function cplayer:can_tuoguan()
+	if globalmgr.server.closetuoguan then
+		return false
+	end
+	if self.closetuoguan then
+		return false
+	end
+	if self.bforce_exitgame then
+		return false
+	end
+	return true,60 -- test
+	--return true,1200
 end
 
 
@@ -362,6 +413,12 @@ function cplayer:oncreate(conf)
 end
 
 function cplayer:comptible_process()
+	if self:query("runno") ~= globalmgr.server:query("runno") then
+		self:set("runno",globalmgr.server:query("runno"))
+		self.teamid = nil
+		self.warid = nil
+		self.watch_warid = nil
+	end
 	if not self.scene_strategy then
 		self.scene_strategy = STRATEGY_SEE_ALL
 	end
@@ -388,6 +445,7 @@ function cplayer:onlogin()
 	if not self.thistemp:query("onfivehourupdate") then
 		self:onfivehourupdate()
 	end
+	route.onlogin(self)
 	local server = globalmgr.server
 	heartbeat(self.pid)
 	--  玩家基本/简介信息
@@ -441,8 +499,7 @@ end
 
 function cplayer:ondisconnect(reason)
 
-	logger.log("info","login",string.format("[disconnect] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s ip=%s:%s reason=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self:ip(),self:port(),reason))
-	loginqueue.pop()
+	logger.log("info","login",string.format("[disconnect] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s ip=%s:%s agent=%s reason=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self:ip(),self:port(),self.__agent,reason))
 end
 
 function cplayer:ondayupdate()
@@ -456,23 +513,19 @@ end
 
 function cplayer:validpay(typ,num,notify)
 	local hasnum
-	if typ == "gold" then
+	if typ == RESTYPE.GOLD or string.lower(typ) == "gold" then
 		hasnum = self.gold
-	elseif typ == "silver" then
+	elseif typ == RESTYPE.SILVER or string.lower(typ) == "silver" then
 		hasnum = self.silver
-	elseif typ == "coin" then
+	elseif typ == RESTYPE.COIN or string.lower(typ) == "coin" then
 		hasnum = self.coin
 	else
 		error("invalid resource type:" .. tostring(typ))
 	end
 	if hasnum < num then
 		if notify then
-			local RESNAME = {
-				gold = "金币",
-				silver = "银币",
-				coin = "铜币",
-			}
-			net.msg.S2C.notify(self.pid,string.format("%s不足%d",RESNAME[typ],num))
+			local resname = getresname(typ)
+			net.msg.S2C.notify(self.pid,language.format("{1}不足{2}",resname,num))
 		end
 		return false
 	end
@@ -888,7 +941,7 @@ function cplayer:packscene(sceneid,pos)
 		joblv = self.joblv,
 		teamid = self:getteamid() or 0,
 		teamstate = self:teamstate(),
-		warid = self.warid,
+		warid = self.warid or 0,
 		scene_strategy = self.scene_strategy,
 		agent = self.__agent,
 		mapid = scene.mapid,
@@ -943,11 +996,15 @@ end
 function cplayer:enterscene(sceneid,pos)
 	assert(sceneid)
 	assert(pos)
-	if not self:canenter(sceneid,pos) then
-		return false
-	end
+	
 	local newscene = scenemgr.getscene(sceneid)
 	if not newscene then
+		return false
+	end
+	if not newscene:isvalidpos(pos) then
+		pos = newscene:fixpos(pos)
+	end
+	if not self:canenter(sceneid,pos) then
 		return false
 	end
 	local pid = self.pid
@@ -965,7 +1022,9 @@ end
 
 function cplayer:setpos(sceneid,pos)
 	local scene = scenemgr.getscene(sceneid)
-	pos = scene:fixpos(pos)
+	if not scene:isvalidpos(pos) then
+		pos = scene:fixpos(pos)
+	end
 	self.sceneid = sceneid
 	self.pos = pos
 	local teamstate = self:teamstate()
@@ -986,6 +1045,10 @@ function cplayer:setpos(sceneid,pos)
 			end
 		end
 	end
+end
+
+function cplayer:onhourupdate()
+	self.shopdb:onhourupdate()
 end
 
 function cplayer:onfivehourupdate()
@@ -1015,6 +1078,23 @@ function cplayer:gettarget(targetid)
 		return self
 	else
 		-- pet ?
+	end
+end
+
+function cplayer:isgm()
+	if skynet.getenv("servermode") == "DEBUG" then
+		return  true
+	end
+	if self:query("gm") then
+		return true
+	end
+	return false
+end
+
+function cplayer:getskilldb(skillid)
+	--TODO 按照编号范围区分
+	if data_0201_Skill[skillid] then
+		return self.warskilldb
 	end
 end
 

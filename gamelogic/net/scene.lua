@@ -18,8 +18,12 @@ function C2S.move(player,request)
 		return
 	end
 	local scene = scenemgr.getscene(player.sceneid)
-	request.srcpos = scene:fixpos(request.srcpos)
-	request.dstpos = scene:fixpos(request.dstpos)
+	if not scene:isvalidpos(request.srcpos) then
+		request.srcpos = scene:fixpos(request.srcpos)
+	end
+	if not scene:isvalidpos(request.dstpos) then
+		request.dstpos = scene:fixpos(request.dstpos)
+	end
 	if not netscene.isvalid_move(player.pos,request.srcpos) then
 		sendpackage(player.pid,"scene","fixpos",{pos=player.pos})
 		logger.log("warning","scene",format("[invalid_move] pid=%s pos=%s->%s",player.pid,player.pos,request.srcpos))
@@ -37,7 +41,6 @@ function C2S.enter(player,request)
 	if not scene then
 		return
 	end
-	request.pos = scene:fixpos(request.pos)
 	player:enterscene(request.sceneid,request.pos)
 end
 

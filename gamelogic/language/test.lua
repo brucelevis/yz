@@ -2,17 +2,23 @@ local data_language = {
 	[1] = {
 		cn = "#<G>{1}#等级不足#<R>{2}转{3}级#",
 		en = "level has not enough #<R>{2} zhuan {3} ji# with #<G>{1}#",
-		ja = "#<G>{1}#等级不足#<R>{2}转{3}级#--假装这是日文"
+		ja = "#<G>{1}#等级不足#<R>{2}转{3}级#--假装这是日文",
 	},
 	[2] = {
 		cn = "未翻译语句",
 		en = "",
-		ja = ""
+		ja = "",
 	},
+	[3] = {
+		cn = "{target}<=>目标,{npc}<=>npc",
+		en = "{target}<=>target,{npc}<=>npc",
+		ja = "{target}<=>target,{npc}<=>npc--假装这是日文",
+	},
+
 }
 
 local function test()
-	local language = require "gamelogic.language.init"
+	local language = require "language.init"
 	language.init({
 		language_from = "cn",
 		language_to = "en",
@@ -61,7 +67,13 @@ local function test()
 	local packstr = language.format("#<G>{1}#等级不足#<R>{2}转{3}级#","#<G>{1}#等级不足#<R>{2}转{3}级#",1,60)
 	local str = language.translateto(packstr,"en")
 	print(str)
+
+	-- 传递字典参数进行翻译
+	local packstr = language.format("{target}<=>目标,{npc}<=>npc",{target="目标",npc="npc90001"})
+	local str = language.translateto(packstr,"en")
+	print(str)
 end
 
---test()
+-- test by: lua language/test.lua
+test()
 

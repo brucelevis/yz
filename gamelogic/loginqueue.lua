@@ -1,4 +1,3 @@
-require "gamelogic.playermgr"
 
 loginqueue = loginqueue or {}
 

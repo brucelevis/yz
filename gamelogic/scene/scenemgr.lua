@@ -28,7 +28,6 @@ function scenemgr.gen_sceneid()
 end
 
 function scenemgr.addscene(mapid,sceneid)
-	require "gamelogic.scene.init"
 	sceneid = sceneid or scenemgr.gen_sceneid()
 	local map
 	local mapname
@@ -103,6 +102,9 @@ function scenemgr.addnpc(npc,sceneid)
 	local scene = scenemgr.getscene(sceneid)
 	if not scene then
 		return false
+	end
+	if not scene:isvalidpos(npc.pos) then
+		npc.pos = scene:fixpos(npc.pos)
 	end
 	local npcs = scene.npcs
 	local npcid = scenemgr.gennpcid()

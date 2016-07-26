@@ -282,8 +282,6 @@ function C2S.entergame(obj,request)
 			net.msg.S2C.notify(obj,string.format("%s的帐号已被你替换下线",gethideip(oldplayer.__ip)))
 		end
 		playermgr.kick(oldplayer,"replace")
-		-- kick will delobject
-		--playermgr.delobject(oldplayer.pid,"replace")
 		if go_srvname then
 			playermgr.gosrv(obj,go_srvname)
 			netlogin.S2C.entergame_result(obj,{errcode = STATUS_REDIRECT_SERVER,})

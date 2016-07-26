@@ -26,7 +26,6 @@ function playermgr.unloadofflineplayer(pid)
 end
 
 function playermgr.loadofflineplayer(pid)
-	require "gamelogic.player"
 	local player = playermgr.getplayer(pid)
 	if player then
 		return player
@@ -105,14 +104,7 @@ function playermgr.__delobject(obj,reason)
 		-- typename(obj) == "cplayer"
 		if obj.__state ~= "link" then
 			closesave(obj)
-			-- 保证删除对象前下线
-			if obj.__state == "online" then
-				-- disconnect会触发存盘
-				xpcall(obj.disconnect,onerror,obj,reason)
-			else
-				-- 离线/跨服对象，只走存盘逻辑
-				xpcall(obj.savetodatabase,onerror,obj)
-			end
+			xpcall(obj.savetodatabase,onerror,obj)
 		end
 		playermgr.num = playermgr.num - 1
 		if obj.__state == "link" then
@@ -122,14 +114,21 @@ function playermgr.__delobject(obj,reason)
 		elseif obj.__state == "kuafu" then
 			playermgr.kuafunum = playermgr.kuafunum - 1
 		else
+			assert(obj.__state == "online")
 			playermgr.onlinenum = playermgr.onlinenum - 1
 		end
 		playermgr.id_obj[pid] = nil
 		if obj.__fd then
 			playermgr.fd_id[obj.__fd] = nil
 		end
-		require "gamelogic.loginqueue"
+		-- 这里是残留代码,最初设计，连线对象也纳入了管理，连线对象可能在排队
+		-- 其掉线后，应该从排队中删除。总之，加上这句只会更安全
 		loginqueue.remove(pid)
+
+		-- 在线玩家变少时，尝试让排队玩家进入游戏
+		if obj.__state == "online" then
+			loginqueue.pop()
+		end
 	end
 end
 
@@ -150,13 +149,21 @@ function playermgr.kick(pid,reason)
 	end
 	if obj then
 		logger.log("info","playermgr",string.format("[kick] pid=%d agent=%s fd=%s state=%s reason=%s",obj.pid,obj.__agent,obj.__fd,obj.__state,reason))
+		obj.bforce_exitgame = true
+		if obj.__state == "online" then
+			-- disconnect will raise exitgame + delobject
+			obj:disconnect(reason)
+		else
+			playermgr.delobject(obj.pid,reason)
+		end
+		-- 这个协议必须放到disconnect之后!
 		net.login.S2C.kick(obj)
-		playermgr.delobject(obj.pid,"kick")
 		local linkobj = playermgr.getlinkobjbyfd(obj.__fd)
 		if linkobj then
 			linkobj.passlogin = nil -- 标记为未认证
 			g_gamenet:disconnect(linkobj,"kick")
 		end
+		obj.bforce_exitgame = nil
 	end
 end
 
@@ -167,7 +174,6 @@ function playermgr.kickall(reason)
 end
 
 function playermgr.newplayer(pid,istemp)
-	require "gamelogic.player"
 	playermgr.unloadofflineplayer(pid)
 	if istemp then
 		return cplayer.newtemp(pid)
@@ -177,7 +183,6 @@ function playermgr.newplayer(pid,istemp)
 end
 
 function playermgr.genpid()
-	require "gamelogic.cluster.route"
 	local srvname = skynet.getenv("srvname")
 	local minroleid = math.floor(tonumber(skynet.getenv("minroleid")))
 	local maxroleid = math.floor(tonumber(skynet.getenv("maxroleid")))
@@ -195,7 +200,6 @@ end
 
 -- 仅在注册时创建临时玩家
 function playermgr.createplayer(pid,conf)
-	require "gamelogic.player"
 	logger.log("info","playermgr",format("[createplayer] pid=%d player=%s",pid,conf))
 	local db = dbmgr.getdb()
 	local maxpid = db:get(db:key("role","maxroleid")) or 0
@@ -218,7 +222,6 @@ end
 -- 一般而言调用该函数前需要判定角色是否存在,角色存在则假定其已定能载入成功（不成功说明上层逻辑可能有问题)
 function playermgr.recoverplayer(pid)
 	assert(tonumber(pid),"invalid pid:" .. tostring(pid))
-	require "gamelogic.player"	
 	local player = playermgr.newplayer(pid)
 	player:loadfromdatabase()
 	if player:isloaded() then
@@ -264,7 +267,8 @@ end
 function playermgr.broadcast(func)
 	for pid,player in pairs(playermgr.id_obj) do
 		if player then
-			func(player)
+			xpcall(func,onerror,player)
+			--func(player)
 		end
 	end
 end

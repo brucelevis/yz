@@ -8,6 +8,7 @@ function ctaskcontainer:init(conf)
 	ctemplate.init(self,conf)
 	self.finishtasks = {}
 	self.nowtaskid = nil  -- 仅对同时只有一个任务的任务类有效
+	self.isopened = false
 	--脚本注册
 	self.script_handle.findnpc = true
 	self.script_handle.needitem = true
@@ -32,6 +33,7 @@ function ctaskcontainer:load(data)
 		return task
 	end)
 	self.nowtaskid = data.nowtaskid
+	self.isopened = data.isopened
 	local finishtasks = data.finishtasks or {}
 	for i,taskid in ipairs(finishtasks) do
 		self.finishtasks[taskid] = true
@@ -45,6 +47,7 @@ function ctaskcontainer:save()
 		return data
 	end)
 	data.nowtaskid = self.nowtaskid
+	data.isopened = self.isopened
 	data.finishtasks = table.values(self.finishtasks)
 	return data
 end
@@ -479,7 +482,7 @@ function ctaskcontainer:delnpc(task,args)
 	self:refreshtask(task.taskid)
 end
 
-function ctemplate:talkto(playunit,args,pid)
+function ctaskcontainer:talkto(task,args,pid)
 	local textid = args.textid
 	local texts = self:getformdata("text")[textid].texts
 	local transstr = self:transtext(texts)
@@ -497,6 +500,7 @@ function ctaskcontainer:opentask()
 		return
 	end
 	self:log("info","task",string.format("[opentask] pid=%d taskid=%d",self.pid,taskid))
+	self.isopened = true
 	self:accepttask(taskid)
 end
 
@@ -509,6 +513,10 @@ function ctaskcontainer:accepttask(taskid)
 		end
 		self:addtask(task)
 		self.nowtaskid = taskid
+		player = playermgr.getplayer(self.pid)
+		if table.find(player.taskdb.canaccepttask,self.type) then
+			player.taskdb:update_canaccept()
+		end
 	end
 end
 
@@ -552,6 +560,13 @@ function ctaskcontainer:can_accept(taskid)
 			return false,language.format("前置任务未完成")
 		end
 	end
+	if self:reachlimit() then
+		return false
+	end
+	return true
+end
+
+function ctaskcontainer:reachlimit()
 	local interval = data_GlobalTaskData[self.name].interval
 	local donelimit = data_GlobalTaskData[self.name].donelimit
 	if interval and donelimit then
@@ -564,10 +579,10 @@ function ctaskcontainer:can_accept(taskid)
 			count = player.thistemp:query(self:getflag("done"),0)
 		end
 		if count >= donelimit then
-			return false
+			return true
 		end
 	end
-	return true
+	return false
 end
 
 function ctaskcontainer:getflag(flag)
@@ -670,6 +685,19 @@ function ctaskcontainer:can_clientfinish(taskid)
 		return false
 	end
 	return true
+end
+
+function ctaskcontainer:getcanaccept()
+	if not self.isopened then
+		return
+	end
+	if next(self.objs) then
+		return
+	end
+	if self:reachlimit() then
+		return
+	end
+	return self.type
 end
 
 return ctaskcontainer

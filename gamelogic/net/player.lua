@@ -7,7 +7,7 @@ local C2S = netplayer.C2S
 local S2C = netplayer.S2C
 
 function C2S.gm(player,request)
-	if skynet.getenv("servermode") ~= "DEBUG" and not player:query("gm") then
+	if not player:isgm() then
 		net.msg.S2C.notify(player.pid,"你没有权限执行gm指令")
 		return
 	end

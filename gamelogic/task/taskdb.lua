@@ -9,6 +9,7 @@ function ctaskdb:init(pid)
 		local taskcontainer = taskaux.newcontainer(name,pid,tasktype)
 		self:addtaskcontainer(taskcontainer)
 	end
+	self.canaccepttask = {}
 end
 
 function ctaskdb:load(data)
@@ -56,6 +57,18 @@ function ctaskdb:gettask(taskid)
 	return task
 end
 
+function ctaskdb:update_canaccept()
+	self.canacceptask = {}
+	for name,_ in pairs(self.taskcontainers) do 
+		local taskcontainer = self[name]
+		local acceptid = taskcontainer:getcanaccept()
+		if acceptid then
+			table.insert(self.canaccepttask,acceptid)
+		end
+	end
+	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)
+end
+
 function ctaskdb:oncreate(player)
 	for name,_ in pairs(self.taskcontainers) do
 		local taskcontainer = self[name]
@@ -70,6 +83,7 @@ function ctaskdb:onlogin(player)
 		local taskcontainer = self[name]
 		taskcontainer:onlogin(player)
 	end
+	self:update_canaccept()
 end
 
 function ctaskdb:onlogoff(player)

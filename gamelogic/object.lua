@@ -48,10 +48,10 @@ end
 
 -- 客户端断线后，会触发连线对象调用exitgame并且删除连线对象
 function cobject:exitgame()
-	print("whenDisConnected",self.pid,self.m_connectionId,self.m_addr,self.m_agent)
-	local obj = playermgr.getobjectbyfd(self.__fd) -- self.__fd == self.m_connectionId
-	if obj then
-		playermgr.__delobject(obj,"disconnect")
+	local player = playermgr.getobjectbyfd(self.__fd) -- self.__fd == self.m_connectionId
+	print("whenDisConnected",self.pid,self.m_connectionId,self.m_addr,self.m_agent,player)
+	if player then
+		player:disconnect("disconnect")
 	end
 end
 

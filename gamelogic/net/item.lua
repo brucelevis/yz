@@ -183,7 +183,7 @@ function C2S.upgradeequip(player,request)
 		-- 材料和装备一定是在同一个背包中!
 		if num ~= 0 and itemdb:getnumbytype(itemtype) < num then
 
-			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(itemtype),num))
 			return
 		end
 	end
@@ -237,7 +237,7 @@ function C2S.refineequip(player,request)
 	local costcoin = refinedata.costcoin
 	for itemtype,num in pairs(costitem) do
 		if itemdb:getnumbytype(itemtype) < num then
-			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(itemtype),num))
 			return
 		end
 	end
@@ -297,7 +297,7 @@ function C2S.fumoequip(player,request)
 	local costcoin = fumodata.costcoin
 	for itemtype,num in pairs(costitem) do
 		if itemdb:getnumbytype(itemtype) < num then
-			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+			net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(itemtype),num))
 			return
 		end
 	end
@@ -313,7 +313,7 @@ function C2S.fumoequip(player,request)
 	local attrs = {}
 	-- 随机attrnum条不重复的属性
 	for i=1,attrnum do
-		local attr = choosekey(data_0801_FumoAttrRatio,function (v)
+		local attr = choosekey(data_0801_FumoAttrRatio,function (k,v)
 			-- 已出现属性，强制将其概率改成0
 			if attrs[attr] then
 				return 0
@@ -413,7 +413,7 @@ function C2S.upgradecard(player,request)
 
 	-- 同类型卡片只有一张
 	if card.num < itemdata.upgrade_neednum then
-		net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemtip(itemtype),num))
+		net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(itemtype),num))
 		return
 	end
 	local leftnum = card.num - itemdata.upgrade_neednum + 1

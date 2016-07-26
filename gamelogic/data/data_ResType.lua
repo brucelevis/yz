@@ -1,14 +1,20 @@
 --<<data_ResType 导表开始>>
 data_ResType = {
 
-	GOLD = 1,
-	[1] = "GOLD",
+	[1] = {
+		type = "GOLD",
+		name = "金币",
+	},
 
-	SILVER = 2,
-	[2] = "SILVER",
+	[2] = {
+		type = "SILVER",
+		name = "银币",
+	},
 
-	COIN = 3,
-	[3] = "COIN",
+	[3] = {
+		type = "COIN",
+		name = "铜币",
+	},
 
 }
 return data_ResType

@@ -15,12 +15,12 @@ function net.init()
 	net.title = require "gamelogic.net.title"
 	net.safelock = require "gamelogic.net.safelock"
 	net.chapter = require "gamelogic.net.chapter"
+	net.skill = require "gamelogic.net.skill"
+	net.shop = require "gamelogic.net.shop"
 end
 
 -- 框架初始化完毕后调用，在serverinfo:startgame
 function net.dispatch()
-	require "gamelogic.service.init"
-	require "gamelogic.cluster.init"
 	g_serverinfo:regNewDispatcher("service",service.dispatch)
 	g_serverinfo:regNewDispatcher("cluster",rpc.dispatch)
 end

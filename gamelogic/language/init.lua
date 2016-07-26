@@ -68,11 +68,18 @@ end
 
 -- 私有方法
 function language.packstring(fmt,...)
-	local args = {...}
-	for i,arg in ipairs(args) do
-		arg = tostring(arg)
-		args[i] = language.packstring(arg)
+	local args
+	local first_arg = ...
+	if type(first_arg) == "table" then -- 字典参数
+		args = first_arg
+	else						 -- 列表参数
+		args = {...}
 	end
+	for k,arg in pairs(args) do
+		arg = tostring(arg)
+		args[k] = language.packstring(arg)
+	end
+
 	local id
 	local untranslate_char = language.untranslate_char or "$"
 	if string.sub(fmt,1,1) == untranslate_char then
@@ -107,11 +114,14 @@ function language.unpackstring(packstr,language_name)
 	end
 	local args = packstr.args
 	if args and next(args) then
-		for i,arg in ipairs(args) do
-			args[i] = language.unpackstring(arg,language_name)
+		for k,arg in pairs(args) do
+			args[k] = language.unpackstring(arg,language_name)
 		end
-		return string.gsub(fmt,"({)(%d)(})",function (_,id,_)
-			id = tonumber(id)
+		return string.gsub(fmt,"({)(%w+)(})",function (_,id,_)
+			local num = tonumber(id)
+			if num then
+				id = num
+			end
 			return args[id]
 		end)
 	else
