@@ -1,5 +1,5 @@
---<<data_TaskTest_Npc 导表开始>>
-data_TaskTest_Npc = {
+--<<data_1599_TestTaskNpc 导表开始>>
+data_1599_TestTaskNpc = {
 
 	[101] = {
 		name = "路人甲",
@@ -26,5 +26,5 @@ data_TaskTest_Npc = {
 	},
 
 }
-return data_TaskTest_Npc
---<<data_TaskTest_Npc 导表结束>>
+return data_1599_TestTaskNpc
+--<<data_1599_TestTaskNpc 导表结束>>

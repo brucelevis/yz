@@ -11,9 +11,10 @@ local function test(pid)
 	player.testman = 1
 	player.taskdb:clear()
 	local container = player.taskdb.test
+	container.isopened = false
 	container.finishtasks = {}
 	--开启任务
-	net.task.C2S.opentask(player,{ tasktype = 900 })
+	net.task.C2S.opentask(player,{ taskkey = "test" })
 	assert(container.len == 1)
 	--寻人任务,服务端执行,自动提交
 	net.task.C2S.accepttask(player,{ taskid = 90000001 })

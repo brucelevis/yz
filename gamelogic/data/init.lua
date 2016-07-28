@@ -11,11 +11,6 @@ require "gamelogic.data.data_RoWarSrvList"
 require "gamelogic.data.data_RoCenterSrvList"
 require "gamelogic.data.data_FilterWord"
 require "gamelogic.data.data_ExcludeWord"
-require "gamelogic.data.data_GlobalTaskData"
-require "gamelogic.data.data_TaskTest_Process"
-require "gamelogic.data.data_TaskTest_Npc"
-require "gamelogic.data.data_TaskTest_Award"
-require "gamelogic.data.data_TaskTest_Text"
 
 
 require "gamelogic.data.data_0101_CalculateHighLevelPro"
@@ -52,6 +47,11 @@ require "gamelogic.data.data_1202_ChapterAward"
 require "gamelogic.data.data_1401_SecretShop"
 require "gamelogic.data.data_1401_PlayerShopCtrl"
 require "gamelogic.data.data_1401_GlobalShopCtrl"
+require "gamelogic.data.data_1500_GlobalTask"
+require "gamelogic.data.data_1599_TestTaskAward"
+require "gamelogic.data.data_1599_TestTaskNpc"
+require "gamelogic.data.data_1599_TestTaskProcess"
+require "gamelogic.data.data_1599_TestTaskText"
 
 -- 别名
 RESTYPE = data_ResType

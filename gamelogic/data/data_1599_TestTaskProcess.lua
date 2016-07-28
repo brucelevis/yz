@@ -1,5 +1,5 @@
---<<data_TaskTest_Process 导表开始>>
-data_TaskTest_Process = {
+--<<data_1599_TestTaskProcess 导表开始>>
+data_1599_TestTaskProcess = {
 
 	[90000001] = {
 		type = 1,
@@ -78,5 +78,5 @@ data_TaskTest_Process = {
 	},
 
 }
-return data_TaskTest_Process
---<<data_TaskTest_Process 导表结束>>
+return data_1599_TestTaskProcess
+--<<data_1599_TestTaskProcess 导表结束>>

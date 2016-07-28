@@ -4,7 +4,7 @@ function ctaskdb:init(pid)
 	self.pid = pid
 	self.loadstate = "unload"
 	self.taskcontainers = {}
-	for name,data in pairs(data_GlobalTaskData) do
+	for name,data in pairs(data_1500_GlobalTask) do
 		local tasktype = data.tasktype
 		local taskcontainer = taskaux.newcontainer(name,pid,tasktype)
 		self:addtaskcontainer(taskcontainer)
@@ -61,9 +61,9 @@ function ctaskdb:update_canaccept()
 	self.canacceptask = {}
 	for name,_ in pairs(self.taskcontainers) do 
 		local taskcontainer = self[name]
-		local acceptid = taskcontainer:getcanaccept()
-		if acceptid then
-			table.insert(self.canaccepttask,acceptid)
+		local canaccept = taskcontainer:getcanaccept()
+		if canaccept then
+			table.insert(self.canaccepttask,canaccept)
 		end
 	end
 	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)

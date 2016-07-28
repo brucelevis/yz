@@ -1,5 +1,5 @@
---<<data_TaskTest_Award 导表开始>>
-data_TaskTest_Award = {
+--<<data_1599_TestTaskAward 导表开始>>
+data_1599_TestTaskAward = {
 
 	[101] = {
 		exp = 1000,
@@ -29,5 +29,5 @@ data_TaskTest_Award = {
 	},
 
 }
-return data_TaskTest_Award
---<<data_TaskTest_Award 导表结束>>
+return data_1599_TestTaskAward
+--<<data_1599_TestTaskAward 导表结束>>

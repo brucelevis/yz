@@ -1,5 +1,5 @@
---<<data_TaskTest_Text 导表开始>>
-data_TaskTest_Text = {
+--<<data_1599_TestTaskText 导表开始>>
+data_1599_TestTaskText = {
 
 	[101] = {
 		type = 1,
@@ -49,5 +49,5 @@ data_TaskTest_Text = {
 	},
 
 }
-return data_TaskTest_Text
---<<data_TaskTest_Text 导表结束>>
+return data_1599_TestTaskText
+--<<data_1599_TestTaskText 导表结束>>

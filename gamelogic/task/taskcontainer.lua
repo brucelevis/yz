@@ -492,11 +492,11 @@ end
 
 --<<  外部接口  >>
 function ctaskcontainer:opentask()
-	local taskid = self:choosetask("all")
-	if not taskid then
+	if self.isopened then
 		return
 	end
-	if next(self.finishtasks) then	--暂时设置开启任务是未完成过的
+	local taskid = self:choosetask("all")
+	if not taskid or not self:can_accept(taskid) then
 		return
 	end
 	self:log("info","task",string.format("[opentask] pid=%d taskid=%d",self.pid,taskid))
@@ -567,8 +567,8 @@ function ctaskcontainer:can_accept(taskid)
 end
 
 function ctaskcontainer:reachlimit()
-	local interval = data_GlobalTaskData[self.name].interval
-	local donelimit = data_GlobalTaskData[self.name].donelimit
+	local interval = data_1500_GlobalTask[self.name].interval
+	local donelimit = data_1500_GlobalTask[self.name].donelimit
 	if interval and donelimit then
 		local count = 0
 		if interval == "day" then
@@ -697,7 +697,7 @@ function ctaskcontainer:getcanaccept()
 	if self:reachlimit() then
 		return
 	end
-	return self.type
+	return { taskkey = self.name,}
 end
 
 return ctaskcontainer

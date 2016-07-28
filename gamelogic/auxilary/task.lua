@@ -1,10 +1,10 @@
 taskaux = taskaux or {}
 
 function taskaux.gettaskdata(taskname,tablename)
-	if not data_GlobalTaskData[taskname] or not data_GlobalTaskData[taskname][tablename] then
+	if not data_1500_GlobalTask[taskname] or not data_1500_GlobalTask[taskname][tablename] then
 		return
 	end
-	local data = data_GlobalTaskData[taskname][tablename]
+	local data = data_1500_GlobalTask[taskname][tablename]
 	if table.find({"task","npc","award","text","fake"},tablename) then
 		return _G[data]
 	end

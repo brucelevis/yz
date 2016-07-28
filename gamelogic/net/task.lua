@@ -7,9 +7,8 @@ local S2C = nettask.S2C
 
 --c2s
 function C2S.opentask(player,request)
-	local tasktype = assert(request.tasktype)
-	local name = TASK_TYPE_NAME[tasktype]
-	local taskcontainer = player.taskdb[name]
+	local taskkey = assert(request.taskkey)
+	local taskcontainer = player.taskdb[taskkey]
 	if not taskcontainer then
 		return
 	end
@@ -129,8 +128,8 @@ function S2C.tasktalk(pid,name,textid,transstr)
 	})
 end
 
-function S2C.update_canaccept(pid,taskids)
-	sendpackage(pid,"task","update_canaccept",{ taskids = taskids })
+function S2C.update_canaccept(pid,canaccept)
+	sendpackage(pid,"task","update_canaccept",{ canaccept = canaccept })
 end
 
 return nettask

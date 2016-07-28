@@ -20,7 +20,7 @@ TASK_TYPE_MAIN		= 100 --主线
 TASK_TYPE_BRANCH	= 101 --支线
 TASK_TYPE_SHIMEN	= 102 --师门
 TASK_TYPE_TEST		= 900 --测试
-settaskname(TASK_TYPE_MAIN,"zhuxian")
-settaskname(TASK_TYPE_BRANCH,"zhixian")
+settaskname(TASK_TYPE_MAIN,"main")
+settaskname(TASK_TYPE_BRANCH,"branch")
 settaskname(TASK_TYPE_SHIMEN,"shimen")
 settaskname(TASK_TYPE_TEST,"test")
