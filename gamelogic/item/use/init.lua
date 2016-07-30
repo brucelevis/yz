@@ -1,5 +1,4 @@
-citem = require "gamelogic.item.item"
+require "gamelogic.item.use.drag"
+require "gamelogic.item.use.box"
+require "gamelogic.item.use.baotu"
 
-citem.usefunc = {}
-
-return citem

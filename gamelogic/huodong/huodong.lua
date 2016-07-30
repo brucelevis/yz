@@ -3,8 +3,8 @@ chuodong = class("chuodong",ctemplate)
 
 function chuodong:init(conf)
 	ctemplate.init(self,{
-		name = assert(conf.name)
-		type = assert(conf.id)
+		name = assert(conf.name),
+		type = assert(conf.id),
 	})
 	self.id = conf.id
 	self.state = HUODONG_STATE_END

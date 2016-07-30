@@ -7,7 +7,7 @@ ItemMainType = {
 	CARD = 3,				-- 卡片
 	MATERIAL = 4,			-- 材料
 	DRUG = 5,				-- 药品
-	COSTITEM = 6,			-- 消耗品
+	CONSUME = 6,			-- 消耗品
 	TASKITEM = 7,			-- 任务物品
 	TREASURE_BOX = 8,		-- 宝箱
 }
@@ -43,7 +43,8 @@ function itemaux.getitemdata(itemtype)
 		return data_0501_ItemMaterial[itemtype]
 	elseif maintype == ItemMainType.DRUG then
 		return data_0501_ItemDrug[itemtype]
-	elseif maintype == ItemMainType.COSTITEM then
+	elseif maintype == ItemMainType.CONSUME then
+		return data_0501_ItemConsume[itemtype]
 	elseif maintype == ItemMainType.TASKITEM then
 	elseif maintype == ItemMainType.TREASURE_BOX then
 		return data_0501_ItemBox[itemtype]

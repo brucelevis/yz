@@ -16,6 +16,7 @@ data_1599_TestTaskText = {
 			
 			{ npc1 = 1002, emoji1 = 1, name = "b", talk = 1002, npc2 = 1001, emoji2 = 1, content = "这是双人对白1", },
 
+
 			{ npc1 = 1002, emoji1 = 2, name = "a", talk = 1001, npc2 = 1001, emoji2 = 1, content = "这是双人对白2", },
 
 		},

@@ -1,13 +1,17 @@
-huodongmgr = huodongmgr or {}
+huodongmgr = huodongmgr or {
+	-- 简单玩法单元,如挖宝
+	playunit = {}
+}
 
 function huodongmgr.init()
 	huodongmgr.huodongs = {}
-	for hid,data in pairs(data_1100_GlobalHuodong) do
+	for hid,data in pairs(data_Huodong) do
 		local huodong = huodongmgr.newhuodong(hid)
 		huodongmgr.addhuodong(huodong)
 	end
 	huodongmgr.loadstate = "unload"
 	huodongmgr.loadfromdatabase()
+	huodongmgr.savename = "huodongmgr"
 	autosave(huodongmgr)
 end
 
@@ -48,7 +52,11 @@ function huodongmgr.clear()
 end
 
 function huodongmgr.gethuodong(name)
-	return huodongmgr.huodongs[name]
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onlogin then
+			playunit.onlogin(player)
+		end
+	end
 end
 
 function huodongmgr.delhuodong(name)
@@ -56,6 +64,11 @@ function huodongmgr.delhuodong(name)
 	if huodong then
 		huodongmgr.huodongs[name] = nil
 		huodong:release()
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onlogoff then
+			playunit.onlogoff(player)
+		end
 	end
 end
 

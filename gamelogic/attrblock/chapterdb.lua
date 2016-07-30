@@ -145,7 +145,7 @@ function cchapterdb:raisewar(chapterid)
 		wardataid = warid,
 		attack_helpers = {},
 		defense_helpers = {},
-		wartype = WARTYPE_CHAPTER,
+		wartype = WARTYPE.PVE_CHAPTER,
 		chapterid = chapterid,
 		pid = self.pid,
 	}

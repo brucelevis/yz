@@ -1,5 +1,5 @@
---<<data_1102_Navigation 导表开始>>
-data_1102_Navigation = {
+--<<data_1103_Navigation 导表开始>>
+data_1103_Navigation = {
 
 	[1] = {
 		hdid = 10001,
@@ -15,7 +15,7 @@ data_1102_Navigation = {
 		num = 1,
 		liveness = 10,
 		huoli = 100,
-	}
+	},
 
 	[2] = {
 		hdid = 10002,
@@ -31,7 +31,7 @@ data_1102_Navigation = {
 		num = 2,
 		liveness = 15,
 		huoli = 200,
-	}
+	},
 
 	[3] = {
 		hdid = 10003,
@@ -47,8 +47,8 @@ data_1102_Navigation = {
 		num = 2,
 		liveness = 10,
 		huoli = 100,
-	}
+	},
 
 }
-return data_1102_Navigation
---<<data_1102_Navigation 导表结束>>
+return data_1103_Navigation
+--<<data_1103_Navigation 导表结束>>

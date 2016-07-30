@@ -1,9 +1,13 @@
 warmgr.onwarend_callback = {}
 
-function qiecuo_onwarend(warid,result)
+function warmgr.register_onwarend(wartype,callback)
+	warmgr.onwarend_callback[wartype] = callback
 end
 
-function personal_task_onwarend(warid,result)
+warmgr.register_onwarend(WARTYPE.PVP_QIECUO,function (warid,result)
+end)
+
+warmgr.register_onwarend(WARTYPE.PERSONAL_TASK,function (warid,result)
 	local war = warmgr.getwar(warid)
 	local player = playermgr.getplayer(war.pid)
 	if not player then
@@ -14,19 +18,24 @@ function personal_task_onwarend(warid,result)
 		return
 	end
 	taskcontainer:onwarend(war,result)
-end
+end)
 
-function chapter_onwarend(warid,result)
+warmgr.register_onwarend(WARTYPE.PVE_CHAPTER,function (warid,result)
 	local war = warmgr.getwar(warid)
 	local player = playermgr.getplayer(war.pid)
 	if not player then
 		return
 	end
 	player.chapterdb:onwarend(war,result)
-end
+end)
 
-warmgr.onwarend_callback[WARTYPE_PVP_QIECUO] = qiecuo_onwarend
-warmgr.onwarend_callback[WARTYPE_PERSONAL_TASK] = personal_task_onwarend
-warmgr.onwarend_callback[WARTYPE_CHAPTER] = chapter_onwarend
+warmgr.register_onwarend(WARTYPE.PVE_BAOTU,function (warid,result)
+	local war = warmgr.getwar(warid)
+	local player = playermgr.getplayer(war.pid)
+	if not player then
+		return
+	end
+	huodongmgr.playunit.baotu.onwarend(warid,result)
+end)
 
 return onwarend_callback

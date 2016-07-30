@@ -2,6 +2,14 @@
 NOWAR						= 0
 INWAR						= 1
 
-WARTYPE_PVP_QIECUO			= 1  -- 切磋
-WARTYPE_PERSONAL_TASK		= 2  -- 单人任务
-WARTYPE_CHAPTER				= 3  -- 关卡剧情
+WARTYPE = {}
+
+local function addwartype(name,val)
+	WARTYPE[name] = val
+	WARTYPE[val] = name
+end
+
+addwartype("PVP_QIECUO",1)			-- 切磋
+addwartype("PERSONAL_TASK",2)			-- 单人任务
+addwartype("PVE_CHAPTER",3)			-- 关卡任务
+addwartype("PVE_BAOTU",4)				-- 宝图怪

@@ -8,7 +8,6 @@ function ctaskcontainer:init(conf)
 	ctemplate.init(self,conf)
 	self.finishtasks = {}
 	self.nowtaskid = nil  -- 仅对同时只有一个任务的任务类有效
-	self.isopened = false
 	--脚本注册
 	self.script_handle.findnpc = true
 	self.script_handle.needitem = true
@@ -33,7 +32,6 @@ function ctaskcontainer:load(data)
 		return task
 	end)
 	self.nowtaskid = data.nowtaskid
-	self.isopened = data.isopened
 	local finishtasks = data.finishtasks or {}
 	for i,taskid in ipairs(finishtasks) do
 		self.finishtasks[taskid] = true
@@ -47,7 +45,6 @@ function ctaskcontainer:save()
 		return data
 	end)
 	data.nowtaskid = self.nowtaskid
-	data.isopened = self.isopened
 	data.finishtasks = table.values(self.finishtasks)
 	return data
 end
@@ -120,7 +117,7 @@ function ctaskcontainer:validwar(pid)
 end
 
 function ctaskcontainer:transwar(task,war,attackers,defensers)
-	war.wartype = WARTYP_PERSONAL_TASK
+	war.wartype = WARTYPE.PERSONAL_TASK
 	war.taskid = task.taskid
 	war.pid = self.pid
 	return war,attackers,defensers
@@ -244,7 +241,13 @@ function ctaskcontainer:pack(task)
 		data.npcs = {}
 		for _,npc in pairs(task.resourcemgr.npclist) do
 			if npc.isclient then
-				table.insert(data.npcs,npc)
+				table.insert(data.npcs,{
+					id = npc.id,
+					shape = npc.type,
+					name = npc.name,
+					sceneid = npc.sceneid,
+					pos = npc.pos,
+				})
 			end
 		end
 	end
@@ -270,7 +273,7 @@ function ctaskcontainer:choosetask(newtaskid,taskid)
 	local taskids = {}
 	local taskdata = self:getformdata("task")
 	for id,data in pairs(taskdata) do
-		if self:can_accept(id) then
+		if data.ratio ~= 0 and self:can_accept(id) then
 			if newtaskid == "other" then
 				if taskid ~= id then
 					taskids[id] = data.ratio
@@ -492,15 +495,15 @@ end
 
 --<<  外部接口  >>
 function ctaskcontainer:opentask()
-	if self.isopened then
+	if self.len > 0 then
 		return
 	end
 	local taskid = self:choosetask("all")
-	if not taskid or not self:can_accept(taskid) then
+	if not taskid then
+		net.msg.S2C.notify(self.pid,language.format("无法接受该类任务"))
 		return
 	end
 	self:log("info","task",string.format("[opentask] pid=%d taskid=%d",self.pid,taskid))
-	self.isopened = true
 	self:accepttask(taskid)
 end
 
@@ -514,7 +517,7 @@ function ctaskcontainer:accepttask(taskid)
 		self:addtask(task)
 		self.nowtaskid = taskid
 		player = playermgr.getplayer(self.pid)
-		if table.find(player.taskdb.canaccepttask,self.type) then
+		if player.taskdb:incanaccept(self.name) then
 			player.taskdb:update_canaccept()
 		end
 	end
@@ -593,6 +596,8 @@ function ctaskcontainer:giveuptask(taskid)
 	local task = self:gettask(taskid)
 	if task then
 		self:deltask(taskid,"giveup")
+		local player = playermgr.getplayer(self.pid)
+		player.taskdb:update_canaccept()
 		return task
 	end
 end
@@ -688,10 +693,7 @@ function ctaskcontainer:can_clientfinish(taskid)
 end
 
 function ctaskcontainer:getcanaccept()
-	if not self.isopened then
-		return
-	end
-	if next(self.objs) then
+	if self.len > 0 then
 		return
 	end
 	if self:reachlimit() then

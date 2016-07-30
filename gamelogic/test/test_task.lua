@@ -11,7 +11,6 @@ local function test(pid)
 	player.testman = 1
 	player.taskdb:clear()
 	local container = player.taskdb.test
-	container.isopened = false
 	container.finishtasks = {}
 	--开启任务
 	net.task.C2S.opentask(player,{ taskkey = "test" })

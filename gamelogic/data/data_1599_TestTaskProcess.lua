@@ -24,7 +24,9 @@ data_1599_TestTaskProcess = {
 		nexttask = nil,
 		chapterid = 0,
 		icon_id = 93051,
-		desc = "长安似乎发生了些什么怪事",
+		desc = "长安似乎发生了些什么怪事1",
+		accepted_desc = "nil",
+		executed_desc = "nil",
 	},
 
 	[90000002] = {
@@ -50,7 +52,9 @@ data_1599_TestTaskProcess = {
 		nexttask = nil,
 		chapterid = 0,
 		icon_id = 93051,
-		desc = "长安似乎发生了些什么怪事",
+		desc = "长安似乎发生了些什么怪事2",
+		accepted_desc = "nil",
+		executed_desc = "nil",
 	},
 
 	[90000003] = {
@@ -74,7 +78,9 @@ data_1599_TestTaskProcess = {
 		nexttask = "other",
 		chapterid = 0,
 		icon_id = 93051,
-		desc = "长安似乎发生了些什么怪事",
+		desc = "长安似乎发生了些什么怪事3",
+		accepted_desc = "nil",
+		executed_desc = "nil",
 	},
 
 }

@@ -237,7 +237,7 @@ function S2C.notify(pid,msg)
 		local lang
 		-- player 可能只是个连线对象
 		if typename(player) == "cplayer" then
-			lang = player:query("lang") or language.language_to
+			lang = player:getlanguage()
 		else
 			lang = language_from
 		end
@@ -258,7 +258,7 @@ function S2C.info(pid,msg)
 		local lang
 		-- player 可能只是个连线对象
 		if typename(player) == "cplayer" then
-			lang = player:query("lang") or language.language_to
+			lang = player:getlanguage()
 		else
 			lang = language_from
 		end
@@ -315,7 +315,7 @@ function S2C.messagebox(pid,type,title,content,attach,buttons,callback,lifetime)
 	if not player then
 		return
 	end
-	local lang = player:query("lang") or language.language_to
+	local lang = player:getlanguage()
 	for i,button_str in ipairs(buttons) do
 		buttons[i] = language.translateto(button_str,lang)
 	end
@@ -372,7 +372,7 @@ function S2C.npcsay(pid,npc,msg)
 		local lang
 		local player = playermgr.getplayer(pid)
 		if player and typename(player) == "cplayer" then
-			lang = player:query("lang") or language.language_to
+			lang = player:getlanguage()
 		else
 			lang = language_from
 		end

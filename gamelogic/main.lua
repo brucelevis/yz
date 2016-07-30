@@ -15,7 +15,7 @@ end
 
 ------------------------------------------------------------------------------
 g_serverinfo.sidbname = "serverinfo"
-g_serverinfo.m_project = "模版（逻辑）"
+g_serverinfo.m_project = "RO（逻辑）"
 
 function g_serverinfo:preinit()
 	--g_gamedb:init()

@@ -71,7 +71,7 @@ function citem:init(param)
 	self.tmpfumo = nil
 	self.cardid = nil  -- 插入的卡片物品ID
 	self.isopen = nil    -- 卡片是否开启
-	self.lv = nil		 -- 卡片等级
+	self.lv = nil		 -- 卡片等级(仅对卡片有效)
 end
 
 function citem:load(data)

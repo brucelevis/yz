@@ -58,7 +58,7 @@ function ctaskdb:gettask(taskid)
 end
 
 function ctaskdb:update_canaccept()
-	self.canacceptask = {}
+	self.canaccepttask = {}
 	for name,_ in pairs(self.taskcontainers) do 
 		local taskcontainer = self[name]
 		local canaccept = taskcontainer:getcanaccept()
@@ -67,6 +67,15 @@ function ctaskdb:update_canaccept()
 		end
 	end
 	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)
+end
+
+function ctaskdb:incanaccept(taskkey)
+	for _,canaccept in ipairs(self.canaccepttask) do
+		if canaccept.taskkey == taskkey then
+			return true
+		end
+	end
+	return false
 end
 
 function ctaskdb:oncreate(player)

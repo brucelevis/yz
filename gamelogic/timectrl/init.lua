@@ -1,6 +1,3 @@
-require "gamelogic.huodong.huodongmgr"
-require "gamelogic.oscmd.maintain"
-
 timectrl = {}
 local INTERVAL = 5 --5 minute
 
@@ -115,7 +112,6 @@ end
 
 function timectrl.onfiveminuteupdate()
 	logger.log("info","timectrl","onfiveminuteupdate")
-	huodongmgr.onfiveminuteupdate()
 	maintain.onfiveminuteupdate()
 end
 

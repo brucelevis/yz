@@ -43,6 +43,7 @@ function award.__player(pid,bonus,reason,btip)
 			bonus.__formula = nil
 			bonus.num = execformula(player,bonus.num)
 		end
+		local has_lackbonus = false
 		local lackbonus = {
 		}
 		for name,id in pairs(RESTYPE) do -- RESTYPE == data_ResType
@@ -68,6 +69,7 @@ function award.__player(pid,bonus,reason,btip)
 				end
 				item.num = item.num - hasbonus_num
 				if item.num > 0 then
+					has_lackbonus = true
 					table.insert(lackbonus.items,item)
 				end
 			end
@@ -79,7 +81,7 @@ function award.__player(pid,bonus,reason,btip)
 				-- dosomething
 			end
 		end
-		if not table.isempty(lackbonus) then
+		if has_lackbonus and not table.isempty(lackbonus) then
 			return lackbonus
 		end
 	else

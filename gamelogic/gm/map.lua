@@ -15,7 +15,7 @@ function gm.jumpto(args)
 	master:jumpto(sceneid,pos)
 end
 
---- 用法: addnpc 怪物类型 场景ID X坐标 Y坐标 [持续时间]
+--- 用法: addnpc 怪物造型 场景ID X坐标 Y坐标 [持续时间]
 --- 举例: addnpc 90022 1 800 800 300 <=> 在(1,800,800)位置生成90022类型NPC，持续300秒
 function gm.addnpc(args)
 	local isok,args = checkargs(args,"int","int","int","int","*")
@@ -23,7 +23,7 @@ function gm.addnpc(args)
 		net.msg.S2C.notify(master_pid,"用法: addnpc 怪物类型 场景ID X坐标 Y坐标 [持续时间]")
 		return
 	end
-	local npctype = args[1]
+	local npcshape = args[1]
 	local sceneid = args[2]
 	local x = args[3]
 	local y = args[4]
@@ -35,8 +35,9 @@ function gm.addnpc(args)
 		dir = 1,
 	}
 	local isok = scenemgr.addnpc({
-		type = npctype,
+		shape = npcshape,
 		name = "测试NPC",
+		purpose = "test",
 		sceneid = sceneid,
 		pos = pos,
 		exceedtime = exceedtime,

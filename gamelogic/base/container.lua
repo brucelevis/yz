@@ -30,6 +30,7 @@ function ccontainer:load(data,loadfunc)
 		id = tonumber(id)
 		local obj = loadfunc and loadfunc(objdata) or objdata
 		if obj then
+			obj.id = id
 			self.objs[id] = obj
 			len = len + 1
 		end

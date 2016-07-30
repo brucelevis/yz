@@ -100,7 +100,7 @@ function warmgr.addwar(warid,war)
 		for i,pid in ipairs(war.defensers) do
 			local player = playermgr.getplayer(pid)
 			assert(player)
-			if war.wartype == PVP_RANK_WAR then
+			if war.wartype == WARTYPE.PVP_RANK_WAR then
 			else
 				player.warid = warid
 			end
@@ -130,7 +130,7 @@ function warmgr.delwar(warid)
 					player = playermgr.loadofflineplayer(pid)
 				end
 				assert(player)
-				if war.wartype == PVP_RANK_WAR then
+				if war.wartype == WARTYPE.PVP_RANK_WAR then
 				else
 					player.warid = nil
 				end
@@ -147,7 +147,7 @@ end
 function warmgr.can_startwar(attackers,defensers,war)
 	local set = table.intersect_set(table.toset(attackers),table.toset(defensers))
 	if not table.isempty(set) then
-		return false,set
+		return false
 	end
 	-- is anyone inwar?
 	if not table.isempty(attackers) then
@@ -158,7 +158,7 @@ function warmgr.can_startwar(attackers,defensers,war)
 			end
 			assert(player,"Invalid pid:" .. tostring(pid))
 			if player.warid then
-				return false,pid
+				return false
 			end
 		end
 	end
@@ -172,7 +172,7 @@ function warmgr.can_startwar(attackers,defensers,war)
 			--援助玩家一定是离线玩家
 			assert(player.__state == "offline")
 			if player.warid then
-				return false,pid
+				return false
 			end
 		end
 	end
@@ -200,7 +200,7 @@ function warmgr.can_startwar(attackers,defensers,war)
 				assert(player,"Invalid pid:" .. tostring(pid))
 				--援助玩家一定是离线玩家
 				assert(player.__state == "offline")
-				return false,pid
+				return false
 			end
 		end
 	end
@@ -208,7 +208,7 @@ function warmgr.can_startwar(attackers,defensers,war)
 end
 
 --/*
--- @functions : 发起一场战斗,调用前必须先判断是否可以发起战斗
+-- @functions : 发起一场战斗
 -- @param table attackers  进攻方玩家列表
 -- @param table defensers  防守方玩家列表(PVE战斗传nil)
 -- @param table war		   战斗数据，一般格式如下:
@@ -221,8 +221,12 @@ end
 --	}
 --*/
 function warmgr.startwar(attackers,defensers,war)
-	local set = table.intersect_set(table.toset(attackers),table.toset(defensers))
-	assert(table.isempty(set),format("attacker show in defenser:%s",set))
+	assert(WARTYPE[war.wartype],"Invalid wartype:" .. tostring(war.wartype))
+	defensers = defensers or {}
+	local isok = warmgr.can_startwar(attackers,defensers,war)
+	if not isok then
+		return false
+	end
 	for i,pid in ipairs(attackers) do
 		local player = playermgr.getplayer(pid)
 		if not player then
@@ -294,6 +298,7 @@ function warmgr.startwar(attackers,defensers,war)
 	local warid = warmgr.genwarid()
 	logger.log("info","war",format("[startwar] warid=%s war=%s",warid,war))
 	warmgr.addwar(warid,war)
+	return true
 end
 
 -- 打包一个玩家简介数据
@@ -493,6 +498,18 @@ function warmgr.onwarend(warid,result)
 	end
 	-- dosomething
 	warmgr.delwar(warid)
+end
+
+function warmgr.iswin(result)
+	return result > 0
+end
+
+function warmgr.istie(result)
+	return result == 0
+end
+
+function warmgr.islose(result)
+	return result < 0
 end
 
 return warmgr

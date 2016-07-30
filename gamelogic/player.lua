@@ -470,6 +470,7 @@ function cplayer:onlogin()
 	-- 放到teammgr:onlogin之前
 	self:enterscene(self.sceneid,self.pos)
 	mailmgr.onlogin(self)
+	huodongmgr.onlogin(self)
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onlogin then
 			obj:onlogin(self)
@@ -484,6 +485,7 @@ end
 function cplayer:onlogoff()
 	logger.log("info","login",string.format("[logoff] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self:ip(),self:port(),self.__agent))
 	mailmgr.onlogoff(self)
+	huodongmgr.onlogoff(self)
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onlogoff then
 			obj:onlogoff(self)
@@ -1096,6 +1098,30 @@ function cplayer:getskilldb(skillid)
 	if data_0201_Skill[skillid] then
 		return self.warskilldb
 	end
+end
+
+function cplayer:getlanguage()
+	return self:query("lang") or language.language_to
+end
+
+function cplayer:getfighters()
+	local fighters = nil
+	local errmsg
+	local teamstate = player:teamstate()
+	if teamstate == NO_TEAM then
+		fighters = {self.pid}
+	elseif teamstate == TEAM_STATE_CAPTAIN then
+		fighters = {self.pid}
+		local team = teammgr:getteam(self.teamid)
+		table.extend(fighters,team:members(TEAM_STATE_FOLLOW))
+	elseif teamstate == TEAM_STATE_LEAVE then
+		fighters = {self.pid,}
+	else
+		assert(teamstate == TEAM_STATE_FOLLOW)
+		fighters = nil
+		errmsg = language.format("跟随队员无法进行此操作")
+	end
+	return fighters,errmsg
 end
 
 return cplayer

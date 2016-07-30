@@ -9,7 +9,8 @@ function scenemgr.init()
 	end
 	assert(#normal_map < 100)
 	scenemgr.sceneid = 1000
-	scenemgr.npcid = 0
+	-- 保证动态NPC生成的ID和客户端NPC（固定NPC）id不一样
+	scenemgr.npcid = data_GameID.npc.endid
 	scenemgr.itemid = 0
 	scenemgr.starttimer_checkallnpc()
 	scenemgr.starttimer_checkallitem()
@@ -71,7 +72,7 @@ end
 
 function scenemgr.gennpcid()
 	if scenemgr.npcid > MAX_NUMBER then
-		scenemgr.npcid = 0
+		scenemgr.npcid = data_GameID.npc.endid
 	end
 	scenemgr.npcid = scenemgr.npcid + 1
 	return scenemgr.npcid
@@ -80,11 +81,11 @@ end
 --/*
 -- npc => {
 --		id : npcid,
---		type : 怪物类型,
+--		shape : 怪物造型,
 --		name : 名字,
 --		sceneid : 场景ID,
 --		pos : 坐标,
---		purpose : 用途,
+--		purpose : 用途分类,
 --		exceedtime : 过期时间点,
 --		lifenum : 生命数,
 --		max_warcnt : 同时发生的最大战斗数,
@@ -92,7 +93,7 @@ end
 -- }
 --*/
 function scenemgr.addnpc(npc,sceneid)
-	assert(npc.type)
+	assert(npc.shape)
 	assert(npc.pos)
 	if sceneid then
 		npc.sceneid = sceneid
@@ -110,10 +111,8 @@ function scenemgr.addnpc(npc,sceneid)
 	local npcid = scenemgr.gennpcid()
 	npc.id = npcid
 	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npcid,npc))
+	npc.createtime = os.time()
 	scene.npcs[npcid] = npc
-	if npc.onadd then
-		npc.onadd(npc)
-	end
 	scene:broadcast("scene","addnpc",{npc=npc})
 	return true
 end
@@ -139,9 +138,6 @@ function scenemgr.__delnpc(npcid,sceneid)
 	end
 	local npc = scene.npcs[npcid]
 	if npc then
-		if npc.ondel then
-			npc.ondel(npc)
-		end
 		logger.log("info","scene",format("[delnpc] npcid=%s npc=%s",npcid,npc))
 		scene.npcs[npcid] = nil
 
@@ -175,9 +171,6 @@ function scenemgr.updatenpc(npc,updateattr)
 	for k,v in pairs(updateattr) do
 		npc[k] = v
 	end
-	if npc.onupdate then
-		npc.onupdate(npc,updateattr)
-	end
 	local scene = scenemgr.getscene(npc.sceneid)
 	if scene then
 		updateattr.id = npc.id
@@ -188,7 +181,7 @@ end
 function scenemgr.checknpc(npc)
 	if npc.exceedtime then
 		local now = os.time()
-		return npc.exceedtime < now
+		return npc.exceedtime > now
 	end
 	return true
 end
@@ -240,9 +233,6 @@ function scenemgr.additem(item,sceneid)
 	item.id = itemid
 	logger.log("info","scene",format("[additem] itemid=%s item=%s",itemid,item))
 	scene.items[itemid] = item
-	if item.onadd then
-		item.onadd(item)
-	end
 	scene:broadcast("scene","additem",{item=item})
 	return true
 end
@@ -268,9 +258,6 @@ function scenemgr.__delitem(itemid,sceneid)
 	end
 	local item = scene.items[itemid]
 	if item then
-		if item.ondel then
-			item.ondel(item)
-		end
 		logger.log("info","scene",format("[delitem] itemid=%s item=%s",itemid,item))
 		scene.items[itemid] = nil
 
@@ -304,9 +291,6 @@ function scenemgr.updateitem(item,updateattr)
 	for k,v in pairs(updateattr) do
 		item[k] = v
 	end
-	if item.onupdate then
-		item.onupdate(item,updateattr)
-	end
 	local scene = scenemgr.getscene(item.sceneid)
 	if scene then
 		updateattr.id = item.id
@@ -318,7 +302,7 @@ end
 function scenemgr.checkitem(item)
 	if item.exceedtime then
 		local now = os.time()
-		return item.exceedtime < now
+		return item.exceedtime > now
 	end
 	return true
 end
