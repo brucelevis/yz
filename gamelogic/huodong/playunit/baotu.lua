@@ -2,7 +2,6 @@ playunit_baotu = playunit_baotu or {}
 huodongmgr.playunit.baotu = playunit_baotu
 
 function playunit_baotu.onlogoff(player)
-	print("onlogoff",player.pid,player.baotu_cache)
 	-- 下线立即触发发奖励，并且邮寄给玩家
 	if player.baotu_cache then
 		local baotu_cache = player.baotu_cache
@@ -22,7 +21,6 @@ function playunit_baotu.onuse(pid,packdata,bsendmail)
 	timer.untimeout(timer_name,timer_id)
 	local itemid = assert(packdata.itemid)
 	local item,itemdb = player:getitem(itemid)
-	print(item,itemdb,table.dump(packdata))
 	-- 防止挖宝表现过程中删除物品
 	if not item then
 		return
@@ -82,7 +80,6 @@ function playunit_baotu.use(player,item)
 	local baotuid = choosekey(data_1102_BaoTu,function (k,v)
 		return v.ratio
 	end)
-	baotuid = 1 -- test
 	local data = data_1102_BaoTu[baotuid]
 	local packdata = {
 		itemid = item.id,
@@ -135,14 +132,12 @@ function playunit_baotu.startwar(player,npc)
 		-- ext
 		npc = npc,
 		npclv = lv,
-		pid = player.pid,
 	}
 	warmgr.startwar(fighters,nil,war)
 end
 
-function playunit_baotu.onwarend(warid,result)
-	print("playunit_baotu.onwarend",warid,result)
-	local war = warmgr.getwar(warid)
+function playunit_baotu.onwarend(war,result)
+	local pid = war.attackers[1]
 	local npc = war.npc
 	if warmgr.iswin(result) then
 		scenemgr.delnpc(npc.id,npc.sceneid)

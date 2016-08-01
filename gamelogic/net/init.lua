@@ -17,6 +17,7 @@ function net.init()
 	net.chapter = require "gamelogic.net.chapter"
 	net.skill = require "gamelogic.net.skill"
 	net.shop = require "gamelogic.net.shop"
+	net.guaji = require "gamelogic.net.guaji"
 end
 
 -- 框架初始化完毕后调用，在serverinfo:startgame

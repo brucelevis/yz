@@ -2,58 +2,135 @@
 data_TemplAward = {
 
 	[1] = {
-		award = {
-			gold = 1,
-			silver = 1,
-			coin = 1,
-			items = {nil,nil,nil,nil,nil,},
-			pets = {nil,nil,},
+		awardratio = {
+						
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 2,
+			},
+
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 2,
+			},
+
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 3,
+			},
+
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 4,
+			},
+
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 5,
+			},
+
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 6,
+			},
+
 		},
-		desc = "一般奖励",
+		desc = "801001宝箱开出的奖励",
 	},
 
 	[2] = {
-		award = {
-			gold = 1,
-			silver = 1,
-			coin = 1,
-			items = {{type=501001,num=1},nil,nil,nil,nil,},
-			pets = {nil,nil,},
-		},
-		desc = "一般奖励",
-	},
+		awardratio = {
+						
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
 
-	[3] = {
-		award = {
-			gold = 1,
-			silver = 1,
-			coin = 1,
-			items = {{type=501001,num=1},{type=501001,num=1,bind=1},nil,nil,nil,},
-			pets = {nil,nil,},
-		},
-		desc = "一般奖励",
-	},
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 2,
+			},
 
-	[4] = {
-		award = {
-			gold = 1,
-			silver = 1,
-			coin = 1,
-			items = {{type=501001,num=1},{type=501001,num=1,bind=1},nil,nil,nil,},
-			pets = {nil,nil,},
-		},
-		desc = "一般奖励",
-	},
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 2,
+			},
 
-	[5] = {
-		award = {
-			gold = 1,
-			silver = 1,
-			coin = 1,
-			items = {{type=501001,num=1},{type=501001,num=1,bind=1},nil,nil,nil,},
-			pets = {nil,nil,},
 		},
-		desc = "一般奖励",
+		desc = "801001宝箱开出的奖励",
 	},
 
 }

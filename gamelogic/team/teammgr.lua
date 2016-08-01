@@ -440,6 +440,7 @@ function cteammgr:before_leaveteam(player,teamid)
 end
 
 function cteammgr:after_leaveteam(player,teamid)
+	huodongmgr.onleaveteam(player,teamid)
 end
 
 function cteammgr:before_backteam(player,teamid)
@@ -447,6 +448,7 @@ function cteammgr:before_backteam(player,teamid)
 end
 
 function cteammgr:after_backteam(player,teamid)
+	huodongmgr.onbackteam(player,teamid)
 end
 
 function cteammgr:before_changecaptain(teamid,pid)
@@ -462,6 +464,10 @@ end
 
 -- 踢出成员也会走这里接口
 function cteammgr:after_quitteam(pid,teamid)
+	local player = playermgr.getplayer(pid)
+	if player then
+		huodongmgr.onbackteam(player,teamid)
+	end
 end
 
 

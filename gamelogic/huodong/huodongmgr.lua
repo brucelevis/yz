@@ -155,4 +155,87 @@ end
 function huodongmgr.onhourupdate()
 end
 
+function huodongmgr.canenterscene(player,sceneid,pos)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.canenterscene then
+			if not huodong:canenterscene(player,sceneid,pos) then
+				return false
+			end
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.canenterscene then
+			if not playunit.canenterscene(player,sceneid,pos) then
+				return false
+			end
+		end
+	end
+	return true
+end
+
+function huodongmgr.onenterscene(player,sceneid,pos)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onenterscene then
+			huodong:onenterscene(player,sceneid,pos)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onenterscene then
+			playunit.onenterscene(player,sceneid,pos)
+		end
+	end
+end
+
+function huodongmgr.onleavescene(player,sceneid)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onleavescene then
+			huodong:onleavescene(player,sceneid)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onleavescene then
+			playunit.onleavescene(player,sceneid)
+		end
+	end
+end
+
+function huodongmgr.onbackteam(player,teamid)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onbackteam then
+			huodong:onbackteam(player,teamid)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onbackteam then
+			playunit.onbackteam(player,teamid)
+		end
+	end
+end
+
+function huodongmgr.onleaveteam(player,teamid)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onleaveteam then
+			huodong:onleaveteam(player,teamid)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onleaveteam then
+			playunit.onleaveteam(player,teamid)
+		end
+	end
+end
+
+function huodongmgr.onquitteam(player,teamid)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onquitteam then
+			huodong:onquitteam(player,teamid)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onquitteam then
+			playunit.onquitteam(player,teamid)
+		end
+	end
+end
+
 return huodongmgr

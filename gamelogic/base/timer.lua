@@ -39,6 +39,7 @@ function timer.deltimerbyid(id)
 	end
 end
 
+-- e.g: timer.cron_timer(name,"*/5 * * * * *",callback) <=> 每隔5s执行一次callback
 function timer.cron_timeout(name,cron,callback,callit)
 	if type(cron) == "string" then
 		cron = cronexpr.new(cron)

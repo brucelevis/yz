@@ -73,9 +73,6 @@ function cresourcemgr:addnpc(npc)
 	assert(npc.mapid)
 	npc.id = self:gennpcid()
 	self.npclist[npc.id] = npc
-	if npc.isclient then
-		npc.sceneid = npc.mapid
-	end
 end
 
 function cresourcemgr:gennpcid()

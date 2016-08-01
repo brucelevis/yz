@@ -120,8 +120,8 @@ function ctemplate:doaward(awardid,pid)
 		value = self:transcode(value,pid)
 		award[res] = value
 	end
-	self:log("info","award",string.format("[tplaward] pid=%d awardid=%d",pid,awardid))
-	--doaward("player",pid,award,string.format("%s.template",self.name))
+	local reason = format("template.%s awardid=%d",self.name,awardid)
+	doaward("player",pid,award,reason)
 end
 
 function ctemplate:isnearby(player,npc,dis)

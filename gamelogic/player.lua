@@ -413,6 +413,10 @@ function cplayer:oncreate(conf)
 end
 
 function cplayer:comptible_process()
+	-- 部分旧号无等级字段（先兼容下，后续删除这里代码）
+	if not self.lv then
+		self.lv = 1
+	end
 	if self:query("runno") ~= globalmgr.server:query("runno") then
 		self:set("runno",globalmgr.server:query("runno"))
 		self.teamid = nil
@@ -424,7 +428,7 @@ function cplayer:comptible_process()
 	end
 
 	local scene = scenemgr.getscene(self.sceneid)
-	if not scene or not self:canenter(self.sceneid,self.pos) then
+	if not scene or not self:canenterscene(self.sceneid,self.pos) then
 		if scene then
 			self:leavescene(self.sceneid)
 		end
@@ -468,7 +472,7 @@ function cplayer:onlogin()
 	})
 	sendpackage(self.pid,"player","switch",self.switch:allswitch())
 	-- 放到teammgr:onlogin之前
-	self:enterscene(self.sceneid,self.pos)
+	self:enterscene(self.sceneid,self.pos,true)
 	mailmgr.onlogin(self)
 	huodongmgr.onlogin(self)
 	for k,obj in pairs(self.autosaveobj) do
@@ -962,7 +966,7 @@ function cplayer:canmove()
 	if teamstate == TEAM_STATE_FOLLOW then
 		return false
 	end
-	if self.warid and self.warid ~= 0 then
+	if self:inwar() then
 		return false
 	end
 	return true
@@ -995,7 +999,8 @@ function cplayer:leavescene(sceneid)
 	return false
 end
 
-function cplayer:enterscene(sceneid,pos)
+-- 上线进入场景时notleave为真
+function cplayer:enterscene(sceneid,pos,notleave)
 	assert(sceneid)
 	assert(pos)
 	
@@ -1006,11 +1011,15 @@ function cplayer:enterscene(sceneid,pos)
 	if not newscene:isvalidpos(pos) then
 		pos = newscene:fixpos(pos)
 	end
-	if not self:canenter(sceneid,pos) then
+	local isok,errmsg = self:canenterscene(sceneid,pos)
+	if not isok then
+		net.msg.S2C.notify(self.pid,errmsg)
 		return false
 	end
 	local pid = self.pid
-	self:leavescene(self.sceneid)
+	if not notleave then
+		self:leavescene(self.sceneid)
+	end
 	newscene:enter(self,pos)
 	return true
 end
@@ -1018,7 +1027,16 @@ end
 -- 强制跳转到指定坐标
 cplayer.jumpto = cplayer.enterscene
 
-function cplayer:canenter(sceneid,pos)
+function cplayer:canenterscene(sceneid,pos)
+	local scene = scenemgr.getscene(sceneid)
+	if not scene then
+		return false,language.format("场景不存在")
+	end
+
+	local isok,errmsg = huodongmgr.canenterscene(self,sceneid,pos)
+	if not isok then
+		return false,errmsg
+	end
 	return true
 end
 
@@ -1122,6 +1140,13 @@ function cplayer:getfighters()
 		errmsg = language.format("跟随队员无法进行此操作")
 	end
 	return fighters,errmsg
+end
+
+function cplayer:inwar()
+	if self.warid and self.warid ~= 0 then
+		return true
+	end
+	return false
 end
 
 return cplayer

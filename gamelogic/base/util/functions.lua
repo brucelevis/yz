@@ -148,7 +148,7 @@ end
 --ratio
 function ishit(num,limit)
 	assert(limit >= num)
-	limit = limit or 100
+	limit = limit or BASE_RATIO
 	return math.random(1,limit) <= num
 end
 

@@ -86,6 +86,7 @@ function cwarskilldb:openskills(job)
 	if not skillids then
 		return
 	end
+	logger.log("info","skill",format("[openskill] pid=%d job=%d",self.pid,job))
 	for _,skillid in ipairs(skillids) do
 		if not self:get(skillid) then
 			local pos = self.len + 1
@@ -116,6 +117,7 @@ function cwarskilldb:wieldskill(skillid,position)
 			break
 		end
 	end
+	logger.log("info","skill",format("[wieldskill] pid=%d skillid=%d pos=%d",self.pid,skillid,position))
 	self.skillslot[self.curslot][position] = skillid
 	net.skill.S2C.updateslot(self.pid,self.skillslot[self.curslot])
 end
@@ -124,14 +126,6 @@ function cwarskilldb:canwield(skillid)
 	local skill = self:get(skillid)
 	if not skill or skill.level <=0 then
 		return false
-	end
-	local data = self:getskilldata(skillid)
-	if data.limitWeapon ~= 0 then
-		local player = playermgr.getplayer(self.pid)
-		local item = player.itemdb:getitembypos(EQUIPPOS_WEAPON)
-		if not item or item.type ~= data.limitWeapon then
-			return false
-		end
 	end
 	return true
 end

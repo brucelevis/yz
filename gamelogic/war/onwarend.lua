@@ -9,10 +9,6 @@ end)
 
 warmgr.register_onwarend(WARTYPE.PERSONAL_TASK,function (warid,result)
 	local war = warmgr.getwar(warid)
-	local player = playermgr.getplayer(war.pid)
-	if not player then
-		return
-	end
 	local taskcontainer = player.taskdb:gettaskcontainer(war.taskid)
 	if not taskcontainer then
 		return
@@ -22,20 +18,17 @@ end)
 
 warmgr.register_onwarend(WARTYPE.PVE_CHAPTER,function (warid,result)
 	local war = warmgr.getwar(warid)
-	local player = playermgr.getplayer(war.pid)
-	if not player then
-		return
-	end
 	player.chapterdb:onwarend(war,result)
 end)
 
 warmgr.register_onwarend(WARTYPE.PVE_BAOTU,function (warid,result)
 	local war = warmgr.getwar(warid)
-	local player = playermgr.getplayer(war.pid)
-	if not player then
-		return
-	end
-	huodongmgr.playunit.baotu.onwarend(warid,result)
+	huodongmgr.playunit.baotu.onwarend(war,result)
+end)
+
+warmgr.register_onwarend(WARTYPE.PVE_GUAJI,function (warid,result)
+	local war = warmgr.getwar(warid)
+	huodongmgr.playunit.guaji.onwarend(war,result)
 end)
 
 return onwarend_callback

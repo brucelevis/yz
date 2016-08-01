@@ -1,7 +1,7 @@
 navigation = navigation or {}
 
 function navigation.init()
-	navigation.hdidlist = {}
+	navigation.activities = {}
 	for actid,data in pairs(data_1103_Navigation) do
 	end
 end
@@ -14,6 +14,7 @@ function navigation.get_navigatedata(player)
 			liveness = 0,		--活跃度
 			awardrecord = {},	--活跃度奖励领取记录
 		}
+		player.today.set("navigatedata",navigatedata)
 	end
 	return navigatedata
 end
@@ -88,6 +89,15 @@ function navigation.getactivity(navigatedata,actid)
 	return activity
 end
 
+function navigation.addprogress(player,actid)
+	local data = data_1103_Navigation[actid]
+	if not data then
+		return
+	end
+	local navigatedata = self:get_navigatedata(player)
+	local actity = self:getactivity(navigatedata,actid)
+end
+
 function navigation.onlogin(player)
 end
 
@@ -98,10 +108,6 @@ function navigation.onhourupdate()
 end
 
 function navigation.onweekupdate()
-end
-
-function navigation.addprogress(player,hdid)
-	
 end
 
 return navigation

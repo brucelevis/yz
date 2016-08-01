@@ -6,7 +6,7 @@ data_1599_TestTaskAward = {
 		gold = 1000,
 		silver = 1000,
 		coin = 1000,
-		items = {{type=1003,num=1},nil,nil,},
+		items = {{type=501001,num=1},nil,nil,},
 		pets = {nil,nil,},
 	},
 
@@ -15,7 +15,7 @@ data_1599_TestTaskAward = {
 		gold = 1000,
 		silver = 1000,
 		coin = 1000,
-		items = {{type=1003,num=1},nil,nil,},
+		items = {{type=501001,num=10},nil,nil,},
 		pets = {nil,nil,},
 	},
 
@@ -24,7 +24,7 @@ data_1599_TestTaskAward = {
 		gold = 1000,
 		silver = 1000,
 		coin = 1000,
-		items = {{type=1003,num=1},nil,nil,},
+		items = {{type=501001,num=15},nil,nil,},
 		pets = {nil,nil,},
 	},
 

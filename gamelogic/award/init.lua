@@ -1,18 +1,5 @@
 
 --[[
-奖励控制表格式:
-{
-	{
-		type = 1/2 #1--独立计算概率(概率基数为1000000)，2-－互斥概率
-		value = {
-			[awardid1] = ratio1,
-			[awardid2] = ratio2,
-			...
-		}
-	},
-	...
-}
-
 奖励项格式：
 {
 	gold = 金币,
@@ -46,7 +33,7 @@ function award.__player(pid,bonus,reason,btip)
 		local has_lackbonus = false
 		local lackbonus = {
 		}
-		for name,id in pairs(RESTYPE) do -- RESTYPE == data_ResType
+		for id,name in pairs(RESTYPE) do -- RESTYPE
 			if type(name) == "string" then
 				name = string.lower(name)
 				local resnum = bonus[name]
@@ -131,25 +118,24 @@ function award.mergebonus(bonuss)
 end
 
 -- rewards: 奖励控制表
-function award.getaward(reward,func)
-	func = func or getawarddata
-	local bonuss = {}
-	if reward.type == 1 then
-		reward = reward.value
-		for awardid,ratio in pairs(reward) do
+function award.getaward(formdata,bonusid,ratiotype,func)
+	local final_bonuss = {}
+	local bonuss = formdata[bonusid]
+	if ratiotype == 1 then -- 独立概率
+		for i,bonus in ipairs(bonuss) do
+			local ratio = func and func(i,bonus) or bonus.ratio
+			assert(ratio)
 			if ishit(ratio,BASE_RATIO) then
-				local bonus = func(awardid)
-				table.insert(bonuss,bonus)
+				table.insert(final_bonuss,bonus)
 			end
 		end
 	else
-		assert(reward.type==2)
-		reward = reward.value
-		local awardid = choosekey(reward)
-		local bonus = func(awardid)
-		table.insert(bonuss,bonus)	
+		assert(ratiotype == 2)
+		local id = choosekey(bonuss,func)
+		local bonus = bonuss[id]
+		table.insert(final_bonuss,bonus)
 	end
-	return award.mergebonus(bonuss)
+	return award.mergebonus(final_bonuss)
 end
 
 function doaward(typ,id,reward,reason,btip)

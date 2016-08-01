@@ -2,13 +2,23 @@ scenemgr = scenemgr or {}
 
 function scenemgr.init()
 	scenemgr.scenes = {}
+	scenemgr.newcomer_sceneids = {}   -- 新手村场景
+	scenemgr.sceneid = 1000
 	local normal_map = data_0401_Map
+	assert(#normal_map < scenemgr.sceneid)
 	for mapid,v in pairs(normal_map) do
 		-- 普通地图：场景ID保持和地图ID一致，其他副本场景均从100ID开始
-		scenemgr.addscene(mapid,mapid)
+		if mapid == 1 then	-- 新手村地图
+			local scene = scenemgr.addscene(mapid,mapid)
+			table.insert(scenemgr.newcomer_sceneids,scene.sceneid)
+			for i = 1,4 do
+				local scene = scenemgr.addscene(mapid)
+				table.insert(scenemgr.newcomer_sceneids,scene.sceneid)
+			end
+		else
+			scenemgr.addscene(mapid,mapid)
+		end
 	end
-	assert(#normal_map < 100)
-	scenemgr.sceneid = 1000
 	-- 保证动态NPC生成的ID和客户端NPC（固定NPC）id不一样
 	scenemgr.npcid = data_GameID.npc.endid
 	scenemgr.itemid = 0
@@ -110,6 +120,7 @@ function scenemgr.addnpc(npc,sceneid)
 	local npcs = scene.npcs
 	local npcid = scenemgr.gennpcid()
 	npc.id = npcid
+	npc.mapid = scene.mapid
 	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npcid,npc))
 	npc.createtime = os.time()
 	scene.npcs[npcid] = npc

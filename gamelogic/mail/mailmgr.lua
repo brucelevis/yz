@@ -51,6 +51,9 @@ function mailmgr.sendmail(pid,amail)
 		return rpc.call(srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)
 	end
 	amail = deepcopy(amail) -- 防止多个玩家修改同一份邮件
+	if amail.attach then	-- 防止传入导表的概率字段
+		amail.attach.ratio = nil
+	end
 	amail.sendtime = amail.sendtime or os.time()
 	local mailbox = mailmgr.getmailbox(pid)
 	amail.mailid = amail.mailid or mailbox:genid()

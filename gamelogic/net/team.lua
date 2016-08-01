@@ -31,8 +31,6 @@ function C2S.leaveteam(player,request)
 	teammgr:leaveteam(player)
 end
 
-
-
 function C2S.backteam(player,request)
 	teammgr:backteam(player)
 end

@@ -245,7 +245,7 @@ function ctaskcontainer:pack(task)
 					id = npc.id,
 					shape = npc.type,
 					name = npc.name,
-					sceneid = npc.sceneid,
+					mapid = npc.mapid,
 					pos = npc.pos,
 				})
 			end

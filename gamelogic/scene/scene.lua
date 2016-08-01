@@ -126,10 +126,12 @@ function cscene:onenter(player,pos)
 	channel.subscribe(self.channel,player.pid)
 	sendpackage(player.pid,"scene","allnpc",{npcs=self.npcs})
 	sendpackage(player.pid,"scene","allitem",{items=self.items})
+	huodongmgr.onenterscene(player,self.sceneid,pos)
 end
 
 function cscene:onleave(player)
 	channel.unsubscribe(self.channel,player.pid)
+	huodongmgr.onleavescene(player,self.sceneid)
 end
 
 return cscene
