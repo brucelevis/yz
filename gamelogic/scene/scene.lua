@@ -124,14 +124,30 @@ end
 -- 进入场景后处理流程
 function cscene:onenter(player,pos)
 	channel.subscribe(self.channel,player.pid)
-	sendpackage(player.pid,"scene","allnpc",{npcs=self.npcs})
-	sendpackage(player.pid,"scene","allitem",{items=self.items})
+	local npcs = {}
+	for _,npc in pairs(self.npcs) do
+		table.insert(npcs,self:packnpc(npc))
+	end
+	local items = {}
+	for _,item in pairs(self.items) do
+		table.insert(items,self:packitem(item))
+	end
+	sendpackage(player.pid,"scene","allnpc",{npcs = npcs})
+	sendpackage(player.pid,"scene","allitem",{itemsi = items})
 	huodongmgr.onenterscene(player,self.sceneid,pos)
 end
 
 function cscene:onleave(player)
 	channel.unsubscribe(self.channel,player.pid)
 	huodongmgr.onleavescene(player,self.sceneid)
+end
+
+function cscene:packnpc(npc)
+	return npc
+end
+
+function cscene:packitem(item)
+	return item
 end
 
 return cscene

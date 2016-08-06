@@ -73,55 +73,45 @@ function ctemplate:createscene(playunit,mapid,name)
 	return scene
 end
 
-function ctemplate:createnpc(playunit,nid)
+function ctemplate:createnpc(playunit,nid,pid)
 	local npcdata = self:getformdata("npc")[nid]
+	local mapid,x,y = scenemgr.getpos(npcdata.posid)
 	local newnpc = {
 		nid = nid,
-		type = npcdata.type,
+		shape = npcdata.shape,
 		name = npcdata.name,
-		mapid = npcdata.mapid,
-		pos = npcdata.pos,
+		posid = npcdata.posid,
+		pos = { x = x, y = y},
+		mapid = mapid,
 		isclient = npcdata.isclient,
 	}
-	newnpc = self:transnpc(playunit,newnpc)
+	newnpc = self:transnpc(playunit,newnpc,pid)
 	playunit.resourcemgr:addnpc(newnpc)
 	return newnpc
 end
 
-function ctemplate:createwar(warid,playunit,pid)
+function ctemplate:createwar(playunit,warid,pid)
 	local war = {
 		wardataid = warid,
 		attack_helpers = {},
 		defense_helpers = {},
 	}
-	local attackers = {pid,}
-	local defensers = {}
 	local player = playermgr.getplayer(pid)
-	if player:teamstate() == TEAM_STATE_CAPTAIN then
-		local team = teammgr:getteam(player.teamid)
-		table.extend(attackers,team:members(TEAM_STATE_FOLLOW))
-	end
-	war,attackers,defensers = self:transwar(playunit,war,attackers,defensers)
-	warmgr.startwar(attackers,defensers,war)
+	war.attackers = player:getfighters()
+	assert(not table.isempty(war.attackers))
+	war.defensers = {}		-- 默认PVE，涉及PVP重新该接口
+	return war
 end
 
-function ctemplate:doaward(awardid,pid)
-	if type(awardid) == "table" then
-		awardid = choosekey(awardid)
-	end
-	local award = nil
+function ctemplate:doaward(playunit,awardid,pid)
 	if awardid < 0 then
-		award = self:getfakedata(-awardid,"award")
-	else
-		award = self:getformdata("award")[awardid]
+		awardid = self:transaward(playunit,awardid,pid)
 	end
-	award = deepcopy(award)
-	for res,value in pairs(award) do
-		value = self:transcode(value,pid)
-		award[res] = value
-	end
-	local reason = format("template.%s awardid=%d",self.name,awardid)
-	doaward("player",pid,award,reason)
+	local awarddata = self:getformdata("award")
+	local bonuss = award.getaward(awarddata,awardid,function(i,data)
+		return data.ratio
+	end)
+	doaward("player",pid,bonuss,format("template.%s awardid=%d",self.name,awardid))
 end
 
 function ctemplate:isnearby(player,npc,dis)
@@ -132,7 +122,14 @@ function ctemplate:isnearby(player,npc,dis)
 		return false
 	end
 	dis = dis or MAX_NEAR_DISTANCE
-	if dis ~= "ignore" and getdistance(player.pos,npc.pos) > dis then
+	local pos2
+	if npc.pos then
+		pos2 = npc.pos
+	else
+		local _,x,y = scenemgr.getpos(npc.posid)
+		pos2 = {x = x, y = y}
+	end
+	if dis ~= "ignore" and getdistance(player.pos,pos2) > dis then
 		return false
 	end
 	return true
@@ -156,7 +153,7 @@ end
 function ctemplate:getformdata(formname)
 end
 
-function ctemplate:transnpc(playunit,npc)
+function ctemplate:transnpc(playunit,npc,pid)
 	return npc
 end
 
@@ -164,21 +161,19 @@ function ctemplate:transscene(playunit,scene)
 	return scene
 end
 
-function ctemplate:transwar(playunit,war,attackers,defensers)
-	return war,attackers,defensers
+function ctemplate:transwar(playunit,warid,pid)
+	return warid
 end
 
-function ctemplate:customexec(playunit,script,pid)
-	local cmd = script.cmd
-	local args = script.args
-	self:log("err","err",format("[unknow script] script=%s pid=%d",script,pid))
+function ctemplate:transaward(playunit,awardid,pid)
+	return awardid
 end
 
-function ctemplate:transtext(text,pid)
+function ctemplate:transtext(playunit,text,pid)
 	return text
 end
 
-function ctemplate:transcode(value,pid)
+function ctemplate:transcode(playunit,value,pid)
 	if type(value) ~= "string" then
 		return value
 	end
@@ -194,12 +189,10 @@ function ctemplate:transcode(value,pid)
 	end
 end
 
-function ctemplate:getfakedata(fakeid,faketype)
-	local fakedata = self:getformdata("fake")[fakeid]
-	if not fakedata then
-		return
-	end
-	return fakedata[faketype]
+function ctemplate:customexec(playunit,script,pid)
+	local cmd = script.cmd
+	local args = script.args
+	self:log("err","err",format("[unknow script] script=%s pid=%d",script,pid))
 end
 
 function ctemplate:onwarend(warid,result)
@@ -210,15 +203,14 @@ end
 function ctemplate:talkto(playunit,args,pid)
 	local nid = args.nid
 	local textid = args.textid
-	local npc = self:getnpc_bynid(playunit,nid)
 	local text = self:getformdata("text")[textid]
-	text = self:transtext(text,pid,npc)
+	text = self:transtext(playunit,text,pid)
 	net.msg.S2C.npcsay(pid,npc,text)
 end
 
-function ctemplate:addnpc(playunit,args)
+function ctemplate:addnpc(playunit,args,pid)
 	local nid = args.nid
-	local npc = self:createnpc(playunit,nid)
+	local npc = self:createnpc(playunit,nid,pid)
 	if not npc.isclient then
 		playunit.resourcemgr:enterscene(npc)
 	end
@@ -233,11 +225,12 @@ function ctemplate:delnpc(playunit,args)
 end
 
 function ctemplate:raisewar(playunit,args,pid)
-	local warid = args.warid
+	local warid = assert(args.warid)
 	if warid < 0 then
-		warid = self:getfakedata(-warid,"war")
+		warid = self:transwar(playunit,warid,pid)
 	end
-	self:createwar(warid,playunit,pid)
+	local war = self:createwar(playunit,warid,pid)
+	warmgr.startwar(war.attackers,war.defensers,war)
 end
 
 return ctemplate

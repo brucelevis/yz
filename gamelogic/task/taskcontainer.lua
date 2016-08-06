@@ -7,7 +7,10 @@ function ctaskcontainer:init(conf)
 	ccontainer.init(self,conf)
 	ctemplate.init(self,conf)
 	self.finishtasks = {}
-	self.nowtaskid = nil  -- 仅对同时只有一个任务的任务类有效
+	self.nowtaskid = nil		-- 仅对同时只有一个任务的任务类有效
+	self.ringnum = nil			-- 任务环数，部分任务启用
+	self.donelimit = nil		-- 任务完成次数上限，未修改时用导表数据
+
 	--脚本注册
 	self.script_handle.findnpc = true
 	self.script_handle.needitem = true
@@ -31,11 +34,13 @@ function ctaskcontainer:load(data)
 		self:loadres(task,objdata.resource)
 		return task
 	end)
-	self.nowtaskid = data.nowtaskid
 	local finishtasks = data.finishtasks or {}
 	for i,taskid in ipairs(finishtasks) do
 		self.finishtasks[taskid] = true
 	end
+	self.nowtaskid = data.nowtaskid
+	self.ringnum = data.ringnum
+	self.donelimit = data.donelimit
 end
 
 function ctaskcontainer:save()
@@ -46,6 +51,8 @@ function ctaskcontainer:save()
 	end)
 	data.nowtaskid = self.nowtaskid
 	data.finishtasks = table.values(self.finishtasks)
+	data.ringnum = self.ringnum
+	data.donelimit = data.donelimit
 	return data
 end
 
@@ -59,7 +66,6 @@ end
 
 --<<  可重写  >>--
 function ctaskcontainer:onlogin(player)
-	self:sendalltask()
 end
 
 function ctaskcontainer:onlogoff(player)
@@ -83,7 +89,7 @@ end
 function ctaskcontainer:onwarend(war,result)
 	local task = self:gettask(war.taskid)
 	if task then
-		if result.win == true then
+		if result == 1 then
 			self:finishtask(task,"war")
 		else
 			self:failtask(task)
@@ -104,7 +110,11 @@ function ctaskcontainer:doscript(task,script,pid,...)
 end
 
 function ctaskcontainer:raisewar(task,args,pid)
-	if not self:validwar(pid) then
+	local isok,msg = self:can_raisewar()
+	if not isok then
+		if msg then
+			net.msg.S2C.notify(pid,msg)
+		end
 		return TASK_SCRIPT_FAIL
 	end
 	ctemplate.raisewar(self,task,args,pid)
@@ -112,15 +122,16 @@ function ctaskcontainer:raisewar(task,args,pid)
 	return TASK_SCRIPT_SUSPEND
 end
 
-function ctaskcontainer:validwar(pid)
+function ctaskcontainer:can_raisewar()
 	return true
 end
 
-function ctaskcontainer:transwar(task,war,attackers,defensers)
+function ctaskcontainer:createwar(task,warid,pid)
+	assert(pid == self.pid)
+	local war = ctemplate.createwar(self,warid,task,pid)
 	war.wartype = WARTYPE.PERSONAL_TASK
 	war.taskid = task.taskid
-	war.pid = self.pid
-	return war,attackers,defensers
+	return war
 end
 
 function ctaskcontainer:getformdata(formname)
@@ -131,7 +142,7 @@ function ctaskcontainer:failtask(task)
 end
 
 --将texts中所有待替换标识,替换成{ npcname = "Mike" }形式发给客户端
-function ctaskcontainer:transtext(texts)
+function ctaskcontainer:transtext(task,texts,pid)
 end
 
 
@@ -206,14 +217,12 @@ function ctaskcontainer:deltask(taskid,reason)
 	end
 end
 
-function ctaskcontainer:sendalltask()
+function ctaskcontainer:getallsendtask()
 	local tasks = {}
 	for _,task in pairs(self.objs) do
 		table.insert(tasks,self:pack(task))
 	end
-	if next(tasks) then
-		net.task.S2C.alltask(self.pid,tasks)
-	end
+	return tasks
 end
 
 function ctaskcontainer:refreshtask(taskid)
@@ -233,8 +242,14 @@ function ctaskcontainer:pack(task)
 	data.state = task.state
 	data.exceedtime = task.exceedtime
 	data.type = task.type
-	data.findnpc = task.resourcemgr:get("findnpc")
-	data.patrol = self:getpatrol(task)
+	local findnpc = task.resourcemgr:get("findnpc")
+	if findnpc then
+		local npc = self:getnpc_bynid(task,findnpc)
+		if npc then
+			data.findnpc = npc.id or findnpc
+		end
+	end
+	data.patrol = task.resourcemgr:get("patrolpos")
 	data.progress = task.resourcemgr:get("progresstime")
 	data.items = task.resourcemgr:get("itemneed")
 	if next(task.resourcemgr.npclist) then
@@ -243,10 +258,9 @@ function ctaskcontainer:pack(task)
 			if npc.isclient then
 				table.insert(data.npcs,{
 					id = npc.id,
-					shape = npc.type,
+					shape = npc.shape,
 					name = npc.name,
-					mapid = npc.mapid,
-					pos = npc.pos,
+					posid = npc.posid,
 				})
 			end
 		end
@@ -299,7 +313,9 @@ function ctaskcontainer:finishtask(task,reason)
 	if not istrue(taskdata.submitnpc) then
 		self:submittask(taskid)
 	else
-		net.task.S2C.finishtask(self.pid,taskid)
+		local npc = self:getnpc_bynid(task,taskdata.submitnpc)
+		local submitnpc = npc.id or taskdata.submitnpc
+		net.task.S2C.finishtask(self.pid,taskid,submitnpc)
 	end
 end
 
@@ -311,27 +327,10 @@ function ctaskcontainer:verifynpc(task)
 	local npc = self:getnpc_bynid(task,nid)
 	local player = playermgr.getplayer(self.pid)
 	if not self:isnearby(player,npc) then
+		net.msg.S2C.notify(self.pid,language.format("太远了"))
 		return false
 	end
 	return true
-end
-
-function ctaskcontainer:getpatrol(task)
-	local patrol = task.resourcemgr:get("patrol")
-	if not patrol then
-		return
-	end
-	local scenes = task.resourcemgr:getscenes(patrol.mapid)
-	local scene = nil
-	if not table.isempty(scenes) then
-		scene = scenes[1]
-	else
-		scene = scenemgr.getscene(patrol.mapid)
-	end
-	if not scene then
-		return
-	end
-	return { sceneid = scene.id, pos = patrol.pos }
 end
 
 
@@ -467,12 +466,9 @@ function ctaskcontainer:truehandin(player,handinlst)
 end
 
 function ctaskcontainer:setpatrol(task,args)
-	local mapid = self:transcode(args.mapid)
-	local pos = self:transcode(args.pos)
-	task.resourcemgr:set("patrol",{
-		mapid = mapid,
-		pos = pos,
-	})
+	local posid = args.posid
+	posid = self:transcode(task,posid,self.pid)
+	task.resourcemgr:set("patrolpos",posid)
 end
 
 function ctaskcontainer:progressbar(task,args)
@@ -488,8 +484,8 @@ end
 function ctaskcontainer:talkto(task,args,pid)
 	local textid = args.textid
 	local texts = self:getformdata("text")[textid].texts
-	local transstr = self:transtext(texts)
-	net.task.S2C.tasktalk(pid,self.name,textid,transstr)
+	local transstr = self:transtext(task,texts,pid)
+	net.task.S2C.tasktalk(pid,task.taskid,textid,transstr)
 end
 
 
@@ -570,22 +566,63 @@ function ctaskcontainer:can_accept(taskid)
 end
 
 function ctaskcontainer:reachlimit()
-	local interval = data_1500_GlobalTask[self.name].interval
-	local donelimit = data_1500_GlobalTask[self.name].donelimit
-	if interval and donelimit then
-		local count = 0
-		if interval == "day" then
-			count = player.today:query(self:getflag("done"),0)
-		elseif interval == "week" then
-			count = player.thisweek:query(self:getflag("done"),0)
-		else
-			count = player.thistemp:query(self:getflag("done"),0)
-		end
+	local donelimit = self:getdonelimit()
+	if istrue(donelimit) then
+		local count = self:getdonecnt()
 		if count >= donelimit then
 			return true
 		end
 	end
 	return false
+end
+
+function ctaskcontainer:getdonelimit()
+	if self.donelimit then
+		return self.donelimit
+	end
+	local donelimit = data_1500_GlobalTask[self.name].donelimit
+	return donelimit
+end
+
+function ctaskcontainer:setdonelimit(limit,reason)
+	self:log("info","task",format("[setdonelimit] pid=%d limit=%d reason=%s",self.pid,limit,reason))
+	self.donelimit = limit
+end
+
+function ctaskcontainer:getdonecnt()
+	local interval = data_1500_GlobalTask[self.name].interval
+	if not interval then
+		return 0
+	end
+	local player = playermgr.getplayer(self.pid)
+	local count = 0
+	if interval == "today" then
+		count = player.today:query(self:getflag("donecnt"),0)
+	elseif interval == "thisweek" then
+		count = player.thisweek:query(self:getflag("donecnt"),0)
+	elseif interval == "thisweek2" then
+		count = player.thisweek2:query(self:getflag("done"),0)
+	else
+		count = player.thistemp:query(self:getflag("donecnt"),0)
+	end
+	return count
+end
+
+function ctaskcontainer:adddonecnt(cnt)
+	local interval = data_1500_GlobalTask[self.name].interval
+	if not interval then
+		return
+	end
+	local player = playermgr.getplayer(self.pid)
+	if interval == "today" then
+		player.today:add(self:getflag("done"),cnt)
+	elseif interval == "thisweek" then
+		player.thisweek:add(self:getflag("done"),cnt)
+	elseif interval == "thisweek2" then
+		player.thisweek2:add(self:getflag("done"),cnt)
+	else
+		player.thistemp:add(self:getflag("done"),cnt)
+	end
 end
 
 function ctaskcontainer:getflag(flag)
@@ -653,14 +690,16 @@ function ctaskcontainer:submittask(taskid)
 		local player = playermgr.getplayer(self.pid)
 		local npc = self:getnpc_bynid(task,taskdata.submitnpc)
 		if npc and not self:isnearby(player,npc) then
+			net.msg.S2C.notify(self.pid,language.format("太远了"))
 			return
 		end
 	end
 	self:addfinishtask(taskid)
+	self:adddonecnt(1)
 	self.nowtaskid = nil
 	self:deltask(taskid,"taskdone")
 	local awardid = self:getformdata("task")[taskid].award
-	self:doaward(awardid,self.pid)
+	self:doaward(task,awardid,self.pid)
 	self:nexttask(taskid)
 end
 

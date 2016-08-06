@@ -38,16 +38,19 @@ function cplayer:init(pid)
 	self.itemdb = citemdb.new({
 		pid = self.pid,
 		name = "itemdb",
+		type = BAGTYPE.NORMAL,
 	})
 	-- 时装背包
 	self.fashionshowdb = citemdb.new({
 		pid = self.pid,
 		name = "fashinoshowdb",
+		type = BAGTYPE.FASHION_SHOW,
 	})
 	-- 怪物卡片
 	self.carddb = ccarddb.new({
 		pid = self.pid,
 		name = "carddb",
+		type = BAGTYPE.CARD,
 	})
 	self.delaytonextlogin = cdelaytonextlogin.new(self.pid)
 	self.switch = cswitch.new{
@@ -482,6 +485,7 @@ function cplayer:onlogin()
 	end
 	teammgr:onlogin(self)
 	warmgr.onlogin(self)
+	gm.onlogin(self)
 	channel.subscribe("world",self.pid)
 	self:synctoac()
 end
@@ -798,6 +802,18 @@ function cplayer:getitemdb(itemtype)
 		return self.carddb
 	else
 		return self.itemdb
+	end
+end
+
+-- 返回的也是itemdb，只是是根据背包类型获取
+function cplayer:getitembag(bagtype)
+	if bagtype == BAGTYPE.NORMAL or bagtype == "itemdb" then
+		return self.itemdb
+	elseif bagtype == BAGTYPE.FASHION_SHOW or bagtype == "fashionshowdb" then
+		return self.fashionshowdb
+	else
+		assert(bagtype == BAGTYPE.CARD or bagtype == "carddb")
+		return self.carddb
 	end
 end
 

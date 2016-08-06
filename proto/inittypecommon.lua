@@ -38,7 +38,7 @@ return {
 	# 组队等级
 	lv 2 : integer
 	members 3 : *MemberType
-	automatch 4 : boolean
+	automatch 4 : boolean		# 是否处于自动匹配中,true--是，false/空--否
 }
 
 .PublishTeamType {
@@ -52,20 +52,25 @@ return {
 	id 0 :	 integer		#物品ID(拾取物品时和服务端通信的ID)
 	type 1 : integer		#物品类型
 	sceneid 2 : integer		#场景ID(可能无用)
-	pos 3 : PosType			#坐标
-	exceedtime 4 : integer	#过期时间
-	num 5 : integer			#物品数量
-	bind 6 : integer		#绑定标志(0/空--未绑定，其他--绑定)
+	exceedtime 3 : integer	#过期时间
+	num 4 : integer			#物品数量
+	bind 5 : integer		#绑定标志(0/空--未绑定，其他--绑定)
+	posid 6 : string		#坐标ID，包含mapid,x,y三份信息，见data_0401_MapDstPoint
+	mapid 7 : integer		#地图ID
+	pos 8 : PosType			#优先使用坐标ID,没有坐标ID再使用mapid和pos
 }
 
 .SceneNpcType {
 	id 0 : integer			#npcid
-	type 1 : integer		#怪物类型
+	shape 1 : integer		#怪物造型
 	name 2 : string			#怪物名字
 	sceneid 3 : integer     #场景ID（可能无用)
-	pos 4 : PosType			#坐标
-	exceedtime 5 : integer  #过期时间
-	cur_warcnt 6 : integer  #当前正在进行的战斗数(>0:战斗状态,==0:非战斗状态)
+	exceedtime 4 : integer  #过期时间
+	cur_warcnt 5 : integer  #当前正在进行的战斗数(>0:战斗状态,==0/空:非战斗状态)
+	purpose 6 : string		#用途分类:baotu--宝图怪
+	posid 7 : string		#坐标ID，包含mapid,x,y三份信息，见data_0401_MapDstPoint
+	mapid 8 : integer		#地图ID
+	pos 9 : PosType			#优先使用坐标ID,没有坐标ID再使用mapid和pos
 }
 
 # 物品精炼增加的属性类型（影响战斗属性)
@@ -160,18 +165,13 @@ return {
 	pid 8 : integer  # 邮件拥有者ID(可能没用)
 }
 
-.DestinationType {
-	sceneid 0 : integer
-	pos 1 : PosType
-}
-
 .TaskType {
 	taskid 0 : integer
 	state 1 : integer		#1--接受状态，2--完成状态
 	exceedtime 2 : integer	#任务过期时间
 	type 3 : integer		#任务玩法类型
 	findnpc 4 : integer
-	patrol 5 : DestinationType #巡逻目的地
+	patrol 5 : string		#巡逻目标坐标id
 	progress 6 : integer	#进度条时间
 	items 7 : *ItemType		#需求物品
 	npcs 8 : *SceneNpcType	#客户端npc,即任务中可见

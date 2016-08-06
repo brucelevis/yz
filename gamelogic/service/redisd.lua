@@ -10,25 +10,35 @@ local conn_conf = nil
 
 local command = {}
 function command.connect(conf)
-	if not conn then
-		conn = redis.connect(conf)
+	if conf then
 		conn_conf = conf
+	end
+	assert(conn_conf,"No db config")
+	if not conn then
+		conn = redis.connect(conn_conf)
+		return "connected"
+	else
+		return "already connected"
 	end
 end
 
 function command.disconnect()
 	if conn then
-		conn:disconnect()
-		conn = nil
+		local _conn = conn
+		conn = nil		-- 先置空
 		conn_conf = nil
+		_conn:disconnect()
+		return "disconnected"
+	else
+		return "alredy disconnected"
 	end
 end
 
 -- 容灾处理流程：
 -- 1. 队列缓存所有执行失败的指令,以保证重新落地时序
 -- 2. 当网络畅通（恢复正常后),将所有落地失败的指令重新落地,如果仍然落地失败，则写到文件记录失败指令
--- 3. 为了防止队列过大(占用内存过大)，设定了一个最大队列长度,因此容灾的时间长度也收限定。本身容灾处理
--- 的应该是短时间内（如几秒内)与db失去连接，程序具备已定的容错性。 如果db长时间断开连接，容灾是解决不了
+-- 3. 为了防止队列过大(占用内存过大)，设定了一个最大队列长度,因此容灾的时间长度也受限定。本身容灾处理
+-- 的应该是短时间内（如几秒内)与db失去连接，程序具备一定的容错性。 如果db长时间断开连接，容灾是解决不了
 -- 问题。
 
 local queue = {
@@ -77,7 +87,7 @@ function queue.clear()
 end
 
 -- 最大缓存长度，防止db容灾时间过长，内存不足
-local MAXLEN = skynet.getenv("db_cache_maxlen") or 1000000
+local MAXLEN = skynet.getenv("db_cache_maxlen") or 100000
 local fd = nil
 function queue.dumptofile(elem)
 	if not fd then
@@ -104,6 +114,7 @@ function command.dump()
 	skynet.ret(skynet.pack(ret))
 end
 
+
 skynet.start(function ()
 	skynet.dispatch("lua",function (session,source,cmd,...)
 		local delay_response = false
@@ -112,6 +123,10 @@ skynet.start(function ()
 		if func then
 			isok,result = pcall(func,...)
 		else
+			-- 首次连接数据库失败，conn为空值
+			if not conn then
+				command.connect()
+			end
 			func = conn[cmd]
 			if func then
 				--print("exec",cmd,...)

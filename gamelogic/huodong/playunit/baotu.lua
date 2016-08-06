@@ -84,6 +84,15 @@ function playunit_baotu.use(player,item)
 	local packdata = {
 		itemid = item.id,
 	}
+	local sceneid = randlist(table.keys(data_1102_BaoTuPos))
+	local posdata = data_1102_BaoTuPos[sceneid]
+	local posid = randlist(posdata.posids)
+	local sceneid,x,y = scenemgr.getpos(posid)
+	local scene = scenemgr.getscene(sceneid)
+	packdata.sceneid = sceneid
+	packdata.mapid = scene.mapid
+	packdata.posid = posid
+	packdata.pos = {x = x,y = y,dir = 1}
 	if data.etype == 1 then		-- 遇怪
 		local sceneid = randlist(table.keys(data_1102_BaoTuMonsterPos))
 		local scenedata = data_1102_BaoTuMonsterPos[sceneid]
@@ -120,7 +129,7 @@ function playunit_baotu.startwar(player,npc)
 		net.msg.S2C.notify(player.pid,errmsg)
 		return
 	end
-	local lv = player:player_team_avglv(TEAM_STATE_FOLLOW)
+	local lv = player:player_team_avglv(TEAM_STATE_CAPTAIN_FOLLOW)
 	local data = data_1102_BaoTuWar[npc.monsterid]
 	if not data.war[lv] then  -- 找不到取最大等级
 		lv = #data.war

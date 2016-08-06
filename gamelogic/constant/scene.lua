@@ -20,5 +20,5 @@ ALL_BORN_LOCS = { -- 出生位置
 	{x=800,y=800,dir=1},
 }
 
-MAX_NEAR_DISTANCE = 100		--最大临近距离
+MAX_NEAR_DISTANCE = 200		--最大临近距离
 

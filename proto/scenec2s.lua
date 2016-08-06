@@ -17,7 +17,7 @@ scene_move 2500 {
 scene_enter 2501 {
 	request {
 		base 0 : basetype
-		sceneid 1 : integer
+		sceneid 1 : integer		# 场景ID，对于主场景，就是地图导表ID
 		pos 2 : PosType
 	}
 }
@@ -29,6 +29,14 @@ scene_query 2502 {
 	request {
 		base 0 : basetype
 		targetid 1 : integer
+	}
+}
+
+# 和NPC发起战斗
+scene_fucknpc 2503 {
+	request {
+		base 0 : basetype
+		npcid 1 : integer
 	}
 }
 

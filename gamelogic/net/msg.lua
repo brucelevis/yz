@@ -380,7 +380,7 @@ function S2C.npcsay(pid,npc,msg)
 	end
 	sendpackage(pid,"msg","npcsay",{
 		name = npc.name,
-		type = npc.type,
+		type = npc.shape,
 		msg = msg,
 	})
 end

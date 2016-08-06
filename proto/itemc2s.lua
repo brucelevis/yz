@@ -46,6 +46,7 @@ item_mergeto 5504 {
 	}
 }
 
+# 卸下装备
 item_wield 5505 {
 	request {
 		base 0 : basetype
@@ -53,6 +54,7 @@ item_wield 5505 {
 	}
 }
 
+# 装备
 item_unwield 5506 {
 	request {
 		base 0 : basetype
@@ -68,6 +70,7 @@ item_changesuit 5507 {
 	}
 }
 
+# 设置套装
 item_setsuit 5508 {
 	request {
 		base 0 : basetype
@@ -142,5 +145,12 @@ item_opencard 5516 {
 	}
 }
 
+# 整理背包
+item_sortbag 5517 {
+	request {
+		base 0 : basetype
+		bagtype 1 : integer			#背包类型:1-- 普通背包，2--时装背包，3--卡片背包
+	}
+}
 ]]
 }

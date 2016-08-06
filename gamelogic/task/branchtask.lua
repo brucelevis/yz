@@ -15,8 +15,8 @@ function cbranchtask:addtask(task)
 end
 
 function cbranchtask:onwarend(war,result)
-	ctaskcontainer.addtask(self,war,result)
-	local player = playermgr:getplayer(self.pid)
+	ctaskcontainer.onwarend(self,war,result)
+	local player = playermgr.getplayer(self.pid)
 	local chapterid = self:getformdata("task")[war.taskid].chapterid
 	if chapterid then
 		player.chapterdb:onwarend(war,result)

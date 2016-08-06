@@ -36,14 +36,11 @@ function C2S.move(player,request)
 end
 
 function C2S.enter(player,request)
-	-- 对新手存做平行场景处理？
-	local mapid = assert(request.mapid)
+	-- 对新手村做平行场景处理？
+	local sceneid = assert(request.sceneid)
 	local pos = assert(request.pos)
-	local sceneid
-	if mapid == 1 then
+	if sceneid == 1 then
 		sceneid = randlist(scenemgr.newcomer_sceneids)
-	else
-		sceneid = mapid
 	end
 	-- 是否禁止同场景跳转?
 	--if sceneid == player.sceneid then

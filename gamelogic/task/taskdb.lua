@@ -88,9 +88,14 @@ function ctaskdb:oncreate(player)
 end
 
 function ctaskdb:onlogin(player)
+	local alltask = {}
 	for name,_ in pairs(self.taskcontainers) do
 		local taskcontainer = self[name]
 		taskcontainer:onlogin(player)
+		table.extend(alltask,taskcontainer:getallsendtask())
+	end
+	if next(alltask) then
+		net.task.S2C.alltask(self.pid,alltask)
 	end
 	self:update_canaccept()
 end

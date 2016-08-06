@@ -254,20 +254,15 @@ function C2S.refineequip(player,request)
 	if not ishit(succ_ratio,100) then
 		net.msg.S2C.notify(player.pid,language.format("精炼失败"))
 		item.refine.succ_ratio = math.min(succ_ratio+data_0801_PromoteEquipVar.RefineFailAddRatio,100)
-		net.item.S2C.updateitem(player.pid,{
-			id = item.id,
+		itemdb:update(item.id,{
 			refine = item.refine,
 		})
-		--itemdb:update(item.id,{
-		--	refine = item.refine,
-		--})
 		return
 	end
 	item.refine.succ_ratio = nil
 	item.refine.cnt = cnt + 1
-	net.item.S2C.updateitem(player.pid,{
-		id = item.id,
-		refine = item.refine
+	itemdb:update(item.id,{
+		refine = item.refine,
 	})
 end
 
@@ -390,9 +385,7 @@ function C2S.insertcard(player,request)
 	end
 	local reason = string.format("insertcard#%d",card.id)
 	logger.log("info","item",string.format("[insertcard] pid=%s itemid=%s cardid=%s",player.pid,itemid,cardid))
-	item.cardid = card.id
-	net.item.S2C.updateitem(player.pid,{
-		id = item.id,
+	itemdb:update(item.id,{
 		cardid = card.id,
 	})
 end
@@ -440,6 +433,13 @@ function C2S.opencard(player,request)
 	carddb:opencard(cardid)
 end
 
+-- 整理背包
+function C2S.sortbag(player,request)
+	local bagtype = assert(request.bagtype)
+	local itemdb = player:getitembag(bagtype)
+	itemdb:sort()
+end
+
 -- s2c
 function S2C.additem(pid,item)
 	sendpackage(pid,"item","additem",{
@@ -456,7 +456,7 @@ function S2C.allitem(pid,items)
 		table.insert(itemlst,item:pack())
 		num = num + 1
 		if num % 50 == 0 or num == len then
-			table.insert(params,{ items = itemlst })
+			table.insert(params,{ items = itemlst})
 			itemlst = {}
 		end
 	end
@@ -476,6 +476,11 @@ function S2C.updateitem(pid,item)
 	sendpackage(pid,"item","updateitem",{
 		item = item,
 	})
+end
+
+-- 背包基本信息(全量更新)
+function S2C.bag(pid,bag)
+	sendpackage(pid,"item","bag",bag)
 end
 
 return netitem

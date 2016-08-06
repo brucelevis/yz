@@ -29,6 +29,7 @@ task_finishtask 3503 {
 	request {
 		base 0 : basetype
 		taskid 1 : integer
+		submitnpc 2 : integer
 	}
 }
 
@@ -44,9 +45,22 @@ task_updatetask 3504 {
 task_tasktalk 3505 {
 	request {
 		base 0 : basetype
-		name 1 : string #导表标识
-		textid 2 : integer #对比表ID
+		taskid 1 : integer
+		textid 2 : integer #对白表ID
 		transstr 3 : string
+	}
+}
+
+.CanAcceptType {
+	taskkey 0 : string #任务标识
+	taskid 1 : integer #任务ID,这项可能为nil
+}
+
+#可接任务列表
+task_update_canaccept 3506 {
+	request {
+		base 0 : basetype
+		canaccept 1 : *CanAcceptType
 	}
 }
 

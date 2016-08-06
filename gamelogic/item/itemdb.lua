@@ -3,6 +3,7 @@ citemdb = class("citemdb",ccontainer)
 function citemdb:init(conf)
 	-- conf: {pid=xxx,name=xxx}
 	ccontainer.init(self,conf)
+	self.type = assert(conf.type)	-- 背包类型
 	self.pid = conf.pid
 	self.space = ITEMBAG_SPACE
 	self.expandspace = 0
@@ -44,6 +45,12 @@ function citemdb:oncreate(player)
 end
 
 function citemdb:onlogin(player)
+	assert(self.pid == player.pid)
+	net.item.S2C.bag(self.pid,{
+		type = self.type,
+		space = self.space,
+		expandspace = self.expandspace,
+	})
 	net.item.S2C.allitem(self.pid,self.objs)
 end
 
@@ -256,6 +263,11 @@ end
 function citemdb:expandspace(addspace)
 	logger.log("info","item",string.format("[expandspace] pid=%s addspace=%s",self.pid,addspace))
 	self.expandspace = addspace
+	sendpackage(self.pid,"item","bag",{
+		type = self.type,
+		space = self.space,
+		expandspace = self.expandspace,
+	})
 end
 
 function citemdb.order_costitem(item1,item2)
@@ -298,6 +310,27 @@ function citemdb:getmaxnum(itemtype)
 	return itemdata.maxnum
 end
 
+-- 整理背包
+function citemdb:sort()
+	logger.log("info","item",string.format("[sort] pid=%s name=%s",self.pid,self.name))
+	local space = self:getspace()
+	local freepos
+	for pos = self.itempos_begin,self.itempos_begin + space do
+		if not self.pos_id[pos] then
+			freepos = pos
+			break
+		end
+	end
+	for pos = freepos + 1,self.itempos_begin + space do
+		local id = self.pos_id[pos]
+		if id then
+			self:moveitem(id,freepos)
+			freepos = freepos + 1
+			assert(not self.pos_id[freepos])
+		end
+	end
+end
+
 function citemdb:_onadd(item)
 	local itemid = item.id
 	local pos = item.pos
@@ -311,6 +344,7 @@ end
 
 function citemdb:onadd(item)
 	self:_onadd(item)
+	-- 背包类型暂时不发给客户端，有客户断根据物品分类确定背包
 	net.item.S2C.additem(self.pid,item)
 end
 
@@ -341,7 +375,5 @@ function citemdb:onupdate(itemid,attr)
 	attr.id = itemid
 	net.item.S2C.updateitem(self.pid,attr)
 end
-
-
 
 return citemdb

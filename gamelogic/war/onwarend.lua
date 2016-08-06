@@ -9,6 +9,7 @@ end)
 
 warmgr.register_onwarend(WARTYPE.PERSONAL_TASK,function (warid,result)
 	local war = warmgr.getwar(warid)
+	local player = playermgr.getplayer(war.attackers[1])
 	local taskcontainer = player.taskdb:gettaskcontainer(war.taskid)
 	if not taskcontainer then
 		return
@@ -18,6 +19,7 @@ end)
 
 warmgr.register_onwarend(WARTYPE.PVE_CHAPTER,function (warid,result)
 	local war = warmgr.getwar(warid)
+	local player = playermgr.getplayer(war.attackers[1])
 	player.chapterdb:onwarend(war,result)
 end)
 

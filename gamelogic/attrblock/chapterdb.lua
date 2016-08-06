@@ -147,7 +147,6 @@ function cchapterdb:raisewar(chapterid)
 		defense_helpers = {},
 		wartype = WARTYPE.PVE_CHAPTER,
 		chapterid = chapterid,
-		pid = self.pid,
 	}
 	attackers = {self.pid,}
 	local player = playermgr.getplayer(self.pid)
@@ -160,7 +159,7 @@ function cchapterdb:raisewar(chapterid)
 end
 
 function cchapterdb:onwarend(war,result)
-	local star = assert(result.star)
+	local star = result
 	local player = playermgr.getplayer(self.pid)
 	local pidlst = {}
 	--TODO 确认队伍列表是否在战斗结束获取

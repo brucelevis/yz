@@ -86,6 +86,27 @@ function gm.init()
 	require "gamelogic.gm.item"
 	require "gamelogic.gm.map"
 	require "gamelogic.gm.skill"
+	require "gamelogic.gm.mergeserver"
+	require "gamelogic.gm.task"
+end
+
+function gm.onlogin(player)
+	if player:isgm() then
+		local msg = [[Hi,看到此消息表明你已经是GM了
+		为了快速入门，系统提供以下帮助指令:
+		1. help 关键字 <=> 查找包含'关键字'的指令用法
+		如: help gold <=> 会显示所有金币相关的指令用法。
+		如果你是在公司内网操作，也可以用buildgmdoc来生
+		成最新的指令用法文档，具体存放路径在(策划文档/GM/GM指令文档.txt)
+		GM指令可以在世界频道输入'$指令 参数'来操作，
+		如: $addgold 100 <=> 给自身增加100金币]]
+		local sender = net.msg.packsender(player)
+		local packmsg = {
+			sender = sender,
+			msg = msg
+		}
+		sendpackage(player.pid,"msg","worldmsg",packmsg)
+	end
 end
 
 function __hotfix(oldmod)

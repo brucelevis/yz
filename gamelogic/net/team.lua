@@ -241,6 +241,7 @@ function C2S.openui_team(player,request)
 		sendpackage(pid,"team","openui_team",{
 			teams = teams,
 			automatch = teammgr.automatch_pids[pid] and true or false,
+			waiting_num = table.count(teammgr.authmatch_pids),
 		})
 	else
 		local team = teammgr:getteam(teamid)

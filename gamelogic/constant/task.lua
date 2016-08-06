@@ -16,11 +16,13 @@ function settaskname(tasktype,name)
 	TASK_TYPE_NAME[tasktype] = name
 	TASK_TYPE_NAME[name] = tasktype
 end
-TASK_TYPE_MAIN		= 100 --主线
-TASK_TYPE_BRANCH	= 101 --支线
-TASK_TYPE_SHIMEN	= 102 --师门
-TASK_TYPE_TEST		= 900 --测试
+TASK_TYPE_MAIN			= 100 --主线
+TASK_TYPE_BRANCH		= 101 --支线
+TASK_TYPE_SHIMEN		= 102 --师门
+TASK_TYPE_SHIMOSHILIAN	= 103 --使魔试炼
+TASK_TYPE_TEST			= 900 --测试
 settaskname(TASK_TYPE_MAIN,"main")
 settaskname(TASK_TYPE_BRANCH,"branch")
 settaskname(TASK_TYPE_SHIMEN,"shimen")
 settaskname(TASK_TYPE_TEST,"test")
+settaskname(TASK_TYPE_SHIMOSHILIAN,"shimoshilian")

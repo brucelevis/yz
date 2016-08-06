@@ -4,13 +4,8 @@ cwarskilldb = class("cwarskilldb",ccontainer)
 function cwarskilldb:init(conf)
 	ccontainer.init(self,conf)
 	self.skillpoint = 0
-	self.skillslot = {
-		[1] = { [1] = nil, [2] = nil, [3] = nil, [4] = nil,},
-		[2] = { [1] = nil, [2] = nil, [3] = nil, [4] = nil,},
-		[3] = { [1] = nil, [2] = nil, [3] = nil, [4] = nil,},
-	}
-	self.curslot = 1
 	self.pos_id = {}
+	self:initskillslot()
 	self.loadstate = "unload"
 end
 
@@ -23,8 +18,14 @@ function cwarskilldb:load(data)
 		return skill
 	end)
 	self.skillpoint = data.skillpoint
-	self.skillslot = data.skillslot
 	self.curslot = data.curslot
+	for slot,skills in pairs(data.skillslot) do
+		slot = tonumber(slot)
+		for idx,skillid in pairs(skills) do
+			idx = tonumber(idx)
+			self.skillslot[slot][idx] = skillid
+		end
+	end
 end
 
 function cwarskilldb:save()
@@ -37,12 +38,17 @@ end
 
 function cwarskilldb:clear()
 	ccontainer.clear(self)
-	self.skillslot = {
-		[1] = { [1] = nil, [2] = nil, [3] = nil, [4] = nil,},
-		[2] = { [1] = nil, [2] = nil, [3] = nil, [4] = nil,},
-		[3] = { [1] = nil, [2] = nil, [3] = nil, [4] = nil,},
-	}
+	self:initskillslot()
 	self.pos_id = {}
+end
+
+function cwarskilldb:initskillslot()
+	self.skillslot = {
+		[1] = { [1] = 0, [2] = 0, [3] = 0, [4] = 0,},
+		[2] = { [1] = 0, [2] = 0, [3] = 0, [4] = 0,},
+		[3] = { [1] = 0, [2] = 0, [3] = 0, [4] = 0,},
+	}
+	self.curslot = 1
 end
 
 function cwarskilldb:_onadd(skill)
@@ -113,7 +119,7 @@ function cwarskilldb:wieldskill(skillid,position)
 	end
 	for key,value in pairs(self.skillslot[self.curslot]) do
 		if value == skillid then
-			self.skillslot[self.curslot][key] = nil
+			self.skillslot[self.curslot][key] = 0
 			break
 		end
 	end
@@ -124,7 +130,7 @@ end
 
 function cwarskilldb:canwield(skillid)
 	local skill = self:get(skillid)
-	if not skill or skill.level <=0 then
+	if not skill or skill.level <= 0 then
 		return false
 	end
 	return true
@@ -204,6 +210,8 @@ function cwarskilldb:resetpoint()
 	self.skillpoint = self.skillpoint + point
 	self:sendallskill()
 	net.skill.S2C.updatepoint(self.pid,self.skillpoint)
+	self:initskillslot()
+	net.skill.S2C.updateslot(self.pid,self.skillslot[self.curslot],self.curslot)
 end
 
 function cwarskilldb:getallpoint()

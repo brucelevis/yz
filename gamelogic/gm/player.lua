@@ -69,14 +69,14 @@ function gm.resetqualitypoint(args)
 	player:reset_qualitypoint()
 end
 
---- 指令: addplayerexp
---- 用法: addplayerexp 经验值 [玩家ID]
---- 举例: addplayerexp 100 <=> 不指定玩家ID，将自身经验值增加100点
---- 举例: addplayerexp 100 1000001 <=> 将1000001玩家经验值增加100点
-function gm.addplayerexp(args)
+--- 指令: addexp
+--- 用法: addexp 经验值 [玩家ID]
+--- 举例: addexp 100 <=> 不指定玩家ID，将自身经验值增加100点
+--- 举例: addexp 100 1000001 <=> 将1000001玩家经验值增加100点
+function gm.addexp(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addplayerexp 经验值 [玩家ID]")
+		net.msg.S2C.notify(master_pid,"用法: addexp 经验值 [玩家ID]")
 		return
 	end
 	local val = args[1]
@@ -89,14 +89,14 @@ function gm.addplayerexp(args)
 	player:addexp(val,"gm")
 end
 
---- 指令: addplayerjobexp
---- 用法: addplayerjobexp 经验值 [玩家ID]
---- 举例: addplayerjobexp 100 <=> 不指定玩家ID，将自身职业经验值增加100点
---- 举例: addplayerjobexp 100 1000001 <=> 将1000001玩家职业经验值增加100点
-function gm.addplayerjobexp(args)
+--- 指令: addjobexp
+--- 用法: addjobexp 经验值 [玩家ID]
+--- 举例: addjobexp 100 <=> 不指定玩家ID，将自身职业经验值增加100点
+--- 举例: addjobexp 100 1000001 <=> 将1000001玩家职业经验值增加100点
+function gm.addjobexp(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addplayerjobexp 经验值 [玩家ID]")
+		net.msg.S2C.notify(master_pid,"用法: addjobexp 经验值 [玩家ID]")
 		return
 	end
 	local val = args[1]

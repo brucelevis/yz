@@ -5,6 +5,7 @@ data_0902_RoleActionTime = {
 		attack = 0.666667,
 		magic = 0.666667,
 		hurt = 0.666667,
+		chant = 0.500000,
 	},
 
 }

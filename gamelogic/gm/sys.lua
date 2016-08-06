@@ -74,6 +74,27 @@ function gm.offline(args)
 	return gm.docmd(pid,cmdline)
 end
 
+function gm.clearplayerdb(args)
+	local isok,args = checkargs(args,"int","string")
+	if not isok then
+		return "用法: clearplayerdb 玩家ID 存盘块名"
+	end
+	local pid = args[1]
+	local player = playermgr.getplayer(pid)
+	if player then
+		playermgr.kick(pid,"gmclear")
+	end
+	local savekey = args[2]
+	local db = dbmgr.getdb(cserver.getsrvname(pid))
+	local key = db:key("role",pid,savekey)
+	local data = db:get(key)
+	if not data then
+		return format("db中没有该数据%s",key)
+	end
+	logger.log("info","gm",format("[cleardb] pid=%d save=%s",pid,savekey))
+	db:set(key,{})
+end
+
 --- 指令: hotfix
 --- 功能: 热更新某模块
 --- 用法: hotfix 模块名 ...

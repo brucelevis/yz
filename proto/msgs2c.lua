@@ -90,6 +90,7 @@ msg_quickmsg 4508 {
 msg_info 4509 {
 	request {
 		base 0 : basetype
+		msg 1 : string
 	}
 }
 

@@ -6,7 +6,7 @@ return {
 task_opentask 3500 {
 	request {
 		base 0 : basetype
-		tasktype 1 : integer # 任务类型
+		taskkey 1 : string #任务标识
 	}
 }
 
@@ -21,7 +21,7 @@ task_executetask 3502 {
 	request {
 		base 0 : basetype
 		taskid 1 : integer
-		ext 3 : string #扩展数据需要用json解包
+		ext 2 : string #扩展数据需要用json解包
 	}
 }
 

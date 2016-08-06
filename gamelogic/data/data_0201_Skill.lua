@@ -13,6 +13,7 @@ data_0201_Skill = {
 		skilleffect = {},
 		buff = {},
 		jobID = 0,
+		costMP = 0,
 	},
 
 	[100011] = {
@@ -26,9 +27,10 @@ data_0201_Skill = {
 		singTime = 0,
 		minSingTime = 0,
 		cdTime = 0,
-		skilleffect = {900002.0},
+		skilleffect = {900002},
 		buff = {},
 		jobID = 10001,
+		costMP = 0,
 	},
 
 	[100012] = {
@@ -42,9 +44,10 @@ data_0201_Skill = {
 		singTime = 2.8,
 		minSingTime = 1,
 		cdTime = 1.5,
-		skilleffect = {900001},
+		skilleffect = {900012},
 		buff = {},
 		jobID = 10001,
+		costMP = 5,
 	},
 
 	[100013] = {
@@ -61,6 +64,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10001,
+		costMP = 5,
 	},
 
 	[100014] = {
@@ -77,6 +81,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10001,
+		costMP = 5,
 	},
 
 	[101000] = {
@@ -93,6 +98,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101010] = {
@@ -109,6 +115,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101020] = {
@@ -125,6 +132,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101030] = {
@@ -141,6 +149,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101040] = {
@@ -157,6 +166,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101050] = {
@@ -173,6 +183,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101060] = {
@@ -189,6 +200,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[101070] = {
@@ -205,6 +217,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10002,
+		costMP = 5,
 	},
 
 	[102000] = {
@@ -221,6 +234,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102010] = {
@@ -237,6 +251,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102020] = {
@@ -253,6 +268,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102030] = {
@@ -269,6 +285,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102040] = {
@@ -285,6 +302,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102050] = {
@@ -301,6 +319,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102060] = {
@@ -317,6 +336,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102070] = {
@@ -333,6 +353,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102080] = {
@@ -349,6 +370,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102090] = {
@@ -365,6 +387,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[102100] = {
@@ -381,6 +404,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10003,
+		costMP = 5,
 	},
 
 	[103000] = {
@@ -397,6 +421,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103010] = {
@@ -413,6 +438,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103020] = {
@@ -429,6 +455,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103030] = {
@@ -445,6 +472,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103040] = {
@@ -461,6 +489,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103050] = {
@@ -477,6 +506,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103060] = {
@@ -493,6 +523,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103070] = {
@@ -509,6 +540,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103080] = {
@@ -525,6 +557,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103090] = {
@@ -541,6 +574,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103100] = {
@@ -557,6 +591,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[103110] = {
@@ -573,6 +608,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10004,
+		costMP = 5,
 	},
 
 	[104000] = {
@@ -589,6 +625,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[104010] = {
@@ -605,6 +642,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[104020] = {
@@ -621,6 +659,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[104030] = {
@@ -637,6 +676,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[104040] = {
@@ -653,6 +693,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[104050] = {
@@ -669,6 +710,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[104060] = {
@@ -685,6 +727,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10005,
+		costMP = 5,
 	},
 
 	[105000] = {
@@ -701,6 +744,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10007,
+		costMP = 5,
 	},
 
 	[105010] = {
@@ -717,6 +761,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10007,
+		costMP = 5,
 	},
 
 	[105020] = {
@@ -733,6 +778,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10007,
+		costMP = 5,
 	},
 
 	[105030] = {
@@ -749,6 +795,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10007,
+		costMP = 5,
 	},
 
 	[105040] = {
@@ -765,6 +812,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10007,
+		costMP = 5,
 	},
 
 	[105050] = {
@@ -781,6 +829,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10007,
+		costMP = 5,
 	},
 
 	[106000] = {
@@ -797,6 +846,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106010] = {
@@ -813,6 +863,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106020] = {
@@ -829,6 +880,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106030] = {
@@ -845,6 +897,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106040] = {
@@ -861,6 +914,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106050] = {
@@ -877,6 +931,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106060] = {
@@ -893,6 +948,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106070] = {
@@ -909,6 +965,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[106080] = {
@@ -925,6 +982,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10008,
+		costMP = 5,
 	},
 
 	[107000] = {
@@ -941,6 +999,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107010] = {
@@ -957,6 +1016,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107020] = {
@@ -973,6 +1033,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107030] = {
@@ -989,6 +1050,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107040] = {
@@ -1005,6 +1067,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107050] = {
@@ -1021,6 +1084,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107060] = {
@@ -1037,6 +1101,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107070] = {
@@ -1053,6 +1118,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107080] = {
@@ -1069,6 +1135,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107090] = {
@@ -1085,6 +1152,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[107100] = {
@@ -1101,6 +1169,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10010,
+		costMP = 5,
 	},
 
 	[108000] = {
@@ -1117,6 +1186,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[108010] = {
@@ -1133,6 +1203,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[108020] = {
@@ -1149,6 +1220,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[108030] = {
@@ -1165,6 +1237,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[108040] = {
@@ -1181,6 +1254,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[108050] = {
@@ -1197,6 +1271,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[108060] = {
@@ -1213,6 +1288,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10012,
+		costMP = 5,
 	},
 
 	[109000] = {
@@ -1229,6 +1305,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[109010] = {
@@ -1245,6 +1322,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[109020] = {
@@ -1261,6 +1339,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[109030] = {
@@ -1277,6 +1356,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[109040] = {
@@ -1293,6 +1373,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[109050] = {
@@ -1309,6 +1390,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[109060] = {
@@ -1325,6 +1407,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10014,
+		costMP = 5,
 	},
 
 	[110000] = {
@@ -1341,6 +1424,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110010] = {
@@ -1357,6 +1441,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110020] = {
@@ -1373,6 +1458,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110030] = {
@@ -1389,6 +1475,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110040] = {
@@ -1405,6 +1492,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110050] = {
@@ -1421,6 +1509,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110060] = {
@@ -1437,6 +1526,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110070] = {
@@ -1453,6 +1543,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 	[110080] = {
@@ -1469,6 +1560,7 @@ data_0201_Skill = {
 		skilleffect = {900001},
 		buff = {},
 		jobID = 10018,
+		costMP = 5,
 	},
 
 }

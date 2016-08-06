@@ -1,11 +1,19 @@
 taskaux = taskaux or {}
 
+local tablenames = {
+	task = true,
+	npc = true,
+	award = true,
+	text = true,
+	fake = true,
+}
+
 function taskaux.gettaskdata(taskname,tablename)
 	if not data_1500_GlobalTask[taskname] or not data_1500_GlobalTask[taskname][tablename] then
 		return
 	end
 	local data = data_1500_GlobalTask[taskname][tablename]
-	if table.find({"task","npc","award","text","fake"},tablename) then
+	if tablenames[tablename] then
 		return _G[data]
 	end
 	return data

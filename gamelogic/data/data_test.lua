@@ -1,5 +1,5 @@
---<<data_test 导表开始>>
-data_test = {
+--<<data_Test 导表开始>>
+data_Test = {
 
 	[1] = {
 		name = "name1",
@@ -32,5 +32,5 @@ data_test = {
 	},
 
 }
-return data_test
---<<data_test 导表结束>>
+return data_Test
+--<<data_Test 导表结束>>

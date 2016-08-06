@@ -82,7 +82,7 @@ function C2S.giveuptask(player,request)
 	local isok,msg = taskcontainer:can_giveup(taskid)
 	if not isok then
 		if msg then
-			net.msg.S2C.notify(pid,msg)
+			net.msg.S2C.notify(player.pid,msg)
 		end
 		return
 	end
@@ -107,8 +107,11 @@ function S2C.deltask(pid,taskid)
 	sendpackage(pid,"task","deltask",{ taskid = taskid })
 end
 
-function S2C.finishtask(pid,taskid)
-	sendpackage(pid,"task","finishtask",{ taskid = taskid })
+function S2C.finishtask(pid,taskid,submitnpc)
+	sendpackage(pid,"task","finishtask",{
+		taskid = taskid,
+		submitnpc = submitnpc,
+	})
 end
 
 function S2C.updatetask(pid,task)
@@ -117,12 +120,12 @@ function S2C.updatetask(pid,task)
 	})
 end
 
-function S2C.tasktalk(pid,name,textid,transstr)
+function S2C.tasktalk(pid,taskid,textid,transstr)
 	if transstr then
 		transstr = cjson.encode(transstr)
 	end
 	sendpackage(pid,"task","tasktalk",{
-		name = name,
+		taskid = taskid,
 		textid = textid,
 		transstr = transstr,
 	})

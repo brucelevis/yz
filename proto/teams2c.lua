@@ -85,7 +85,8 @@ team_openui_team 4008 {
 	request {
 		base 0 : basetype
 		teams 1 : *TeamType
-		automatch 2 : boolean
+		automatch 2 : boolean		# 是否处于自动匹配中
+		waiting_num 3 : integer		# 等待匹配的人数
 	}
 }
 

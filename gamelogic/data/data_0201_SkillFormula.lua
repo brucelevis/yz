@@ -5,13 +5,14 @@ data_0201_SkillFormula = {
 		end,
 
 	[10001] = function(ins_skill, ins_logic, attacker, target)
-			local value = ins_logic.powerValue*ins_skill.m_skillLvFix*(0.5+0.5*ins_skill.m_curLv/ins_skill.maxLv)
-			if value < 0 then value = 0 end
-			return value
+			local value = math.pow(attacker:getProperty(WUGONG), 2)/(attacker:getProperty(WUGONG)+target:getProperty(WUFANG)*2)*ins_logic.powerPer+ins_logic.powerValue*ins_skill.m_skillLvFix
+			if value < 1 then value = 1 end
+			return -value
 		end,
 
-	[10002] = function(ins_skill, ins_logic, attacker, target)
+	[10101] = function(ins_skill, ins_logic, attacker, target)
 			local value = ins_logic.powerValue*ins_skill.m_skillLvFix*(0.5+0.5*ins_skill.m_curLv/ins_skill.maxLv)
+			if value < 0 then value = 0 end
 			return value
 		end,
 

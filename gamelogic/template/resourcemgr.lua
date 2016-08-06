@@ -22,11 +22,12 @@ function cresourcemgr:save()
 	for _,npc in pairs(self.npclist) do
 		table.insert(data.npc,{
 			nid = npc.nid,
-			type = npc.type,
+			shape= npc.shape,
 			name = npc.name,
 			pos = npc.pos,
 			isclient = npc.isclient,
 			mapid = npc.mapid,
+			posid = npc.posid,
 		})
 	end
 	data.scene = {}
@@ -61,7 +62,7 @@ end
 --[[
 npc = {
 	nid = 导表id,
-	type = 怪物类型,
+	shape = 怪物类型,
 	name = 名字,
 	mapid = 地图id,
 	pos = 坐标，
@@ -70,13 +71,14 @@ npc = {
 ]]--
 function cresourcemgr:addnpc(npc)
 	assert(npc.nid)
-	assert(npc.mapid)
+	assert(npc.posid)
 	npc.id = self:gennpcid()
 	self.npclist[npc.id] = npc
 end
 
 function cresourcemgr:gennpcid()
-	if self.npcid >= MAX_NUMBER then
+	--固定npc的id暂定从10000开始，动态npc区分开
+	if self.npcid >= 10000 then
 		self.npcid = 0
 	end
 	self.npcid = self.npcid + 1

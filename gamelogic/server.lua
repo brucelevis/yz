@@ -2,7 +2,7 @@ cserver = class("cserver",cdatabaseable,{
 	gameflag = skynet.getenv("gameflag"),
 	accountcenter = {
 		--host="127.0.0.1:80",
-		host="192.168.1.244:80",
+		host = skynet.getenv("accountcenter") or "192.168.1.244:80",
 	}
 })
 
@@ -137,6 +137,15 @@ function cserver.isinnersrv(srvname)
 		return true
 	end
 	return false
+end
+
+function cserver.isvalidsrv(srvname)
+	local data = data_RoGameSrvList[srvname]
+	if data then
+		return true,data
+	else
+		return false
+	end
 end
 
 -- 得到自身服务器名

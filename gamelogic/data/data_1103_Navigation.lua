@@ -2,10 +2,10 @@
 data_1103_Navigation = {
 
 	[1] = {
-		hdid = 10001,
+		hid = 10001,
 		order = 1,
 		name = "天庭除妖",
-		pic = 95210,
+		picture = 95210,
 		desc = "前往天庭击杀叛乱妖怪",
 		progress = 1,
 		target = 90031,
@@ -18,10 +18,10 @@ data_1103_Navigation = {
 	},
 
 	[2] = {
-		hdid = 10002,
+		hid = 10002,
 		order = 2,
 		name = "通天幻境",
-		pic = 95211,
+		picture = 95211,
 		desc = "前往通天幻境除妖",
 		progress = 6,
 		target = 90032,
@@ -34,10 +34,10 @@ data_1103_Navigation = {
 	},
 
 	[3] = {
-		hdid = 10003,
+		hid = 10003,
 		order = 3,
 		name = "大雁塔",
-		pic = 95212,
+		picture = 95212,
 		desc = "消灭大雁塔妖怪",
 		progress = 2,
 		target = 90033,

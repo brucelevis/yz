@@ -61,6 +61,7 @@ team_backteam 4006 {
 team_recallmember 4007 {
 	request {
 		base 0 : basetype
+		pids 1 : *integer  #不发表示召回所有暂离队员
 	}
 
 }
@@ -155,6 +156,14 @@ team_delapplyers 8018 {
 team_look_publishteams 8019 {
 	request {
 		base 0 : basetype
+	}
+}
+
+# 踢出队员/成员（只有队长才能执行)
+team_kickmember 8020 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
 	}
 }
 ]]

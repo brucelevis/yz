@@ -3,25 +3,25 @@ data_1599_TestTaskNpc = {
 
 	[101] = {
 		name = "路人甲",
-		type = 101,
-		mapid = 101,
-		pos = { x=100,y=100, },
+		shape = 101,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 
 	[102] = {
 		name = "路人乙",
-		type = 102,
-		mapid = 102,
-		pos = { x=100,y=100, },
+		shape = 102,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 
 	[103] = {
 		name = "路人丙",
-		type = 103,
-		mapid = 103,
-		pos = { x=100,y=100, },
+		shape = 103,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 

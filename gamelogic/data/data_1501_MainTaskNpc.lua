@@ -2,34 +2,74 @@
 data_1501_MainTaskNpc = {
 
 	[1001] = {
-		name = "寻人测试1",
-		type = 10001,
-		mapid = 10001,
-		pos = { x=100,y=100, },
+		name = "伊菲",
+		shape = 10001,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 
 	[1002] = {
-		name = "寻人测试2",
-		type = 10002,
-		mapid = 10002,
-		pos = { x=120,y=120, },
+		name = "吉祥物",
+		shape = 10002,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 
 	[1003] = {
-		name = "战斗测试1",
-		type = 10003,
-		mapid = 10003,
-		pos = { x=100,y=100, },
+		name = "熊孩子",
+		shape = 10003,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 
 	[1004] = {
-		name = "寻物测试1",
-		type = 10004,
-		mapid = 10004,
-		pos = { x=120,y=120, },
+		name = "村民",
+		shape = 10004,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1005] = {
+		name = "女勇者",
+		shape = 10005,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1006] = {
+		name = "村长",
+		shape = 10006,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1007] = {
+		name = "士兵",
+		shape = 10007,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1008] = {
+		name = "剑士",
+		shape = 10008,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1009] = {
+		name = "爱拉忒",
+		shape = 10009,
+		posid = "8101001",
+		dir = 1,
 		isclient = 1,
 	},
 

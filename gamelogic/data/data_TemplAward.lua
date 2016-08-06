@@ -2,7 +2,7 @@
 data_TemplAward = {
 
 	[1] = {
-		awardratio = {
+		awardtable = {
 						
 			{
 				gold = 1,
@@ -88,11 +88,12 @@ data_TemplAward = {
 			},
 
 		},
+		ratiotype = 1,
 		desc = "801001宝箱开出的奖励",
 	},
 
 	[2] = {
-		awardratio = {
+		awardtable = {
 						
 			{
 				gold = 1,
@@ -130,6 +131,7 @@ data_TemplAward = {
 			},
 
 		},
+		ratiotype = 2,
 		desc = "801001宝箱开出的奖励",
 	},
 

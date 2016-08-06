@@ -2,7 +2,7 @@
 data_0902_CommonActionAndEffect = {
 
 	[1001] = {
-		time = 0.500000,
+		time = 0.100000,
 	},
 
 	[1002] = {

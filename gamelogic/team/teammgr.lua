@@ -466,7 +466,7 @@ end
 function cteammgr:after_quitteam(pid,teamid)
 	local player = playermgr.getplayer(pid)
 	if player then
-		huodongmgr.onbackteam(player,teamid)
+		huodongmgr.onquitteam(player,teamid)
 	end
 end
 

@@ -2,7 +2,7 @@
 data_0501_ItemBox_Award = {
 
 	[1] = {
-		awardratio = {
+		awardtable = {
 						
 			{
 				gold = 1,
@@ -88,6 +88,7 @@ data_0501_ItemBox_Award = {
 			},
 
 		},
+		ratiotype = 1,
 		desc = "801001宝箱开出的奖励",
 	},
 

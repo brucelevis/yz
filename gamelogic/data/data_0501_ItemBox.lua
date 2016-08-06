@@ -13,7 +13,6 @@ data_0501_ItemBox = {
 		src = {1,2},
 		canuse_afterdays = 0,
 		canuse = 1,
-		ratiotype = 1,
 		awardid = 1.0,
 		function_desc = "用于装备的升级与精炼",
 		desc = "稀有的矿石",

@@ -118,9 +118,10 @@ function award.mergebonus(bonuss)
 end
 
 -- rewards: 奖励控制表
-function award.getaward(formdata,bonusid,ratiotype,func)
+function award.getaward(formdata,bonusid,func)
 	local final_bonuss = {}
-	local bonuss = formdata[bonusid]
+	local bonuss = formdata[bonusid].awardtable
+	local ratiotype = formdata[bonusid].ratiotype
 	if ratiotype == 1 then -- 独立概率
 		for i,bonus in ipairs(bonuss) do
 			local ratio = func and func(i,bonus) or bonus.ratio
