@@ -33,10 +33,6 @@ set helplang=cn
 syntax enable
 syntax on
 
-"设置配色方案
-colorscheme desert
-hi Comment ctermfg=red 
-
 "可以在buffer的任何地方使用鼠标
 set mouse=a
 set selection=exclusive
@@ -175,3 +171,6 @@ map <F7> 10zh
 imap <F7> <ESC>10zhi
 map <F8> 10zl
 imap <F8> <ESC>10zli
+
+syntax on
+color dracula
