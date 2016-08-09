@@ -19,7 +19,6 @@ set showmode
 "代码折叠相关
 set foldmethod=syntax "用语法高亮来定义折叠
 set foldlevel=100   "启动vim时不要自动折叠代码
-set foldcolumn=5    "折叠栏宽度
 
 
 "设置高亮搜索
@@ -171,6 +170,7 @@ map <F7> 10zh
 imap <F7> <ESC>10zhi
 map <F8> 10zl
 imap <F8> <ESC>10zli
-
-syntax on
+set numberwidth=1
+set noswapfile
 color dracula
+set guifont=Droid\ Sans\ Mono\ 10
