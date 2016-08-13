@@ -1,7 +1,7 @@
 local function test()
 	local date = os.date("*t",os.time({year=2016,month=7,day=10,hour=10,min=35,sec=25}))
 	pprintf("date:%s",date)
-	cron = cronexpr.new("* 40 * * * *")
+	local cron = cronexpr.new("* 40 * * * *")
 	local nexttime,nextdate = cronexpr.nexttime(cron,date)
 	-- {year=2016,month=7,day=10,hour=10,min=40,sec=0}
 	pprintf("%s\n",nextdate)

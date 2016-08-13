@@ -18,5 +18,14 @@ chapter_getaward 6701 {
 		awardid 1 : integer #奖励ID
 	}
 }
+
+#获取解锁条件
+chapter_get_unlockcondition 6702 {
+	request {
+		base 0 : basetype
+		chapterid 1 : integer #关卡ID
+	}
+}
+
 ]]
 }

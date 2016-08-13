@@ -20,15 +20,7 @@ function cresourcemgr:save()
 	local data = {}
 	data.npc = {}
 	for _,npc in pairs(self.npclist) do
-		table.insert(data.npc,{
-			nid = npc.nid,
-			shape= npc.shape,
-			name = npc.name,
-			pos = npc.pos,
-			isclient = npc.isclient,
-			mapid = npc.mapid,
-			posid = npc.posid,
-		})
+		table.insert(data.npc,npc:save())
 	end
 	data.scene = {}
 	for mapid,scenelst in pairs(self.scenelist) do
@@ -52,27 +44,18 @@ function cresourcemgr:load(data)
 			self:addscene(mapid)
 		end
 	end
-	for _,npc in ipairs(data.npc) do
+	for _,npcdata in ipairs(data.npc) do
+		local npc = self.template:newnpc()
+		npc:load(npcdata)
 		self:addnpc(npc)
 		self:enterscene(npc)
 	end
 	self.data = data.data or {}
 end
 
---[[
-npc = {
-	nid = 导表id,
-	shape = 怪物类型,
-	name = 名字,
-	mapid = 地图id,
-	pos = 坐标，
-	isclient = 是否仅为客户端npc,
-}
-]]--
 function cresourcemgr:addnpc(npc)
-	assert(npc.nid)
-	assert(npc.posid)
 	npc.id = self:gennpcid()
+	npc.resmgr = self
 	self.npclist[npc.id] = npc
 end
 
@@ -110,6 +93,7 @@ function cresourcemgr:enterscene(npc,sceneid)
 end
 
 function cresourcemgr:delnpc(npc)
+	npc.resmgr = nil
 	self.npclist[npc.id] = nil
 	if npc.isclient then
 		return
@@ -154,7 +138,7 @@ function cresourcemgr:getscenes(mapid)
 	end
 	local scenes = {}
 	for _,sceneid in ipairs(self.scenelist[mapid]) do
-		scene = scenemgr.getscene(sceneid)
+		local scene = scenemgr.getscene(sceneid)
 		if scene then
 			table.insert(scenes,scene)
 		end

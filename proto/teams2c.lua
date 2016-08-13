@@ -3,11 +3,20 @@ return {
 	si = 4000, -- [4000,4500)
 	src = [[
 
+.TeamApplyerType {
+	pid 0 : integer
+	name 1 : string
+	lv 2 : integer
+	roletype 3 : integer
+}
+
+
 # 自身队伍信息(如果team为nil或者{}，表示自己无队伍，删除队伍时会这样发
 team_selfteam 4000 {
 	request {
 		base 0 : basetype
 		team 1 : TeamType
+		applyers 2 : TeamApplyerType	# 仅当team有值时有效
 	}
 }
 
@@ -42,11 +51,7 @@ team_delmember 4003 {
 team_publishteam 4004 {
 	request {
 		base 0 : basetype
-		teamid 1 : integer
-		time 2 : integer
-		target 3 : integer
-		lv 4 : integer
-		captain 5 : MemberType
+		publishteam 1 : PublishTeamType
 	}
 }
 
@@ -62,12 +67,6 @@ team_syncteam 4005 {
 team_addapplyer 4006 {
 	request {
 		base 0 : basetype
-		.TeamApplyerType {
-			pid 0 : integer
-			name 1 : string
-			lv 2 : integer
-			roletype 3 : integer
-		}
 		applyers 1 : *TeamApplyerType
 	}
 }
@@ -84,9 +83,12 @@ team_delapplyer 4007 {
 team_openui_team 4008 {
 	request {
 		base 0 : basetype
-		teams 1 : *TeamType
-		automatch 2 : boolean		# 是否处于自动匹配中
-		waiting_num 3 : integer		# 等待匹配的人数
+		publishteams 1 : *PublishTeamType
+		waiting_num 2 : integer		# 等待匹配的人数
+		automatch 3 : boolean		# 是否处于自动匹配中
+		target 4 : integer			# 组队目标:0/空--无目标，其他--目标ID，只有目标ID>0，minlv,maxlv才有意义
+		minlv 5 : integer
+		maxlv 6 : integer
 	}
 }
 
@@ -95,6 +97,17 @@ team_publishteams 4009 {
 	request {
 		base 0 : basetype
 		publishteams 1 : *PublishTeamType
+	}
+}
+
+# 更新自动匹配信息(全量更新,在更改自动匹配状态后/更改自动匹配组队目标后同步)
+team_update_automatch 4010 {
+	request {
+		base 0 : basetype
+		automatch 1 : boolean		# true--自动匹配状态,false--非自动匹配状态
+		target 2 : integer			# 自动匹配目标(automatch==true才有意义)
+		minlv 3 : integer			# 匹配的最低等级
+		maxlv 4 : integer			# 匹配的最高等级
 	}
 }
 ]]

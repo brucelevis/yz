@@ -28,4 +28,19 @@ function taskaux.newcontainer(taskname,pid,tasktype)
 	})
 end
 
+TASK_TYPE_NAME = {}
+
+function taskaux.settaskname(tasktype,name)
+	TASK_TYPE_NAME[tasktype] = name
+	TASK_TYPE_NAME[name] = tasktype
+end
+
+for name,data in pairs(data_1500_GlobalTask) do
+	taskaux.settaskname(data.tasktype,name)
+end
+
+function taskaux.gettaskname(tasktype)
+	return TASK_TYPE_NAME[tasktype]
+end
+
 return taskaux

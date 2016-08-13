@@ -1,7 +1,7 @@
---<<data_1501_MainTaskText 导表开始>>
-data_1501_MainTaskText = {
+--<<data_1500_MainTaskText 导表开始>>
+data_1500_MainTaskText = {
 
-	[1100001] = {
+	[1011] = {
 		texts = {
 			
 			{ npc1 = 0, type = 3, emoji1 = 0, name = "nil", talk = 0, npc2 = 0, emoji2 = 0, content = "远离城市的喧嚣,没想到在这异世界也有如此安静的地方。据说这里正逢灾祸,原以为会是满目焦土,破败荒凉的样子呢。", },
@@ -78,7 +78,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100002] = {
+	[1012] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 0, npc2 = 0, emoji2 = 0, content = "这么弱,居然这样就死了。", },
@@ -86,7 +86,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100003] = {
+	[1021] = {
 		texts = {
 			
 			{ npc1 = 0, type = 1, emoji1 = 0, name = "【吉祥物】", talk = 0, npc2 = 0, emoji2 = 0, content = "【拟声词】", },
@@ -124,7 +124,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100004] = {
+	[1022] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "熊孩子", talk = 0, npc2 = 0, emoji2 = 0, content = "啊啊啊啊！快来人啊！打小孩儿了！！", },
@@ -132,7 +132,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100005] = {
+	[1032] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "女勇者", talk = 0, npc2 = 0, emoji2 = 0, content = "一群人打两个,真是叫人看不下去。", },
@@ -140,7 +140,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100006] = {
+	[1042] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 0, npc2 = 0, emoji2 = 0, content = "丫头,这招美女救英雄玩砸了吧~", },
@@ -154,7 +154,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100007] = {
+	[1052] = {
 		texts = {
 			
 			{ npc1 = 0, type = 2, emoji1 = 0, name = "村长", talk = 0, npc2 = 0, emoji2 = 0, content = "啊……你们……你们是谁？", },
@@ -207,7 +207,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100008] = {
+	[1061] = {
 		texts = {
 			
 			{ npc1 = 0, type = 2, emoji1 = 0, name = "伊菲", talk = 0, npc2 = 0, emoji2 = 0, content = "说起来,小妹妹你到底是个谁啊？", },
@@ -290,7 +290,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100009] = {
+	[1062] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 0, npc2 = 0, emoji2 = 0, content = "刚出门就遇到怪物,真是晦气。", },
@@ -304,7 +304,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100010] = {
+	[1071] = {
 		texts = {
 			
 			{ npc1 = 0, type = 1, emoji1 = 0, name = "混乱的士兵", talk = 0, npc2 = 0, emoji2 = 0, content = "科……科科……", },
@@ -330,7 +330,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100011] = {
+	[1072] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "混乱的士兵", talk = 0, npc2 = 0, emoji2 = 0, content = "人类……滚！滚开！可恶的人类！", },
@@ -338,7 +338,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100012] = {
+	[1082] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 0, npc2 = 0, emoji2 = 0, content = "怎么回事,他们到底跟谁一伙儿的？", },
@@ -352,7 +352,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100013] = {
+	[1092] = {
 		texts = {
 			
 			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 0, npc2 = 0, emoji2 = 0, content = "这狗杂碎原来是想吃独食。", },
@@ -360,7 +360,7 @@ data_1501_MainTaskText = {
 		},
 	},
 
-	[1100014] = {
+	[1102] = {
 		texts = {
 			
 			{ npc1 = 0, type = 2, emoji1 = 0, name = "爱拉忒", talk = 0, npc2 = 0, emoji2 = 0, content = "呼呼……这家伙真难对付！", },
@@ -719,5 +719,5 @@ data_1501_MainTaskText = {
 	},
 
 }
-return data_1501_MainTaskText
---<<data_1501_MainTaskText 导表结束>>
+return data_1500_MainTaskText
+--<<data_1500_MainTaskText 导表结束>>

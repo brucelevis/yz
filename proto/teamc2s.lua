@@ -6,8 +6,9 @@ return {
 team_createteam 4000 {
 	request {
 		base 0 : basetype
-		target 1 : integer	#组队目标
-		lv 2 : integer		#队伍等级
+		target 1 : integer		#组队目标(可选，不发表示不限组队目标)
+		minlv 2 : integer		#最低等级(可选,不发服务端自动选择个最低等级)
+		maxlv 3 : integer		#最高等级(可选，不发服务端自动选择个最高等级)
 	}
 }
 
@@ -19,9 +20,9 @@ team_dismissteam 4001 {
 team_publishteam 4002 {
 	request {
 		base 0 : basetype
-		target 1 : integer		# 组队目标
-		lv 2 : integer			# 队伍等级
-		time 3 : integer		# 发布时间
+		target 1 : integer		#组队目标(可选，不发表示不限组队目标)
+		minlv 2 : integer		#最低等级(可选,不发服务端自动选择个最低等级)
+		maxlv 3 : integer		#最高等级(可选，不发服务端自动选择个最高等级)
 		captain 4 : MemberType  # 队长信息
 	}
 }
@@ -112,10 +113,14 @@ team_openui_team 8013 {
 	}
 }
 
-# 自动匹配
+# 自动匹配(无队伍选择自动匹配+队长选择自动匹配都是发这个协议)
 team_automatch 8014 {
 	request {
 		base 0 : basetype
+		# 下面字段只对无队伍选择自动匹配有用，队长选择自动匹配时，使用的是队伍自身的组队目标+等级范围
+		target 1 : integer		#组队目标(可选，不发表示不限组队目标)
+		minlv 2 : integer		#最低等级(可选,不发服务端自动选择个最低等级)
+		maxlv 3 : integer		#最高等级(可选，不发服务端自动选择个最高等级)
 	}
 }
 
@@ -126,12 +131,14 @@ team_unautomatch 8015 {
 	}
 }
 
-# 更改组队目标
+# 更改组队目标(对于无队伍的玩家，只在他处于自动匹配时发此协议有效，此时相当于
+# 更改其自动匹配目标)
 team_changetarget 8016 {
 	request {
 		base 0 : basetype
-		target 1 : integer
-		lv 2 : integer
+		target 1 : integer		#组队目标(可选，不发表示不限组队目标)
+		minlv 2 : integer		#最低等级(可选,不发服务端自动选择个最低等级)
+		maxlv 3 : integer		#最高等级(可选，不发服务端自动选择个最高等级)
 	}
 }
 

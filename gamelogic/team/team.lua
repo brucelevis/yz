@@ -9,7 +9,8 @@ function cteam:init(teamid,param)
 	self.captain = 0
 	self.applyers = {}
 	self.target = param.target or 0
-	self.lv = param.lv or 0
+	self.minlv = param.minlv or 1
+	self.maxlv = param.maxlv or MAX_LV
 	self.channel = string.format("team#%s",self.teamid)
 end
 
@@ -50,7 +51,8 @@ function cteam:create(player,param)
 	param = param or {}
 	local pid = player.pid
 	self.target = param.target or 0
-	self.lv = param.lv or 0
+	self.minlv = param.minlv or 1
+	self.maxlv = param.maxlv or MAX_LV
 	self.captain = pid
 	player.teamid = self.teamid
 	local scene = scenemgr.getscene(player.sceneid)
@@ -373,7 +375,8 @@ function cteam:pack()
 	return {
 		teamid = self.teamid,
 		target = self.target,
-		lv = self.lv,
+		minlv = self.minlv,
+		maxlv = self.maxlv,
 		members = self:packmembers(),
 		automatch = teammgr.automatch_teams[self.teamid] and true or false,
 	}
@@ -404,11 +407,15 @@ end
 
 function cteam:members(teamstate)
 	local pids = {}
-	if teamstate == TEAM_STATE_FOLLOW then
+	if teamstate == TEAM_STATE_CAPTAIN then
+		pids = {self.captain,}
+	elseif teamstate == TEAM_STATE_FOLLOW then
 		pids = table.keys(self.follow)
-		table.insert(pids,1,self.captain)
 	elseif teamstate == TEAM_STATE_LEAVE then
 		pids = table.keys(self.leave)
+	elseif teamstate == TEAM_STATE_CAPTAIN_FOLLOW then
+		pids = {self.captain}
+		table.extend(pids,table.keys(self.follow))
 	elseif teamstate == TEAM_STATE_ALL then
 		pids = {self.captain}
 		for uid,_ in pairs(self.follow) do

@@ -132,6 +132,7 @@ end
 
 -- 仅对游戏服有效
 function cserver.isinnersrv(srvname)
+	srvname = srvname or cserver.getsrvname()
 	local data = data_RoGameSrvList[srvname]
 	if data.zonename == "inner" then
 		return true

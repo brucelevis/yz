@@ -87,7 +87,7 @@ function citem:load(data)
 
 	self.refine = data.refine or {}
 	self.fumo = data.fumo or {}
-	tmpfumo = data.tmpfumo
+	local tmpfumo = data.tmpfumo
 	if tmpfumo then
 		local now = os.time()
 		if not tmpfumo.exceedtime or tmpfumo.exceedtime > now then

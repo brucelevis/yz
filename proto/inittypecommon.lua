@@ -34,18 +34,20 @@ return {
 
 .TeamType {
 	teamid 0 : integer
-	target 1 : integer
-	# 组队等级
-	lv 2 : integer
-	members 3 : *MemberType
-	automatch 4 : boolean		# 是否处于自动匹配中,true--是，false/空--否
+	target 1 : integer		# 0--无目标，此时minlv/maxlv无用
+	minlv 2 : integer
+	maxlv 3 : integer
+	members 4 : *MemberType
+	automatch 5 : boolean		# 是否处于自动匹配中,true--是，false/空--否
 }
 
 .PublishTeamType {
-	target 0 : integer
-	lv 1 : integer
-	time 2 : integer # 发布时间
-	captain 3 : MemberType  # 队长信息
+	teamid 0 : integer
+	target 1 : integer		# 0--无目标，此时minlv/maxlv无用
+	minlv 2 : integer
+	maxlv 3 : integer
+	captain 4 : MemberType  # 队长信息
+	time 5 : integer		# 发布时间
 }
 
 .SceneItemType {

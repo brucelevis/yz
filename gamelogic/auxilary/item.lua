@@ -142,7 +142,7 @@ function itemaux.isring(equiptype)
 end
 
 -- 盾
-function itemaux.isshield(eqiuptype)
+function itemaux.isshield(equiptype)
 	return 20 <= equiptype and equiptype <= 20
 end
 

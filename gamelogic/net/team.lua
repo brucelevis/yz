@@ -6,7 +6,28 @@ netteam = netteam or {
 local C2S = netteam.C2S
 local S2C = netteam.S2C
 
+-- 正规化：组队目标+等级范围
+function netteam.uniform_target(player,request)
+	request.target = request.target or 0
+	if request.target == 0 then
+		request.minlv = 1
+		request.maxlv = MAX_LV
+	else
+		local data = data_0301_TeamTarget[request.target]
+		request.minlv = request.minlv or player.lv - data.down_float
+		request.minlv = math.max(1,request.minlv)
+		request.maxlv = request.maxlv or player.lv + data.up_float
+		request.maxlv = math.min(MAX_LV,request.maxlv)
+	end
+end
+
 function C2S.createteam(player,request)
+	netteam.uniform_target(player,request)
+	local data = data_0301_TeamTarget[request.target]
+	if player.lv < data.minlv then
+		net.msg.S2C.notify(player.pid,language.format("等级不足{1}级",data.minlv))
+		return
+	end
 	teammgr:createteam(player,request)
 end
 
@@ -234,31 +255,38 @@ function C2S.openui_team(player,request)
 	local pid = player.pid
 	local teamid = player:getteamid()
 	if not teamid then
-		local teams = {}
-		for teamid,team in pairs(teammgr.teams) do
-			table.insert(teams,team:pack())
+		local publish_teams = {}
+		for teamid,v in pairs(teammgr.publish_teams) do
+			table.insert(publish_teams,teammgr:pack_publishteam(teamid))
 		end
-		sendpackage(pid,"team","openui_team",{
-			teams = teams,
-			automatch = teammgr.automatch_pids[pid] and true or false,
-			waiting_num = table.count(teammgr.authmatch_pids),
-		})
+		local package = {
+			publishteams = publish_teams,
+			waiting_num = table.count(teammgr.automatch_pids),
+		}
+		local automatch = teammgr.automatch_pids[pid]
+		if automatch then
+			package.automatch = true
+			package.target = automatch.target
+			package.minlv = automatch.minlv
+			package.maxlv = automatch.maxlv
+		end
+		sendpackage(pid,"team","openui_team",package)
 	else
 		local team = teammgr:getteam(teamid)
 		if team then
-			sendpackage(player.pid,"team","syncteam",{
+			sendpackage(player.pid,"team","selfteam",{
 				team = team:pack(),
+				applyers = team.applyers,
 			})
 		end
 	end
 end
 
 function C2S.automatch(player,request)
-	local target = request.target
-	local lv = request.lv
+	netteam.uniform_target(player,request)
 	local teamid = player:getteamid()
 	if not teamid then
-		teammgr:automatch(player,target,lv)
+		teammgr:automatch(player,request.target,request.minlv,request.maxlv)
 	else
 		local team = teammgr:getteam(teamid)
 		if team.captain ~= player.pid then
@@ -282,9 +310,21 @@ function C2S.unautomatch(player,request)
 end
 
 function C2S.changetarget(player,request)
+	netteam.uniform_target(player,request)
 	local target = request.target
-	local lv = request.lv
-	teammgr:changetarget(player,target,lv)
+	local minlv = request.minlv
+	local maxlv = request.maxlv
+	local teamid = player:getteamid()
+	if not teamid then
+		teammgr:unautomatch(player.pid,"cacel")
+		teammgr:automatch_changetarget(player,target,minlv,maxlv)
+	else
+		local team = teammgr:getteam(teamid)
+		if team.captain ~= player.pid then
+			return
+		end
+		teammgr:team_changetarget(player,target,minlv,maxlv)
+	end
 end
 
 function C2S.apply_jointeam(player,request)
@@ -350,7 +390,9 @@ function C2S.look_publishteams(player,request)
 	for teamid,v in pairs(teammgr.publish_teams) do
 		table.insert(publish_teams,teammgr:pack_publishteam(teamid))
 	end
-	sendpackage(player.pid,"team","publishteams",publish_teams)
+	sendpackage(player.pid,"team","publishteams",{
+		publishteams = publish_teams,
+	})
 end
 
 

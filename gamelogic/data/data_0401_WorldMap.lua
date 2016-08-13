@@ -2,143 +2,117 @@
 data_0401_WorldMap = {
 
 	[101] = {
-		des = "女儿国",
-		tomap = 101,
+		des = "迦南城",
 		headPosZone = {},
-		toPos = {75,73,5},
+		jumpin_posid = 13001001,
 	},
 
 	[102] = {
-		des = "大唐",
-		tomap = 102,
+		des = "迦南圣殿",
 		headPosZone = {},
-		toPos = {47,35,8},
+		jumpin_posid = 13002001,
 	},
 
 	[103] = {
-		des = "方寸山",
-		tomap = 103,
+		des = "巴比伦城",
 		headPosZone = {},
-		toPos = {52,41,8},
+		jumpin_posid = 13003001,
 	},
 
 	[104] = {
-		des = "普陀山",
-		tomap = 104,
+		des = "空中花园",
 		headPosZone = {},
-		toPos = {56,10,6},
+		jumpin_posid = 13004001,
 	},
 
 	[105] = {
-		des = "龙宫",
-		tomap = 105,
-		headPosZone = {},
-		toPos = {55,35,8},
+		des = "通天塔门口",
+		headPosZone = {1,14001001,14001002,14001003,14001004},
+		jumpin_posid = 13001002,
 	},
 
 	[106] = {
-		des = "地府",
-		tomap = 106,
+		des = "野外乡村",
 		headPosZone = {},
-		toPos = {11,25,2},
+		jumpin_posid = 13006001,
 	},
 
 	[107] = {
-		des = "魔寨",
-		tomap = 107,
+		des = "水晶矿洞",
 		headPosZone = {},
-		toPos = {22,19,5},
+		jumpin_posid = 13007001,
 	},
 
 	[108] = {
-		des = "傲来国",
-		tomap = 108,
+		des = "森林",
 		headPosZone = {},
-		toPos = {11,70,2},
+		jumpin_posid = 13008001,
 	},
 
 	[109] = {
-		des = "灵霄宝殿",
-		tomap = 109,
+		des = "空中城市",
 		headPosZone = {},
-		toPos = {22,44,8},
+		jumpin_posid = 13009001,
 	},
 
 	[110] = {
-		des = "万寿山",
-		tomap = 110,
+		des = "沙漠戈壁",
 		headPosZone = {},
-		toPos = {12,60,8},
+		jumpin_posid = 13010001,
 	},
 
 	[111] = {
-		des = "火焰山",
-		tomap = 111,
+		des = "雪山",
 		headPosZone = {},
-		toPos = {77,60,8},
+		jumpin_posid = 13011001,
+	},
+
+	[112] = {
+		des = "海边",
+		headPosZone = {},
+		jumpin_posid = 13012001,
 	},
 
 	[113] = {
-		des = "盘丝洞",
-		tomap = 113,
+		des = "毒气沼泽",
 		headPosZone = {},
-		toPos = {69,49,7},
+		jumpin_posid = 13013001,
 	},
 
 	[114] = {
-		des = "白虎岭",
-		tomap = 114,
+		des = "诅咒之地",
 		headPosZone = {},
-		toPos = {9,63,2},
+		jumpin_posid = 13014001,
 	},
 
 	[115] = {
-		des = "小雷音寺",
-		tomap = 115,
+		des = "火山",
 		headPosZone = {},
-		toPos = {14,30,2},
+		jumpin_posid = 13015001,
 	},
 
 	[116] = {
-		des = "战场边境",
-		tomap = 116,
+		des = "东方城市",
 		headPosZone = {},
-		toPos = {11,57,2},
+		jumpin_posid = 13016001,
 	},
 
 	[117] = {
-		des = "花果山",
-		tomap = 117,
+		des = "地下城市",
 		headPosZone = {},
-		toPos = {78,62,8},
+		jumpin_posid = 13017001,
 	},
 
 	[118] = {
-		des = "黑风山",
-		tomap = -1,
+		des = "公会地图",
 		headPosZone = {},
-		toPos = {22,60,8},
+		jumpin_posid = 13018001,
 	},
 
-	[122] = {
-		des = "东海归墟",
-		tomap = -1,
-		headPosZone = {},
-		toPos = {12,14,8},
-	},
-
-	[126] = {
-		des = "神魔之井",
-		tomap = -1,
-		headPosZone = {},
-		toPos = {22,16,5},
-	},
-
-	[130] = {
-		des = "无间地狱",
-		tomap = -1,
-		headPosZone = {},
-		toPos = {65,31,5},
+	[120] = {
+		des = "竞技场",
+		headPosZone = {1,14001011,14001012,14001013,14001014},
+		jumpin_posid = 13001003,
 	},
 
 }

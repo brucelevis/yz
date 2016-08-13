@@ -28,7 +28,7 @@ function hotfix.hotfix(modname)
 	skynet.cache.clear()
 	local chunk,err
 	local errlist = {}
-	local env = _ENV
+	local env = _ENV or _G
 	env.__hotfix = nil
 	local name = string.gsub(modname,"%.","/")
 	for pat in string.gmatch(patten,"[^;]+") do

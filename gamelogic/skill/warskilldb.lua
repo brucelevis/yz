@@ -71,6 +71,10 @@ function cwarskilldb:onlogin(player)
 	net.skill.S2C.updateslot(self.pid,self.skillslot[self.curslot],self.curslot)
 end
 
+function cwarskilldb:oncreate(player)
+	self:openskills(player.roletype)
+end
+
 function cwarskilldb:getskilldata(skillid)
 	return data_0201_Skill[skillid]
 end
@@ -147,7 +151,7 @@ end
 function cwarskilldb:changepos(skillid1,skillid2)
 	local skill1 = self:get(skillid1)
 	local skill2 = self:get(skillid2)
-	if not skill1 or not skilll2 then
+	if not skill1 or not skill2 then
 		return
 	end
 	local pos1,pos2 = skill1.pos,skill2.pos

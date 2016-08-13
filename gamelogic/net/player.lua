@@ -31,6 +31,14 @@ function C2S.reset_qualitypoint(player,request)
 	player:reset_qualitypoint()
 end
 
+-- 开启/关闭开关
+function C2S.switch(player,request)
+	for switchtype,isopen in pairs(request) do
+		isopen = isopen and true or false
+		player.switch:setswitch(switchtype,isopen)
+	end
+end
+
 -- s2c
 
 return netplayer

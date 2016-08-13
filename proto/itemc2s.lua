@@ -152,5 +152,13 @@ item_sortbag 5517 {
 		bagtype 1 : integer			#背包类型:1-- 普通背包，2--时装背包，3--卡片背包
 	}
 }
+
+# 扩展背包格子
+item_expandspace 5518 {
+	request {
+		base 0 : basetype
+		bagtype 1 : integer			#背包类型:1-- 普通背包，2--时装背包，3--卡片背包
+	}
+}
 ]]
 }

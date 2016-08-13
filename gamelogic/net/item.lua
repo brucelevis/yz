@@ -24,7 +24,7 @@ function C2S.useitem(player,request)
 		net.msg.S2C.notify(player.pid,language.format("物品不存在"))
 		return
 	end
-	local target
+	local target = nil
 	if targetid then
 		local target = player:gettarget(targetid)
 		if not target then
@@ -49,7 +49,7 @@ function C2S.sellitem(player,request)
 	local reason = string.format("sellitem#%s",item.id)
 	itemdb:costitembyid(itemid,num,reason)
 	local itemdata = itemaux.getitemdata(item.type)
-	local maintype = itemaux.getmaintype(itemtype)
+	local maintype = itemaux.getmaintype(item.type)
 	if maintype == ItemMainType.CARD then  -- 卡片卖银币，而且跟卡片等级有关
 		local lv = item.lv or 1
 		local data = itemdata.lv_attr[lv]
@@ -310,7 +310,7 @@ function C2S.fumoequip(player,request)
 	for i=1,attrnum do
 		local attr = choosekey(data_0801_FumoAttrRatio,function (k,v)
 			-- 已出现属性，强制将其概率改成0
-			if attrs[attr] then
+			if attrs[k] then
 				return 0
 			end
 			local key = string.format("%s_ratio",minortype_name)
@@ -406,7 +406,7 @@ function C2S.upgradecard(player,request)
 
 	-- 同类型卡片只有一张
 	if card.num < itemdata.upgrade_neednum then
-		net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(itemtype),num))
+		net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(card.type),itemdata.upgrade_neednum))
 		return
 	end
 	local leftnum = card.num - itemdata.upgrade_neednum + 1
@@ -438,6 +438,23 @@ function C2S.sortbag(player,request)
 	local bagtype = assert(request.bagtype)
 	local itemdb = player:getitembag(bagtype)
 	itemdb:sort()
+end
+
+function C2S.expandspace(player,request)
+	local bagtype = assert(request.bagtype)
+	local itemdb = player:getitembag(bagtype)
+	local max_expandspace = data_0801_PromoteEquipVar.ItemBagMaxExpandSpace
+	local costgold = data_0801_PromoteEquipVar.ItemBagExpandCostGold
+	local addspace = data_0801_PromoteEquipVar.ItemBagExpandSpacePerTime
+	if itemdb.expandspace >= max_expandspace then
+		net.msg.S2C.notify(player.pid,language.format("扩展的背包已达到上限"))
+		return
+	end
+	if not player:validpay("gold",costgold,true) then
+		return
+	end
+	player:addgold(-costgold,"expandspace")
+	itemdb:expand(addspace)
 end
 
 -- s2c

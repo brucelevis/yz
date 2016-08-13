@@ -29,14 +29,14 @@ function C2S.register(obj,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then -- register success
-			logger.log("info","register",string.format("[register] account=%s passwd=%s ip=%s:%s",account,passwd,obj.__ip,obj.__port))
+			logger.log("info","register",string.format("[register] account=%s passwd=%s channel=%s ip=%s:%s",account,passwd,channel,obj.__ip,obj.__port))
 			-- 统一流程:注册完后不标记“认证通过”，已定要登录完后才标记
 			--obj.passlogin = true
 		end
 		netlogin.S2C.register_result(obj,{errcode = errcode})
 		return
 	else
-		netlogin.S2C.register_result(obj,{errcode = errcode})
+		netlogin.S2C.register_result(obj,{errcode = status})
 		return
 	end
 end
@@ -277,7 +277,7 @@ function C2S.entergame(obj,request)
 		if not token and oldplayer.__state == "kuafu" and oldplayer.go_srvname then
 			go_srvname = oldplayer.go_srvname
 		end
-		if oldplayer.__agent then -- 连线对象才提示，非连线对象可能有：离线对象/跨服对象
+		if oldplayer.__agent and not oldplayer:isdisconnect() then -- 连线对象才提示，非连线对象可能有：离线对象/跨服对象
 			net.msg.S2C.notify(oldplayer,string.format("您的帐号被%s替换下线",gethideip(obj.__ip)))
 			net.msg.S2C.notify(obj,string.format("%s的帐号已被你替换下线",gethideip(oldplayer.__ip)))
 		end
@@ -329,7 +329,7 @@ function C2S.delrole(obj,request)
 		netlogin.S2C.delrole_result(obj,{errcode = errcode})
 		return
 	else
-		netlogin.S2C.delrole_result(obj,{errcode = errcode})
+		netlogin.S2C.delrole_result(obj,{errcode = status})
 		return
 	end
 end

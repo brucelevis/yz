@@ -65,6 +65,9 @@ function playunit_guaji.guaji(player)
 	if player:inwar() then
 		return false,language.format("战斗中无法挂机")
 	end
+	if playunit_guaji.getstate() == playunit_guaji.GUAJI_STATE then
+		return false,language.format("已处于挂机状态")
+	end
 	playunit_guaji.setstate(player,playunit_guaji.GUAJI_STATE)
 	return true
 end
@@ -82,6 +85,9 @@ function playunit_guaji.unguaji(player)
 	end
 	if player:inwar() then
 		return false,language.format("战斗中无法取消挂机")
+	end
+	if playunit_guaji.getstate(player) == playunit_guaji.UNGUAJI_STATE then
+		return false,language.format("已处于非挂机状态")
 	end
 	playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
 	return true
@@ -151,7 +157,7 @@ function playunit_guaji.onwarend(war,result)
 	if warmgr.iswin(result) then
 		local reward = war.reward
 		for i,uid in ipairs(war.attackers) do
-			local player = playermgr.getplayer(pid)
+			local player = playermgr.getplayer(uid)
 			if player then
 				doaward("player",player.pid,reward,reason,true)
 			end

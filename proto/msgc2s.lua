@@ -61,5 +61,14 @@ msg_sendmsgto 4506 {
 	}
 }
 
+# npc对话响应
+msg_onnpcsay 4507 {
+	request {
+		base 0 : basetype
+		respondid 1 : integer # npcsay中对应的应答id
+		answer 2 : integer # 选项序号
+	}
+}
+
 ]]
 }

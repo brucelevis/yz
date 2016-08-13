@@ -10,8 +10,9 @@ end
 function csecretshop:onlogin(player)
 	if self.len == 0 then
 		self:_refresh("onlogin")
+	else
+		self:sync_allgoods()
 	end
-	self:sync_allgoods()
 end
 
 function csecretshop:_refresh(reason)

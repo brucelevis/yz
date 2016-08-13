@@ -99,8 +99,10 @@ msg_npcsay 4510 {
 	request {
 		base 0 : basetype
 		name 1 : string
-		type 2 : integer
+		shape 2 : integer
 		msg 3 : string
+		options 4 : *string # 按顺序显示选项内容
+		respondid 5 : integer # 应答id,无选项时为nil
 	}
 }
 ]]

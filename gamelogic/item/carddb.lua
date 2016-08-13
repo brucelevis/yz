@@ -42,7 +42,7 @@ function ccarddb:opencard(cardid)
 	if not card then
 		return
 	end
-	logger.log("info","item",string.format("[opencard] pid=%s itemid=%s",player.pid,card.id))
+	logger.log("info","item",string.format("[opencard] pid=%s itemid=%s",self.pid,card.id))
 	self:update(card.id,{
 		isopen = true,
 	})

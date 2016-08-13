@@ -47,7 +47,8 @@ function cteammgr:publishteam(player,param)
 	end
 	logger.log("info","team",format("[publishteam] pid=%d teamid=%s param=%s",pid,teamid,param))
 	team.target = param.target
-	team.lv = param.lv
+	team.minlv = param.minlv
+	team.maxlv = param.maxlv
 	local now = os.time()
 	local data = data_0301_TeamTarget[team.target]
 	local lifetime = data.lifetime or 300
@@ -55,7 +56,9 @@ function cteammgr:publishteam(player,param)
 		time = now,
 		lifetime = lifetime,
 	}
-	local package = self:pack_publishteam(teamid)
+	local package = {
+		publishteam = self:pack_publishteam(teamid),
+	}
 	playermgr.broadcast(function (obj)
 		sendpackage(obj.pid,"team","publishteam",package)
 	end)
@@ -72,7 +75,8 @@ function cteammgr:pack_publishteam(teamid)
 		teamid = team.teamid,
 		time = publish.time,
 		target = team.target,
-		lv = team.lv,
+		minlv = team.minlv,
+		maxlv = team.maxlv,
 		captain = team:packmember(captain),
 	}
 	return package
@@ -129,6 +133,7 @@ function cteammgr:createteam(player,param)
 	return teamid,team
 end
 
+-- 该接口已作废
 -- 解散队伍接口不应该支持，只会引入复杂性
 function cteammgr:dismissteam(player)
 	if true then
@@ -291,7 +296,7 @@ function cteammgr:changecaptain(teamid,tid)
 	return true
 end
 
-function cteammgr:changetarget(player,target,lv)
+function cteammgr:team_changetarget(player,target,minlv,maxlv)
 	local teamid = player:getteamid()
 	if not teamid then
 		return
@@ -300,32 +305,53 @@ function cteammgr:changetarget(player,target,lv)
 	if team.captain ~= player.pid then
 		return
 	end
-	logger.log("info","team",string.format("[changetarget] teamid=%s target=%s lv=%s",teamid,target,lv))
+	logger.log("info","team",string.format("[team_changetarget] teamid=%s target=%s lv=%s",teamid,target,lv))
 	team.target = target
-	team.lv = lv
+	team.minlv = minlv
+	team.maxlv = maxlv
+end
+
+function cteammgr:automatch_changetarget(player,target,minlv,maxlv)
+	local pid = player.pid
+	local teamid = player:getteamid()
+	if teamid then
+		return
+	end
+	local automatch = self.automatch_pids[pid]
+	if not automatch then
+		return
+	end
+	logger.log("info","team",string.format("[automatch_changetarget] pid=%s target=%s minlv=%s maxlv=%s",pid,target,minlv,maxlv))
+	automatch.target = target
+	automatch.minlv = minlv
+	automatch.maxlv = maxlv
+	sendpackage(pid,"team","update_automatch",automatch)
 end
 
 
-function cteammgr:automatch(player,target,lv)
+function cteammgr:automatch(player,target,minlv,maxlv)
 	local pid = player.pid
-	lv = lv or player.lv
-	logger.log("info","team",string.format("[automatch] pid=%d target=%s lv=%s",pid,target,lv))
-	self.automatch_pids[pid] = {
+	logger.log("info","team",string.format("[automatch] pid=%d target=%s minlv=%s maxlv=%s",pid,target,minlv,maxlv))
+	local automatch = {
 		time = os.time(),
 		pid = pid,
 		name = player.name,
-		lv = lv,
+		minlv = minlv,
+		maxlv = maxlv,
 		roletype = player.roletype,
 		target = target,
 	}
+	self.automatch_pids[pid] = automatch
+	sendpackage(pid,"team","update_automatch",automatch)
 end
 
-function cteammgr:unautomatch(pid)
+function cteammgr:unautomatch(pid,reason)
 	local matchdata = self.automatch_pids[pid]
 	if matchdata then
 		logger.log("info","team",string.format("[unautomatch] pid=%d reason=%s",pid,reason))
 		self.automatch_pids[pid] = nil
 	end
+	sendpackage(pid,"team","update_automatch",{automatch=false})
 end
 
 function cteammgr:team_automatch(teamid)
@@ -358,11 +384,9 @@ function cteammgr:check_match_team(player)
 		local team = self:getteam(teamid)
 		if team then
 			if team:len(TEAM_STATE_ALL) < team:maxlen() then
-				if team.target == matchdata.target then
-					local team_target_data = data_0301_TeamTarget[team.target]
-					local maxlv = team.lv + team_target_data.up_float
-					local minlv = team.lv + team_target_data.down_float
-					if minlv <= matchdata.lv and matchdata.lv <= maxlv then
+				if team.target == 0 or matchdata.target == 0 or team.target == matchdata.target then
+					if team.minlv <= matchdata.minlv and matchdata.minlv <= team.maxlv or
+						team.minlv <= matchdata.maxlv and matchdata.maxlv <= team.maxlv then
 						table.insert(match_teams,teamid)
 					end
 				end
@@ -374,7 +398,7 @@ function cteammgr:check_match_team(player)
 	if not next(match_teams) then
 		return
 	end
-	local lv = player.lv
+	-- 优先规则: 队伍人数 >  自动匹配时间
 	table.sort(match_teams,function (teamid1,teamid2)
 		local match1 = self.match_teams[teamid1]
 		local match2 = self.match_teams[teamid2]
@@ -385,12 +409,7 @@ function cteammgr:check_match_team(player)
 		if len1 > len2 then
 			return true
 		end
-		if len1 == len2 and
-			math.abs(team1.lv-lv) < math.abs(team2.lv-lv) then
-			return true
-		end
 		if len1 == len2 and 
-			math.abs(team1.lv-lv) == math.abs(team2.lv-lv) and
 			match1.time < match2.time then
 			return true
 		end

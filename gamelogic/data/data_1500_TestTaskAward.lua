@@ -1,5 +1,5 @@
---<<data_1599_TestTaskAward 导表开始>>
-data_1599_TestTaskAward = {
+--<<data_1500_TestTaskAward 导表开始>>
+data_1500_TestTaskAward = {
 
 	[101] = {
 		awardtable = {
@@ -80,5 +80,5 @@ data_1599_TestTaskAward = {
 	},
 
 }
-return data_1599_TestTaskAward
---<<data_1599_TestTaskAward 导表结束>>
+return data_1500_TestTaskAward
+--<<data_1500_TestTaskAward 导表结束>>

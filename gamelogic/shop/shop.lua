@@ -21,7 +21,7 @@ function cshop:gen_goods(goodslst)
 	end
 end
 
-function cshop:buy(player,goods_id,buynum)
+function cshop:canbuy(player,goods_id,buynum)
 	local goods = self:get(goods_id)
 	if not goods then
 		return false,language.format("非法商品ID")
@@ -37,17 +37,40 @@ function cshop:buy(player,goods_id,buynum)
 	local restype = goods.restype or self.restype
 	assert(restype)
 	local costnum = buynum * goods.price
-	if not player:validpay(restype,costnum) then
+	if costnum > 0 and not player:validpay(restype,costnum) then
 		local resname = getresname(restype)
 		return false,language.format("{1}不足{2}",resname,costnum)
 	end
-	local resaon = string.format("shop_%s.buy",self.name)
+	local itemdb = player:getitemdb(goods.need_itemtype)
+	local hasnum = itemdb:getnumbytype(goods.need_itemtype)
+	if hasnum < goods.need_itemnum then
+		return false,language.format("{1}不足{2}个",itemaux.itemlink(goods.need_itemtype),goods.need_itemnum)
+	end
+	return true
+end
+
+function cshop:buy(player,goods_id,buynum)
+	local isok,errmsg = self:canbuy(player,goods_id,buynum)
+	if not isok then
+		return false,errmsg
+	end
+	local goods = self:get(goods_id)
+	buynum = buynum or goods.num
+	local reason = string.format("shop_%s.buy",self.name)
 	if goods.sumnum >= 0 then
 		self:update(goods.id,{
 			leftnum = goods.leftnum - buynum,
 		})
 	end
-	player:addres(restype,-costnum,reason)
+	local restype = goods.restype or self.restype
+	local costnum = buynum * goods.price
+	if costnum > 0 then
+		player:addres(restype,-costnum,reason)
+	end
+	if goods.need_itemtype and goods.need_itemtype ~= 0 and goods.need_itemnum > 0 then
+		local itemdb = player:getitemdb(goods.need_itemtype)	
+		itemdb:costitembytype(goods.need_itemtype,goods.need_itemnum,reason)
+	end
 	player:additembytype(goods.itemtype,goods.num,goods.bind,reason)
 	return true
 end

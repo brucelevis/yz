@@ -5,8 +5,12 @@ local task = {}
 function gm.task(args)
 	local funcname = args[1]
 	local player = playermgr.getplayer(master_pid)
+	if not player then
+		return
+	end
 	local func = task[funcname]
 	if not func then
+		net.msg.S2C.notify("指令未找到，查看帮助:help task")
 		return
 	end
 	table.remove(args,1)
@@ -63,11 +67,11 @@ function task.delete(player,args)
 end
 
 --- 指令: task endwar
---- 用法: task endwar 90000003 1 <=> 结束任务90000003中的战斗,1:胜利,0:失败
+--- 用法: task endwar 90000003 1 <=> 结束任务90000003中的战斗,>0:胜利,0--平局,<0:失败
 function task.endwar(player,args)
 	local isok,args = checkargs(args,"int","int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"task endwar 90000003 1 <=> 90000003任务战斗胜利")
+		net.msg.S2C.notify(player.pid,"用法: task endwar 90000003 1 <=> 结束任务90000003中的战斗,>0:胜利,0--平局,<0:失败")
 		return
 	end
 	local taskid = args[1]
@@ -84,3 +88,32 @@ function task.endwar(player,args)
 	warmgr.onwarend(player.warid,iswin)
 	net.msg.S2C.notify(player.pid,"任务战斗结束")
 end
+
+--- 指令: task submit
+--- 用法: task submit 90000001 <=> 提交任务90000001
+function task.submit(player,args)
+	local isok,args = checkargs(args,"int")
+	if not isok then
+		net.msg.S2C.notify(player.pid,"用法: task submit 90000001 <=> 提交任务90000001")
+	end
+	local taskid = args[1]
+	net.task.C2S.submittask(player,{ taskid = taskid })
+end
+
+--- 指令: task finish
+--- 用法: task finish 90000001 <=> 立即完成任务
+function task.finish(player,args)
+	local isok,args = checkargs(args,"int")
+	if not isok then
+		net.msg.S2C.notify(player.pid,"用法: task finish 90000001 <=> 立即完成任务")
+	end
+	local taskid = args[1]
+	local task = player.taskdb:gettask(taskid)
+	if not task then
+		return
+	end
+	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	taskcontainer:finishtask(task,"gm")
+end
+
+task.onwarend = task.endwar

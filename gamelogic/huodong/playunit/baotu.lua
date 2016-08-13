@@ -98,11 +98,16 @@ function playunit_baotu.use(player,item)
 		local scenedata = data_1102_BaoTuMonsterPos[sceneid]
 		local monsterid = data.data
 		local monsterdata = data_1102_BaoTuWar[monsterid]
+		local posid = randlist(scenedata.posids)
+		local _,x,y = scenemgr.getpos(posid)
+		local pos = {x = x,y = y,dir = 1}
 		local npc = {
 			shape = monsterdata.shape,
 			name = monsterdata.name,
 			sceneid = sceneid,
-			pos = randlist(scenedata.allpos),
+			mapid = scene.mapid,
+			posid = posid,
+			pos = pos,
 			purpose = "baotu",
 			exceedtime = os.time() + 1800,
 			-- 扩展信息
@@ -129,14 +134,14 @@ function playunit_baotu.startwar(player,npc)
 		net.msg.S2C.notify(player.pid,errmsg)
 		return
 	end
-	local lv = player:player_team_avglv(TEAM_STATE_CAPTAIN_FOLLOW)
+	local lv = player:team_avglv(TEAM_STATE_CAPTAIN_FOLLOW)
 	local data = data_1102_BaoTuWar[npc.monsterid]
 	if not data.war[lv] then  -- 找不到取最大等级
 		lv = #data.war
 	end
 	local wardataid = data.war[lv].warid
 	local war = {
-		wardataid = warid,
+		wardataid = wardataid,
 		wartype = WARTYPE.PVE_BAOTU,
 		-- ext
 		npc = npc,

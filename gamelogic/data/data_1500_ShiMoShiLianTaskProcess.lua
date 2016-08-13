@@ -1,7 +1,8 @@
---<<data_1504_ShiMoShiLianTaskProcess 导表开始>>
-data_1504_ShiMoShiLianTaskProcess = {
+--<<data_1500_ShiMoShiLianTaskProcess 导表开始>>
+data_1500_ShiMoShiLianTaskProcess = {
 
-	[10000102] = {
+	[10300001] = {
+		id = 10300001,
 		type = 3,
 		name = "战斗测试1",
 		accept = {
@@ -12,7 +13,7 @@ data_1504_ShiMoShiLianTaskProcess = {
 		},
 		finishbyclient = 0,
 		acceptnpc = 0,
-		submitnpc = 1003,
+		submitnpc = 0,
 		cangiveup = 0,
 		needlv = 0,
 		needjob = {nil},
@@ -20,7 +21,7 @@ data_1504_ShiMoShiLianTaskProcess = {
 		pretask = {nil},
 		ratio = 1,
 		award = -1,
-		nexttask = 10000102,
+		nexttask = 10300001,
 		chapterid = 10001,
 		icon_id = 0,
 		desc = "战斗测试1",
@@ -29,5 +30,5 @@ data_1504_ShiMoShiLianTaskProcess = {
 	},
 
 }
-return data_1504_ShiMoShiLianTaskProcess
---<<data_1504_ShiMoShiLianTaskProcess 导表结束>>
+return data_1500_ShiMoShiLianTaskProcess
+--<<data_1500_ShiMoShiLianTaskProcess 导表结束>>

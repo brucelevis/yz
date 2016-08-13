@@ -157,4 +157,26 @@ function gm.opentuoguan(args)
 	end
 end
 
+--- 用法: daobiao
+--- 功能: 执行导表，更新服务器导表数据
+function gm.daobiao(args)
+	if not cserver.isinnersrv() then
+		net.msg.S2C.notify(master_pid,"仅开发服支持导表指令")
+		return
+	end
+	local warsrv = skynet.getenv("warsrv")
+	local cmds = {
+		["逻辑服"] = "cd ../logicshell/ && sh exportxls.sh 2>&1",
+		["战斗服"] = string.format("cd ../../%s/logicshell/ && sh exportxls.sh 2>&1",warsrv),
+	}
+	for srvname,cmd in pairs(cmds) do
+		local fd = io.popen(cmd,"r")
+		local output = fd:read("*a")
+		fd:close()
+		gm.say(master_pid,string.format("%s开始导表...",srvname))
+		gm.say(master_pid,output)
+	end
+	net.msg.S2C.notify(master_pid,"导表执行完毕")
+end
+
 return gm

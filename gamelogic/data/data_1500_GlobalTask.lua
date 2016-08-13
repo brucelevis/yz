@@ -2,10 +2,10 @@
 data_1500_GlobalTask = {
 
 	test = {
-		task = "data_1599_TestTaskProcess",
-		npc = "data_1599_TestTaskNpc",
-		award = "data_1599_TestTaskAward",
-		text = "data_1599_TestTaskText",
+		task = "data_1500_TestTaskProcess",
+		npc = "data_1500_TestTaskNpc",
+		award = "data_1500_TestTaskAward",
+		text = "data_1500_TestTaskText",
 		fake = "nil",
 		tasktype = 900,
 		ringlimit = 0,
@@ -18,10 +18,10 @@ data_1500_GlobalTask = {
 	},
 
 	main = {
-		task = "data_1501_MainTaskProcess",
-		npc = "data_1501_MainTaskNpc",
-		award = "data_1501_MainTaskAward",
-		text = "data_1501_MainTaskText",
+		task = "data_1500_MainTaskProcess",
+		npc = "data_1500_MainTaskNpc",
+		award = "data_1500_MainTaskAward",
+		text = "data_1500_MainTaskText",
 		fake = "nil",
 		tasktype = 100,
 		ringlimit = 0,
@@ -34,10 +34,10 @@ data_1500_GlobalTask = {
 	},
 
 	branch = {
-		task = "data_1502_BranchTaskProcess",
-		npc = "data_1502_BranchTaskNpc",
-		award = "data_1502_BranchTaskAward",
-		text = "data_1502_BranchTaskText",
+		task = "data_1500_BranchTaskProcess",
+		npc = "data_1500_BranchTaskNpc",
+		award = "data_1500_BranchTaskAward",
+		text = "data_1500_BranchTaskText",
 		fake = "nil",
 		tasktype = 101,
 		ringlimit = 0,
@@ -50,10 +50,10 @@ data_1500_GlobalTask = {
 	},
 
 	shimen = {
-		task = "data_1503_ShimenTaskProcess",
-		npc = "data_1503_ShimenTaskNpc",
-		award = "data_1503_ShimenTaskAward",
-		text = "data_1503_ShimenTaskText",
+		task = "data_1500_ShimenTaskProcess",
+		npc = "data_1500_ShimenTaskNpc",
+		award = "data_1500_ShimenTaskAward",
+		text = "data_1500_ShimenTaskText",
 		fake = "nil",
 		tasktype = 102,
 		ringlimit = 0,
@@ -66,15 +66,15 @@ data_1500_GlobalTask = {
 	},
 
 	shimoshilian = {
-		task = "data_1504_ShiMoShiLianTaskProcess",
-		npc = "data_1504_ShiMoShiLianTaskNpc",
-		award = "data_1504_ShiMoShiLianTaskAward",
-		text = "data_1504_ShiMoShiLianText",
-		fake = "data_1504_ShiMoShiLianFake",
+		task = "data_1500_ShiMoShiLianTaskProcess",
+		npc = "data_1500_ShiMoShiLianTaskNpc",
+		award = "data_1500_ShiMoShiLianTaskAward",
+		text = "data_1500_ShiMoShiLianTaskText",
+		fake = "data_1500_ShiMoShiLianTaskFake",
 		tasktype = 103,
 		ringlimit = 0,
 		donelimit = 100,
-		interval = today,
+		interval = "today",
 		starttime = nil,
 		endtime = nil,
 		name = "使魔试炼",

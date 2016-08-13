@@ -44,7 +44,7 @@ function csuitequip:changesuit(suitno)
 	if suitlst == nil then
 		return
 	end
-	player = playermgr.getplayer(self.pid)
+	local player = playermgr.getplayer(self.pid)
 	for _,equipid in ipairs(suitlst) do
 		local equip = player:getitem(equipid)
 		if equip then

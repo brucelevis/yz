@@ -2,7 +2,7 @@
 data_0801_FumoAttrRatio = {
 
 	maxhp = {
-		type = maxhp,
+		type = "maxhp",
 		name = "血量上限",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -24,7 +24,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	maxmp = {
-		type = maxmp,
+		type = "maxmp",
 		name = "魔法上限",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -46,7 +46,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	atk = {
-		type = atk,
+		type = "atk",
 		name = "攻击力",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -68,7 +68,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	latk = {
-		type = latk,
+		type = "latk",
 		name = "远程攻击力",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -90,7 +90,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	def = {
-		type = def,
+		type = "def",
 		name = "防御",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -111,8 +111,8 @@ data_0801_FumoAttrRatio = {
 		shield_factor = 0.000000,
 	},
 
-	fsp = {
-		type = fsp,
+	sp = {
+		type = "sp",
 		name = "速度",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -133,8 +133,8 @@ data_0801_FumoAttrRatio = {
 		shield_factor = 0.000000,
 	},
 
-	dfsp = {
-		type = dfsp,
+	fsp = {
+		type = "fsp",
 		name = "咏唱速度",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -156,7 +156,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	dfsp = {
-		type = dfsp,
+		type = "dfsp",
 		name = "咏唱延迟",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -178,7 +178,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	fdef = {
-		type = fdef,
+		type = "fdef",
 		name = "法术防御",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -200,7 +200,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	fsqd = {
-		type = fsqd,
+		type = "fsqd",
 		name = "法术强度",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -222,7 +222,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	mz = {
-		type = mz,
+		type = "mz",
 		name = "命中",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -244,7 +244,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	ds = {
-		type = ds,
+		type = "ds",
 		name = "躲闪",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -266,7 +266,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	bj = {
-		type = bj,
+		type = "bj",
 		name = "暴击",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -288,7 +288,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	rx = {
-		type = rx,
+		type = "rx",
 		name = "韧性",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -310,7 +310,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	hpr = {
-		type = hpr,
+		type = "hpr",
 		name = "生命值回复",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -332,7 +332,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	mpr = {
-		type = mpr,
+		type = "mpr",
 		name = "魔法值回复",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -354,7 +354,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	jzfs = {
-		type = jzfs,
+		type = "jzfs",
 		name = "近战反伤",
 		hat_ratio = 1000,
 		weapon_ratio = 1000,
@@ -376,7 +376,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	ycfs = {
-		type = ycfs,
+		type = "ycfs",
 		name = "远程反伤",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -398,7 +398,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	mffs = {
-		type = mffs,
+		type = "mffs",
 		name = "魔法反伤",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -420,7 +420,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	hjct = {
-		type = hjct,
+		type = "hjct",
 		name = "护甲穿透",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -442,7 +442,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	fsct = {
-		type = fsct,
+		type = "fsct",
 		name = "法术穿透",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -464,7 +464,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	bt = {
-		type = bt,
+		type = "bt",
 		name = "霸体",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -486,7 +486,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	xx = {
-		type = xx,
+		type = "xx",
 		name = "吸血",
 		hat_ratio = 500,
 		weapon_ratio = 500,
@@ -508,7 +508,7 @@ data_0801_FumoAttrRatio = {
 	},
 
 	fsxx = {
-		type = fsxx,
+		type = "fsxx",
 		name = "法术吸血",
 		hat_ratio = 500,
 		weapon_ratio = 500,

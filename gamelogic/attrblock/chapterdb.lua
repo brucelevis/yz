@@ -20,7 +20,7 @@ function cchapterdb:load(data)
 end
 
 function cchapterdb:save()
-	data = ccontainer.save(self)
+	local data = ccontainer.save(self)
 	data.awardrecord = self.awardrecord
 	return data
 end
@@ -148,28 +148,14 @@ function cchapterdb:raisewar(chapterid)
 		wartype = WARTYPE.PVE_CHAPTER,
 		chapterid = chapterid,
 	}
-	attackers = {self.pid,}
 	local player = playermgr.getplayer(self.pid)
-	assert(player)
-	if player:teamstate() == TEAM_STATE_CAPTAIN then
-		local team = teammgr:getteam(player.teamid)
-		table.extend(attackers,team:members(TEAM_STATE_FOLLOW))
-	end
+	local attackers = player:getfighters()
 	warmgr.startwar(attackers,{},war)
 end
 
 function cchapterdb:onwarend(war,result)
 	local star = result
-	local player = playermgr.getplayer(self.pid)
-	local pidlst = {}
-	--TODO 确认队伍列表是否在战斗结束获取
-	if player:teamstate() == TEAM_STATE_CAPTAIN then
-		local team = teammgr:getteam(player.teamid)
-		pidlst = team:members()
-	else
-		pidlst = {self.pid,}
-	end
-	for _,pid in ipairs(pidlst) do
+	for _,pid in ipairs(war.attackers) do
 		local member = playermgr.getplayer(pid)
 		member.chapterdb:onwarend2(star,war.chapterid)
 	end
@@ -199,6 +185,32 @@ function cchapterdb:onwarend2(star,chapterid)
 			self:update(chapterid,attrs)
 		end
 	end
+end
+
+function cchapterdb:get_unlockcondition(chapterid)
+	if self:get(chapterid) then
+		return
+	end
+	local chapterdata = self:getchapterdata(chapterid)
+	if not chapterdata then
+		return
+	end
+	local player = playermgr.getplayer(self.pid)
+	local taskcontainer = player.taskdb:gettaskcontainer(chapterdata.taskid)
+	if not taskcontainer then
+		return
+	end
+	local taskdata = taskcontainer:getformdata("task")[chapterdata.taskid]
+	local data = {}
+	local needtasks = {}
+	for _,tid in ipairs(taskdata.pretask) do
+		local con = player.taskdb:gettaskcontainer(tid)
+		if con and not con.finishtasks[tid] then
+			table.insert(needtasks,tid)
+		end
+	end
+	data.needtasks = next(needtasks) and needtasks or nil
+	net.chapter.S2C.send_unlockcondition(self.pid,chapterid,data)
 end
 
 return cchapterdb

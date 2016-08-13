@@ -12,8 +12,7 @@ function resumemgr.oncreate(player)
 end
 
 function resumemgr.create(pid,data)
-	require "gamelogic.resume.init"
-	local resume = cresume.newtemp(pid)
+	local resume = cresume.new(pid)
 	resume:create(data)
 	return resume
 end
@@ -38,7 +37,6 @@ function resumemgr.onlogoff(player)
 end
 
 function resumemgr.loadresume(pid)
-	require "gamelogic.resume.init"
 	local resume = cresume.new(pid)
 	resume:loadfromdatabase()
 	return resume

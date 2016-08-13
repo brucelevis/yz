@@ -1,14 +1,20 @@
 
 local DEFAULT_SWICH = {
 	gm = skynet.getenv("servermode") == "DEBUG" and true or false,
-	friend = true,
+	friend = false,
 	automatch = true,
+	costdexp = true,		-- 默认开启:消耗双倍点
 }
 
 cswitch = class("cswitch",cbasicattr)
 
 function cswitch:init(conf)
 	cbasicattr.init(self,conf)
+end
+
+function cswitch:onlogin(player)
+	local pid = player.pid
+	sendpackage(pid,"player","switch",self:allswitch())
 end
 
 function cswitch:isopen(switchtype)
@@ -24,6 +30,9 @@ function cswitch:setswitch(switchtype,state)
 		return
 	end
 	self:set(switchtype,state)
+	sendpackage(self.pid,"player","switch",{
+		[switchtype] = state,
+	})
 end
 
 function cswitch:allswitch()

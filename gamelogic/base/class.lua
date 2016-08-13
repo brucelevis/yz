@@ -46,6 +46,7 @@ local function ajust_super(super)
 	return super
 end
 
+-- 设置自身类属性(功能同ajust_super)
 local function set_super(class_type,super)
 	local pos
 	for i,super_class in ipairs(super) do
@@ -78,26 +79,19 @@ function class(name,...)
 	--class_type.__super = ajust_super(super)
 	set_super(class_type,super)
 	class_type.init = false		--constructor
-	local function new(istemp)
-		return function (...)
-			local tmp = ...
-			assert(tmp ~= class_type,"must use class_type.new(...) but not class_type:new(...)")
-			local self = {}
-			if istemp then
-				self.__temp = true
+	class_type.new = function (...)
+		local tmp = ...
+		assert(tmp ~= class_type,string.format("must use %s.new(...) but not %s:new(...)",name,name))
+		local self = {}
+		self.__type = class_type
+		setmetatable(self,{__index = class_type});
+		do
+			if class_type.init then
+				class_type.init(self,...)
 			end
-			self.__type = class_type
-			setmetatable(self,{__index = class_type});
-			do
-				if class_type.init then
-					class_type.init(self,...)
-				end
-			end
-			return self
 		end
+		return self
 	end
-	class_type.new = new(false)
-	class_type.newtemp = new(true)
 	if not __class[name] then -- if not getmetatable(class_type) then
 		local vtb = {}	-- 仅用于缓存父类方法
 		__class[name] = class_type

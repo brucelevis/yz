@@ -17,6 +17,11 @@ function C2S.getaward(player,request)
 	player.chapterdb:mainlineaward(awardid)
 end
 
+function C2S.get_unlockcondition(player,request)
+	local chapterid = assert(request.chapterid)
+	player.chapterdb:get_unlockcondition(chapterid)
+end
+
 --s2c
 function S2C.unlock(pid,chapterid)
 	sendpackage(pid,"chapter","unlock",{
@@ -39,6 +44,13 @@ end
 function S2C.awardrecord(pid,records)
 	sendpackage(pid,"chapter","awardrecord",{
 		records = records,
+	})
+end
+
+function S2C.send_unlockcondition(pid,chapterid,data)
+	sendpackage(pid,"chapter","send_unlockcondition",{
+		chapterid = chapterid,
+		needtasks = data.needtasks,
 	})
 end
 

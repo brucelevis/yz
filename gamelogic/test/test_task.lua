@@ -2,7 +2,7 @@ local function test2(player,taskid)
 	local container = player.taskdb:gettaskcontainer(taskid)
 	assert(container:gettask(taskid))
 	assert(not container:gettask(90000001))
-	container:onwarend({taskid = taskid},{win = false})
+	warmgr.onwarend(player.warid,1)
 	assert(not container:gettask(taskid))
 end
 
@@ -11,7 +11,6 @@ local function test(pid)
 	player.testman = 1
 	player.taskdb:clear()
 	local container = player.taskdb.test
-	container.finishtasks = {}
 	--开启任务
 	net.task.C2S.opentask(player,{ taskkey = "test" })
 	assert(container.len == 1)

@@ -136,6 +136,26 @@ function warmgr.delwar(warid)
 				end
 			end
 		end
+		if not table.isempty(war.attack_watchers) then
+			for i,pid in ipairs(war.attack_watchers) do
+				local player = playermgr.getplayer(pid)
+				if not player then
+					player = playermgr.loadofflineplayer(pid)
+				end
+				assert(player)
+				player.watch_warid = nil
+			end
+		end
+		if not table.isempty(war.defense_watchers) then
+			for i,pid in ipairs(war.defense_watchers) do
+				local player = playermgr.getplayer(pid)
+				if not player then
+					player = playermgr.loadofflineplayer(pid)
+				end
+				assert(player)
+				player.watch_warid = nil
+			end
+		end
 		return war
 	end
 end
@@ -144,14 +164,14 @@ function warmgr.getwar(warid)
 	return warmgr.wars[warid]
 end
 
-function warmgr.can_startwar(attackers,defensers,war)
-	local set = table.intersect_set(table.toset(attackers),table.toset(defensers))
+function warmgr.can_startwar(war)
+	local set = table.intersect_set(table.toset(war.attackers),table.toset(war.defensers))
 	if not table.isempty(set) then
 		return false
 	end
 	-- is anyone inwar?
-	if not table.isempty(attackers) then
-		for i,pid in ipairs(attackers) do
+	if not table.isempty(war.attackers) then
+		for i,pid in ipairs(war.attackers) do
 			local player = playermgr.getplayer(pid)
 			if not player then
 				player = playermgr.loadofflineplayer(pid)
@@ -176,30 +196,28 @@ function warmgr.can_startwar(attackers,defensers,war)
 			end
 		end
 	end
-	if not table.isempty(defensers) then
-		for i,pid in ipairs(defensers) do
-			for i,pid in ipairs(defensers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player,"Invalid pid:" .. tostring(pid))
-				if player.warid then
-					return false,pid
-				end
+	if not table.isempty(war.defensers) then
+		for i,pid in ipairs(war.defensers) do
+			local player = playermgr.getplayer(pid)
+			if not player then
+				player = playermgr.loadofflineplayer(pid)
+			end
+			assert(player,"Invalid pid:" .. tostring(pid))
+			if player.warid then
+				return false
 			end
 		end
 	end
 	if not table.isempty(war.defense_helpers) then
 		for i,pid in ipairs(war.defense_helpers) do
-			for i,pid in ipairs(war.defense_helpers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player,"Invalid pid:" .. tostring(pid))
-				--援助玩家一定是离线玩家
-				assert(player.__state == "offline")
+			local player = playermgr.getplayer(pid)
+			if not player then
+				player = playermgr.loadofflineplayer(pid)
+			end
+			assert(player,"Invalid pid:" .. tostring(pid))
+			--援助玩家一定是离线玩家
+			assert(player.__state == "offline")
+			if player.warid then
 				return false
 			end
 		end
@@ -221,9 +239,15 @@ end
 --	}
 --*/
 function warmgr.startwar(attackers,defensers,war)
+	if not defensers and not war then
+		war = attackers
+	else
+		defensers = defensers or {}
+		war.attackers = attackers
+		war.defensers = defensers
+	end
 	assert(WARTYPE[war.wartype],"Invalid wartype:" .. tostring(war.wartype))
-	defensers = defensers or {}
-	local isok = warmgr.can_startwar(attackers,defensers,war)
+	local isok = warmgr.can_startwar(war)
 	if not isok then
 		return false
 	end
@@ -237,6 +261,8 @@ function warmgr.startwar(attackers,defensers,war)
 			return
 		end
 	end
+	local warid = warmgr.genwarid()
+	war.warid = warid
 	sendtowarsrv("war","startwar",warmgr.packwar(war))
 	if not table.isempty(attackers) then
 		for i,pid in ipairs(attackers) do
@@ -265,37 +291,30 @@ function warmgr.startwar(attackers,defensers,war)
 	end
 	if not table.isempty(defensers) then
 		for i,pid in ipairs(defensers) do
-			for i,pid in ipairs(defensers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player,"Invalid pid:" .. tostring(pid))
-				sendtowarsrv("war","addplayer",warmgr.packplayer(player))
-				if player.watch_warid then
-					warmgr.quit_watchwar(player,player.watch_warid)
-				end
+			local player = playermgr.getplayer(pid)
+			if not player then
+				player = playermgr.loadofflineplayer(pid)
+			end
+			assert(player,"Invalid pid:" .. tostring(pid))
+			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
+			if player.watch_warid then
+				warmgr.quit_watchwar(player,player.watch_warid)
 			end
 		end
 	end
 	if not table.isempty(war.defense_helpers) then
 		for i,pid in ipairs(war.defense_helpers) do
-			for i,pid in ipairs(war.defense_helpers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player,"Invalid pid:" .. tostring(pid))
-				--援助玩家一定是离线玩家
-				assert(player.__state == "offline")
-				sendtowarsrv("war","addplayer",warmgr.packplayer(player))
+			local player = playermgr.getplayer(pid)
+			if not player then
+				player = playermgr.loadofflineplayer(pid)
 			end
+			assert(player,"Invalid pid:" .. tostring(pid))
+			--援助玩家一定是离线玩家
+			assert(player.__state == "offline")
+			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
 		end
 	end
 	sendtowarsrv("war","finish_startwar",{warid=warid})
-	war.attackers = attackers
-	war.defensers = defensers
-	local warid = warmgr.genwarid()
 	logger.log("info","war",format("[startwar] warid=%s war=%s",warid,war))
 	warmgr.addwar(warid,war)
 	return true

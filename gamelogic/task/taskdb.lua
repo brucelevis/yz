@@ -38,6 +38,15 @@ function ctaskdb:clear()
 	end
 end
 
+function ctaskdb:onfivehourupdate()
+	for name in pairs(self.taskcontainer) do
+		local taskcontainer = self[name]
+		if taskcontainer.onfivehourupdate then
+			taskcontainer:onfivehourupdate()
+		end
+	end
+end
+
 function ctaskdb:addtaskcontainer(taskcontainer)
 	local name = assert(taskcontainer.name)
 	assert(self.taskcontainers[name] == nil)
@@ -47,12 +56,15 @@ end
 
 function ctaskdb:gettaskcontainer(taskid)
 	local tasktype = math.floor(taskid / 100000)
-	local name = TASK_TYPE_NAME[tasktype]
+	local name = taskaux.gettaskname(tasktype)
 	return self[name]
 end
 
 function ctaskdb:gettask(taskid)
 	local taskcontainer = self:gettaskcontainer(taskid)
+	if not taskcontainer then
+		return
+	end
 	local task = taskcontainer:gettask(taskid)
 	return task
 end
@@ -91,7 +103,9 @@ function ctaskdb:onlogin(player)
 	local alltask = {}
 	for name,_ in pairs(self.taskcontainers) do
 		local taskcontainer = self[name]
-		taskcontainer:onlogin(player)
+		if taskcontainer.onlogin then
+			taskcontainer:onlogin(player)
+		end
 		table.extend(alltask,taskcontainer:getallsendtask())
 	end
 	if next(alltask) then
@@ -103,7 +117,9 @@ end
 function ctaskdb:onlogoff(player)
 	for name,_ in pairs(self.taskcontainers) do
 		local taskcontainer = self[name]
-		taskcontainer:onlogoff(player)
+		if taskcontainer.onlogoff then
+			taskcontainer:onlogoff(player)
+		end
 	end
 end
 

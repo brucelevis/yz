@@ -54,13 +54,15 @@ end
 
 function logger.reportbymail(subject,content)
 	local cmd = string.format("cd ../logicshell && sh reportbymail.sh \"%s\" \"%s\"",escape(subject),escape(content))
-	io.popen(cmd)
+	local fd = io.popen(cmd)
+	fd:close()
 end
 
 function logger.sendmail(to_list,subject,content)
 	
 	local cmd = string.format("cd ../logicshell && python sendmail.py %s \"%s\" \"%s\"",to_list,escape(subject),escape(content))
-	io.popen(cmd)
+	local fd = io.popen(cmd)
+	fd:close()
 end
 
 -- console/print

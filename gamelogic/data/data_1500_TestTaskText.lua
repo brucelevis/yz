@@ -1,5 +1,5 @@
---<<data_1599_TestTaskText 导表开始>>
-data_1599_TestTaskText = {
+--<<data_1500_TestTaskText 导表开始>>
+data_1500_TestTaskText = {
 
 	[101] = {
 		texts = {
@@ -31,7 +31,7 @@ data_1599_TestTaskText = {
 	[104] = {
 		texts = {
 			
-			{ npc1 = 0, type = 3, emoji1 = 0, name = "0.0", talk = 0, npc2 = 0, emoji2 = 0, content = "这是故事对白", },
+			{ npc1 = 0, type = 3, emoji1 = 0, name = "0", talk = 0, npc2 = 0, emoji2 = 0, content = "这是故事对白", },
 
 		},
 	},
@@ -45,5 +45,5 @@ data_1599_TestTaskText = {
 	},
 
 }
-return data_1599_TestTaskText
---<<data_1599_TestTaskText 导表结束>>
+return data_1500_TestTaskText
+--<<data_1500_TestTaskText 导表结束>>

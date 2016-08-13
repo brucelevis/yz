@@ -28,9 +28,9 @@ data_0201_SkillEffect = {
 	},
 
 	[900012] = {
-		logicType = 202,
+		logicType = 102,
 		logicTypeParam = "HP",
-		formula = 10002,
+		formula = 10001,
 		attackType = 0,
 		dst = 12,
 		dstParam = {1.0},
@@ -154,34 +154,6 @@ data_0201_SkillEffect = {
 	},
 
 	[901050] = {
-		logicType = 202,
-		logicTypeParam = "HP",
-		formula = 10002,
-		attackType = 0,
-		dst = 11,
-		dstParam = {1.0},
-		limitWeapon = {},
-		castCondition = 0,
-		castParam = {},
-		powerPer = 100,
-		powerValue = 300,
-	},
-
-	[901051] = {
-		logicType = 202,
-		logicTypeParam = "HP",
-		formula = 10002,
-		attackType = 0,
-		dst = 11,
-		dstParam = {1.0},
-		limitWeapon = {},
-		castCondition = 0,
-		castParam = {},
-		powerPer = 100,
-		powerValue = 300,
-	},
-
-	[901052] = {
 		logicType = 202,
 		logicTypeParam = "HP",
 		formula = 10002,

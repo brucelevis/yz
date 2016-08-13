@@ -13,7 +13,9 @@ player_resource 5001 {
 	request {
 		base 0 : basetype
 		gold 1 : integer
-		chip 2 : integer
+		silver 2 : integer
+		coin 3 : integer
+		dexppoint 4 : integer		#双倍经验点
 	}
 }
 
@@ -24,6 +26,7 @@ player_switch 5002 {
 		gm 1 : boolean			# gm开关:true--是GM，其他--不是GM
 		friend 2 : boolean		# 好友系统是否打开;true--打开;其他--不打开
 		automatch 3 : boolean	# 组队是否默认自动匹配;true--自动匹配;其他--不自动匹配
+		costdexp 4 : boolean	# true--开启消耗双倍点，false--关闭消耗双倍点
 	}
 }
 

@@ -160,7 +160,7 @@ function shuffle(list,inplace,limit)
 	local len = #list
 	for i = 1,len-1 do
 		if limit and i > limit then
-			return slice(list,1,limit)
+			return table.slice(list,1,limit)
 		end
 		idx = math.random(i,len)
 		tmp = list[idx]
@@ -340,7 +340,8 @@ function strftime(fmt,secs)
 	local endpos = string.len(fmt)
 	local show_fmtflags = {}
 	for pos=startpos,endpos do
-		local findit,pos,fmtflag = string.find(fmt,"%%([dhmsDHMS])",pos)
+		local findit,fmtflag
+		findit,pos,fmtflag = string.find(fmt,"%%([dhmsDHMS])",pos)
 		if not findit then
 			break
 		else
@@ -396,6 +397,7 @@ function currentdir()
 	end
 	local fd = io.popen("pwd")
 	local path = fd:read("*all"):trim()
+	fd:close()
 	return path
 end
 
@@ -417,7 +419,6 @@ function sendpackage(pid,protoname,subprotoname,request)
 		agent = pid.__agent
 		uid = pid.pid
 	else
-		require "gamelogic.playermgr"
 		local obj = playermgr.getobject(pid)
 		if obj then
 			agent = obj.__agent
@@ -622,7 +623,7 @@ function unpack_function(pack_data)
 	local attrname,sep,funcname = string.match(cmd,"^(.*)([.:])(.+)$")	
 	local args = pack_data.args
 	args = cjson.decode(args)
-	print("cjson.decode",cmd,attrname,sep,funcname)
+	--print("cjson.decode",cmd,attrname,sep,funcname)
 	local n = pack_data.n
 	--loadstr = string.format("return %s",attrname)
 	--local chunk = load(loadstr,"(=load)","bt",_G)
@@ -645,3 +646,8 @@ function is_pack_function(func)
 	end
 end
 -- pack_function/unpack_function [END]
+
+function execformula(formula,params)
+	local chunk = load(formula,"=(load)","bt",params)
+	return chunk()
+end

@@ -1,5 +1,5 @@
---<<data_1501_MainTaskAward 导表开始>>
-data_1501_MainTaskAward = {
+--<<data_1500_MainTaskAward 导表开始>>
+data_1500_MainTaskAward = {
 
 	[101] = {
 		awardtable = {
@@ -182,5 +182,5 @@ data_1501_MainTaskAward = {
 	},
 
 }
-return data_1501_MainTaskAward
---<<data_1501_MainTaskAward 导表结束>>
+return data_1500_MainTaskAward
+--<<data_1500_MainTaskAward 导表结束>>

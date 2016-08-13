@@ -12,6 +12,8 @@ return {
 	restype 5 : integer			# 消耗的资源类型，资源类型分类见导表：资源ID分类.xls
 
 	price 6 : integer			# 当前价格
+	need_itemtype 7 : integer		# 购买需要的物品类型(空/0表示不需要)
+	need_itemnum 8 : integer		# 购买需要的物品数量(空/0表示不需要)
 }
 
 shop_allgoods 6900 {

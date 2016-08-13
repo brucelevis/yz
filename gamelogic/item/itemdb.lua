@@ -260,9 +260,9 @@ function citemdb:getfreepos()
 	end
 end
 
-function citemdb:expandspace(addspace)
+function citemdb:expand(addspace)
 	logger.log("info","item",string.format("[expandspace] pid=%s addspace=%s",self.pid,addspace))
-	self.expandspace = addspace
+	self.expandspace = self.expandspace + addspace
 	sendpackage(self.pid,"item","bag",{
 		type = self.type,
 		space = self.space,

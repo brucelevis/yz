@@ -27,7 +27,7 @@ local function test(pid)
 	assert(player.coin==3)
 	local num = player.itemdb:getnumbytype(501001)
 	assert(num==3)  -- 1 + 2
-	attach = reward
+	local attach = reward
 	local mailid = mailmgr.sendmail(pid,{
 		srcid = SYSTEM_MAIL,
 		author = "系统",

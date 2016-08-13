@@ -29,5 +29,13 @@ player_reset_qualitypoint 5002 {
 		base 0 : basetype
 	}
 }
+
+# 开关操作
+player_switch 5003 {
+	request {
+		base 0 : basetype
+		costdexp 1 : boolean		# true--开启消耗双倍点,false--关闭消耗双倍点
+	}
+}
 ]]
 }

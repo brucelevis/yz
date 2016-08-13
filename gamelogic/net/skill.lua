@@ -46,7 +46,6 @@ function S2C.updateskill(pid,skill)
 end
 
 function S2C.updateslot(pid,skillids,curslot)
-	logger.log("info","skill",format("[debug] %s %s",skillids,curslot))
 	sendpackage(pid,"skill","updateslot",{
 		curslot = curslot,
 		skillids = skillids,

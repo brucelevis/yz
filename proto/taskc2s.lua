@@ -10,6 +10,7 @@ task_opentask 3500 {
 	}
 }
 
+#此协议测试用，接受任务统一使用opentask
 task_accepttask 3501 {
 	request {
 		base 0 : basetype

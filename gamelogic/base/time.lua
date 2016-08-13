@@ -45,7 +45,7 @@ end
 
 function ctoday:register(callback)
 	if callback.onclear then
-		self.onclear = callback.onclear()
+		self.onclear = callback.onclear
 	end
 end
 

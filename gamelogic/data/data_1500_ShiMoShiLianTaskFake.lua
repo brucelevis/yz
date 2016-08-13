@@ -1,5 +1,5 @@
---<<data_1504_ShiMoShiLianFake 导表开始>>
-data_1504_ShiMoShiLianFake = {
+--<<data_1500_ShiMoShiLianTaskFake 导表开始>>
+data_1500_ShiMoShiLianTaskFake = {
 
 	[1] = {
 		warids = {100000,},
@@ -197,5 +197,5 @@ data_1504_ShiMoShiLianFake = {
 	},
 
 }
-return data_1504_ShiMoShiLianFake
---<<data_1504_ShiMoShiLianFake 导表结束>>
+return data_1500_ShiMoShiLianTaskFake
+--<<data_1500_ShiMoShiLianTaskFake 导表结束>>

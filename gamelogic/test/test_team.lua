@@ -12,21 +12,20 @@ local function test(pid1,pid2,pid3)
 	request.quitteam(player3,{})
 	teammgr:clear()
 
-	request.createteam(player1,{target=1,lv=1})
+	request.createteam(player1,{target=1})
 	local teamid = player1.teamid
 	assert(teamid)
 	local team = teammgr:getteam(teamid)
 	assert(team)
 	assert(team.captain == pid1)
 	-- ignore repeat createteam
-	request.createteam(player1,{target=2,lv=2})
+	request.createteam(player1,{target=2})
 	local teamid = player1.teamid
 	assert(teamid)
 	local team = teammgr:getteam(teamid)
 	assert(team)
 	assert(team.captain == pid1)
 	assert(team.target==1,team.target)
-	assert(team.lv==1,team.lv)
 	request.apply_jointeam(player2,{teamid=teamid})	
 	assert(#team.applyers==1)
 	assert(team.applyers[1].pid == pid2)
@@ -66,12 +65,10 @@ local function test(pid1,pid2,pid3)
 	assert(team.captain==pid2)
 	
 	-- non-captain cann't changetarget
-	request.changetarget(player1,{target=2,lv=2})
+	request.changetarget(player1,{target=2})
 	assert(team.target==1)
-	assert(team.lv==1)
-	request.changetarget(player2,{target=2,lv=2})
+	request.changetarget(player2,{target=2})
 	assert(team.target==2)
-	assert(team.lv==2)
 	--
 	request.syncteam(player1,{})
 	request.openui_team(player1,{})

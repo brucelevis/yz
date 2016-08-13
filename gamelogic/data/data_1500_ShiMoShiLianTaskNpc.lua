@@ -1,5 +1,5 @@
---<<data_1504_ShiMoShiLianTaskNpc 导表开始>>
-data_1504_ShiMoShiLianTaskNpc = {
+--<<data_1500_ShiMoShiLianTaskNpc 导表开始>>
+data_1500_ShiMoShiLianTaskNpc = {
 
 	[1001] = {
 		name = "伊菲",
@@ -7,6 +7,8 @@ data_1504_ShiMoShiLianTaskNpc = {
 		posid = "8101001",
 		dir = 1,
 		isclient = 1,
+		talk = "",
+		respond = 0,
 	},
 
 	[1002] = {
@@ -15,6 +17,8 @@ data_1504_ShiMoShiLianTaskNpc = {
 		posid = "8101001",
 		dir = 1,
 		isclient = 1,
+		talk = "",
+		respond = 0,
 	},
 
 	[1003] = {
@@ -23,6 +27,8 @@ data_1504_ShiMoShiLianTaskNpc = {
 		posid = "8101001",
 		dir = 1,
 		isclient = 1,
+		talk = "",
+		respond = 0,
 	},
 
 	[1004] = {
@@ -31,8 +37,10 @@ data_1504_ShiMoShiLianTaskNpc = {
 		posid = "8101001",
 		dir = 1,
 		isclient = 1,
+		talk = "",
+		respond = 0,
 	},
 
 }
-return data_1504_ShiMoShiLianTaskNpc
---<<data_1504_ShiMoShiLianTaskNpc 导表结束>>
+return data_1500_ShiMoShiLianTaskNpc
+--<<data_1500_ShiMoShiLianTaskNpc 导表结束>>

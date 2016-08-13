@@ -18,6 +18,9 @@ end
 function C2S.accepttask(player,request)
 	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	if not taskcontainer then
+		return
+	end
 	local isok,msg = taskcontainer:can_accept(taskid)
 	if not isok then
 		if msg then
@@ -31,36 +34,37 @@ end
 function C2S.executetask(player,request)
 	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
-	local isok,msg = taskcontainer:can_execute(taskid)
-	if not isok then
-		if msg then
-			net.msg.S2C.notify(player.pid,msg)
-		end
+	if not taskcontainer then
 		return
 	end
 	local ext = nil
 	if request.ext then
 		ext = cjson.decode(request.ext)
 	end
-	taskcontainer:executetask(taskid,ext)
+	local isok,msg = taskcontainer:executetask(taskid,request.npcid,ext)
+	if not isok and msg then
+		net.msg.S2C.notify(player.pid,msg)
+	end
 end
 
 function C2S.finishtask(player,request)
 	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
-	local isok,msg = taskcontainer:can_clientfinish(taskid)
-	if not isok then
-		if msg then
-			net.msg.S2C.notify(player.pid,msg)
-		end
+	if not taskcontainer then
 		return
 	end
-	taskcontainer:clientfinishtask(taskid)
+	local isok,msg = taskcontainer:clientfinishtask(taskid)
+	if not isok and msg then
+		net.msg.S2C.notify(player.pid,msg)
+	end
 end
 
 function C2S.submittask(player,request)
 	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	if not taskcontainer then
+		return
+	end
 	local isok,msg = taskcontainer:can_submit(taskid)
 	if not isok then
 		if msg then
@@ -73,20 +77,17 @@ end
 
 function C2S.giveuptask(player,request)
 	local taskid = assert(request.taskid)
+	local pid = player.pid
 	local task = player.taskdb:gettask(taskid)
 	if not task then
 		nettask.S2C.deltask(pid,taskid)
 		return
 	end
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
-	local isok,msg = taskcontainer:can_giveup(taskid)
-	if not isok then
-		if msg then
-			net.msg.S2C.notify(player.pid,msg)
-		end
-		return
+	local isok,msg = taskcontainer:giveuptask(taskid)
+	if not isok and msg then
+		net.msg.S2C.notify(player.pid,msg)
 	end
-	taskcontainer:giveuptask(taskid)
 end
 
 
@@ -120,7 +121,7 @@ function S2C.updatetask(pid,task)
 	})
 end
 
-function S2C.tasktalk(pid,taskid,textid,transstr)
+function S2C.tasktalk(pid,taskid,textid,transstr,needrespond)
 	if transstr then
 		transstr = cjson.encode(transstr)
 	end

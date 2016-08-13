@@ -11,63 +11,63 @@ data_1102_BaoTu = {
 	[2] = {
 		etype = 1,
 		data = 1,
-		ratio = 200,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[3] = {
 		etype = 1,
 		data = 2,
-		ratio = 300,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[4] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 400,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[5] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 500,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[6] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 600,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[7] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 700,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[8] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 800,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[9] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 900,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 
 	[10] = {
 		etype = 2,
 		data = {type=801001,num=1},
-		ratio = 1000,
+		ratio = 100,
 		desc = "测试宝箱",
 	},
 

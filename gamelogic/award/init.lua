@@ -24,12 +24,6 @@ local BASE_RATIO = BASE_RATIO or 1000000
 function award.__player(pid,bonus,reason,btip)
 	local player = playermgr.getplayer(pid)
 	if player then
-		local num
-		if bonus.__formula then -- 后续可能去掉
-			bonus = deepcopy(bonus)
-			bonus.__formula = nil
-			bonus.num = execformula(player,bonus.num)
-		end
 		local has_lackbonus = false
 		local lackbonus = {
 		}

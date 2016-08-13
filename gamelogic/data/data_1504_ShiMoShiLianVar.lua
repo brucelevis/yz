@@ -5,9 +5,15 @@ data_1504_ShiMoShiLianVar = {
 
 	StartWarNeedLv = 10, 		-- 发起战斗需要的等级
 
-	CircleLimit = 10, 		-- 10环为一轮
+	RingLimit = 10, 		-- 10环为一轮
 
 	LookNpcType = 9002, 		-- 10环时需要跳转到的NPC类型
+
+	GiveItemToCaptainAt10Ring = {type=401001,num=1}, 		-- 10环给队长的物品
+
+	QuickFinishNeedLeftCnt = 20, 		-- 快速完成10环任务需要的剩余任务次数
+
+	QuickFinishNeedItem = {type=401001,num=1}, 		-- 快速完成10环任务需要消耗的物品
 
 }
 return data_1504_ShiMoShiLianVar

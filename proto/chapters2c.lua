@@ -41,5 +41,14 @@ chapter_awardrecord 6703 {
 	}
 }
 
+#发送解锁条件
+chapter_send_unlockcondition 6704 {
+	request {
+		base 0 : basetype
+		chapterid 1 : integer
+		needtasks 2 : *integer
+	}
+}
+
 ]]
 }

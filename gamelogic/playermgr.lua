@@ -173,13 +173,9 @@ function playermgr.kickall(reason)
 	end
 end
 
-function playermgr.newplayer(pid,istemp)
+function playermgr.newplayer(pid)
 	playermgr.unloadofflineplayer(pid)
-	if istemp then
-		return cplayer.newtemp(pid)
-	else
-		return cplayer.new(pid)
-	end
+	return cplayer.new(pid)
 end
 
 function playermgr.genpid()
@@ -206,7 +202,7 @@ function playermgr.createplayer(pid,conf)
 	if pid > maxpid then
 		db:set(db:key("role","maxroleid"),pid)
 	end
-	local player = playermgr.newplayer(pid,true)
+	local player = playermgr.newplayer(pid)
 	player:create(conf)
 	player:savetodatabase()
 	return player

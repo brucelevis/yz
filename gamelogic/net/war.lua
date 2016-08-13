@@ -14,7 +14,7 @@ function C2S.invite_qiecuo(player,request)
 		return
 	end
 	net.msg.S2C.messagebox(targetid,
-		MB_TYPE_INVITE_QIECUO,
+		MB_INVITE_QIECUO,
 		language.format("决斗邀请"),
 		language.format("【{1}】想你发起了决斗邀请，是否接受?",language.untranslate(player.name)),
 		{language.format("确认"),language.format("取消"),},

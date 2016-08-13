@@ -25,7 +25,7 @@ end
 
 
 local function docmd(player,cmdline)
-	local cmd,leftcmd = string.match(cmdline,"^([%w_]+)%s+(.*)$")
+	local cmd,leftcmd = string.match(cmdline,"^([%w_]+)%s*(.*)$")
 	if cmd then
 		local func = getfunc(gm,cmd)
 		if func then
@@ -108,6 +108,19 @@ function gm.onlogin(player)
 		sendpackage(player.pid,"msg","worldmsg",packmsg)
 	end
 end
+
+function gm.say(pid,msg)
+	local sender = {
+		pid = 0,
+		name = "系统",
+	}
+	print("gm.say",pid,msg)
+	sendpackage(pid,"msg","worldmsg",{
+		sender = sender,
+		msg = msg
+	})
+end
+
 
 function __hotfix(oldmod)
 	gm.init()

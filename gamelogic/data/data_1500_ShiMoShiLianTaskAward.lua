@@ -1,5 +1,5 @@
---<<data_1504_ShiMoShiLianTaskAward 导表开始>>
-data_1504_ShiMoShiLianTaskAward = {
+--<<data_1500_ShiMoShiLianTaskAward 导表开始>>
+data_1500_ShiMoShiLianTaskAward = {
 
 	[101] = {
 		awardtable = {
@@ -74,5 +74,5 @@ data_1504_ShiMoShiLianTaskAward = {
 	},
 
 }
-return data_1504_ShiMoShiLianTaskAward
---<<data_1504_ShiMoShiLianTaskAward 导表结束>>
+return data_1500_ShiMoShiLianTaskAward
+--<<data_1500_ShiMoShiLianTaskAward 导表结束>>

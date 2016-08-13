@@ -133,7 +133,7 @@ function cronexpr.nexttime(self,date)
 			date = cronexpr.updatedate(date,{min=0,sec=0})
 		end
 		date = cronexpr.updatedate(date,{hour=date.hour+1})
-		if hour == 0 then
+		if date.hour == 0 then
 			goto retry
 		end
 	end

@@ -8,6 +8,8 @@ function ctask:init(conf)
 	self.pid = assert(conf.pid)
 	self.exceedtime = conf.exceedtime
 	self.data = conf.data or {}
+	self.execute_step = 1
+	self.execute_result = TASK_SCRIPT_NONE
 end
 
 function ctask:load(data)
@@ -19,6 +21,7 @@ function ctask:load(data)
 	self.exceedtime = data.exceedtime
 	self.type = data.type
 	self.data = data.data
+	self.execute_step = data.execute_step or 1
 end
 
 function ctask:save()
@@ -28,6 +31,7 @@ function ctask:save()
 	data.exceedtime = self.exceedtime
 	data.type = self.type
 	data.data = self.data
+	data.execute_step = self.execute_step
 	return data
 end
 

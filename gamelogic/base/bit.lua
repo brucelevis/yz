@@ -44,7 +44,7 @@ function bit.band(num,...)
 		return num
 	end
 	local bitarr = bit.toarr(num)
-	for i,v in ipairs(args) do
+	for _,v in ipairs(args) do
 		local bitarr2 = bit.toarr(v)
 		for i = 1,bit.MAXLEN do
 			if bitarr[i] == 1 and bitarr2[i] == 1 then
@@ -63,7 +63,7 @@ function bit.bor(num,...)
 		return num
 	end
 	local bitarr = bit.toarr(num)
-	for i,v in ipairs(args) do
+	for _,v in ipairs(args) do
 		local bitarr2 = bit.toarr(v)
 		for i = 1,bit.MAXLEN do
 			if bitarr[i] == 0 and bitarr2[i] == 0 then
@@ -82,7 +82,7 @@ function bit.bxor(num,...)
 		return num
 	end
 	local bitarr = bit.toarr(num)
-	for i,v in ipairs(args) do
+	for _,v in ipairs(args) do
 		local bitarr2 = bit.toarr(v)
 		for i = 1,bit.MAXLEN do
 			if bitarr[i] ~= bitarr2[i] then

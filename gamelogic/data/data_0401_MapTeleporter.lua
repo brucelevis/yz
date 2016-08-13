@@ -1,622 +1,302 @@
 --<<data_0401_MapTeleporter 导表开始>>
 data_0401_MapTeleporter = {
 
-	[101001] = {
-		des = "女儿国>>万寿山",
-		name = "teleporter_name_101001",
+	[11001001] = {
+		des = "迦南城》迦南圣殿",
+		name = "迦南圣殿",
 		type = 1,
-		tomap = 2,
-		toPos = {13,20,3},
+		toid = 12002001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[101002] = {
-		des = "女儿国>>方寸山",
-		name = "teleporter_name_101002",
+	[11001002] = {
+		des = "迦南城》野外乡村",
+		name = "野外乡村",
 		type = 1,
-		tomap = 2,
-		toPos = {20,28,1},
+		toid = 12006001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[101003] = {
-		des = "女儿国>>战场边境",
-		name = "teleporter_name_101003",
+	[11002001] = {
+		des = "迦南圣殿》迦南城",
+		name = "迦南城",
 		type = 1,
-		tomap = 2,
-		toPos = {11,40,3},
+		toid = 12001001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[102001] = {
-		des = "大唐>>战场边境",
-		name = "teleporter_name_102001",
+	[11003001] = {
+		des = "巴比伦城》空中花园",
+		name = "空中花园",
 		type = 1,
-		tomap = 1,
-		toPos = {71,17,3},
+		toid = 12004001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[103001] = {
-		des = "方寸山>>女儿国",
-		name = "teleporter_name_103001",
+	[11003002] = {
+		des = "巴比伦城》海边",
+		name = "海边",
 		type = 1,
-		tomap = 101,
-		toPos = {185,19,6},
+		toid = 12012001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[103002] = {
-		des = "方寸山>>白虎岭",
-		name = "teleporter_name_103002",
+	[11003003] = {
+		des = "巴比伦城》沙漠戈壁",
+		name = "沙漠戈壁",
 		type = 1,
-		tomap = 114,
-		toPos = {10,64,1},
+		toid = 12010003,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[104001] = {
-		des = "普陀山>>花果山",
-		name = "teleporter_name_104001",
+	[11004001] = {
+		des = "空中花园》巴比伦城",
+		name = "巴比伦城",
 		type = 1,
-		tomap = 117,
-		toPos = {70,13,5},
+		toid = 12003001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[104002] = {
-		des = "普陀山>>灵宵宝殿",
-		name = "teleporter_name_104002",
+	[11006001] = {
+		des = "野外乡村》迦南城",
+		name = "迦南城",
 		type = 1,
-		tomap = 109,
-		toPos = {21,43,7},
+		toid = 12001002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[105001] = {
-		des = "龙宫>>傲来国",
-		name = "teleporter_name_105001",
+	[11006002] = {
+		des = "野外乡村》水晶矿洞",
+		name = "水晶矿洞",
 		type = 1,
-		tomap = 108,
-		toPos = {83,67,1},
+		toid = 12007001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[105002] = {
-		des = "龙宫>>东海归墟1层",
-		name = "teleporter_name_105002",
+	[11006003] = {
+		des = "野外乡村》森林",
+		name = "森林",
 		type = 1,
-		tomap = 122,
-		toPos = {12,14,4},
+		toid = 12008001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[106001] = {
-		des = "地府>>小雷音寺",
-		name = "teleporter_name_106001",
+	[11007001] = {
+		des = "水晶矿洞》野外乡村",
+		name = "野外乡村",
 		type = 1,
-		tomap = 115,
-		toPos = {17,5,4},
+		toid = 12006002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[106002] = {
-		des = "地府>>无间地狱东",
-		name = "teleporter_name_106002",
+	[11007002] = {
+		des = "水晶矿洞》地下城市",
+		name = "地下城市",
 		type = 1,
-		tomap = 130,
-		toPos = {12,22,1},
+		toid = 12017001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[107001] = {
-		des = "魔寨>>火焰山",
-		name = "teleporter_name_107001",
+	[11008001] = {
+		des = "森林》野外乡村",
+		name = "野外乡村",
 		type = 1,
-		tomap = 111,
-		toPos = {22,13,5},
+		toid = 12006003,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[107002] = {
-		des = "魔寨>>黑风山东",
-		name = "teleporter_name_107002",
+	[11008002] = {
+		des = "森林》雪山",
+		name = "雪山",
 		type = 1,
-		tomap = 118,
-		toPos = {21,59,6},
+		toid = 12011002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[108001] = {
-		des = "傲来国>>战场边境",
-		name = "teleporter_name_108001",
+	[11008003] = {
+		des = "森林》沙漠戈壁",
+		name = "沙漠戈壁",
 		type = 1,
-		tomap = 116,
-		toPos = {79,63,7},
+		toid = 12010001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[108002] = {
-		des = "傲来国>>花果山",
-		name = "teleporter_name_108002",
+	[11008004] = {
+		des = "森林》毒气沼泽",
+		name = "毒气沼泽",
 		type = 1,
-		tomap = 117,
-		toPos = {79,64,8},
+		toid = 12013001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[108003] = {
-		des = "傲来国>>龙宫",
-		name = "teleporter_name_108003",
+	[11009001] = {
+		des = "空中城市》雪山",
+		name = "雪山",
 		type = 1,
-		tomap = 105,
-		toPos = {55,37,7},
+		toid = 12011001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[109001] = {
-		des = "灵霄宝殿>>普陀山",
-		name = "teleporter_name_109001",
+	[11010001] = {
+		des = "沙漠戈壁》森林",
+		name = "森林",
 		type = 1,
-		tomap = 104,
-		toPos = {37,17,5},
+		toid = 12008003,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[109002] = {
-		des = "灵霄宝殿>>神魔之井1层",
-		name = "teleporter_name_109002",
+	[11010002] = {
+		des = "沙漠戈壁》诅咒之地",
+		name = "诅咒之地",
 		type = 1,
-		tomap = 126,
-		toPos = {51,36,8},
+		toid = 12014001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[110001] = {
-		des = "万寿山>>盘丝洞",
-		name = "teleporter_name_110001",
+	[11010003] = {
+		des = "沙漠戈壁》巴比伦城",
+		name = "巴比伦城",
 		type = 1,
-		tomap = 113,
-		toPos = {88,60,8},
+		toid = 12003003,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[110002] = {
-		des = "万寿山>>女儿国",
-		name = "teleporter_name_110002",
+	[11011001] = {
+		des = "雪山》空中城市",
+		name = "空中城市",
 		type = 1,
-		tomap = 101,
-		toPos = {29,98,2},
+		toid = 12009001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[111001] = {
-		des = "火焰山>>白虎岭",
-		name = "teleporter_name_111001",
+	[11011002] = {
+		des = "雪山》森林",
+		name = "森林",
 		type = 1,
-		tomap = 114,
-		toPos = {14,37,4},
+		toid = 12008002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[111002] = {
-		des = "火焰山>>魔寨",
-		name = "teleporter_name_111002",
+	[11012001] = {
+		des = "海边》巴比伦城",
+		name = "巴比伦城",
 		type = 1,
-		tomap = 107,
-		toPos = {11,29,4},
+		toid = 12003002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[113001] = {
-		des = "盘丝洞>>万寿山",
-		name = "teleporter_name_113001",
+	[11012002] = {
+		des = "海边》东方城市",
+		name = "东方城市",
 		type = 1,
-		tomap = 110,
-		toPos = {54,10,3},
+		toid = 12016001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[113002] = {
-		des = "盘丝洞>>小雷音寺",
-		name = "teleporter_name_113002",
+	[11013001] = {
+		des = "毒气沼泽》森林",
+		name = "森林",
 		type = 1,
-		tomap = 115,
-		toPos = {14,30,5},
+		toid = 12008004,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[114001] = {
-		des = "白虎岭>>方寸山",
-		name = "teleporter_name_114001",
+	[11014001] = {
+		des = "诅咒之地》戈壁沙漠",
+		name = "戈壁沙漠",
 		type = 1,
-		tomap = 103,
-		toPos = {53,22,8},
+		toid = 12010002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[114002] = {
-		des = "白虎岭>>火焰山",
-		name = "teleporter_name_114002",
+	[11014002] = {
+		des = "诅咒之地》火山",
+		name = "火山",
 		type = 1,
-		tomap = 111,
-		toPos = {79,61,2},
+		toid = 12015001,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[115001] = {
-		des = "小雷音寺>>盘丝洞",
-		name = "teleporter_name_115001",
+	[11015001] = {
+		des = "火山》诅咒之地",
+		name = "诅咒之地",
 		type = 1,
-		tomap = 113,
-		toPos = {13,15,5},
+		toid = 12014002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[115002] = {
-		des = "小雷音寺>>地府",
-		name = "teleporter_name_115002",
+	[11016001] = {
+		des = "东方城市》海边",
+		name = "海边",
 		type = 1,
-		tomap = 106,
-		toPos = {11,25,5},
+		toid = 12012002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},
 
-	[116001] = {
-		des = "战场边境>>女儿国",
-		name = "teleporter_name_116001",
+	[11017001] = {
+		des = "地下城市》水晶矿洞",
+		name = "水晶矿洞",
 		type = 1,
-		tomap = 101,
-		toPos = {168,120,7},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[116002] = {
-		des = "战场边境>>大唐",
-		name = "teleporter_name_116002",
-		type = 1,
-		tomap = 102,
-		toPos = {54,40,8},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[116003] = {
-		des = "战场边境>>傲来国",
-		name = "teleporter_name_116003",
-		type = 1,
-		tomap = 108,
-		toPos = {11,70,3},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[117001] = {
-		des = "花果山>>傲来国",
-		name = "teleporter_name_117001",
-		type = 1,
-		tomap = 108,
-		toPos = {86,15,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[117002] = {
-		des = "花果山>>普陀山",
-		name = "teleporter_name_117002",
-		type = 1,
-		tomap = 104,
-		toPos = {57,10,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[118001] = {
-		des = "黑风山东>>魔寨",
-		name = "teleporter_name_118001",
-		type = 1,
-		tomap = 107,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[118002] = {
-		des = "黑风山东>>黑风山南",
-		name = "teleporter_name_118002",
-		type = 1,
-		tomap = 119,
-		toPos = {14,61,3},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[119001] = {
-		des = "黑风山南>>黑风山东",
-		name = "teleporter_name_119001",
-		type = 1,
-		tomap = 118,
-		toPos = {81,54,7},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[119002] = {
-		des = "黑风山南>>黑风山西",
-		name = "teleporter_name_119002",
-		type = 1,
-		tomap = 120,
-		toPos = {14,61,3},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[120001] = {
-		des = "黑风山西>>黑风山南",
-		name = "teleporter_name_120001",
-		type = 1,
-		tomap = 119,
-		toPos = {81,54,7},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[120002] = {
-		des = "黑风山西>>黑风山北",
-		name = "teleporter_name_120002",
-		type = 1,
-		tomap = 121,
-		toPos = {14,61,3},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[121001] = {
-		des = "黑风山北>>黑风山西",
-		name = "teleporter_name_121001",
-		type = 1,
-		tomap = 120,
-		toPos = {81,54,7},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[122001] = {
-		des = "东海归墟1层>>龙宫",
-		name = "teleporter_name_122001",
-		type = 1,
-		tomap = 105,
-		toPos = {29,39,1},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[122002] = {
-		des = "东海归墟1层>>东海归墟2层",
-		name = "teleporter_name_122002",
-		type = 1,
-		tomap = 123,
-		toPos = {12,14,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[123001] = {
-		des = "东海归墟2层>>东海归墟1层",
-		name = "teleporter_name_123001",
-		type = 1,
-		tomap = 122,
-		toPos = {12,14,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[123002] = {
-		des = "东海归墟2层>>东海归墟3层",
-		name = "teleporter_name_123002",
-		type = 1,
-		tomap = 124,
-		toPos = {12,14,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[124001] = {
-		des = "东海归墟3层>>东海归墟2层",
-		name = "teleporter_name_124001",
-		type = 1,
-		tomap = 123,
-		toPos = {12,14,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[124002] = {
-		des = "东海归墟3层>>东海归墟4层",
-		name = "teleporter_name_124002",
-		type = 1,
-		tomap = 125,
-		toPos = {12,14,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[125001] = {
-		des = "东海归墟4层>>东海归墟3层",
-		name = "teleporter_name_125001",
-		type = 1,
-		tomap = 124,
-		toPos = {12,14,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[126001] = {
-		des = "神魔之井1层>>灵霄宝殿",
-		name = "teleporter_name_126001",
-		type = 1,
-		tomap = 109,
-		toPos = {8,6,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[126002] = {
-		des = "神魔之井1层>>神魔之井2层",
-		name = "teleporter_name_126002",
-		type = 1,
-		tomap = 127,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[127001] = {
-		des = "神魔之井2层>>神魔之井1层",
-		name = "teleporter_name_127001",
-		type = 1,
-		tomap = 126,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[127002] = {
-		des = "神魔之井2层>>神魔之井3层",
-		name = "teleporter_name_127002",
-		type = 1,
-		tomap = 128,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[128001] = {
-		des = "神魔之井3层>>神魔之井2层",
-		name = "teleporter_name_128001",
-		type = 1,
-		tomap = 127,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[128002] = {
-		des = "神魔之井3层>>神魔之井4层",
-		name = "teleporter_name_128002",
-		type = 1,
-		tomap = 129,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[129001] = {
-		des = "神魔之井4层>>神魔之井3层",
-		name = "teleporter_name_129001",
-		type = 1,
-		tomap = 128,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[130001] = {
-		des = "无间地狱东>>地府",
-		name = "teleporter_name_130001",
-		type = 1,
-		tomap = 106,
-		toPos = {36,32,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[130002] = {
-		des = "无间地狱东>>无间地狱南",
-		name = "teleporter_name_130002",
-		type = 1,
-		tomap = 131,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[131001] = {
-		des = "无间地狱南>>无间地狱东",
-		name = "teleporter_name_131001",
-		type = 1,
-		tomap = 130,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[131002] = {
-		des = "无间地狱南>>无间地狱西",
-		name = "teleporter_name_131002",
-		type = 1,
-		tomap = 132,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[132001] = {
-		des = "无间地狱西>>无间地狱南",
-		name = "teleporter_name_132001",
-		type = 1,
-		tomap = 131,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[132002] = {
-		des = "无间地狱西>>无间地狱北",
-		name = "teleporter_name_132002",
-		type = 1,
-		tomap = 133,
-		toPos = {31,13,5},
-		minimapPosDelay_x = 0,
-		minimapPosDelay_y = 0,
-	},
-
-	[133001] = {
-		des = "无间地狱北>>无间地狱西",
-		name = "teleporter_name_133001",
-		type = 1,
-		tomap = 132,
-		toPos = {31,13,5},
+		toid = 12007002,
+		dir = 5,
 		minimapPosDelay_x = 0,
 		minimapPosDelay_y = 0,
 	},

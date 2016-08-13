@@ -19,6 +19,7 @@ function cbranchtask:onwarend(war,result)
 	local player = playermgr.getplayer(self.pid)
 	local chapterid = self:getformdata("task")[war.taskid].chapterid
 	if chapterid then
+		war.chapterid = chapterid
 		player.chapterdb:onwarend(war,result)
 	end
 end

@@ -123,7 +123,7 @@ function cmailbox:getattach(mailid)
 	logger.log("info","mail",format("[getattach] pid=%d srcid=%d mailid=%d attach=%s",pid,mail.srcid,mailid,mail.attach))
 	if not table.isempty(mail.attach) then
 		local attach = mail.attach
-		mail.attach = award.__player(pid,attach,reason,true)
+		mail.attach = award.__player(pid,attach,"getattach",true)
 		netmail.S2C.syncmail(pid,mail:pack())
 	end
 end

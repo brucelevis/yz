@@ -224,6 +224,11 @@ function C2S.sendmsgto(player,request)
 	sendpackage(targetid,"msg","privatemsg",packmsg)
 end
 
+function C2S.onnpcsay(player,request)
+	local respondid = assert(request.respondid)
+	local answer = assert(request.answer)
+	player:do_respondhandler(respondid,answer)
+end
 
 -- s2c
 function S2C.notify(pid,msg)
@@ -239,7 +244,7 @@ function S2C.notify(pid,msg)
 		if typename(player) == "cplayer" then
 			lang = player:getlanguage()
 		else
-			lang = language_from
+			lang = language.language_from
 		end
 		msg = language.translateto(msg,lang)
 	end
@@ -260,7 +265,7 @@ function S2C.info(pid,msg)
 		if typename(player) == "cplayer" then
 			lang = player:getlanguage()
 		else
-			lang = language_from
+			lang = language.language_from
 		end
 		msg = language.translateto(msg,lang)
 	end
@@ -283,7 +288,7 @@ function onbuysomething(player,request,buttonid)
 	end
 end
 netmsg.S2C.messagebox(10001,
-				LACK_CONDITION,
+				MB_LACK_CONDITION,
 				"条件不足",
 				"是否花费100金币购买:",
 				{
@@ -367,21 +372,36 @@ function S2C.bulletin(msg,func)
 	--end
 end
 
-function S2C.npcsay(pid,npc,msg)
+-- 可以带选项的npc对话,无回调时options,callback传nil
+function S2C.npcsay(pid,npc,msg,options,callback,...)
+	local player = playermgr.getplayer(pid)
+	if not player then
+		return
+	end
 	if type(msg) == "table" then  -- 打包的消息
-		local lang
-		local player = playermgr.getplayer(pid)
-		if player and typename(player) == "cplayer" then
-			lang = player:getlanguage()
-		else
-			lang = language_from
-		end
+		local lang = player:getlanguage()
 		msg = language.translateto(msg,lang)
+		local options2
+		if options then
+			for _,option in ipairs(options) do 
+				if not options2 then
+					options2 = {}
+				end
+				table.insert(options2,language.translateto(option,lang))
+			end
+		end
+		options = options2
+	end
+	local respondid
+	if callback and type(callback) == "function" then
+		respondid = player:set_respondhandler(callback,...)
 	end
 	sendpackage(pid,"msg","npcsay",{
 		name = npc.name,
-		type = npc.shape,
+		shape = npc.shape,
 		msg = msg,
+		options = options,
+		respondid = respondid,
 	})
 end
 

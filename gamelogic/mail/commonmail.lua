@@ -31,6 +31,7 @@ function commonmail.sendmail(mail)
 
 	local to_pids
 	if table.isempty(mail.to_pids) then
+		local db = dbmgr.getdb()
 		to_pids = db:hkeys(db:key("role","list")) or {}
 	else
 		to_pids = mail.to_pids
@@ -43,7 +44,7 @@ function commonmail.sendmail(mail)
 			local player = resumemgr.getresume(pid)
 			if player then
 				local bpass = false
-				for i,condition in ipairs(conditions) do
+				for _,condition in ipairs(conditions) do
 					local isok = true
 					for cmd,args in pairs(condition) do
 						local func = commonmail.condition[cmd]
