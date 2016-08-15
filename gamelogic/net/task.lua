@@ -41,7 +41,7 @@ function C2S.executetask(player,request)
 	if request.ext then
 		ext = cjson.decode(request.ext)
 	end
-	local isok,msg = taskcontainer:executetask(taskid,request.npcid,ext)
+	local isok,msg = taskcontainer:executetask(taskid,ext)
 	if not isok and msg then
 		net.msg.S2C.notify(player.pid,msg)
 	end
@@ -90,6 +90,18 @@ function C2S.giveuptask(player,request)
 	end
 end
 
+function C2S.looktasknpc(player,request)
+	local taskid = assert(request.taskid)
+	local npcid = assert(request.npcid)
+	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	if not taskcontainer then
+		return
+	end
+	local isok,msg = taskcontainer:looktasknpc(taskid,npcid)
+	if not isok and msg then
+		net.msg.S2C.notify(player.pid,msg)
+	end
+end
 
 -- s2c
 function S2C.addtask(pid,task)

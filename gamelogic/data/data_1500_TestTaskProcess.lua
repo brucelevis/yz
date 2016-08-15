@@ -149,6 +149,34 @@ data_1500_TestTaskProcess = {
 		executed_desc = "nil",
 	},
 
+	[90000006] = {
+		id = 90000006,
+		type = 5,
+		name = "测试采集",
+		accept = {
+			{ cmd = 'setcollect', args = { posid = { 8101001,8101002 }, rand = 1, }, },
+		},
+		execution = {
+
+		},
+		finishbyclient = 0,
+		acceptnpc = 90023,
+		submitnpc = 90023,
+		cangiveup = 1,
+		needlv = 0,
+		needjob = {nil},
+		exceedtime = nil,
+		pretask = {nil},
+		ratio = 10,
+		award = 101,
+		nexttask = nil,
+		chapterid = 0,
+		icon_id = 93051,
+		desc = "长安似乎发生了些什么怪事5",
+		accepted_desc = "nil",
+		executed_desc = "nil",
+	},
+
 }
 return data_1500_TestTaskProcess
 --<<data_1500_TestTaskProcess 导表结束>>

@@ -65,7 +65,7 @@ function playunit_guaji.guaji(player)
 	if player:inwar() then
 		return false,language.format("战斗中无法挂机")
 	end
-	if playunit_guaji.getstate() == playunit_guaji.GUAJI_STATE then
+	if playunit_guaji.getstate(player) == playunit_guaji.GUAJI_STATE then
 		return false,language.format("已处于挂机状态")
 	end
 	playunit_guaji.setstate(player,playunit_guaji.GUAJI_STATE)

@@ -11,6 +11,9 @@ function citemdb:init(conf)
 	self.type_ids = {}
 	self.loadstate = "unload"
 	self.itempos_begin = ITEMPOS_BEGIN
+
+	-- 部分背包有用
+	self.sorttype = 0
 end
 
 function citemdb:load(data)
@@ -24,6 +27,7 @@ function citemdb:load(data)
 		return item
 	end)
 	self.expandspace = data.expandspace
+	self.sorttype = data.sorttype or 0
 end
 
 function citemdb:save()
@@ -31,6 +35,7 @@ function citemdb:save()
 		return item:save()
 	end)
 	data.expandspace = self.expandspace
+	data.sorttype = self.sorttype
 	return data
 end
 
@@ -50,6 +55,7 @@ function citemdb:onlogin(player)
 		type = self.type,
 		space = self.space,
 		expandspace = self.expandspace,
+		sorttype = self.sorttype,
 	})
 	net.item.S2C.allitem(self.pid,self.objs)
 end
@@ -263,10 +269,11 @@ end
 function citemdb:expand(addspace)
 	logger.log("info","item",string.format("[expandspace] pid=%s addspace=%s",self.pid,addspace))
 	self.expandspace = self.expandspace + addspace
-	sendpackage(self.pid,"item","bag",{
+	net.item.S2C.bag(self.pid,{
 		type = self.type,
 		space = self.space,
 		expandspace = self.expandspace,
+		sorttype = self.sorttype,
 	})
 end
 
@@ -310,7 +317,7 @@ function citemdb:getmaxnum(itemtype)
 	return itemdata.maxnum
 end
 
--- 整理背包
+-- 整理背包(已废弃，背包无法整理，客户端也无法控制物品移动位置）
 function citemdb:sort()
 	logger.log("info","item",string.format("[sort] pid=%s name=%s",self.pid,self.name))
 	local space = self:getspace()

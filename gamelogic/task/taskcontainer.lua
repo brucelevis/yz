@@ -16,9 +16,8 @@ function ctaskcontainer:init(conf)
 	self.script_handle.findnpc = true
 	self.script_handle.needitem = true
 	self.script_handle.setpatrol = true
-	self.script_handle.progressbar = true
+	self.script_handle.setcollect = true
 	self.script_handle.handinitem = true
-	self.script_handle.settargetpos = true
 	self.script_handle.confirmtalk = true
 end
 
@@ -258,7 +257,7 @@ function ctaskcontainer:pack(task)
 		end
 	end
 	data.patrol = task.resourcemgr:get("patrolpos")
-	data.progress = task.resourcemgr:get("progresstime")
+	data.collect = task.resourcemgr:get("collectpos")
 	data.items = task.resourcemgr:get("itemneed")
 	if next(task.resourcemgr.npclist) then
 		data.npcs = {}
@@ -342,20 +341,6 @@ function ctaskcontainer:finishtask(task,reason)
 		local submitnpc = npc.id or taskdata.submitnpc
 		net.task.S2C.finishtask(self.pid,taskid,submitnpc)
 	end
-end
-
-function ctaskcontainer:verifynpc(task)
-	local nid = task.resourcemgr:get("findnpc")
-	if not nid then
-		return true
-	end
-	local npc = self:getnpc_bynid(task,nid)
-	local player = playermgr.getplayer(self.pid)
-	if not self:isnearby(player,npc) then
-		net.msg.S2C.notify(self.pid,language.format("太远了"))
-		return false
-	end
-	return true
 end
 
 function ctaskcontainer:newnpc()
@@ -496,21 +481,15 @@ function ctaskcontainer:truehandin(player,handinlst)
 end
 
 function ctaskcontainer:setpatrol(task,args)
-	local posid = self:formdata_values(args,"posid")[1]
+	local posid = tostring(self:formdata_values(args,"posid")[1])
 	posid = self:transcode(task,posid,self.pid)
 	task.resourcemgr:set("patrolpos",posid)
 end
 
---弹出进度条
-function ctaskcontainer:progressbar(task,args)
-	local time = args.time
-	task.resourcemgr:set("progresstime",time)
-end
-
---设置目标地
-function ctaskcontainer:settargetpos(task,args)
-	local posid = self:formdata_values(args,"posid")[1]
-	task.resourcemgr:set("targetpos",posid)
+function ctaskcontainer:setcollect(task,args)
+	local posid = tostring(self:formdata_values(args,"posid")[1])
+	posid = self:transcode(task,posid,self.pid)
+	task.resourcemgr:set("collectpos",posid)
 end
 
 function ctaskcontainer:delnpc(task,args)
@@ -745,19 +724,29 @@ function ctaskcontainer:giveuptask(taskid)
 	return true
 end
 
-function ctaskcontainer:executetask(taskid,npcid,ext)
+function ctaskcontainer:looktasknpc(taskid,npcid)
 	local task = self:gettask(taskid)
 	if not task then
 		return false,language.format("任务已失效")
 	end
 	local npc = self:getnpc(task,npcid)
-	if npc and npc.nid then
-		local npcdata = self:getformdata("npc")[npc.nid]
-		local talk,respond = npcdata.talk,npcdata.respond
-		if string.len(talk) ~= 0 then
-			npc:look(self.pid,talk,respond)
-			return true
-		end
+	if not npc.nid then
+		return false
+	end
+	local player = playermgr.getplayer(self.pid)
+	if not self:isnearby(player,npc) then
+		return false,language.format("距离太远了")
+	end
+	local npcdata = self:getformdata("npc")[npc.nid]
+	local talk,respond = npcdata.talk,npcdata.respond
+	npc:look(self.pid,talk,respond)
+	return true
+end
+
+function ctaskcontainer:executetask(taskid,ext)
+	local task = self:gettask(taskid)
+	if not task then
+		return false,language.format("任务已失效")
 	end
 	local isok,msg = self:can_execute(task)
 	if not isok then
@@ -768,14 +757,25 @@ function ctaskcontainer:executetask(taskid,npcid,ext)
 end
 
 function ctaskcontainer:can_execute(task)
-	if not self:verifynpc(task) then
-		return false
-	end
 	if task.execute_result ~= TASK_SCRIPT_NONE then
 		return false,language.format("任务正在执行中")
 	end
 	if task.state == TASK_STATE_FINISH then
 		return false,language.format("任务可提交")
+	end
+	local player = playermgr.getplayer(self.pid)
+	local nid = task.resourcemgr:get("findnpc")
+	if nid then
+		local npc = self:getnpc_bynid(task,nid)
+		if not self:isnearby(player,npc) then
+			return false,language.format("太远了")
+		end
+	end
+	local collectpos = task.resourcemgr:get("collectpos")
+	if collectpos then
+		if not self:isnearby(player,{ posid = collectpos, }) then
+			return false,language.format("还未到采集点")
+		end
 	end
 	return true
 end

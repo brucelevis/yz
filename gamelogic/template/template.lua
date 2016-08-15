@@ -99,21 +99,24 @@ function ctemplate:doaward(playunit,awardid,pid)
 end
 
 function ctemplate:isnearby(player,npc,dis)
-	if player.testman == 1 then
+	if dis == "ignore" or player.testman == 1 then
 		return true
 	end
 	if not player or not npc then
 		return false
 	end
 	dis = dis or MAX_NEAR_DISTANCE
-	local pos2
+	local pos2,mapid
 	if npc.pos then
+		mapid = npc.mapid
 		pos2 = npc.pos
 	else
-		local _,x,y = scenemgr.getpos(npc.posid)
+		local m,x,y = scenemgr.getpos(npc.posid)
+		mapid = m
 		pos2 = {x = x, y = y}
 	end
-	if dis ~= "ignore" and getdistance(player.pos,pos2) > dis then
+	local scene = scenemgr.getscene(player.sceneid)
+	if scene.mapid ~= mapid or getdistance(player.pos,pos2) > dis then
 		return false
 	end
 	return true

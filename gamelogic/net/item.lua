@@ -433,11 +433,18 @@ function C2S.opencard(player,request)
 	carddb:opencard(cardid)
 end
 
--- 整理背包
+-- 排序背包(不是整理，现在已经废除服务端整理，服务端只记录排序方式，排序由客户端做)
 function C2S.sortbag(player,request)
 	local bagtype = assert(request.bagtype)
+	local sorttype = assert(request.sorttype)
 	local itemdb = player:getitembag(bagtype)
-	itemdb:sort()
+	itemdb.sorttype =  sorttype
+	net.item.S2C.bag(player.pid,{
+		type = itemdb.type,
+		space = itemdb.space,
+		expandspace = itemdb.expandspace,
+		sorttype = itemdb.sorttype,
+	})
 end
 
 function C2S.expandspace(player,request)

@@ -539,7 +539,7 @@ end
 function cplayer:onweekupdate()
 end
 
-function cplayer:onweek2update()
+function cplayer:onweekupdate2()
 end
 
 function cplayer:validpay(typ,num,notify)

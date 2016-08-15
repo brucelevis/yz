@@ -16,6 +16,15 @@ data_0201_SkillFormula = {
 			return -value
 		end,
 
+	[10003] = function(ins_skill, ins_logic, attacker, target, computeFixFunc)
+			local value = math.pow(attacker:getProperty("FAGONG"), 2)/(attacker:getProperty("FAGONG")+target:getProperty("FAFANG")*2)*ins_logic.powerPer+ins_logic.powerValue*ins_skill.m_skillLvFix
+			if computeFixFunc ~= nil then
+				value = computeFixFunc(value, 1, ins_skill, ins_logic, attacker, target)
+			end
+			if value < 1 then value = 1 end
+			return -value
+		end,
+
 	[10101] = function(ins_skill, ins_logic, attacker, target, computeFixFunc)
 			local value = ins_logic.powerValue*ins_skill.m_skillLvFix*(0.5+0.5*ins_skill.m_curLv/ins_skill.maxLv)
 			if computeFixFunc ~= nil then

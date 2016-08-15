@@ -11,10 +11,12 @@ end
 function citem:useitem_601002(player,target,num)
 	local itemdata = itemaux.getitemdata(self.type)
 	local addvalue = itemdata.special_value or 20
+	addvalue = addvalue * num
 	player.thisweek:add("dexppoint",addvalue)
 	sendpackage(player.pid,"player","resource",{
 		dexppoint = player.thisweek:query("dexppoint") or 0
-	})	
+	})
+	return true
 end
 
 citem.usefunc[601001] = citem.useitem_baotu

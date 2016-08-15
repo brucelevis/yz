@@ -90,7 +90,7 @@ function timectrl.fivehourupdate(now)
 	timectrl.onfivehourupdate()
 	local weekday = getweekday(now)
 	if weekday == 0 then			-- 星期天
-		timectrl.week2_update_infivehour(now)
+		timectrl.week_update2_infivehour(now)
 	elseif weekday == 1 then		-- 星期一 
 		timectrl.week_update_infivehour(now)
 	end

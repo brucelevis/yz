@@ -41,26 +41,18 @@ function ctemplnpc:load(data)
 	self:config(data)
 end
 
-
 function ctemplnpc:look(pid,talk,respond)
 	talk = talk or self.talk
 	local callback
 	local options
 	if istrue(respond) then
-		options = self.options or self:getoptions(respond)
-		callback = function(player,answer)
-			local func = self:getrespondfunc(respond)
-			if type(func) == "function" then
-				func(self,player,answer)
-			else
-				self:answer(player,answer)
-			end
-		end
+		options = self:getoptions(respond) or self.options
+		callback = self:getcallback(respond)
 	end
 	net.msg.S2C.npcsay(pid,self,talk,options,callback)
 end
 
-function ctemplnpc:getrespondfunc(respond)
+function ctemplnpc:getcallback(respond)
 end
 
 function ctemplnpc:getoptions(respond)
