@@ -18,7 +18,7 @@ local function test(pid1,pid2)
 	assert(player2.sceneid == 1)
 	local can_enter_mapid
 	local cannot_enter_mapid
-	for mapid,map in pairs(data_1104_GuaJiMap) do
+	for mapid,map in pairs(data_1100_GuaJiMap) do
 		if map.openlv < lv then
 			can_enter_mapid = mapid
 		elseif map.openlv > lv then

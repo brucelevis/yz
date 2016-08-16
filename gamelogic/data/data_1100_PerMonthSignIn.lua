@@ -1,5 +1,5 @@
---<<data_1101_PerMonthSignIn 导表开始>>
-data_1101_PerMonthSignIn = {
+--<<data_1100_PerMonthSignIn 导表开始>>
+data_1100_PerMonthSignIn = {
 
 	[1] = {
 		reward = {
@@ -250,5 +250,5 @@ data_1101_PerMonthSignIn = {
 	},
 
 }
-return data_1101_PerMonthSignIn
---<<data_1101_PerMonthSignIn 导表结束>>
+return data_1100_PerMonthSignIn
+--<<data_1100_PerMonthSignIn 导表结束>>

@@ -1,5 +1,5 @@
---<<data_1101_SignInCtrl 导表开始>>
-data_1101_SignInCtrl = {
+--<<data_1100_SignInCtrl 导表开始>>
+data_1100_SignInCtrl = {
 
 	permonth = {
 		name = "permonth",
@@ -11,5 +11,5 @@ data_1101_SignInCtrl = {
 	},
 
 }
-return data_1101_SignInCtrl
---<<data_1101_SignInCtrl 导表结束>>
+return data_1100_SignInCtrl
+--<<data_1100_SignInCtrl 导表结束>>

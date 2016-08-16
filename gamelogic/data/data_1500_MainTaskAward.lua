@@ -1,7 +1,7 @@
 --<<data_1500_MainTaskAward 导表开始>>
 data_1500_MainTaskAward = {
 
-	[101] = {
+	[10000101] = {
 		awardtable = {
 			
 			{
@@ -19,7 +19,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[102] = {
+	[10000102] = {
 		awardtable = {
 			
 			{
@@ -37,7 +37,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[103] = {
+	[10000103] = {
 		awardtable = {
 			
 			{
@@ -55,7 +55,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[104] = {
+	[10000104] = {
 		awardtable = {
 			
 			{
@@ -73,7 +73,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[105] = {
+	[10000105] = {
 		awardtable = {
 			
 			{
@@ -91,7 +91,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[106] = {
+	[10000106] = {
 		awardtable = {
 			
 			{
@@ -109,7 +109,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[107] = {
+	[10000107] = {
 		awardtable = {
 			
 			{
@@ -127,7 +127,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[108] = {
+	[10000108] = {
 		awardtable = {
 			
 			{
@@ -145,7 +145,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[109] = {
+	[10000109] = {
 		awardtable = {
 			
 			{
@@ -163,7 +163,7 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
-	[110] = {
+	[10000110] = {
 		awardtable = {
 			
 			{

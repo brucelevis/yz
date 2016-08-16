@@ -76,21 +76,16 @@ end
 
 function ctemplate:createnpc(playunit,nid,pid)
 	local npcdata = self:getformdata("npc")[nid]
-	local newnpc = self:newnpc()
-	newnpc:config({
+	local newnpc = {
 		nid = nid,
 		shape = npcdata.shape,
 		name = npcdata.name,
 		posid = tostring(npcdata.posid),
 		isclient = npcdata.isclient,
-	})
+	}
 	newnpc = self:transnpc(playunit,newnpc,pid)
 	playunit.resourcemgr:addnpc(newnpc)
 	return newnpc
-end
-
-function ctemplate:newnpc()
-	return ctemplnpc.new()
 end
 
 function ctemplate:doaward(playunit,awardid,pid)
@@ -175,7 +170,7 @@ function ctemplate:transwar(playunit,warid,pid)
 	local player = playermgr.getplayer(pid)
 	war.attackers = player:getfighters()
 	assert(not table.isempty(war.attackers))
-	war.defensers = {}		-- 默认PVE，涉及PVP重新该接口
+	war.defensers = {}		-- 默认PVE，涉及PVP重写该接口
 	return war
 end
 

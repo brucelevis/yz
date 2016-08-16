@@ -1,5 +1,5 @@
---<<data_1103_Navigation 导表开始>>
-data_1103_Navigation = {
+--<<data_1100_Navigation 导表开始>>
+data_1100_Navigation = {
 
 	[1] = {
 		hid = 10001,
@@ -50,5 +50,5 @@ data_1103_Navigation = {
 	},
 
 }
-return data_1103_Navigation
---<<data_1103_Navigation 导表结束>>
+return data_1100_Navigation
+--<<data_1100_Navigation 导表结束>>

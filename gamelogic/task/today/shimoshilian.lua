@@ -131,23 +131,22 @@ function cshimoshiliantask:nexttask(taskid,reason)
 	local look_npctype = data_1500_ShiMoShiLianTaskVar.LookNpcType
 	local leftcnt = math.min(0,donelimit-donecnt)
 	if donecnt >= donelimit then
-		net.msg.S2C.messagebox(self.pid,
-								MB_SHIMOSHILIAN_REACHLIMIT,
-								language.format("次数耗尽"),
-								language.format("【{1}】次数耗尽，继续任务将不会获得奖励。\n剩余次数：{2}/{3}",chinesename,leftcnt,donelimit),
-								{},
-								{language.format("确认")})
+		net.msg.S2C.messagebox(self.pid,{
+								type = MB_SHIMOSHILIAN_REACHLIMIT,
+								title = language.format("次数耗尽"),
+								content = language.format("【{1}】次数耗尽，继续任务将不会获得奖励。\n剩余次数：{2}/{3}",chinesename,leftcnt,donelimit),
+								buttons = {language.format("确认")}})
 		return
 	end
 	if reason ~= "opentask" and ringnum >= ringlimit then
 		local player = playermgr.getplayer(self.pid)
 		if player and player:teamstate() == TEAM_STATE_CAPTAIN then
-			net.msg.S2C.messagebox(self.pid,
-								MB_SHIMOSHILIAN_10_RING,
-								language.format("任务完成"),
-								language.format("已完成{1}环【{2}】。\n剩余次数：{3}/{4}",ringlimit,chinesename,leftcnt,donelimit),
-								{npctype=look_npctype},
-								{language.format("取消"),language.format("继续"),})
+			net.msg.S2C.messagebox(self.pid,{
+								type = MB_SHIMOSHILIAN_10_RING,
+								title = language.format("任务完成"),
+								content = language.format("已完成{1}环【{2}】。\n剩余次数：{3}/{4}",ringlimit,chinesename,leftcnt,donelimit),
+								{language.format("取消"),language.format("继续"),},
+								attach = {npctype=look_npctype},})
 		end
 		return
 	end

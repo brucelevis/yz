@@ -14,7 +14,7 @@ function playunit_guaji.onlogoff(player)
 end
 
 function playunit_guaji.isguajimap(mapid)
-	local map = data_1104_GuaJiMap[mapid]
+	local map = data_1100_GuaJiMap[mapid]
 	if map then
 		return true,map
 	end
@@ -36,7 +36,8 @@ end
 function playunit_guaji.onenter(player,sceneid,pos)
 	local scene = scenemgr.getscene(sceneid)
 	if playunit_guaji.isguajimap(scene.mapid) then
-		playunit_guaji.setstate(player,playunit_guaji.GUAJI_STATE)
+		-- 需要主动挂机才会进入挂机状态
+		--playunit_guaji.setstate(player,playunit_guaji.GUAJI_STATE)
 	else
 		playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
 	end
@@ -123,7 +124,7 @@ function playunit_guaji.onmove(player)
 	end
 	local ratio = player:query("guaji.ratio") or 0
 	if ratio < 100 then
-		ratio = math.min(100,ratio+data_1104_GuaJiVar.AddRatioPerSec)
+		ratio = math.min(100,ratio+data_1100_GuaJiVar.AddRatioPerSec)
 	end
 	if ishit(ratio,100) then
 		ratio = 0
@@ -134,7 +135,7 @@ end
 
 function playunit_guaji.raisewar(player)
 	local sceneid = player.sceneid
-	local wargroup = data_1104_GuaJiWarGroup[sceneid]
+	local wargroup = data_1100_GuaJiWarGroup[sceneid]
 	local warid = choosekey(wargroup,function (key,val)
 		return val.ratio
 	end)

@@ -12,20 +12,20 @@ local function test(pid1,pid2,pid3)
 	request.quitteam(player3,{})
 	teammgr:clear()
 
-	request.createteam(player1,{target=1})
+	request.createteam(player1,{target=1001})
 	local teamid = player1.teamid
 	assert(teamid)
 	local team = teammgr:getteam(teamid)
 	assert(team)
 	assert(team.captain == pid1)
 	-- ignore repeat createteam
-	request.createteam(player1,{target=2})
+	request.createteam(player1,{target=2001})
 	local teamid = player1.teamid
 	assert(teamid)
 	local team = teammgr:getteam(teamid)
 	assert(team)
 	assert(team.captain == pid1)
-	assert(team.target==1,team.target)
+	assert(team.target==1001,team.target)
 	request.apply_jointeam(player2,{teamid=teamid})	
 	assert(#team.applyers==1)
 	assert(team.applyers[1].pid == pid2)
@@ -40,7 +40,7 @@ local function test(pid1,pid2,pid3)
 	assert(player2.teamid==teamid)
 	request.invite_jointeam(player2,{pid=pid3})
 	net.msg.C2S.onmessagebox(player3,{
-		id=messagebox.id,
+		id = reqresp.id,
 		buttonid = 1, -- agree
 	})	
 	assert(#team.applyers==1)
@@ -65,10 +65,10 @@ local function test(pid1,pid2,pid3)
 	assert(team.captain==pid2)
 	
 	-- non-captain cann't changetarget
-	request.changetarget(player1,{target=2})
-	assert(team.target==1)
-	request.changetarget(player2,{target=2})
-	assert(team.target==2)
+	request.changetarget(player1,{target=2001})
+	assert(team.target==1001)
+	request.changetarget(player2,{target=2001})
+	assert(team.target==2001)
 	--
 	request.syncteam(player1,{})
 	request.openui_team(player1,{})

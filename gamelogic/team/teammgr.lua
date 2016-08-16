@@ -333,6 +333,7 @@ function cteammgr:automatch(player,target,minlv,maxlv)
 	local pid = player.pid
 	logger.log("info","team",string.format("[automatch] pid=%d target=%s minlv=%s maxlv=%s",pid,target,minlv,maxlv))
 	local automatch = {
+		automatch = true,
 		time = os.time(),
 		pid = pid,
 		name = player.name,

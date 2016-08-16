@@ -10,7 +10,7 @@ function gm.task(args)
 	end
 	local func = task[funcname]
 	if not func then
-		net.msg.S2C.notify("指令未找到，查看帮助:help task")
+		net.msg.S2C.notify(master_pid,"指令未找到，查看帮助:help task")
 		return
 	end
 	table.remove(args,1)

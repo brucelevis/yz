@@ -11,7 +11,7 @@ data_RoCenterSrvList = {
 		closeday = "",
 		db = {host="127.0.0.1",port=6371,db=0},
 		purpose = "内网测试",
-		machine_name = "accountcenter",
+		machine_name = "",
 		machine_type = "虚拟机",
 	},
 
@@ -25,7 +25,7 @@ data_RoCenterSrvList = {
 		closeday = "",
 		db = {host="127.0.0.1",port=6370,db=0},
 		purpose = "内网测试",
-		machine_name = "datacenter",
+		machine_name = "",
 		machine_type = "虚拟机",
 	},
 

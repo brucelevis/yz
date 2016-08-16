@@ -18,11 +18,12 @@ function C2S.invite_qiecuo(player,request)
 		language.format("决斗邀请"),
 		language.format("【{1}】想你发起了决斗邀请，是否接受?",language.untranslate(player.name)),
 		{language.format("确认"),language.format("取消"),},
-		netwar.on_invite_qiecuo
-		)
+		netwar.on_invite_qiecuo)
 end
 
-function netwar.on_invite_qiecuo(player,request,buttonid)
+function netwar.on_invite_qiecuo(pid,request,response)
+	local buttonid = response.buttonid
+	local player = playermgr.getplayer(pid)
 	if buttonid == 1 then -- 确认
 	else
 		assert(buttonid == 2) -- 取消

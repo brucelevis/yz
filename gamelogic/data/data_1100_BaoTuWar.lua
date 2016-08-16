@@ -1,5 +1,5 @@
---<<data_1102_BaoTuWar 导表开始>>
-data_1102_BaoTuWar = {
+--<<data_1100_BaoTuWar 导表开始>>
+data_1100_BaoTuWar = {
 
 	[1] = {
 		shape = 90002,
@@ -216,5 +216,5 @@ data_1102_BaoTuWar = {
 	},
 
 }
-return data_1102_BaoTuWar
---<<data_1102_BaoTuWar 导表结束>>
+return data_1100_BaoTuWar
+--<<data_1100_BaoTuWar 导表结束>>

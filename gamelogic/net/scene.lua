@@ -39,7 +39,7 @@ function C2S.enter(player,request)
 	-- 对新手村做平行场景处理？
 	local sceneid = assert(request.sceneid)
 	local pos = assert(request.pos)
-	if sceneid == 1 then
+	if sceneid == 2 then
 		sceneid = randlist(scenemgr.newcomer_sceneids)
 	end
 	-- 是否禁止同场景跳转?

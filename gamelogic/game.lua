@@ -84,6 +84,7 @@ function game.init()
 		filter_words = data_FilterWord,
 		exclude_words = data_ExcludeWord,
 	})
+	reqresp.init()
 
 	game.initall = true
 	game.startgame() -- 初始化完后启动的逻辑

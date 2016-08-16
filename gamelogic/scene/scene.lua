@@ -133,7 +133,7 @@ function cscene:onenter(player,pos)
 		table.insert(items,self:packitem(item))
 	end
 	sendpackage(player.pid,"scene","allnpc",{npcs = npcs})
-	sendpackage(player.pid,"scene","allitem",{itemsi = items})
+	sendpackage(player.pid,"scene","allitem",{items = items})
 	huodongmgr.onenterscene(player,self.sceneid,pos)
 end
 
@@ -143,7 +143,16 @@ function cscene:onleave(player)
 end
 
 function cscene:packnpc(npc)
-	return npc
+	if npc.pack then
+		return npc:pack()
+	end
+	local packnpc = {}
+	for k,v in pairs(npc) do
+		if type(v) ~= "function" then
+			packnpc[k] = v
+		end
+	end
+	return packnpc
 end
 
 function cscene:packitem(item)

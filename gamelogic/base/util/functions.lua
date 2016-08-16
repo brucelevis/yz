@@ -503,12 +503,13 @@ function checkargs(args,...)
 	return true,ret
 end
 
--- error
+local COLLECT_ATTRS  = {"pid","id","name","sid","warid","flag","state","inarea","targetid","tid","taskid","type","srvname","objid","__fd","__status","m_ID","sceneid","mapid","posid",}
+
 local function collect_localvar(level)
 	level = level + 1 -- skip self function 'collect_localval'
 	local function dumptable(tbl) 
-		local attrs = {"pid","id","name","sid","warid","flag","state","inarea","targetid","tid","taskid","type","srvname","objid","__fd","__status","m_ID","sceneid","mapid",}
 		local tips = {}
+		local attr = COLLECT_ATTRS
 		for _,attr in ipairs(attrs) do
 			if tbl[attr] then
 				table.insert(tips,string.format("\t%s=%s",attr,tbl[attr]))

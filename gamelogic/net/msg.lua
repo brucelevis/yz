@@ -1,25 +1,3 @@
-function starttimer_check_messagebox()
-	timer.timeout("timer.check_messagebox",5,starttimer_check_messagebox)	
-	local now = os.time()
-	for id,session in pairs(messagebox.sessions) do
-		if session.exceedtime and session.exceedtime <= now then
-			messagebox.sessions[id] = nil
-			local callback = session.callback
-			if callback then
-				callback(nil,session.request,0)
-			end
-		end
-	end
-end
-
-
-if not messagebox then
-	messagebox = {
-		id = 0,
-		sessions = {},
-	}
-	starttimer_check_messagebox()
-end
 
 netmsg = netmsg or {
 	C2S = {},
@@ -60,19 +38,11 @@ function netmsg.filter(msg)
 end
 
 function C2S.onmessagebox(player,request)
-	local id = request.id
+	local id = request.buttonid
 	if id == 0 then
 		return
 	end
-	local session = messagebox.sessions[id]
-	if not session then
-		return
-	end
-	messagebox.sessions[id] = nil
-	local callback = session.callback
-	if callback then
-		callback(player,session.request,request.buttonid)
-	end
+	return reqresp.resp(player.pid,id,{id=id})
 end
 
 function C2S.worldmsg(player,request)
@@ -273,7 +243,9 @@ function S2C.info(pid,msg)
 end
 
 --[[
-function onbuysomething(player,request,buttonid)
+function onbuysomething(pid,request,response)
+	local player = playermgr.getplayer(pid)
+	local buttonid = response.buttonid
 	if buttonid == 0 then -- 超时回调
 		-- player is nil
 		local pid = request.pid
@@ -287,11 +259,15 @@ function onbuysomething(player,request,buttonid)
 		end
 	end
 end
-netmsg.S2C.messagebox(10001,
-				MB_LACK_CONDITION,
-				"条件不足",
-				"是否花费100金币购买:",
-				{
+netmsg.S2C.messagebox(10001,{
+				type = MB_LACK_CONDITION,
+				title = "条件不足",
+				content = "是否花费100金币购买:",
+				buttons = {
+					"确认",
+					"取消",
+				},
+				attach = {
 					silver = 1000,
 					items = {
 						{
@@ -306,51 +282,30 @@ netmsg.S2C.messagebox(10001,
 					ext = {
 						gold = 100,
 					}
-				},
-				{
-					"确认",
-					"取消",
-				},
-				onbuysomething)
+				},onbuysomething)
 --]]
 
 
-function S2C.messagebox(pid,type,title,content,attach,buttons,callback,lifetime)
+function S2C.messagebox(pid,request,callback)
 	local player = playermgr.getplayer(pid)
 	if not player then
 		return
 	end
 	local lang = player:getlanguage()
-	for i,button_str in ipairs(buttons) do
-		buttons[i] = language.translateto(button_str,lang)
+	local pack_request = {}
+	pack_request.type = assert(request.type)
+	pack_request.title = assert(language.translateto(request.title))
+	pack_request.content = assert(language.translateto(request.content))
+	pack_request.attach = cjson.encode(request.attach)
+	pack_request.buttons = {}
+	local lang = player:getlanguage()
+	for i,button_str in ipairs(request.buttons) do
+		pack_request.buttons[i] = language.translateto(button_str,lang)
 	end
-	local id
-	local request = {
-		pid = pid,
-		type = type,
-		title = language.translateto(title,lang),
-		content = language.translateto(content,lang),
-		attach = cjson.encode(attach),
-		buttons = buttons,
-	}
-
-	if callback then
-		if messagebox.id > MAX_NUMBER then
-			messagebox.id = 0
-		end
-		messagebox.id = messagebox.id + 1
-		messagebox.sessions[messagebox.id] = {
-			request = request,
-			callback = callback,
-			exceedtime = os.time() + (lifetime and lifetime or 300),
-		}
-		id = messagebox.id
-	else
-		id = 0
-	end
-	request.id = id
-	sendpackage(pid,"msg","messagebox",request)
-	request.attach = attach
+	local id = reqresp.req(pid,request,callback)
+	pack_request.id = id
+	sendpackage(pid,"msg","messagebox",pack_request)
+	return id
 end
 
 

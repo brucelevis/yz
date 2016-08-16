@@ -7,7 +7,7 @@ data_1500_ShiMoShiLianTaskVar = {
 
 	RingLimit = 10, 		-- 10环为一轮
 
-	LookNpcType = 9002, 		-- 10环时需要跳转到的NPC类型
+	LookNpcType = 101002, 		-- 10环时需要跳转到的NPC类型
 
 	GiveItemToCaptainAt10Ring = {type=401001,num=1}, 		-- 10环给队长的物品
 

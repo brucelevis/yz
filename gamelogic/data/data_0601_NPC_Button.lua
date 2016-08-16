@@ -1,19 +1,19 @@
 --<<data_0601_NPC_Button 导表开始>>
 data_0601_NPC_Button = {
 
-	[1071] = {
-		name = "参加投注",
-		appear_time = {year=2016,mon=06,day=29,hour=05,min=0,sec=0},
-		disappear_time = {year=2016,mon=06,day=29,hour=08,min=0,sec=0},
-		needlv = 30,
+	[1001] = {
+		name = "购买商品",
+		appear_time = {},
+		disappear_time = {},
+		needlv = 0,
 		needjobs = {},
 		need_srvlv = 0,
 	},
 
-	[1072] = {
-		name = "观看比赛",
-		appear_time = {},
-		disappear_time = {},
+	[1071] = {
+		name = "参加投注",
+		appear_time = {year=2016,mon=06,day=29,hour=05,min=0,sec=0},
+		disappear_time = {year=2016,mon=06,day=29,hour=08,min=0,sec=0},
 		needlv = 30,
 		needjobs = {},
 		need_srvlv = 0,

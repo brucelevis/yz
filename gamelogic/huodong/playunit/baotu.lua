@@ -42,7 +42,7 @@ function playunit_baotu.onuse(pid,packdata,bsendmail)
 				end
 			end
 		end
-		local scenedata = data_1102_BaoTuMonsterPos[sceneid]
+		local scenedata = data_1100_BaoTuMonsterPos[sceneid]
 		if noinwar_num > scenedata.monster_maxnum then
 			assert(ready_delnpc)
 			scenemgr.delnpc(ready_delnpc.id,ready_delnpc.sceneid)
@@ -77,15 +77,15 @@ function playunit_baotu.use(player,item)
 		return "onuse"
 	end
 	local itemdata = itemaux.getitemdata(item.type)
-	local baotuid = choosekey(data_1102_BaoTu,function (k,v)
+	local baotuid = choosekey(data_1100_BaoTu,function (k,v)
 		return v.ratio
 	end)
-	local data = data_1102_BaoTu[baotuid]
+	local data = data_1100_BaoTu[baotuid]
 	local packdata = {
 		itemid = item.id,
 	}
-	local sceneid = randlist(table.keys(data_1102_BaoTuPos))
-	local posdata = data_1102_BaoTuPos[sceneid]
+	local sceneid = randlist(table.keys(data_1100_BaoTuPos))
+	local posdata = data_1100_BaoTuPos[sceneid]
 	local posid = randlist(posdata.posids)
 	local sceneid,x,y = scenemgr.getpos(posid)
 	local scene = scenemgr.getscene(sceneid)
@@ -94,10 +94,10 @@ function playunit_baotu.use(player,item)
 	packdata.posid = posid
 	packdata.pos = {x = x,y = y,dir = 1}
 	if data.etype == 1 then		-- 遇怪
-		local sceneid = randlist(table.keys(data_1102_BaoTuMonsterPos))
-		local scenedata = data_1102_BaoTuMonsterPos[sceneid]
+		local sceneid = randlist(table.keys(data_1100_BaoTuMonsterPos))
+		local scenedata = data_1100_BaoTuMonsterPos[sceneid]
 		local monsterid = data.data
-		local monsterdata = data_1102_BaoTuWar[monsterid]
+		local monsterdata = data_1100_BaoTuWar[monsterid]
 		local posid = randlist(scenedata.posids)
 		local _,x,y = scenemgr.getpos(posid)
 		local pos = {x = x,y = y,dir = 1}
@@ -135,7 +135,7 @@ function playunit_baotu.startwar(player,npc)
 		return
 	end
 	local lv = player:team_avglv(TEAM_STATE_CAPTAIN_FOLLOW)
-	local data = data_1102_BaoTuWar[npc.monsterid]
+	local data = data_1100_BaoTuWar[npc.monsterid]
 	if not data.war[lv] then  -- 找不到取最大等级
 		lv = #data.war
 	end

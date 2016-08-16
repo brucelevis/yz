@@ -3,6 +3,21 @@ cmaintask = class("cmaintask",ctaskcontainer)
 
 function cmaintask:init(conf)
 	ctaskcontainer.init(self,conf)
+	self.firstlogin = true
+end
+
+function cmaintask:save()
+	local data = ctaskcontainer.save(self)
+	data.firstlogin = self.firstlogin
+	return data
+end
+
+function cmaintask:load(data)
+	if table.isempty(data) then
+		return
+	end
+	ctaskcontainer.load(self,data)
+	self.firstlogin = data.firstlogin
 end
 
 function cmaintask:addtask(task)
@@ -22,6 +37,14 @@ function cmaintask:onwarend(war,result)
 		war.chapterid = chapterid
 		player.chapterdb:onwarend(war,result)
 	end
+end
+
+function cmaintask:onlogin(player)
+	if self.firstlogin then
+		self:accepttask(10000101)
+		self.firstlogin = false
+	end
+	ctaskcontainer.onlogin(self,player)
 end
 
 return cmaintask

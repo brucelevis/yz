@@ -3,20 +3,20 @@ data_0902_WarActionParams = {
 
 	[101] = {
 		action = "",
-		commonActionAndEffect = "1001",
-		waitime = "0.100000",
+		commonActionAndEffect = 1001,
+		waitime = 0.100000,
 	},
 
 	[103] = {
 		action = "",
-		commonActionAndEffect = "1002",
-		waitime = "0.000000",
+		commonActionAndEffect = 1002,
+		waitime = 0.000000,
 	},
 
 	[104] = {
 		action = "",
-		commonActionAndEffect = "1002",
-		waitime = "0.000000",
+		commonActionAndEffect = 1002,
+		waitime = 0.000000,
 	},
 
 }

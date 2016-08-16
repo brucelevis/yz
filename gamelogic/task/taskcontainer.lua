@@ -122,6 +122,15 @@ function ctaskcontainer:raisewar(task,args,pid)
 	ctemplate.raisewar(self,task,args,pid)
 	task.inwar = true
 	task.execute_result = TASK_SCRIPT_SUSPEND
+
+	-- 临时处理，战斗系统做好后删除
+	if not cserver.isinnersrv() or task.execute_result ~= TASK_SCRIPT_SUSPEND then
+		return
+	end
+	timer.timeout2(format("taskwar%d",pid),1,function()
+		local player = playermgr.getplayer(pid)
+		warmgr.onwarend(player.warid,1)
+	end)
 end
 
 function ctaskcontainer:can_raisewar(task)
@@ -254,6 +263,7 @@ function ctaskcontainer:pack(task)
 		local npc = self:getnpc_bynid(task,findnpc)
 		if npc then
 			data.findnpc = npc.id or findnpc
+			data.respondtype = task.resourcemgr:get("respondtype")
 		end
 	end
 	data.patrol = task.resourcemgr:get("patrolpos")
@@ -268,6 +278,7 @@ function ctaskcontainer:pack(task)
 					shape = npc.shape,
 					name = npc.name,
 					posid = npc.posid,
+					sceneid = npc.sceneid,
 				})
 			end
 		end
@@ -351,7 +362,9 @@ end
 --<<  脚本接口  >>
 function ctaskcontainer:findnpc(task,args)
 	local nid = self:formdata_values(args,"nid")[1]
+	local respond = args.respond
 	task.resourcemgr:set("findnpc",nid)
+	task.resourcemgr:set("respondtype",respond)
 end
 
 function ctaskcontainer:needitem(task,args)
@@ -739,7 +752,6 @@ function ctaskcontainer:looktasknpc(taskid,npcid)
 	end
 	local npcdata = self:getformdata("npc")[npc.nid]
 	local talk,respond = npcdata.talk,npcdata.respond
-	npc:look(self.pid,talk,respond)
 	return true
 end
 

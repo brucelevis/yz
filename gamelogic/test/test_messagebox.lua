@@ -40,10 +40,11 @@ local function test(pid,choice)
 		},
 	}
 	local LACK_CONDITION = 0
+	local id
 	if choice == 1 then
-		net.msg.S2C.messagebox(pid,LACK_CONDITION,request.title,request.content,request.attach,request.buttons,onbuysomething)	
+		id = net.msg.S2C.messagebox(pid,request,onbuysomething)
 	elseif choice == 2 then
-		onbuysomething(player,request,1)
+		onbuysomething(player.pid,request,{buttonid=id})
 	end
 end
 

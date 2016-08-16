@@ -14,7 +14,7 @@ data_1201_Chapter = {
 		monster_pos = { 7,25,5 },
 		goto_pos = { 1,51,45,8 },
 		line = 1,
-		type = 3,
+		type = 0,
 		taskid = 10000101,
 	},
 
@@ -31,7 +31,7 @@ data_1201_Chapter = {
 		monster_pos = { 7,25,6 },
 		goto_pos = { 1,51,45,9 },
 		line = 1,
-		type = 1,
+		type = 0,
 		taskid = 10000102,
 	},
 
@@ -48,7 +48,7 @@ data_1201_Chapter = {
 		monster_pos = { 7,25,7 },
 		goto_pos = { 1,51,45,10 },
 		line = 1,
-		type = 1,
+		type = 0,
 		taskid = 10000103,
 	},
 
@@ -65,7 +65,7 @@ data_1201_Chapter = {
 		monster_pos = { 7,25,8 },
 		goto_pos = { 1,51,45,11 },
 		line = 1,
-		type = 2,
+		type = 0,
 		taskid = 10000104,
 	},
 
@@ -82,7 +82,7 @@ data_1201_Chapter = {
 		monster_pos = { 7,25,9 },
 		goto_pos = { 1,51,45,12 },
 		line = 1,
-		type = 1,
+		type = 0,
 		taskid = 10000105,
 	},
 
@@ -138,10 +138,10 @@ data_1201_Chapter = {
 	},
 
 	[20009] = {
-		name = "天庭3",
+		name = "火焰山",
 		icon = 4,
-		section = 11,
-		section_name = "天庭除妖",
+		section = 20,
+		section_name = "火炉山",
 		index = 1,
 		isopen = 0,
 		warmap = 10009,

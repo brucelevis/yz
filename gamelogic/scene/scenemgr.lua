@@ -8,7 +8,7 @@ function scenemgr.init()
 	assert(#normal_map < scenemgr.sceneid)
 	for mapid,v in pairs(normal_map) do
 		-- 普通地图：场景ID保持和地图ID一致，其他副本场景均从100ID开始
-		if mapid == 1 then	-- 新手村地图
+		if mapid == 2 then	-- 新手村地图
 			local scene = scenemgr.addscene(mapid,mapid)
 			table.insert(scenemgr.newcomer_sceneids,scene.sceneid)
 			for i = 1,4 do
@@ -134,10 +134,14 @@ function scenemgr.addnpc(npc,sceneid)
 	local npcid = scenemgr.gennpcid()
 	npc.id = npcid
 	npc.mapid = scene.mapid
-	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npcid,npc))
 	npc.createtime = os.time()
+	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npcid,npc))
 	scene.npcs[npcid] = npc
-	scene:broadcast("scene","addnpc",{ npc = scene:packnpc(npc) })
+	if npc.onadd then
+		npc:onadd()
+	else
+		scene:broadcast("scene","addnpc",{ npc = scene:packnpc(npc) })
+	end
 	return true
 end
 
@@ -165,7 +169,11 @@ function scenemgr.__delnpc(npcid,sceneid)
 		logger.log("info","scene",format("[delnpc] npcid=%s npc=%s",npcid,npc))
 		scene.npcs[npcid] = nil
 
-		scene:broadcast("scene","delnpc",{id=npc.id,sceneid=npc.sceneid})
+		if npc.ondel then
+			npc:ondel()
+		else
+			scene:broadcast("scene","delnpc",{id=npc.id,sceneid=npc.sceneid})
+		end
 		return npc
 	end
 end
@@ -198,7 +206,11 @@ function scenemgr.updatenpc(npc,updateattr)
 	local scene = scenemgr.getscene(npc.sceneid)
 	if scene then
 		updateattr.id = npc.id
-		scene:broadcast("scene","updatenpc",updateattr)
+		if npc.onupdate then
+			npc:onupdate(updateattr)
+		else
+			scene:broadcast("scene","updatenpc",updateattr)
+		end
 	end
 end
 

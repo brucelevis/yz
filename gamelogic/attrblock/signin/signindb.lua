@@ -4,7 +4,7 @@ csignindb = class("csignindb")
 function csignindb:init(pid)
 	self.pid = pid
 	self.name_signin = {}
-	for name,data in pairs(data_1101_SignInCtrl) do
+	for name,data in pairs(data_1100_SignInCtrl) do
 		local cls = self:getclass(data.classname)
 		local signin = cls.new({
 			pid = self.pid,

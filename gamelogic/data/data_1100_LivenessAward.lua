@@ -1,5 +1,5 @@
---<<data_1103_LivenessAward 导表开始>>
-data_1103_LivenessAward = {
+--<<data_1100_LivenessAward 导表开始>>
+data_1100_LivenessAward = {
 
 	[1] = {
 		needliveness = 30,
@@ -26,5 +26,5 @@ data_1103_LivenessAward = {
 	},
 
 }
-return data_1103_LivenessAward
---<<data_1103_LivenessAward 导表结束>>
+return data_1100_LivenessAward
+--<<data_1100_LivenessAward 导表结束>>

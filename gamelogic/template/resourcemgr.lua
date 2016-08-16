@@ -20,7 +20,13 @@ function cresourcemgr:save()
 	local data = {}
 	data.npc = {}
 	for _,npc in pairs(self.npclist) do
-		table.insert(data.npc,npc:save())
+		table.insert(data.npc,{
+			nid = npc.nid,
+			shape = npc.shape,
+			name = npc.name,
+			isclient = npc.isclient,
+			posid = npc.posid,
+		})
 	end
 	data.scene = {}
 	for mapid,scenelst in pairs(self.scenelist) do
@@ -44,9 +50,7 @@ function cresourcemgr:load(data)
 			self:addscene(mapid)
 		end
 	end
-	for _,npcdata in ipairs(data.npc) do
-		local npc = self.template:newnpc()
-		npc:load(npcdata)
+	for _,npc in ipairs(data.npc) do
 		self:addnpc(npc)
 		self:enterscene(npc)
 	end
@@ -55,7 +59,12 @@ end
 
 function cresourcemgr:addnpc(npc)
 	npc.id = self:gennpcid()
-	npc.resmgr = self
+	if not data_0401_MapDstPoint[npc.posid] or not data_0401_MapDstPoint[tostring(npc.posid)] then
+		npc.posid = "13001003"
+	end
+	local mapid,x,y = scenemgr.getpos(npc.posid)
+	npc.mapid = mapid
+	npc.pos = { x = x, y = y}
 	self.npclist[npc.id] = npc
 end
 
@@ -93,7 +102,6 @@ function cresourcemgr:enterscene(npc,sceneid)
 end
 
 function cresourcemgr:delnpc(npc)
-	npc.resmgr = nil
 	self.npclist[npc.id] = nil
 	if npc.isclient then
 		return

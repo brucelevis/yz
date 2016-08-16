@@ -75,13 +75,15 @@ function C2S.recallmember(player,request)
 	end
 	for i,uid in ipairs(pids) do
 		if uid ~= pid and team:ismember(uid) then
-			net.msg.S2C.messagebox(uid,
-				MB_RECALLMEMBER,
-				language.format("召回"),
-				language.format("队长#<G>{1}#(等级:{2}级)召回你归队",player.name,player.lv),
-				{},
-				{language.format("确认"),language.format("取消"),},
-				function (obj,request,buttonid)
+			net.msg.S2C.messagebox(uid,{
+				type = MB_RECALLMEMBER,
+				title = language.format("召回"),
+				content = language.format("队长#<G>{1}#(等级:{2}级)召回你归队",player.name,player.lv),
+				buttons = {language.format("确认"),language.format("取消"),},
+				attach = {},},
+				function (uid,request,response)
+					local obj = playermgr.getplayer(uid)
+					local buttonid = response.buttonid
 					if buttonid ~= 1 then
 						return
 					end
@@ -121,13 +123,15 @@ function C2S.apply_become_captain(player,request)
 	if not captain then
 		teammgr:changecaptain(teamid,player.pid)
 	else
-		net.msg.S2C.messagebox(team.captain,
-			MB_APPLY_BECOME_CAPTAIN,
-			language.format("申请队长"),
-			language.format("队员#<G>{1}#(等级:{2}级)申请成为队长",player.name,player.lv),
-			{},
-			{language.format("同意"),language.format("拒绝"),},
-			function (obj,request,buttonid)
+		net.msg.S2C.messagebox(team.captain,{
+			type = MB_APPLY_BECOME_CAPTAIN,
+			title = language.format("申请队长"),
+			content = language.format("队员#<G>{1}#(等级:{2}级)申请成为队长",player.name,player.lv),
+			buttons = {language.format("同意"),language.format("拒绝"),},
+			attach = {},},
+			function (uid,request,response)
+				local obj = playermgr.getplayer(uid)
+				local buttonid = response.buttonid
 				if buttonid ~= 1 then
 					return
 				end
@@ -208,13 +212,16 @@ function C2S.invite_jointeam(player,request)
 		return
 	end
 
-	net.msg.S2C.messagebox(tid,
-		MB_INVITE_JOINTEAM,
-		language.format("邀请入队"),
-		language.format("#<G>{1}#(等级:{2}级)邀请你加入他的队伍",player.name,player.lv),
-		{},
-		{language.format("同意"),language.format("拒绝")},
-		function (obj,request,buttonid)
+	net.msg.S2C.messagebox(tid,{
+		type = MB_INVITE_JOINTEAM,
+		title = language.format("邀请入队"),
+		content = language.format("#<G>{1}#(等级:{2}级)邀请你加入他的队伍",player.name,player.lv),
+		buttons = {language.format("同意"),language.format("拒绝")},
+		attach = {},},
+		function (uid,request,response)
+			local obj = playermgr.player(uid)
+			local buttonid = response.buttonid
+			print("invite_join_team",uid,buttonid)
 			if buttonid ~= 1 then
 				return
 			end

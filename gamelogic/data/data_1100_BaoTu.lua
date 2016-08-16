@@ -1,5 +1,5 @@
---<<data_1102_BaoTu 导表开始>>
-data_1102_BaoTu = {
+--<<data_1100_BaoTu 导表开始>>
+data_1100_BaoTu = {
 
 	[1] = {
 		etype = 1,
@@ -72,5 +72,5 @@ data_1102_BaoTu = {
 	},
 
 }
-return data_1102_BaoTu
---<<data_1102_BaoTu 导表结束>>
+return data_1100_BaoTu
+--<<data_1100_BaoTu 导表结束>>

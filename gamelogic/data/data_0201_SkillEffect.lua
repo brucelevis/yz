@@ -11,6 +11,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 0,
 		powerValue = 600,
+		targetEffId = 10001,
 	},
 
 	[900002] = {
@@ -25,6 +26,7 @@ data_0201_SkillEffect = {
 		castParam = {0.0},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[900012] = {
@@ -39,6 +41,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[900013] = {
@@ -53,6 +56,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[900014] = {
@@ -67,6 +71,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901000] = {
@@ -81,6 +86,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901010] = {
@@ -95,6 +101,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901020] = {
@@ -109,6 +116,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901030] = {
@@ -123,6 +131,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901031] = {
@@ -137,6 +146,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901040] = {
@@ -151,6 +161,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901050] = {
@@ -165,6 +176,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901060] = {
@@ -179,6 +191,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901061] = {
@@ -193,6 +206,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901070] = {
@@ -207,6 +221,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[901071] = {
@@ -221,6 +236,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902000] = {
@@ -235,6 +251,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902001] = {
@@ -249,6 +266,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902010] = {
@@ -263,6 +281,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902020] = {
@@ -277,6 +296,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902021] = {
@@ -291,6 +311,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902030] = {
@@ -305,6 +326,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902031] = {
@@ -319,6 +341,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902040] = {
@@ -333,6 +356,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902050] = {
@@ -347,6 +371,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902060] = {
@@ -361,6 +386,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902061] = {
@@ -375,6 +401,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902070] = {
@@ -389,6 +416,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902071] = {
@@ -403,6 +431,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902080] = {
@@ -417,6 +446,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902081] = {
@@ -431,6 +461,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902090] = {
@@ -445,6 +476,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[902100] = {
@@ -459,6 +491,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[903000] = {
@@ -473,6 +506,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 10001,
 	},
 
 	[903001] = {
@@ -487,6 +521,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 0,
 		powerValue = 0,
+		targetEffId = 0,
 	},
 
 	[903010] = {
@@ -501,6 +536,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903011] = {
@@ -515,6 +551,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903020] = {
@@ -529,6 +566,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903021] = {
@@ -543,6 +581,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903030] = {
@@ -557,6 +596,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903040] = {
@@ -571,6 +611,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903050] = {
@@ -585,6 +626,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903051] = {
@@ -599,6 +641,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903060] = {
@@ -613,6 +656,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903070] = {
@@ -627,6 +671,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903080] = {
@@ -641,6 +686,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903090] = {
@@ -655,6 +701,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903100] = {
@@ -669,6 +716,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903101] = {
@@ -683,6 +731,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[903110] = {
@@ -697,6 +746,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904000] = {
@@ -711,6 +761,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904001] = {
@@ -725,6 +776,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904010] = {
@@ -739,6 +791,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904020] = {
@@ -753,6 +806,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904021] = {
@@ -767,6 +821,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904030] = {
@@ -781,6 +836,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904031] = {
@@ -795,6 +851,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904040] = {
@@ -809,6 +866,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904041] = {
@@ -823,6 +881,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904050] = {
@@ -837,6 +896,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904051] = {
@@ -851,6 +911,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904060] = {
@@ -865,6 +926,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[904061] = {
@@ -879,6 +941,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905000] = {
@@ -893,6 +956,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905010] = {
@@ -907,6 +971,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905020] = {
@@ -921,6 +986,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905021] = {
@@ -935,6 +1001,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905022] = {
@@ -949,6 +1016,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905030] = {
@@ -963,6 +1031,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905031] = {
@@ -977,6 +1046,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905040] = {
@@ -991,6 +1061,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905050] = {
@@ -1005,6 +1076,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[905051] = {
@@ -1019,6 +1091,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906000] = {
@@ -1033,6 +1106,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906010] = {
@@ -1047,6 +1121,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906020] = {
@@ -1061,6 +1136,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906030] = {
@@ -1075,6 +1151,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906031] = {
@@ -1089,6 +1166,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906032] = {
@@ -1103,6 +1181,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906033] = {
@@ -1117,6 +1196,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906040] = {
@@ -1131,6 +1211,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906050] = {
@@ -1145,6 +1226,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906051] = {
@@ -1159,6 +1241,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906060] = {
@@ -1173,6 +1256,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906070] = {
@@ -1187,6 +1271,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[906080] = {
@@ -1201,6 +1286,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907000] = {
@@ -1215,6 +1301,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907010] = {
@@ -1229,6 +1316,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907020] = {
@@ -1243,6 +1331,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907021] = {
@@ -1257,6 +1346,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907022] = {
@@ -1271,6 +1361,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907030] = {
@@ -1285,6 +1376,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907040] = {
@@ -1299,6 +1391,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907050] = {
@@ -1313,6 +1406,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907051] = {
@@ -1327,6 +1421,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907060] = {
@@ -1341,6 +1436,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907061] = {
@@ -1355,6 +1451,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907062] = {
@@ -1369,6 +1466,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907070] = {
@@ -1383,6 +1481,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907080] = {
@@ -1397,6 +1496,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907090] = {
@@ -1411,6 +1511,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[907100] = {
@@ -1425,6 +1526,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908000] = {
@@ -1439,6 +1541,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908010] = {
@@ -1453,6 +1556,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908020] = {
@@ -1467,6 +1571,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908030] = {
@@ -1481,6 +1586,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908031] = {
@@ -1495,6 +1601,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908040] = {
@@ -1509,6 +1616,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908041] = {
@@ -1523,6 +1631,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908050] = {
@@ -1537,6 +1646,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908051] = {
@@ -1551,6 +1661,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908060] = {
@@ -1565,6 +1676,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[908061] = {
@@ -1579,6 +1691,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909000] = {
@@ -1593,6 +1706,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909010] = {
@@ -1607,6 +1721,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909020] = {
@@ -1621,6 +1736,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909021] = {
@@ -1635,6 +1751,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909030] = {
@@ -1649,6 +1766,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909031] = {
@@ -1663,6 +1781,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909040] = {
@@ -1677,6 +1796,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909041] = {
@@ -1691,6 +1811,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909050] = {
@@ -1705,6 +1826,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909051] = {
@@ -1719,6 +1841,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[909060] = {
@@ -1733,6 +1856,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910000] = {
@@ -1747,6 +1871,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910010] = {
@@ -1761,6 +1886,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910011] = {
@@ -1775,6 +1901,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910020] = {
@@ -1789,6 +1916,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910021] = {
@@ -1803,6 +1931,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910030] = {
@@ -1817,6 +1946,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910031] = {
@@ -1831,6 +1961,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910040] = {
@@ -1845,6 +1976,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910041] = {
@@ -1859,6 +1991,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910050] = {
@@ -1873,6 +2006,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910051] = {
@@ -1887,6 +2021,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910052] = {
@@ -1901,6 +2036,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910060] = {
@@ -1915,6 +2051,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910061] = {
@@ -1929,6 +2066,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910062] = {
@@ -1943,6 +2081,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910070] = {
@@ -1957,6 +2096,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910071] = {
@@ -1971,6 +2111,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910072] = {
@@ -1985,6 +2126,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 	[910080] = {
@@ -1999,6 +2141,7 @@ data_0201_SkillEffect = {
 		castParam = {},
 		powerPer = 100,
 		powerValue = 300,
+		targetEffId = 0,
 	},
 
 }
