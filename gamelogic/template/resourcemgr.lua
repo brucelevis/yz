@@ -13,7 +13,6 @@ function cresourcemgr:init(templ,playunit)
 	self.data = {}
 	self.npclist = {}
 	self.scenelist = {}
-	self.npcid = 0
 end
 
 function cresourcemgr:save()
@@ -58,7 +57,7 @@ function cresourcemgr:load(data)
 end
 
 function cresourcemgr:addnpc(npc)
-	npc.id = self:gennpcid()
+	npc.id = scenemgr.gennpcid()
 	if not data_0401_MapDstPoint[npc.posid] or not data_0401_MapDstPoint[tostring(npc.posid)] then
 		npc.posid = "13001003"
 	end
@@ -66,15 +65,6 @@ function cresourcemgr:addnpc(npc)
 	npc.mapid = mapid
 	npc.pos = { x = x, y = y}
 	self.npclist[npc.id] = npc
-end
-
-function cresourcemgr:gennpcid()
-	--固定npc的id暂定从10000开始，动态npc区分开
-	if self.npcid >= 10000 then
-		self.npcid = 0
-	end
-	self.npcid = self.npcid + 1
-	return self.npcid
 end
 
 function cresourcemgr:enterscene(npc,sceneid)

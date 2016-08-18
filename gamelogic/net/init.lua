@@ -18,6 +18,7 @@ function net.init()
 	net.skill = require "gamelogic.net.skill"
 	net.shop = require "gamelogic.net.shop"
 	net.guaji = require "gamelogic.net.guaji"
+	net.navigation = require "gamelogic.net.navigation"
 end
 
 -- 框架初始化完毕后调用，在serverinfo:startgame
@@ -46,17 +47,17 @@ function reqnet:netcommad(obj,request)
 	local pid = player.pid
 	logger.log("debug","netclient",format("[recv] link_pid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",link_pid,pid,obj.__agent,protoname,subprotoname,request))
 	if not obj.passlogin and not allow_proto_before_passlogin[protoname] then
-		logger.log("warning","netclient",format("[not passlogin] link_pid=%s pid=%s request=%s",link_pid,pid,request))
+		logger.log("warning","netclient",format("[not passlogin] link_pid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",link_pid,pid,obj.__agent,protoname,subprotoname,request))
 		return
 	end
 	if not net[protoname] then
-		logger.log("warning","netclient",format("[unknow proto] link_pid=%s pid=%s request=%s",link_pid,pid,request))
+		logger.log("warning","netclient",format("[unknow proto] link_pid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",link_pid,pid,obj.__agent,protoname,subprotoname,request))
 		return
 	end
 	local C2S = net[protoname].C2S
     local func = C2S[subprotoname]
     if not func then
-        logger.log("warning","netclient",format("[unknow cmd] link_pid=%s pid=%s request=%s",link_pid,pid,request))
+        logger.log("warning","netclient",format("[unknow cmd] link_pid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",link_pid,pid,obj.__agent,protoname,subprotoname,request))
         return
     end
 	local r = func(player,request)

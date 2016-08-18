@@ -25,7 +25,7 @@ data_0101_Hero = {
 	},
 
 	[10002] = {
-		name = "剑士",
+		name = "骑士",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -50,7 +50,7 @@ data_0101_Hero = {
 	},
 
 	[10003] = {
-		name = "服侍",
+		name = "牧师",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -75,7 +75,7 @@ data_0101_Hero = {
 	},
 
 	[10004] = {
-		name = "魔法师",
+		name = "法师",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -100,7 +100,7 @@ data_0101_Hero = {
 	},
 
 	[10005] = {
-		name = "盗贼",
+		name = "刺客",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -150,7 +150,7 @@ data_0101_Hero = {
 	},
 
 	[10007] = {
-		name = "弓箭手",
+		name = "游侠",
 		RACE = 3,
 		ATTACKTYPE = 2,
 		MAXLV = 50,
@@ -175,7 +175,7 @@ data_0101_Hero = {
 	},
 
 	[10008] = {
-		name = "骑士",
+		name = "强袭·骑士",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -200,7 +200,7 @@ data_0101_Hero = {
 	},
 
 	[10009] = {
-		name = "十字军",
+		name = "圣殿·骑士",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -225,7 +225,7 @@ data_0101_Hero = {
 	},
 
 	[10010] = {
-		name = "牧师",
+		name = "圣諭·牧师",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -250,7 +250,7 @@ data_0101_Hero = {
 	},
 
 	[10011] = {
-		name = "武僧",
+		name = "拳圣·牧师",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -275,7 +275,7 @@ data_0101_Hero = {
 	},
 
 	[10012] = {
-		name = "巫师",
+		name = "元素·法师",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -325,7 +325,7 @@ data_0101_Hero = {
 	},
 
 	[10014] = {
-		name = "刺客",
+		name = "无影·刺客",
 		RACE = 3,
 		ATTACKTYPE = 1,
 		MAXLV = 50,
@@ -425,7 +425,7 @@ data_0101_Hero = {
 	},
 
 	[10018] = {
-		name = "猎人",
+		name = "驯鹰·游侠",
 		RACE = 3,
 		ATTACKTYPE = 2,
 		MAXLV = 50,

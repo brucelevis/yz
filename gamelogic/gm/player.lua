@@ -3,8 +3,8 @@ gm = require "gamelogic.gm.init"
 
 --- 指令: playerset
 --- 用法: playerset 属性名 属性值 [玩家ID]
---- 举例: playerset lv 10 <=> 不指定玩家ID，将自身等级设置成10级
---- 举例: playerset lv 10 1000001 <=> 将1000001玩家等级设置成10级
+--- 举例: playerset gold 10 <=> 不指定玩家ID，将自身金币设置成10
+--- 举例: playerset gold 10 1000001 <=> 将1000001玩家金币设置成10
 function gm.playerset(args)
 	local isok,args = checkargs(args,"string","string","*")
 	if not isok then
@@ -25,9 +25,22 @@ function gm.playerset(args)
 		net.msg.S2C.notify(master_pid,"非法属性")
 		return
 	end
-	table.setattr(player,key,val)
-
-	net.msg.S2C.notify(master_pid,string.format("重新登录生效"))
+	if key == "lv" then
+		local addval = val - player.lv
+		player:addlv(addval,"gm")
+	elseif key == "gold" then
+		local addval = val - player.gold
+		player:addgold(addval,"gm")
+	elseif key == "silver" then
+		local addval = val - player.silver
+		player:addsilver(addval,"gm")
+	elseif key == "coin" then
+		local addval = val - player.coin
+		player:addcoin(addval,"gm")
+	else
+		table.setattr(player,key,val)
+		net.msg.S2C.notify(master_pid,string.format("重新登录生效"))
+	end
 end
 
 --- 指令: addqualitypoint

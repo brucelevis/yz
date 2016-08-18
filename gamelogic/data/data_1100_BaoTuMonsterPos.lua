@@ -8,13 +8,6 @@ data_1100_BaoTuMonsterPos = {
 		beautiful_box_maxnum = 1,
 	},
 
-	[2] = {
-		mapname = "迦南圣殿",
-		posids = {21002001,21002002,},
-		monster_maxnum = 0,
-		beautiful_box_maxnum = 0,
-	},
-
 	[6] = {
 		mapname = "野外乡村",
 		posids = {21006001,21006002,},

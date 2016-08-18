@@ -60,8 +60,8 @@ function ctaskcontainer:save()
 	return data
 end
 
-function ctaskcontainer:clear()
-	self:log("info","task",string.format("[clear] pid=%s",self.pid))
+function ctaskcontainer:clear(reason)
+	self:log("info","task",string.format("[clear] pid=%s reason=%s",self.pid,reason))
 	ccontainer.clear(self)
 	self.lasttaskid = nil
 	self.nowtaskid = nil
@@ -507,7 +507,16 @@ end
 
 function ctaskcontainer:delnpc(task,args)
 	ctemplate.delnpc(self,task,args,self.pid)
-	self:refreshtask(task.taskid)
+	if task.execute_result ~= TASK_SCRIPT_NONE then
+		self:refreshtask(task.taskid)
+	end
+end
+
+function ctaskcontainer:addnpc(task,args)
+	ctemplate.addnpc(self,task,args,self.pid)
+	if task.execute_result ~= TASK_SCRIPT_NONE then
+		self:refreshtask(task.taskid)
+	end
 end
 
 function ctaskcontainer:talkto(task,args,pid)

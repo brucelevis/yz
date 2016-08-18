@@ -509,7 +509,7 @@ local function collect_localvar(level)
 	level = level + 1 -- skip self function 'collect_localval'
 	local function dumptable(tbl) 
 		local tips = {}
-		local attr = COLLECT_ATTRS
+		local attrs = COLLECT_ATTRS
 		for _,attr in ipairs(attrs) do
 			if tbl[attr] then
 				table.insert(tips,string.format("\t%s=%s",attr,tbl[attr]))

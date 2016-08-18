@@ -14,6 +14,19 @@ data_0902_SkillDisplayEff = {
 		loopspace = 0.000000,
 	},
 
+	[10002] = {
+		path = "drug_hp.plist",
+		anitime = 0.700000,
+		delaytime = 0.000000,
+		sound = 0,
+		offx = 0,
+		offy = 0,
+		posType = 2,
+		scale = 1.000000,
+		keeptimes = 1.000000,
+		loopspace = 0.000000,
+	},
+
 }
 return data_0902_SkillDisplayEff
 --<<data_0902_SkillDisplayEff 导表结束>>

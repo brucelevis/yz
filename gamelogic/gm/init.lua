@@ -24,7 +24,7 @@ local function getfunc(cmds,cmd)
 end
 
 
-local function docmd(player,cmdline)
+local function docmd(cmdline)
 	local cmd,leftcmd = string.match(cmdline,"^([%w_]+)%s*(.*)$")
 	if cmd then
 		local func = getfunc(gm,cmd)
@@ -56,9 +56,9 @@ function gm.docmd(pid,cmdline)
 	end
 	master = player
 	master_pid = player == 0 and 0 or player.pid
-	local tbl = {xpcall(docmd,onerror,player,cmdline)}
+	local tbl = {xpcall(docmd,onerror,cmdline)}
 	-- gm指令执行的报错不记录到onerror.log中
-	--local tbl = {pcall(docmd,player,cmdline)}
+	--local tbl = {pcall(docmd,cmdline)}
 	master = nil
 	master_pid = nil
 	local issuccess = table.remove(tbl,1)

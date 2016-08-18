@@ -131,8 +131,10 @@ function scenemgr.addnpc(npc,sceneid)
 		npc.pos = scene:fixpos(npc.pos)
 	end
 	local npcs = scene.npcs
-	local npcid = scenemgr.gennpcid()
-	npc.id = npcid
+	if not npc.id then
+		local npcid = scenemgr.gennpcid()
+		npc.id = npcid
+	end
 	npc.mapid = scene.mapid
 	npc.createtime = os.time()
 	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npcid,npc))

@@ -15,8 +15,8 @@ data_1500_GlobalTask = {
 		endtime = nil,
 		name = "测试任务",
 		desc = "这是测试任务的描述哦",
-		missiontype = 0,
-		missionname = "nil",
+		missiontype = 100,
+		missionname = "测试任务",
 	},
 
 	main = {
@@ -33,8 +33,8 @@ data_1500_GlobalTask = {
 		endtime = nil,
 		name = "主线任务",
 		desc = "这是主线任务的描述哦",
-		missiontype = 0,
-		missionname = "nil",
+		missiontype = 101,
+		missionname = "剧情任务",
 	},
 
 	branch = {
@@ -51,8 +51,8 @@ data_1500_GlobalTask = {
 		endtime = nil,
 		name = "支线任务",
 		desc = "这是支线任务的描述哦",
-		missiontype = 0,
-		missionname = "nil",
+		missiontype = 101,
+		missionname = "剧情任务",
 	},
 
 	shimen = {
@@ -60,7 +60,7 @@ data_1500_GlobalTask = {
 		npc = "data_1500_ShimenTaskNpc",
 		award = "data_1500_ShimenTaskAward",
 		text = "data_1500_ShimenTaskText",
-		fake = "nil",
+		fake = "data_1500_ShimenTaskFake",
 		tasktype = 102,
 		ringlimit = 0,
 		donelimit = 0,
@@ -69,8 +69,8 @@ data_1500_GlobalTask = {
 		endtime = nil,
 		name = "师门任务",
 		desc = "这是师门任务的描述哦",
-		missiontype = 0,
-		missionname = "nil",
+		missiontype = 102,
+		missionname = "日常任务",
 	},
 
 	shimoshilian = {
@@ -87,8 +87,8 @@ data_1500_GlobalTask = {
 		endtime = nil,
 		name = "使魔试炼",
 		desc = "这是使魔试炼任务的描述哦",
-		missiontype = 0,
-		missionname = "nil",
+		missiontype = 102,
+		missionname = "日常任务",
 	},
 
 }

@@ -1,9 +1,9 @@
 require "gamelogic.task.task"
 require "gamelogic.task.taskdb"
 require "gamelogic.task.taskcontainer"
-require "gamelogic.task.maintask"
-require "gamelogic.task.branchtask"
-require "gamelogic.task.shimentask"
+require "gamelogic.task.forever.main"
+require "gamelogic.task.forever.branch"
+require "gamelogic.task.today.shimen"
 require "gamelogic.task.today.shimoshilian"
 
 --任务容器类注册

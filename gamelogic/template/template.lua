@@ -175,9 +175,6 @@ function ctemplate:transwar(playunit,warid,pid)
 end
 
 function ctemplate:transaward(playunit,awardid,pid)
-	if awardid < 0 then
-		awardid = self:transaward(playunit,awardid,pid)
-	end
 	local awarddata = self:getformdata("award")
 	local bonus = award.getaward(awarddata,awardid,function(i,data)
 		return data.ratio

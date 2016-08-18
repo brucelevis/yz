@@ -37,14 +37,6 @@ function netmsg.filter(msg)
 	return true,msg
 end
 
-function C2S.onmessagebox(player,request)
-	local id = request.buttonid
-	if id == 0 then
-		return
-	end
-	return reqresp.resp(player.pid,id,{id=id})
-end
-
 function C2S.worldmsg(player,request)
 	local msg = assert(request.msg)
 	local rawmsg = msg
@@ -194,10 +186,10 @@ function C2S.sendmsgto(player,request)
 	sendpackage(targetid,"msg","privatemsg",packmsg)
 end
 
-function C2S.onnpcsay(player,request)
+function C2S.respondanswer(player,request)
 	local respondid = assert(request.respondid)
 	local answer = assert(request.answer)
-	player:do_respondhandler(respondid,answer)
+	reqresp.resp(player.pid,respondid,{ answer = answer })
 end
 
 -- s2c
@@ -245,13 +237,13 @@ end
 --[[
 function onbuysomething(pid,request,response)
 	local player = playermgr.getplayer(pid)
-	local buttonid = response.buttonid
-	if buttonid == 0 then -- 超时回调
+	local answer = response.answer
+	if answer == 0 then -- 超时回调
 		-- player is nil
 		local pid = request.pid
 		-- dosomething
 	else
-		if buttonid == 1 then
+		if answer == 1 then
 			if not costok() then
 				return
 			end
@@ -349,7 +341,7 @@ function S2C.npcsay(pid,npc,msg,options,callback,...)
 	end
 	local respondid
 	if callback and type(callback) == "function" then
-		respondid = player:set_respondhandler(callback,...)
+		respondid = reqresp.req(pid,...,callback)
 	end
 	sendpackage(pid,"msg","npcsay",{
 		name = npc.name,

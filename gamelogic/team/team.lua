@@ -17,7 +17,7 @@ end
 function cteam:onlogin(player)
 	local pid = player.pid
 	-- 同步申请者列表
-	sendpackage(pid,"team","addapplyer",self.applyers)
+	sendpackage(pid,"team","addapplyer",{applyers=self.applyers})
 	-- 同步自身队伍信息
 	sendpackage(pid,"team","selfteam",{
 		team = self:pack(),
@@ -304,7 +304,7 @@ function cteam:addapplyer(player)
 	end
 	table.insert(self.applyers,applyer)
 	self:broadcast(function (uid)
-		sendpackage(uid,"team","addapplyer",{applyer,})
+		sendpackage(uid,"team","addapplyer",{applyers = {applyer,}})
 	end)
 end
 
@@ -314,7 +314,7 @@ function cteam:delapplyer(pid,ispos)
 		logger.log("info","team",string.format("[delapplyer] teamid=%d pid=%d",self.teamid,applyer.pid))
 		table.remove(self.applyers,pos)
 		self:broadcast(function (uid)
-			sendpackage(uid,"team","delapplyer",{pid,})
+			sendpackage(uid,"team","delapplyer",{applyers={applyer.pid,}})
 		end)
 	end
 end

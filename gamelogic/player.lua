@@ -85,7 +85,7 @@ function cplayer:init(pid)
 		achieve = self.achievedb,
 		task = self.taskdb,
 		item = self.itemdb,
-		fashiowshow = self.fashowshowdb,
+		fashionshow = self.fashionshowdb,
 		carddb = self.carddb,
 		delaytonextlogin = self.delaytonextlogin,
 		switch = self.switch,
@@ -824,7 +824,7 @@ end
 function cplayer:getitemdb(itemtype)
 	local maintype = itemaux.getmaintype(itemtype)
 	if maintype == ItemMainType.FASHION_SHOW then
-		return self.fashowshowdb
+		return self.fashionshowdb
 	elseif maintype == ItemMainType.CARD then
 		return self.carddb
 	else

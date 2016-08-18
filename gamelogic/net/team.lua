@@ -24,7 +24,8 @@ end
 function C2S.createteam(player,request)
 	netteam.uniform_target(player,request)
 	local data = data_0301_TeamTarget[request.target]
-	if player.lv < data.minlv then
+	local minlv = data and data.minlv or 10
+	if player.lv < minlv then
 		net.msg.S2C.notify(player.pid,language.format("等级不足{1}级",data.minlv))
 		return
 	end
@@ -44,7 +45,7 @@ function C2S.quitteam(player,request)
 	teammgr:quitteam(player)
 end
 
-function C2S.publishsteam(player,request)
+function C2S.publishteam(player,request)
 	teammgr:publishteam(player,request)
 end
 
@@ -83,8 +84,8 @@ function C2S.recallmember(player,request)
 				attach = {},},
 				function (uid,request,response)
 					local obj = playermgr.getplayer(uid)
-					local buttonid = response.buttonid
-					if buttonid ~= 1 then
+					local respid = response.id
+					if respid ~= 1 then
 						return
 					end
 					if obj.teamid ~= teamid then
@@ -131,8 +132,8 @@ function C2S.apply_become_captain(player,request)
 			attach = {},},
 			function (uid,request,response)
 				local obj = playermgr.getplayer(uid)
-				local buttonid = response.buttonid
-				if buttonid ~= 1 then
+				local respid = response.id
+				if respid ~= 1 then
 					return
 				end
 				if obj.teamid ~= teamid then
@@ -219,10 +220,9 @@ function C2S.invite_jointeam(player,request)
 		buttons = {language.format("同意"),language.format("拒绝")},
 		attach = {},},
 		function (uid,request,response)
-			local obj = playermgr.player(uid)
-			local buttonid = response.buttonid
-			print("invite_join_team",uid,buttonid)
-			if buttonid ~= 1 then
+			local obj = playermgr.getplayer(uid)
+			local respid = response.id
+			if respid ~= 1 then
 				return
 			end
 			local team = teammgr:getteam(teamid)
@@ -299,6 +299,7 @@ function C2S.automatch(player,request)
 		if team.captain ~= player.pid then
 			return
 		end
+		teammgr:team_changetarget(player,request.target,request.minlv,request.maxlv)
 		teammgr:team_automatch(teamid)
 	end
 end
@@ -323,7 +324,6 @@ function C2S.changetarget(player,request)
 	local maxlv = request.maxlv
 	local teamid = player:getteamid()
 	if not teamid then
-		teammgr:unautomatch(player.pid,"cacel")
 		teammgr:automatch_changetarget(player,target,minlv,maxlv)
 	else
 		local team = teammgr:getteam(teamid)
@@ -342,6 +342,7 @@ function C2S.apply_jointeam(player,request)
 	teamid = request.teamid
 	local team = teammgr:getteam(teamid)
 	if not team then
+		net.msg.S2C.notify(player.pid,language.format("该队伍已不存在"))
 		return
 	end
 	team:addapplyer(player)
@@ -357,7 +358,7 @@ function C2S.delapplyers(player,request)
 	if team.captain ~= player.pid then
 		return
 	end
-	if pids then
+	if not table.isempty(pids) then
 		for i,pid in ipairs(pids) do
 			team:delapplyer(pid)
 		end

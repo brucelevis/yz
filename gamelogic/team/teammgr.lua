@@ -45,6 +45,10 @@ function cteammgr:publishteam(player,param)
 	if team.captain ~= pid then
 		return
 	end
+	if self.publish_teams[teamid] then
+		net.msg.S2C.notify(pid,language.format("你已经发布队伍了"))
+		return
+	end
 	logger.log("info","team",format("[publishteam] pid=%d teamid=%s param=%s",pid,teamid,param))
 	team.target = param.target
 	team.minlv = param.minlv
@@ -78,6 +82,7 @@ function cteammgr:pack_publishteam(teamid)
 		minlv = team.minlv,
 		maxlv = team.maxlv,
 		captain = team:packmember(captain),
+		len = team:len(TEAM_STATE_ALL),
 	}
 	return package
 end
@@ -325,7 +330,6 @@ function cteammgr:automatch_changetarget(player,target,minlv,maxlv)
 	automatch.target = target
 	automatch.minlv = minlv
 	automatch.maxlv = maxlv
-	sendpackage(pid,"team","update_automatch",automatch)
 end
 
 
@@ -343,7 +347,6 @@ function cteammgr:automatch(player,target,minlv,maxlv)
 		target = target,
 	}
 	self.automatch_pids[pid] = automatch
-	sendpackage(pid,"team","update_automatch",automatch)
 end
 
 function cteammgr:unautomatch(pid,reason)
@@ -352,7 +355,6 @@ function cteammgr:unautomatch(pid,reason)
 		logger.log("info","team",string.format("[unautomatch] pid=%d reason=%s",pid,reason))
 		self.automatch_pids[pid] = nil
 	end
-	sendpackage(pid,"team","update_automatch",{automatch=false})
 end
 
 function cteammgr:team_automatch(teamid)

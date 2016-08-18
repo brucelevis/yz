@@ -3,6 +3,7 @@ data_0601_NPC = {
 
 	[101001] = {
 		name = "协会公告板",
+		job = "公告板",
 		shape = 20043,
 		transparency = 0,
 		posid = "20001001",
@@ -18,6 +19,7 @@ data_0601_NPC = {
 
 	[101002] = {
 		name = "猎魔人罗兰",
+		job = "猎魔人",
 		shape = 30011,
 		transparency = 0,
 		posid = "20001002",
@@ -33,6 +35,7 @@ data_0601_NPC = {
 
 	[101003] = {
 		name = "阿甘",
+		job = "杂货店老板",
 		shape = 30013,
 		transparency = 0,
 		posid = "20001003",
