@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/nomogaserver/gamesrv_2/logicshell'
+let g:netrw_dirhist_2='/home/nomogaserver/gamesrv_2/src/gamelogic/template'
+let g:netrw_dirhist_3='/home/nomogaserver/design_doc/proto'
+let g:netrw_dirhist_4='/home/nomogaserver/design_doc/proto/proto_gs'
+let g:netrw_dirhist_5='/home/nomogaserver/gamesrv_2/src/gamelogic/playermgr'
+let g:netrw_dirhist_6='/home/nomogaserver/design_doc/proto/proto_gs'

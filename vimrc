@@ -90,7 +90,8 @@ set nowb
 " ctags
 "启动vim时如果存在tags则自动加载
 if exists("tags")
-    set tags=./tags
+	set tags=./tags;
+	set autochdir
 endif
 set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/lua
