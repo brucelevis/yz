@@ -7,7 +7,7 @@ end
 
 function dbmgr.getdb(srvname)
 	if srvname and tonumber(srvname) then -- pid
-		srvname = cserver.getsrvname(srvname)
+		srvname = route.getsrvname(srvname)
 	end
 	srvname = srvname or cserver.getsrvname()
 	local conn = dbmgr.conns[srvname]

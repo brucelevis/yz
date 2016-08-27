@@ -66,13 +66,13 @@ end
 data_test_equip = {
 	[100001] = {
 		name = "手里箭",
-		wieldpos = 1,
+		equippos = 1
 		atk = 100,
 		maxnum = 1,
 	},
 	[100002] = {
 		name = "黑石项链",
-		wieldpos = 3,
+		equippos = 3,
 		magic = 200,
 		maxnum = 1,
 	},

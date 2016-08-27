@@ -3,21 +3,6 @@ cmaintask = class("cmaintask",ctaskcontainer)
 
 function cmaintask:init(conf)
 	ctaskcontainer.init(self,conf)
-	self.firstlogin = true
-end
-
-function cmaintask:save()
-	local data = ctaskcontainer.save(self)
-	data.firstlogin = self.firstlogin
-	return data
-end
-
-function cmaintask:load(data)
-	if table.isempty(data) then
-		return
-	end
-	ctaskcontainer.load(self,data)
-	self.firstlogin = data.firstlogin
 end
 
 function cmaintask:addtask(task)
@@ -40,11 +25,27 @@ function cmaintask:onwarend(war,result)
 end
 
 function cmaintask:onlogin(player)
-	if self.firstlogin then
-		self:accepttask(10000101)
-		self.firstlogin = false
+	if player:query("logincnt") == 1 then
+		local taskid = 10000101
+		if self:can_accept(taskid) then
+			self:accepttask(taskid)
+		end
 	end
 	ctaskcontainer.onlogin(self,player)
 end
+
+function cmaintask:getcanaccept()
+	local canaccept = {}
+	for taskid,_ in pairs(self:getformdata("task")) do
+		if not self.finishtasks[taskid] then
+			local isok,msg = self:can_accept(taskid)
+			if isok then
+				table.insert(canaccept,{ taskkey = self.name, taskid = taskid })
+			end
+		end
+	end
+	return canaccept
+end
+
 
 return cmaintask

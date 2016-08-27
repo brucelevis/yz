@@ -28,7 +28,12 @@ function ccontainer:load(data,loadfunc)
 	local len = 0
 	for id,objdata in pairs(objs) do
 		id = tonumber(id)
-		local obj = loadfunc and loadfunc(objdata) or objdata
+		local obj
+		if loadfunc then
+			obj = loadfunc(objdata)
+		else
+			obj = objdata
+		end
 		if obj then
 			obj.id = id
 			self.objs[id] = obj
@@ -45,7 +50,11 @@ function ccontainer:save(savefunc)
 	local objs = {}
 	for id,obj in pairs(self.objs) do
 		id = tostring(id)
-		objs[id] = savefunc and savefunc(obj) or obj
+		if savefunc then
+			objs[id] = savefunc(obj)
+		else
+			objs[id] = obj
+		end
 	end
 	data.objs = objs
 	return data
@@ -82,6 +91,7 @@ function ccontainer:add(obj,id)
 	if self.onadd then
 		self:onadd(obj)
 	end
+	return id
 end
 
 function ccontainer:del(id)

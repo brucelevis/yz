@@ -38,15 +38,6 @@ function ctaskdb:clear()
 	end
 end
 
-function ctaskdb:onfivehourupdate()
-	for name in pairs(self.taskcontainer) do
-		local taskcontainer = self[name]
-		if taskcontainer.onfivehourupdate then
-			taskcontainer:onfivehourupdate()
-		end
-	end
-end
-
 function ctaskdb:addtaskcontainer(taskcontainer)
 	local name = assert(taskcontainer.name)
 	assert(self.taskcontainers[name] == nil)
@@ -74,8 +65,8 @@ function ctaskdb:update_canaccept()
 	for name,_ in pairs(self.taskcontainers) do 
 		local taskcontainer = self[name]
 		local canaccept = taskcontainer:getcanaccept()
-		if canaccept then
-			table.insert(self.canaccepttask,canaccept)
+		if not table.isempty(canaccept) then
+			table.extend(self.canaccepttask,canaccept)
 		end
 	end
 	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)
@@ -114,17 +105,17 @@ function ctaskdb:onlogin(player)
 	self:update_canaccept()
 end
 
-function ctaskdb:onlogoff(player)
+function ctaskdb:onlogoff(player,reason)
 	for name,_ in pairs(self.taskcontainers) do
 		local taskcontainer = self[name]
 		if taskcontainer.onlogoff then
-			taskcontainer:onlogoff(player)
+			taskcontainer:onlogoff(player,reason)
 		end
 	end
 end
 
-function ctaskdb:onchangelv(oldlv,newlv)
-
+function ctaskdb:onchangelv()
+	self:update_canaccept()
 end
 
 -- 物品(itemtype)增加数量(num)
@@ -147,6 +138,15 @@ function ctaskdb:onfivehourupdate()
 		local taskcontainer = self[name]
 		if taskcontainer.onfivehourupdate then
 			taskcontainer:onfivehourupdate(player)
+		end
+	end
+end
+
+function ctaskdb:ondayupdate(player)
+	for name,_ in pairs(self.taskcontainers) do
+		local taskcontainer = self[name]
+		if taskcontainer.ondayupdate then
+			taskcontainer:ondayupdate(player)
 		end
 	end
 end

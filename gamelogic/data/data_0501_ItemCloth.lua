@@ -14,7 +14,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 1,
 		needjob = {},
 		maxhp = 0,
@@ -34,11 +34,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103002] = {
@@ -54,7 +54,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 10,
 		needjob = {},
 		maxhp = 0,
@@ -74,11 +74,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103003] = {
@@ -94,7 +94,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 20,
 		needjob = {},
 		maxhp = 0,
@@ -114,11 +114,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103004] = {
@@ -134,7 +134,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 30,
 		needjob = {},
 		maxhp = 0,
@@ -154,11 +154,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103005] = {
@@ -174,7 +174,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 40,
 		needjob = {},
 		maxhp = 0,
@@ -194,11 +194,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103006] = {
@@ -214,7 +214,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 50,
 		needjob = {},
 		maxhp = 0,
@@ -234,11 +234,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103007] = {
@@ -254,7 +254,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 60,
 		needjob = {},
 		maxhp = 0,
@@ -274,11 +274,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103008] = {
@@ -294,7 +294,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 70,
 		needjob = {},
 		maxhp = 0,
@@ -314,11 +314,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103009] = {
@@ -334,7 +334,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 80,
 		needjob = {},
 		maxhp = 0,
@@ -354,11 +354,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103010] = {
@@ -374,7 +374,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 90,
 		needjob = {},
 		maxhp = 0,
@@ -394,11 +394,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103011] = {
@@ -414,7 +414,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 14,
-		equippos = 2,
+		equippos = 3,
 		lv = 100,
 		needjob = {},
 		maxhp = 0,
@@ -434,11 +434,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103012] = {
@@ -454,7 +454,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 1,
 		needjob = {},
 		maxhp = 0,
@@ -474,11 +474,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103013] = {
@@ -494,7 +494,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 10,
 		needjob = {},
 		maxhp = 0,
@@ -514,11 +514,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103014] = {
@@ -534,7 +534,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 20,
 		needjob = {},
 		maxhp = 0,
@@ -554,11 +554,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103015] = {
@@ -574,7 +574,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 30,
 		needjob = {},
 		maxhp = 0,
@@ -594,11 +594,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103016] = {
@@ -614,7 +614,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 40,
 		needjob = {},
 		maxhp = 0,
@@ -634,11 +634,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103017] = {
@@ -654,7 +654,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 50,
 		needjob = {},
 		maxhp = 0,
@@ -674,11 +674,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103018] = {
@@ -694,7 +694,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 60,
 		needjob = {},
 		maxhp = 0,
@@ -714,11 +714,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103019] = {
@@ -734,7 +734,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 70,
 		needjob = {},
 		maxhp = 0,
@@ -754,11 +754,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103020] = {
@@ -774,7 +774,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 80,
 		needjob = {},
 		maxhp = 0,
@@ -794,11 +794,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103021] = {
@@ -814,7 +814,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 90,
 		needjob = {},
 		maxhp = 0,
@@ -834,11 +834,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103022] = {
@@ -854,7 +854,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 15,
-		equippos = 2,
+		equippos = 3,
 		lv = 100,
 		needjob = {},
 		maxhp = 0,
@@ -874,11 +874,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103023] = {
@@ -894,7 +894,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 1,
 		needjob = {},
 		maxhp = 0,
@@ -914,11 +914,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103024] = {
@@ -934,7 +934,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 10,
 		needjob = {},
 		maxhp = 0,
@@ -954,11 +954,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103025] = {
@@ -974,7 +974,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 20,
 		needjob = {},
 		maxhp = 0,
@@ -994,11 +994,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103026] = {
@@ -1014,7 +1014,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 30,
 		needjob = {},
 		maxhp = 0,
@@ -1034,11 +1034,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103027] = {
@@ -1054,7 +1054,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 40,
 		needjob = {},
 		maxhp = 0,
@@ -1074,11 +1074,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103028] = {
@@ -1094,7 +1094,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 50,
 		needjob = {},
 		maxhp = 0,
@@ -1114,11 +1114,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103029] = {
@@ -1134,7 +1134,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 60,
 		needjob = {},
 		maxhp = 0,
@@ -1154,11 +1154,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103030] = {
@@ -1174,7 +1174,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 70,
 		needjob = {},
 		maxhp = 0,
@@ -1194,11 +1194,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103031] = {
@@ -1214,7 +1214,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 80,
 		needjob = {},
 		maxhp = 0,
@@ -1234,11 +1234,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103032] = {
@@ -1254,7 +1254,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 90,
 		needjob = {},
 		maxhp = 0,
@@ -1274,11 +1274,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[103033] = {
@@ -1294,7 +1294,7 @@ data_0501_ItemCloth = {
 		desc = "",
 
 		equiptype = 16,
-		equippos = 2,
+		equippos = 3,
 		lv = 100,
 		needjob = {},
 		maxhp = 0,
@@ -1314,11 +1314,11 @@ data_0501_ItemCloth = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 }

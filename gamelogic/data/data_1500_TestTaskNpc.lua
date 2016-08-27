@@ -8,6 +8,7 @@ data_1500_TestTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "",
+		job = "",
 	},
 
 	[102] = {
@@ -17,6 +18,7 @@ data_1500_TestTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "",
+		job = "",
 	},
 
 	[103] = {
@@ -26,6 +28,7 @@ data_1500_TestTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "",
+		job = "",
 	},
 
 	[104] = {
@@ -35,6 +38,7 @@ data_1500_TestTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "确认进入战斗",
+		job = "",
 	},
 
 }

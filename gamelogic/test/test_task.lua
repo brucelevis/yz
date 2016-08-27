@@ -2,7 +2,7 @@ local function test2(player,taskid)
 	local container = player.taskdb:gettaskcontainer(taskid)
 	assert(container:gettask(taskid))
 	assert(not container:gettask(90000001))
-	warmgr.onwarend(player.warid,1)
+	warmgr.onwarend(player:warid(),1)
 	assert(not container:gettask(taskid))
 end
 

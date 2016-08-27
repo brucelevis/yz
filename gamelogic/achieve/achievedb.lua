@@ -32,7 +32,7 @@ function cachievedb:onlogin(player)
 	self:syncall(player)
 end
 
-function cachievedb:onlogoff(player)
+function cachievedb:onlogoff(player,reason)
 end
 
 function cachievedb:newachieve(achieveid)

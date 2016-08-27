@@ -26,7 +26,7 @@ function C2S.createteam(player,request)
 	local data = data_0301_TeamTarget[request.target]
 	local minlv = data and data.minlv or 10
 	if player.lv < minlv then
-		net.msg.S2C.notify(player.pid,language.format("等级不足{1}级",data.minlv))
+		net.msg.S2C.notify(player.pid,language.format("等级不足{1}级",minlv))
 		return
 	end
 	teammgr:createteam(player,request)
@@ -58,19 +58,13 @@ function C2S.backteam(player,request)
 end
 
 function C2S.recallmember(player,request)
-	local teamid = player:getteamid()
-	if not teamid then
-		return
-	end
-	local team = teammgr:getteam(teamid)
-	if not team then
-		return
-	end
-	local pid = player.pid
-	if team.captain ~= pid then
-		return
-	end
 	local pids = request.pids
+	local pid = player.pid
+	local team = player:getteam()
+	if not team or team.captain ~= pid then
+		return
+	end
+	local teamid = team.id
 	if table.isempty(pids) then
 		pids = team:members(TEAM_STATE_LEAVE)
 	end
@@ -84,11 +78,11 @@ function C2S.recallmember(player,request)
 				attach = {},},
 				function (uid,request,response)
 					local obj = playermgr.getplayer(uid)
-					local respid = response.id
-					if respid ~= 1 then
+					local answer = response.answer
+					if answer ~= 1 then
 						return
 					end
-					if obj.teamid ~= teamid then
+					if obj:teamid() ~= teamid then
 						return
 					end
 					local team = teammgr:getteam(teamid)
@@ -105,19 +99,17 @@ function C2S.recallmember(player,request)
 end
 
 function C2S.apply_become_captain(player,request)
-	local teamid = player:getteamid()
-	if not teamid then
-		return
-	end
-	local team = teammgr:getteam(teamid)
+	local pid = player.pid
+	local team = player:getteam()
 	if not team then
 		return
 	end
-	local pid = player.pid
+	local teamid = team.id
 	if team.captain == pid then
 		return
 	end
 	if not team.follow[pid] then
+		net.msg.S2C.notify(player.pid,language.format("归队队员才能申请队长"))
 		return
 	end
 	local captain = playermgr.getplayer(team.captain)
@@ -132,11 +124,11 @@ function C2S.apply_become_captain(player,request)
 			attach = {},},
 			function (uid,request,response)
 				local obj = playermgr.getplayer(uid)
-				local respid = response.id
-				if respid ~= 1 then
+				local answer = response.answer
+				if answer ~= 1 then
 					return
 				end
-				if obj.teamid ~= teamid then
+				if obj:teamid() ~= teamid then
 					return
 				end
 				local team = teammgr:getteam(teamid)
@@ -157,13 +149,9 @@ end
 
 function C2S.changecaptain(player,request)
 	local pid = request.pid
-	local teamid = player:getteamid()
-	if not teamid then
-		return
-	end
-	local team = teammgr:getteam(teamid)
+	local team = player:getteam()
 	if not team then
-		return team
+		return
 	end
 	if team.captain ~= player.pid then
 		return
@@ -171,16 +159,15 @@ function C2S.changecaptain(player,request)
 	if not team.follow[pid] then
 		return
 	end
-	teammgr:changecaptain(teamid,pid)
+	teammgr:changecaptain(team.id,pid)
 end
 
 function C2S.kickmember(player,request)
-	local teamid = player:getteamid()
-	if not teamid then
+	local team = player:getteam()
+	if not team then
 		net.msg.S2C.notify(player.pid,language.format("你没有队伍"))
 		return
 	end
-	local team = teammgr:getteam(teamid)
 	if team.captain ~= player.pid then
 		net.msg.S2C.notify(player.pid,language.format("你不是队长"))
 		return
@@ -192,7 +179,7 @@ end
 function C2S.invite_jointeam(player,request)
 	local pid = player.pid
 	local tid = request.pid
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	if not teamid then
 		teamid = teammgr:createteam(player,{})
 	end
@@ -208,7 +195,7 @@ function C2S.invite_jointeam(player,request)
 		net.msg.S2C.notify(player.pid,language.format("对方不在线"))
 		return
 	end
-	if target:getteamid() then
+	if target:teamid() then
 		net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
 		return
 	end
@@ -221,15 +208,15 @@ function C2S.invite_jointeam(player,request)
 		attach = {},},
 		function (uid,request,response)
 			local obj = playermgr.getplayer(uid)
-			local respid = response.id
-			if respid ~= 1 then
+			local answer = response.answer
+			if answer ~= 1 then
 				return
 			end
 			local team = teammgr:getteam(teamid)
 			if not team then
 				return
 			end
-			if obj:getteamid() then
+			if obj:teamid() then
 				net.msg.S2C.notify(obj.pid,language.format("你已经有队伍"))
 				return
 			end
@@ -260,7 +247,7 @@ end
 
 function C2S.openui_team(player,request)
 	local pid = player.pid
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	if not teamid then
 		local publish_teams = {}
 		for teamid,v in pairs(teammgr.publish_teams) do
@@ -291,7 +278,7 @@ end
 
 function C2S.automatch(player,request)
 	netteam.uniform_target(player,request)
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	if not teamid then
 		teammgr:automatch(player,request.target,request.minlv,request.maxlv)
 	else
@@ -305,7 +292,7 @@ function C2S.automatch(player,request)
 end
 
 function C2S.unautomatch(player,request)
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	if not teamid then
 		teammgr:unautomatch(player.pid,"cacel")
 	else
@@ -322,7 +309,7 @@ function C2S.changetarget(player,request)
 	local target = request.target
 	local minlv = request.minlv
 	local maxlv = request.maxlv
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	if not teamid then
 		teammgr:automatch_changetarget(player,target,minlv,maxlv)
 	else
@@ -335,14 +322,13 @@ function C2S.changetarget(player,request)
 end
 
 function C2S.apply_jointeam(player,request)
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	if teamid then
 		return
 	end
 	teamid = request.teamid
 	local team = teammgr:getteam(teamid)
 	if not team then
-		net.msg.S2C.notify(player.pid,language.format("该队伍已不存在"))
 		return
 	end
 	team:addapplyer(player)
@@ -350,15 +336,14 @@ end
 
 function C2S.delapplyers(player,request)
 	local pids = request.pids
-	local teamid = player:getteamid()
-	if not teamid then
+	local team = player:getteam()
+	if not team then
 		return
 	end
-	local team = teammgr:getteam(teamid)
 	if team.captain ~= player.pid then
 		return
 	end
-	if not table.isempty(pids) then
+	if pids then
 		for i,pid in ipairs(pids) do
 			team:delapplyer(pid)
 		end
@@ -369,11 +354,10 @@ end
 
 function C2S.agree_jointeam(player,request)
 	local pid = request.pid
-	local teamid = player:getteamid()
-	if not teamid then
+	local team = player:getteam()
+	if not team then
 		return
 	end
-	local team = teammgr:getteam(teamid)
 	if team.captain ~= player.pid then
 		return
 	end
@@ -386,11 +370,11 @@ function C2S.agree_jointeam(player,request)
 		net.msg.S2C.notify(player,"对方已离线")
 		return
 	end
-	if target:getteamid() then
+	if target:teamid() then
 		net.msg.S2C.notify(player,"对方已经有队伍了")
 		return
 	end
-	teammgr:jointeam(target,teamid)
+	teammgr:jointeam(target,team.id)
 end
 
 function C2S.look_publishteams(player,request)

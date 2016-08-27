@@ -1,11 +1,9 @@
 --<<data_1500_ShimenTaskVar 导表开始>>
 data_1500_ShimenTaskVar = {
 
-	RingLimit = 10,
+	RingDoneAward = {[1]=601001,[2]=601001,[3]=601001,[4]=601001,[5]=601001,[6]=601001},
 
-	10RingAward = 101,
-
-	LookNpcType = 101002,
+	AwardPromoteRatio = 10,
 
 }
 return data_1500_ShimenTaskVar

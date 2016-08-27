@@ -34,11 +34,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102002] = {
@@ -74,11 +74,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102003] = {
@@ -114,11 +114,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102004] = {
@@ -154,11 +154,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102005] = {
@@ -194,11 +194,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102006] = {
@@ -234,11 +234,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102007] = {
@@ -274,11 +274,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102008] = {
@@ -314,11 +314,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102009] = {
@@ -354,11 +354,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102010] = {
@@ -394,11 +394,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102011] = {
@@ -434,11 +434,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102012] = {
@@ -474,11 +474,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102013] = {
@@ -514,11 +514,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102014] = {
@@ -554,11 +554,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102015] = {
@@ -594,11 +594,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102016] = {
@@ -634,11 +634,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102017] = {
@@ -674,11 +674,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102018] = {
@@ -714,11 +714,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102019] = {
@@ -754,11 +754,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102020] = {
@@ -794,11 +794,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102021] = {
@@ -834,11 +834,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102022] = {
@@ -874,11 +874,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102023] = {
@@ -914,11 +914,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102024] = {
@@ -954,11 +954,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102025] = {
@@ -994,11 +994,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102026] = {
@@ -1034,11 +1034,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102027] = {
@@ -1074,11 +1074,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102028] = {
@@ -1114,11 +1114,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102029] = {
@@ -1154,11 +1154,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102030] = {
@@ -1194,11 +1194,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102031] = {
@@ -1234,11 +1234,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102032] = {
@@ -1274,11 +1274,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102033] = {
@@ -1314,11 +1314,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102034] = {
@@ -1354,11 +1354,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102035] = {
@@ -1394,11 +1394,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102036] = {
@@ -1434,11 +1434,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102037] = {
@@ -1474,11 +1474,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102038] = {
@@ -1514,11 +1514,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102039] = {
@@ -1554,11 +1554,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102040] = {
@@ -1594,11 +1594,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102041] = {
@@ -1634,11 +1634,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102042] = {
@@ -1674,11 +1674,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102043] = {
@@ -1714,11 +1714,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102044] = {
@@ -1754,11 +1754,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102045] = {
@@ -1794,11 +1794,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102046] = {
@@ -1834,11 +1834,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102047] = {
@@ -1874,11 +1874,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102048] = {
@@ -1914,11 +1914,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102049] = {
@@ -1954,11 +1954,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102050] = {
@@ -1994,11 +1994,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102051] = {
@@ -2034,11 +2034,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102052] = {
@@ -2074,11 +2074,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102053] = {
@@ -2114,11 +2114,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102054] = {
@@ -2154,11 +2154,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102055] = {
@@ -2194,11 +2194,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102056] = {
@@ -2234,11 +2234,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102057] = {
@@ -2274,11 +2274,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102058] = {
@@ -2314,11 +2314,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102059] = {
@@ -2354,11 +2354,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102060] = {
@@ -2394,11 +2394,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102061] = {
@@ -2434,11 +2434,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102062] = {
@@ -2474,11 +2474,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102063] = {
@@ -2514,11 +2514,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102064] = {
@@ -2554,11 +2554,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102065] = {
@@ -2594,11 +2594,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102066] = {
@@ -2634,11 +2634,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102067] = {
@@ -2674,11 +2674,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102068] = {
@@ -2714,11 +2714,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102069] = {
@@ -2754,11 +2754,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102070] = {
@@ -2794,11 +2794,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102071] = {
@@ -2834,11 +2834,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102072] = {
@@ -2874,11 +2874,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102073] = {
@@ -2914,11 +2914,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102074] = {
@@ -2954,11 +2954,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102075] = {
@@ -2994,11 +2994,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102076] = {
@@ -3034,11 +3034,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102077] = {
@@ -3074,11 +3074,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102078] = {
@@ -3114,11 +3114,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102079] = {
@@ -3154,11 +3154,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102080] = {
@@ -3194,11 +3194,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102081] = {
@@ -3234,11 +3234,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102082] = {
@@ -3274,11 +3274,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102083] = {
@@ -3314,11 +3314,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102084] = {
@@ -3354,11 +3354,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102085] = {
@@ -3394,11 +3394,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102086] = {
@@ -3434,11 +3434,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102087] = {
@@ -3474,11 +3474,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102088] = {
@@ -3514,11 +3514,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102089] = {
@@ -3554,11 +3554,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102090] = {
@@ -3594,11 +3594,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102091] = {
@@ -3634,11 +3634,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102092] = {
@@ -3674,11 +3674,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102093] = {
@@ -3714,11 +3714,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102094] = {
@@ -3754,11 +3754,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102095] = {
@@ -3794,11 +3794,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102096] = {
@@ -3834,11 +3834,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102097] = {
@@ -3874,11 +3874,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102098] = {
@@ -3914,11 +3914,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102099] = {
@@ -3954,11 +3954,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102100] = {
@@ -3994,11 +3994,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102101] = {
@@ -4034,11 +4034,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102102] = {
@@ -4074,11 +4074,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102103] = {
@@ -4114,11 +4114,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102104] = {
@@ -4154,11 +4154,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102105] = {
@@ -4194,11 +4194,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102106] = {
@@ -4234,11 +4234,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102107] = {
@@ -4274,11 +4274,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102108] = {
@@ -4314,11 +4314,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102109] = {
@@ -4354,11 +4354,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[102110] = {
@@ -4394,11 +4394,11 @@ data_0501_ItemWeapon = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 }

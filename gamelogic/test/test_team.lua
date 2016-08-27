@@ -3,6 +3,9 @@ local function test(pid1,pid2,pid3)
 	local player1 = playermgr.getplayer(pid1)
 	local player2 = playermgr.getplayer(pid2)
 	local player3 = playermgr.getplayer(pid3)
+	player1.lv = 20
+	player2.lv = 20
+	player3.lv = 20
 	player2:enterscene(player1.sceneid,player1.pos)
 	player3:enterscene(player1.sceneid,player1.pos)
 	local request = net.team.C2S
@@ -13,14 +16,14 @@ local function test(pid1,pid2,pid3)
 	teammgr:clear()
 
 	request.createteam(player1,{target=1001})
-	local teamid = player1.teamid
+	local teamid = player1:teamid()
 	assert(teamid)
 	local team = teammgr:getteam(teamid)
 	assert(team)
 	assert(team.captain == pid1)
 	-- ignore repeat createteam
 	request.createteam(player1,{target=2001})
-	local teamid = player1.teamid
+	local teamid = player1:teamid()
 	assert(teamid)
 	local team = teammgr:getteam(teamid)
 	assert(team)
@@ -37,12 +40,12 @@ local function test(pid1,pid2,pid3)
 	--pprintf("applyers:%s",team.applyers)
 	assert(#team.applyers==0)
 	assert(team.follow[pid2]==true)
-	assert(player2.teamid==teamid)
+	assert(player2:teamid()==teamid)
 	request.invite_jointeam(player2,{pid=pid3})
-	net.msg.C2S.onmessagebox(player3,{
+	net.msg.C2S.respondanswer(player3,{
 		id = reqresp.id,
-		buttonid = 1, -- agree
-	})	
+		answer = 1,		-- agree
+	})
 	assert(#team.applyers==1)
 	assert(team.applyers[1].pid==pid3)
 	request.agree_jointeam(player1,{pid=pid3})

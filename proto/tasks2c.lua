@@ -48,6 +48,7 @@ task_tasktalk 3505 {
 		taskid 1 : integer
 		textid 2 : integer #对白表ID
 		transstr 3 : string
+		respondid 4 : integer #如果带有回调id,玩家点完对白（跳过）需要回msg.respondanswer协议
 	}
 }
 

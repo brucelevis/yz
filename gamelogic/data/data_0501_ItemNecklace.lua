@@ -14,7 +14,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 1,
 		needjob = {},
 		maxhp = 10,
@@ -34,11 +34,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104002] = {
@@ -54,7 +54,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 10,
 		needjob = {},
 		maxhp = 20,
@@ -74,11 +74,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104003] = {
@@ -94,7 +94,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 20,
 		needjob = {},
 		maxhp = 40,
@@ -114,11 +114,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104004] = {
@@ -134,7 +134,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 30,
 		needjob = {},
 		maxhp = 60,
@@ -154,11 +154,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104005] = {
@@ -174,7 +174,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 40,
 		needjob = {},
 		maxhp = 80,
@@ -194,11 +194,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104006] = {
@@ -214,7 +214,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 50,
 		needjob = {},
 		maxhp = 100,
@@ -234,11 +234,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104007] = {
@@ -254,7 +254,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 60,
 		needjob = {},
 		maxhp = 120,
@@ -274,11 +274,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104008] = {
@@ -294,7 +294,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 70,
 		needjob = {},
 		maxhp = 140,
@@ -314,11 +314,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104009] = {
@@ -334,7 +334,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 80,
 		needjob = {},
 		maxhp = 160,
@@ -354,11 +354,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104010] = {
@@ -374,7 +374,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 90,
 		needjob = {},
 		maxhp = 180,
@@ -394,11 +394,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[104011] = {
@@ -414,7 +414,7 @@ data_0501_ItemNecklace = {
 		desc = "",
 
 		equiptype = 18,
-		equippos = 2,
+		equippos = 4,
 		lv = 100,
 		needjob = {},
 		maxhp = 200,
@@ -434,11 +434,11 @@ data_0501_ItemNecklace = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 }

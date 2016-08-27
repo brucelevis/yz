@@ -7,6 +7,7 @@ task_opentask 3500 {
 	request {
 		base 0 : basetype
 		taskkey 1 : string #任务标识
+		taskid 2 : integer #指定任务id,未指定则随机
 	}
 }
 
@@ -14,7 +15,7 @@ task_opentask 3500 {
 task_accepttask 3501 {
 	request {
 		base 0 : basetype
-		taskid 1 : integer # 任务ID
+		taskid 1 : integer #任务ID
 	}
 }
 
@@ -46,5 +47,14 @@ task_giveuptask 3505 {
 		taskid 1 : integer
 	}
 }
+
+task_looktasknpc 3506 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+		npcid 2 : integer
+	}
+}
+
 ]]
 }

@@ -7,6 +7,10 @@ function cshopdb:init(pid)
 		pid = pid,
 		name = "secret",
 	})
+	self.grocery = cgroceryshop.new({
+		pid = pid,
+		name = "grocery",
+	})
 end
 
 function cshopdb:load(data)
@@ -31,11 +35,11 @@ function cshopdb:onlogin(player)
 	end
 end
 
-function cshopdb:onlogoff(player)
+function cshopdb:onlogoff(player,reason)
 	for name in pairs(data_1401_PlayerShopCtrl) do
 		local shop = self[name]
 		if shop and shop.onlogoff then
-			shop:onlogoff(player)
+			shop:onlogoff(player,reason)
 		end
 	end
 end

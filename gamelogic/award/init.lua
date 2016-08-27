@@ -46,7 +46,8 @@ function award.__player(pid,bonus,reason,btip)
 				local itemdb = player:getitemdb(item.type)
 				local hasbonus_num = itemdb:additem2(item,reason)
 				if btip then
-					-- dosomething
+					local itemdata = itemaux.getitemdata(item.type)
+					net.msg.S2C.notify(pid,language.format("获得 #<II{1}># #<O>{2}*{3}#",item.type,itemdata.name,hasbonus_num))
 				end
 				item.num = item.num - hasbonus_num
 				if item.num > 0 then
@@ -91,6 +92,8 @@ end
 
 function award.mergebonus(bonuss)
 	local merge_bonus = {
+		exp = 0,
+		jobexp = 0,
 		gold = 0,
 		silver = 0,
 		coin = 0,
@@ -98,6 +101,8 @@ function award.mergebonus(bonuss)
 		pets = {}
 	}
 	for i,bonus in ipairs(bonuss) do
+		merge_bonus.exp = merge_bonus.gold + (bonus.exp or 0)
+		merge_bonus.jobexp = merge_bonus.jobexp + (bonus.jobexp or 0)
 		merge_bonus.gold = merge_bonus.gold + (bonus.gold or 0)
 		merge_bonus.silver = merge_bonus.silver + (bonus.silver or 0)
 		merge_bonus.coin = merge_bonus.coin + (bonus.coin or 0)
@@ -126,16 +131,18 @@ function award.getaward(formdata,bonusid,func)
 		end
 	else
 		assert(ratiotype == 2)
-		local id = choosekey(bonuss,func)
+		local id = choosekey(bonuss,function (i,bonus)
+			return func and func(i,bonus) or bonus.ratio
+		end)
 		local bonus = bonuss[id]
 		table.insert(final_bonuss,bonus)
 	end
-	return award.mergebonus(final_bonuss)
+	return final_bonuss
 end
 
 function doaward(typ,id,reward,reason,btip)
 	local func = assert(award[typ],"Invalid type:" .. tostring(typ))
-
+	reward = award.mergebonus(reward)
 	local srvname = getsrvname(typ,id)
 	logger.log("info","award",format("[doaward] srvname=%s typ=%s id=%d reward=%s reason=%s btip=%s",srvname,typ,id,reward,reason,btip))
 	return func(id,reward,reason,btip)

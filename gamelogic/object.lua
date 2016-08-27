@@ -39,7 +39,7 @@ end
 
 -- 客户端连上后，会新建连线对象，并立即调用whenConnected
 function cobject:whenConnected(connectionId,addr,agenthandle)
-	print("whenConnected",self.pid,connectionId,addr,agenthandle)
+	--print("whenConnected",self.pid,connectionId,addr,agenthandle)
 	self.m_connectionId = connectionId
 	self.m_addr = addr
 	self.m_agent = agenthandle
@@ -49,7 +49,7 @@ end
 -- 客户端断线后，会触发连线对象调用exitgame并且删除连线对象
 function cobject:exitgame()
 	local player = playermgr.getobjectbyfd(self.m_connectionId)
-	print("whenDisConnected",self.pid,self.m_connectionId,self.m_addr,self.m_agent,player)
+	--print("whenDisConnected",self.pid,self.m_connectionId,self.m_addr,self.m_agent,player)
 	if player then
 		player:disconnect("disconnect")
 	end

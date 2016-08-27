@@ -22,12 +22,12 @@ function C2S.invite_qiecuo(player,request)
 end
 
 function netwar.on_invite_qiecuo(pid,request,response)
-	local respid = response.id
+	local answer = response.answer
 	local player = playermgr.getplayer(pid)
-	if respid == 0 then 		-- 超时回调
-	elseif respid == 1 then 		-- 确认
+	if answer == 0 then 		-- 超时回调
+	elseif answer == 1 then 		-- 确认
 	else
-		assert(respid == 2) 	-- 取消
+		assert(answer == 2) 	-- 取消
 	end
 end
 

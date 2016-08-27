@@ -6,6 +6,7 @@ local tablenames = {
 	award = true,
 	text = true,
 	fake = true,
+	var = true,
 }
 
 function taskaux.gettaskdata(taskname,tablename)

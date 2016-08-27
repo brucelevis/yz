@@ -14,7 +14,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 1,
 		needjob = {},
 		maxhp = 10,
@@ -34,11 +34,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107002] = {
@@ -54,7 +54,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 10,
 		needjob = {},
 		maxhp = 20,
@@ -74,11 +74,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107003] = {
@@ -94,7 +94,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 20,
 		needjob = {},
 		maxhp = 40,
@@ -114,11 +114,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107004] = {
@@ -134,7 +134,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 30,
 		needjob = {},
 		maxhp = 60,
@@ -154,11 +154,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107005] = {
@@ -174,7 +174,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 40,
 		needjob = {},
 		maxhp = 80,
@@ -194,11 +194,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107006] = {
@@ -214,7 +214,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 50,
 		needjob = {},
 		maxhp = 100,
@@ -234,11 +234,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107007] = {
@@ -254,7 +254,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 60,
 		needjob = {},
 		maxhp = 120,
@@ -274,11 +274,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107008] = {
@@ -294,7 +294,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 70,
 		needjob = {},
 		maxhp = 140,
@@ -314,11 +314,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107009] = {
@@ -334,7 +334,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 80,
 		needjob = {},
 		maxhp = 160,
@@ -354,11 +354,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107010] = {
@@ -374,7 +374,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 90,
 		needjob = {},
 		maxhp = 180,
@@ -394,11 +394,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[107011] = {
@@ -414,7 +414,7 @@ data_0501_ItemShoe = {
 		desc = "",
 
 		equiptype = 17,
-		equippos = 2,
+		equippos = 7,
 		lv = 100,
 		needjob = {},
 		maxhp = 200,
@@ -434,11 +434,11 @@ data_0501_ItemShoe = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 }

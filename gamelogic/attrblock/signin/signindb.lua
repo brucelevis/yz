@@ -49,11 +49,11 @@ function csignindb:onlogin(player)
 	end
 end
 
-function csignindb:onlogoff(player)
+function csignindb:onlogoff(player,reason)
 	for name in pairs(self.name_signin) do
 		local signin = self:get(name)
 		if signin.onlogoff then
-			signin:onlogoff(player)
+			signin:onlogoff(player,reason)
 		end
 	end
 end

@@ -90,7 +90,7 @@ end
 
 function ctemplate:doaward(playunit,awardid,pid)
 	local bonus = self:transaward(playunit,awardid,pid)
-	doaward("player",pid,bonus,format("template.%s awardid=%d",self.name,awardid))
+	doaward("player",pid,bonus,format("template.%s awardid=%d",self.name,awardid),true)
 end
 
 function ctemplate:isnearby(player,npc,dis)
@@ -176,10 +176,37 @@ end
 
 function ctemplate:transaward(playunit,awardid,pid)
 	local awarddata = self:getformdata("award")
-	local bonus = award.getaward(awarddata,awardid,function(i,data)
-		return data.ratio
-	end)
+	local bonus = award.getaward(awarddata,awardid)
+	for _,perbonus in ipairs(bonus) do
+		for k,v in pairs(perbonus) do
+			if type(v) == "string" and table.find({"exp","jobexp","gold","silver","coin"},k) then
+				local v2 = tonumber(v)
+				if v2 then
+					bonus[k] = v2
+				else
+					bonus[k] = self:calformula(v)
+				end
+			end
+		end
+		perbonus = self:revisebonus(playunit,perbonus)
+	end
 	return bonus
+end
+
+function ctemplate:revisebonus(playunit,bonus)
+	return bonus
+end
+
+function ctemplate:calformula(v)
+	-- 公式一: v = x * ( 100 + y * z) / 100
+	local x,y,z = string.match(v,"(%d+)%*%(100%+(%d+)%*(%d+)%)%/100")
+	if x then
+		x,y,z = tonumber(x),tonumber(y),tonumber(z)
+		if x and y and z then
+			return math.floor(x*(100+y*z)/100)
+		end
+	end
+	return v
 end
 
 function ctemplate:transtext(playunit,text,pid)

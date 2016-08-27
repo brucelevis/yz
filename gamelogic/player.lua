@@ -78,6 +78,10 @@ function cplayer:init(pid)
 	})
 
 	self.shopdb = cshopdb.new(self.pid)
+	self.equipposdb = cequipposdb.new({
+		pid = self.pid,
+		name = "equipposdb"
+	})
 
 	self.autosaveobj = {
 		time = self.timeattr,
@@ -95,6 +99,7 @@ function cplayer:init(pid)
 		chapter = self.chapterdb,
 		warskill = self.warskilldb,
 		shop = self.shopdb,
+		equippos = self.equipposdb,
 	}
 	self.loadstate = "unload"
 end
@@ -118,11 +123,8 @@ function cplayer:save()
 		joblv = self.joblv,
 		jobexp = self.jobexp,
 
-		teamid = self.teamid,
 		sceneid = self.sceneid,
 		pos = self.pos,
-		warid = self.warid,
-		watch_warid = self.watch_warid,
 		objid = self.objid,
 	}
 	return data
@@ -136,38 +138,29 @@ function cplayer:load(data)
 	end
 	self.data = data.data
 	if data.basic then
-		self.gold = data.basic.gold
-		self.silver = data.basic.silver
-		self.coin = data.basic.coin
-		self.viplv = data.basic.viplv
+		self.gold = data.basic.gold or 0
+		self.silver = data.basic.silver or 0
+		self.coin = data.basic.coin or 0
+		self.viplv = data.basic.viplv or 0
 		self.account = data.basic.account
 		self.channel = data.basic.channel
 		self.name = data.basic.name
-		self.lv = data.basic.lv
-		self.exp = data.basic.exp
+		self.lv = data.basic.lv or 0
+		self.exp = data.basic.exp or 0
 		self.roletype = data.basic.roletype
 		self.sex = data.basic.sex or 1
 		self.jobzs = data.basic.jobzs or 0
-		self.joblv = data.basic.joblv
-		self.jobexp = data.basic.jobexp
+		self.joblv = data.basic.joblv or 0
+		self.jobexp = data.basic.jobexp or 0
 
-		self.teamid = data.basic.teamid
 		self.sceneid = data.basic.sceneid
 		self.pos = data.basic.pos
-		self.warid = data.basic.warid
-		self.watch_warid = data.basic.watch_warid
 		self.objid = data.basic.objid
 	end
 	self:onload()
 end
 
 function cplayer:onload()
-	-- 载入时不能同步版本号，而且只重置warid/watch_warid,teamid是否清空也依赖版本号，
-	-- 载入时版本不同，清空战斗ID，主要是为了载入离线玩家对象出战时不卡战斗
-	if self:query("runno") ~= globalmgr.server:query("runno") then
-		self.warid = nil
-		self.watch_warid = nil
-	end
 end
 
 function cplayer:packresume()
@@ -188,11 +181,15 @@ end
 
 function cplayer:savetodatabase()
 	assert(self.pid)
+	-- 离线对象已超过过期时间则删除
+	if self.__state == "offline" and (not self.__activetime or os.time() - self.__activetime > 300) then
+		playermgr.unloadofflineplayer(self.pid)
+	end
 	if self.nosavetodatabase then
 		return
 	end
 
-	local db = dbmgr.getdb(cserver.getsrvname(self.pid))
+	local db = dbmgr.getdb(self.pid)
 	if self.loadstate == "loaded" then
 		local data = self:save()
 		db:set(db:key("role",self.pid,"data"),data)
@@ -201,10 +198,6 @@ function cplayer:savetodatabase()
 		if v.loadstate == "loaded" then
 			db:set(db:key("role",self.pid,k),v:save())
 		end
-	end
-	-- 离线对象已超过过期时间则删除
-	if self.__state == "offline" and (not self.__activetime or os.time() - self.__activetime > 300) then
-		playermgr.unloadofflineplayer(self.pid)
 	end
 
 	-- 临时处理方法，agent发现内存占用过高，暂时每次存盘让玩家对应的agent服gc
@@ -221,7 +214,7 @@ function cplayer:loadfromdatabase(loadall)
 	assert(self.pid)
 	if not self.loadstate or self.loadstate == "unload" then
 		self.loadstate = "loading"
-		local db = dbmgr.getdb(cserver.getsrvname(self.pid))
+		local db = dbmgr.getdb(self.pid)
 		local data = db:get(db:key("role",self.pid,"data"))
 		-- pprintf("role:data=>%s",data)
 		-- 正常角色至少会有基本数据
@@ -236,7 +229,7 @@ function cplayer:loadfromdatabase(loadall)
 		for k,v in pairs(self.autosaveobj) do
 			if not v.loadstate or v.loadstate == "unload" then
 				v.loadstate = "loading"
-				local db = dbmgr.getdb(cserver.getsrvname(self.pid))
+				local db = dbmgr.getdb(self.pid)
 				local data = db:get(db:key("role",self.pid,k))
 				v:load(data)
 				v.loadstate = "loaded"
@@ -295,7 +288,6 @@ function cplayer:create(conf)
 	-- scene
 	self.sceneid = BORN_SCENEID
 	self.pos = randlist(ALL_BORN_LOCS)
-	self.warid = nil
 	self.scene_strategy = STRATEGY_SEE_ALL
 	self.createtime = getsecond()
 	local db = dbmgr.getdb()
@@ -311,60 +303,39 @@ function cplayer:entergame()
 	--xpcall(self.onlogin,onerror,self)
 end
 
-function cplayer.__exitgame(pid)
-	local player = playermgr.getplayer(pid)
-	if player then
-		player:exitgame()
-	end
-end
-
 
 -- 正常退出游戏
-function cplayer:exitgame()
-	local can_tuoguan,tuoguan_time = self:can_tuoguan()
-	--print(">>>",self.pid,can_tuoguan,self.tuoguan_timerid,self.bforce_exitgame,self.warid)
-	if can_tuoguan and not self.tuoguan_timerid then
-		local timerid = timer.timeout("exitgame.tuoguan",tuoguan_time,functor(cplayer.__exitgame,self.pid))	
-
-		self.tuoguan_timerid = timerid  -- 托管标志
+function cplayer:exitgame(reason)
+	if not self:can_exitgame() then
+		self:delay_exitgame()
 		return
 	end
-	-- 战斗中延迟下线(顶号时会设置强制下线标志:bforce_exitgame)
-	if not self.bforce_exitgame and (self.warid or self.watch_warid) then
-		local timerid = timer.timeout("exitgame.inwar",60,functor(cplayer.__exitgame,self.pid))
-		self.inwar_timerid = timerid
-		return
-	end
-	if self.tuoguan_timerid then
-		-- 托管玩家被顶号会走到这里
-		timer.deltimerbyid(self.tuoguan_timerid)
-	end
-	if self.inwar_timerid then
-		timer.deltimerbyid(self.inwar_timerid)
-	end
-	xpcall(self.onlogoff,onerror,self)
+	self:del_delay_exitgame()
+	xpcall(self.onlogoff,onerror,self,reason)
 	-- playermgr.delobject 会触发存盘
-	playermgr.delobject(self.pid,"exitgame")
-	self.tuoguan_timerid = nil
-	self.inwar_timerid = nil
+	playermgr.delobject(self.pid,reason)
 end
 
 
 -- 客户端主动掉线处理
 function cplayer:disconnect(reason)
 	-- 已经在托管/战斗延迟下线的玩家，不做disconnect日志了，上次下线已经做过一次!
-	if not self.tuoguan_timerid and not self.inwar_timerid then
+	if not self.delay_exitgame_timerid then
 		self:ondisconnect(reason)
 	end
-	self:exitgame()
+	self:exitgame(reason)
 end
 
 function cplayer:isdisconnect()
-	-- 托管/处于战斗/观战中掉线的对象
-	if self.tuoguan_timerid or self.inwar_timerid then
+	if self.__state == "online" then
+		-- 托管/处于战斗/观战中掉线的对象
+		if self.delay_exitgame_timerid then
+			return true
+		end
+		return false
+	else
 		return true
 	end
-	return false
 end
 
 -- 跨服前处理流程
@@ -404,13 +375,13 @@ function cplayer:synctoac()
 	}
 	local url = string.format("/sync")
 	local request = make_request({
-		gameflag = cserver.gameflag,
+		gameflag = cserver.gameflag(),
 		srvname = cserver.getsrvname(),
 		acct = self.account,
 		roleid = self.pid,
 		role = cjson.encode(role),
 	})
-	httpc.post(cserver.accountcenter.host,url,request)
+	httpc.post(cserver.accountcenter(),url,request)
 end
 
 
@@ -440,12 +411,6 @@ function cplayer:comptible_process()
 	if not self.scene_strategy then
 		self.scene_strategy = STRATEGY_SEE_ALL
 	end
-	if self:query("runno") ~= globalmgr.server:query("runno") then
-		self:set("runno",globalmgr.server:query("runno"))
-		self.teamid = nil
-		self.warid = nil
-		self.watch_warid = nil
-	end
 	local scene = scenemgr.getscene(self.sceneid)
 	if not scene or not self:canenterscene(self.sceneid,self.pos) then
 		if scene then
@@ -471,6 +436,7 @@ function cplayer:onlogin()
 	route.onlogin(self)
 	local server = globalmgr.server
 	heartbeat(self.pid)
+	self:add("logincnt",1)
 	--  玩家基本/简介信息
 	sendpackage(self.pid,"player","sync",{
 		roletype = self.roletype,
@@ -492,6 +458,7 @@ function cplayer:onlogin()
 		coin = self.coin,
 		dexppoint = self.thisweek:query("dexppoint") or 0,
 	})
+	self:sync_chongzhilist()
 	self.switch:onlogin(self)
 	-- 放到teammgr:onlogin之前
 	self:enterscene(self.sceneid,self.pos,true)
@@ -509,17 +476,18 @@ function cplayer:onlogin()
 	self:synctoac()
 end
 
-function cplayer:onlogoff()
-	logger.log("info","login",string.format("[logoff] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s channel=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self.channel,self:ip(),self:port(),self.__agent))
-	mailmgr.onlogoff(self)
-	huodongmgr.onlogoff(self)
+-- reason: replace/disconnect
+function cplayer:onlogoff(reason)
+	logger.log("info","login",string.format("[logoff] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s channel=%s ip=%s:%s agent=%s reason=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self.channel,self:ip(),self:port(),self.__agent,reason))
+	mailmgr.onlogoff(self,reason)
+	huodongmgr.onlogoff(self,reason)
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onlogoff then
-			obj:onlogoff(self)
+			obj:onlogoff(self,reason)
 		end
 	end
-	warmgr.onlogoff(self)
-	teammgr:onlogoff(self)
+	warmgr.onlogoff(self,reason)
+	teammgr:onlogoff(self,reason)
 	-- 放到teammgr:onlogoff之后
 	self:leavescene(self.sceneid)
 	channel.unsubscribe("world",self.pid)
@@ -534,6 +502,11 @@ function cplayer:ondisconnect(reason)
 end
 
 function cplayer:ondayupdate()
+	for k,obj in pairs(self.autosaveobj) do
+		if obj.ondayupdate then
+			obj:ondayupdate(self)
+		end
+	end
 end
 
 function cplayer:onweekupdate()
@@ -584,6 +557,7 @@ function cplayer:onaddlv(val,reason)
 	-- 例如：10级升到11级，可获得int(10/5+3）= 5点剩余点数
 	local add_qualitypoint = math.floor((self.lv-1) / 5 + 3)
 	self:add_qualitypoint(add_qualitypoint,"onaddlv")
+	self.taskdb:onchangelv()
 end
 
 
@@ -861,16 +835,16 @@ end
 
 function cplayer:wield(equip)
 	local itemdata = itemaux.getitemdata(equip.type)
-	if equip.pos == itemdata.wieldpos then
+	if equip.pos == itemdata.equippos then
 		return
 	end
-	self.itemdb:moveitem(equip.id,itemdata.wieldpos)
+	self.itemdb:moveitem(equip.id,itemdata.equippos)
 	self:refreshequip()
 end
 
 function cplayer:unwield(equip)
 	local itemdata = itemaux.getitemdata(equip.type)
-	if equip.pos ~= itemdata.wieldpos then
+	if equip.pos ~= itemdata.equippos then
 		return
 	end
 	local newpos = self.itemdb:getfreepos()
@@ -891,17 +865,35 @@ function cplayer:refreshequip()
 end
 
 function cplayer:addres(typ,num,reason,btip)
+	if num == 0 then
+		return 0
+	end
+	local flag
 	if typ == RESTYPE.GOLD or string.lower(typ) == "gold" then
 		num = self:addgold(num,reason)
+		flag = "IR2"
 	elseif typ == RESTYPE.SILVER or string.lower(typ) == "silver" then
 		num = self:addsilver(num,reason)
+		flag = "IR7"
 	elseif typ == RESTYPE.COIN or string.lower(typ) == "coin" then
 		num = self:addcoin(num,reason)
+		flag = "IR1"
+	elseif typ == RESTYPE.EXP or string.lower(typ) == "exp" then
+		self:addexp(num,reason)
+		flag = "IR3"
+	elseif typ == RESTYPE.JOBEXP or string.lower(typ) == "jobexp" then
+		self:addjobexp(num,reason)
+		flag = "IR12"
 	else
 		error("Invlid restype:" .. tostring(typ))
 	end
 	if btip then
-		local msg = string.format("%s #<type=%s># X%d",num > 0 and "获取" or "花费",typ,num)
+		local msg
+		if num > 0 then
+			msg = language.format("{1} #<O>{2}# #<{3}>#","获得",num,flag)
+		else
+			msg = language.format("{1} #<O>{2}# #<{3}>#","花费",-num,flag)
+		end
 		net.msg.S2C.notify(self.pid,msg)
 	end
 	return num
@@ -924,43 +916,20 @@ function cplayer:port()
 end
 
 function cplayer:teamstate()
-	local teamid = self.teamid
-	if not teamid then
-		return NO_TEAM
-	end
-	local team = teammgr:getteam(teamid)
+	local team = self:getteam(self.pid)
 	if not team then
-		logger.log("info","team",string.format("[teamstate] pid=%s teamid->nil",self.pid))
-		self.teamid = nil
 		return NO_TEAM 
 	end
 	return team:teamstate(self.pid)
 end
 
-function cplayer:getteamid()
-	if self.teamid then
-		local team = teammgr:getteam(self.teamid)
-		local hasteam = true
-		if not team then
-			logger.log("error","team",string.format("[getteamid but no team] pid=%d teamid=%d",self.pid,self.teamid))
-			hasteam = false
-		elseif not team:ismember(self.pid) then
-			logger.log("error","team",string.format("[getteamid but not a member] pid=%d teamid=%d",self.pid,self.teamid))
-			hasteam = false
-		end
-		if not hasteam then
-			sendpackage(self.pid,"team","delmember",{})
-			self.teamid = nil
-			local scene = scenemgr.getscene(self.sceneid)
-			if scene then
-				scene:set(self.pid,{
-					teamid = 0,
-					teamstate = NO_TEAM,
-				})
-			end
-		end
-	end
-	return self.teamid
+function cplayer:getteam()
+	return teammgr:getteambypid(self.pid)
+end
+
+function cplayer:teamid()
+	local team = self:getteam()
+	return team and team.id
 end
 
 -- 组对成员
@@ -988,9 +957,9 @@ function cplayer:packscene(sceneid,pos)
 		sex = self.sex,
 		jobzs = self.jobzs,
 		joblv = self.joblv,
-		teamid = self:getteamid() or 0,
+		teamid = self:teamid() or 0,
 		teamstate = self:teamstate(),
-		warid = self.warid or 0,
+		warid = self:warid() or 0,
 		scene_strategy = self.scene_strategy,
 		agent = self.__agent,
 		mapid = scene.mapid,
@@ -1009,7 +978,7 @@ function cplayer:canmove()
 	if teamstate == TEAM_STATE_FOLLOW then
 		return false
 	end
-	if self:inwar() then
+	if self:warid() then
 		return false
 	end
 	return true
@@ -1092,7 +1061,7 @@ function cplayer:setpos(sceneid,pos)
 	self.pos = pos
 	local teamstate = self:teamstate()
 	if teamstate == TEAM_STATE_CAPTAIN then
-		local team = teammgr:getteam(self.teamid)
+		local team = self:getteam()
 		if team then
 			for pid,_ in pairs(team.follow) do
 				if pid ~= self.pid then
@@ -1122,7 +1091,7 @@ function cplayer:onfivehourupdate()
 		next_five_hour = next_five_hour + DAY_SECS
 	end
 	local lefttime = next_five_hour - now
-	self.thistemp:set("onfivehourupdate",lefttime)
+	self.thistemp:set("onfivehourupdate",1,lefttime)
 	-- dosomething()
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onfivehourupdate then
@@ -1179,7 +1148,7 @@ function cplayer:getfighters()
 		fighters = {self.pid}
 	elseif teamstate == TEAM_STATE_CAPTAIN then
 		fighters = {self.pid}
-		local team = teammgr:getteam(self.teamid)
+		local team = self:getteam()
 		table.extend(fighters,team:members(TEAM_STATE_FOLLOW))
 	elseif teamstate == TEAM_STATE_LEAVE then
 		fighters = {self.pid,}
@@ -1191,11 +1160,13 @@ function cplayer:getfighters()
 	return fighters,errmsg
 end
 
-function cplayer:inwar()
-	if self.warid and self.warid ~= 0 then
-		return true
-	end
-	return false
+function cplayer:getwar()
+	return warmgr.getwarbypid(self.pid)
+end
+
+function cplayer:warid()
+	local war = self:getwar()
+	return war and war.warid
 end
 
 function cplayer:getname()
@@ -1209,7 +1180,7 @@ end
 
 function cplayer:team_maxlv(state)
 	state = state or TEAM_STATE_ALL 
-	local teamid = self:getteamid()
+	local teamid = self:teamid()
 	if not teamid then
 		return self.lv
 	else
@@ -1227,7 +1198,7 @@ end
 
 function cplayer:team_avglv(state)
 	state = state or TEAM_STATE_ALL
-	local teamid = self:getteamid()
+	local teamid = self:teamid()
 	if not teamid then
 		return self.lv
 	else
@@ -1251,7 +1222,7 @@ function cplayer:team_avglv2(state)
 end
 
 function cplayer:captain_lv()
-	local teamid = self:getteamid()
+	local teamid = self:teamid()
 	if not teamid then
 		return self.lv
 	else
@@ -1293,5 +1264,146 @@ function cplayer:do_respondhandler(respondid,...)
 	callback(self,table.unpack(args,1,args.n),...)
 end
 
+-- 延迟下线机制 [START]
+function cplayer:can_exitgame()
+	if self.bforce_exitgame then
+		return true
+	end
+	local now = os.time()
+	local can_tuoguan,tuoguan_time = self:can_tuoguan()
+	if not self.delay_exitgame_timerid and can_tuoguan then
+		self:set_exitgame_time(now + tuoguan_time)
+	end
+	if self:warid() then
+		if not self.exitgame_time or self.exitgame_time < now then
+			self:set_exitgame_time(now + 60)
+		end
+	end
+	if not self.exitgame_time then
+		return true
+	else
+		return now >= self.exitgame_time
+	end
+end
+
+function cplayer:set_exitgame_time(time)
+	if not self.exitgame_time or self.exitgame_time < time then
+		self.exitgame_time = time
+	end
+	return self.exitgame_time
+end
+
+function cplayer.__exitgame(pid)
+	local player = playermgr.getplayer(pid)
+	if player then
+		player:exitgame()
+	end
+end
+
+function cplayer:delay_exitgame()
+	self.delay_exitgame_timerid = timer.timeout("timer.delay_exitgame",60,functor(cplayer.__exitgame,self.pid))
+	return self.delay_exitgame_timerid
+end
+
+function cplayer:del_delay_exitgame()
+	self.bforce_exitgame = nil
+	if self.delay_exitgame_timerid then
+		local timerid = self.delay_exitgame_timerid
+		timer.deltimerbyid(timerid)
+		self.delay_exitgame_timerid = nil
+		return timerid
+	end
+end
+-- 延迟下线机制 [END]
+
+-- 充值 [START]
+function cplayer:getchongzhilist()
+	local channel = self.channel
+	local valid_products = {}
+	for id,product in pairs(data_1401_ChongZhi) do
+		if table.find(product.channels,0) or table.find(product.channels,channel) then
+			if product.maxbuycnt ~= 0 then		-- 0: 禁止购买
+				if product.maxbuycnt < 0 or self:getchongzhicnt(id) < product.maxbuycnt then
+					valid_products[id] = product
+				end
+			end
+		end
+	end
+	-- 排除互斥项/未达成购买条件项
+	local seen = {}
+	for id,product in pairs(valid_products) do
+		if product.preid == 0 then
+			seen[id] = true
+		elseif self:getchongzhicnt(product.preid) > 0 then
+			seen[id] = true
+		end
+	end
+	return seen
+end
+
+function cplayer:sync_chongzhilist(seen)
+	seen = seen or self:getchongzhilist()
+	sendpackage(self.pid,"player","chongzhilist",{
+		seen = table.keys(seen),
+	})
+end
+
+function cplayer:getprodcut(id)
+	return data_1401_ChongZhi[id]
+end
+
+function cplayer:addchongzhicnt(id,num)
+	num = num or 1
+	local key = string.format("chongzhicnt.%s",id)
+	self:add(key,num)
+end
+
+function cplayer:getchongzhicnt(id)
+	-- 这里可以做特殊处理
+	local key = string.format("chongzhicnt.%s",id)
+	return self:query(key) or 0
+end
+
+-- @param buy_product {id=充值项ID,rmb=RMB}
+function cplayer:chongzhi(buy_product)
+	local id = assert(buy_product.id)
+	local rmb = buy_product.rmb
+	local seen = self:getchongzhilist()
+	local product = self:getprodcut(id)
+	if not product then
+		logger.log("error","chongzhi",format("[no product] pid=%s buy_product=%s acct=%s channel=%s ip=%s isgm=%s",self.pid,buy_product,self.account,self.channel,self:ip(),self:isgm()))
+		return
+	end
+	if not seen[id] then
+		logger.log("warning","chongzhi",format("[cann't seen] pid=%s buy_product=%s acct=%s channel=%s ip=%s isgm=%s",self.pid,buy_product,self.account,self.channel,self:ip(),self:isgm()))
+		if not product.nextid or product.nextid == 0 then
+			return
+		end
+		id = product.nextid
+	end
+	product = self:getprodcut(id)
+	if product.rmb ~= rmb then
+		logger.log("error","chongzhi",format("[money not enough] pid=%s buy_product=%s acct=%s channel=%s ip=%s isgm=%s",self.pid,buy_product,self.account,self.channel,self:ip(),self:isgm()))
+		net.msg.S2C.notify(self.pid,language.format("购买失败,您是否支付数目不足?"))
+		return
+	end
+	logger.log("info","chongzhi",format("[chongzhi] pid=%s buy_product=%s acct=%s channel=%s ip=%s isgm=%s",self.pid,buy_product,self.account,self.channel,self:ip(),self:isgm()))
+	local reason = string.format("chongzhi:%s",product.id)
+	self:addchongzhicnt(product.id)
+	self:addres("gold",product.gold,reason,true)
+	self:addres("gold",product.give_gold,reason,true)
+	if product.itemtype and product.itemtype ~= 0 and product.itemnum > 0 then
+		self:additembytype(product.itemtype,product.itemnum,nil,reason)
+	end
+	if product.pettype and product.pettype > 0 then
+
+	end
+	local new_seen = self:getchongzhilist()
+	if not table.equal(seen,new_seen) then
+		self:sync_chongzhilist(new_seen)
+	end
+end
+
+-- 充值 [END]
 
 return cplayer

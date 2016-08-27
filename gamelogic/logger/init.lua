@@ -1,5 +1,18 @@
 -- 适配框架
-require "gamelogic.serverinfo" -- for register 'servicem' protocol
+--require "gamelogic.serverinfo" -- for register 'servicem' protocol
+-- gamelogic.serverinfo导入后内存占用会大300k,这里自行注册servicem协议即可
+local skynet = require "skynet"
+pcall(skynet.register_protocol,{
+	name = "servicem",
+	id = 20,
+	pack = function (...)
+		return skynet.pack(...)
+	end,
+	unpack = function (...) 
+		return skynet.unpack(...) 
+	end,
+})
+
 logger = logger or {}
 local LOGGERSRV=".NMGLOG"
 

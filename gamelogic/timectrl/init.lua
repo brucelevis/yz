@@ -131,6 +131,7 @@ end
 
 function timectrl.ondayupdate()
 	logger.log("info","timectrl","ondayupdate")
+	playermgr.broadcast(cplayer.ondayupdate)
 end
 
 function timectrl.onweekupdate()

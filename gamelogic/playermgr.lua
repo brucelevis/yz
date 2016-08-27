@@ -34,6 +34,9 @@ function playermgr.loadofflineplayer(pid)
 	player:loadfromdatabase()
 	if player:isloaded() then
 		player.__state = "offline"
+		if playermgr.getkuafuplayer(pid) then
+			player.nosavetodatabase = true
+		end
 		playermgr.addobject(player,"loadofflineplayer")
 		return player
 	end
@@ -84,9 +87,11 @@ function playermgr.addobject(obj,reason)
 		playermgr.linknum = playermgr.linknum + 1
 	elseif obj.__state == "offline" then
 		playermgr.offlinenum = playermgr.offlinenum + 1
-	elseif obj.__state == "kuafu" then -- 去其他服跨服的对象
-		playermgr.kuafunum = playermgr.kuafunum + 1
 	else
+		assert(obj.__state == "online")
+		if obj.home_srvname then  -- 跨服过来的玩家
+			playermgr.kuafunum = playermgr.kuafunum + 1
+		end
 		playermgr.onlinenum = playermgr.onlinenum + 1
 	end
 	-- typename(obj) == "cplayer"
@@ -101,26 +106,28 @@ function playermgr.__delobject(obj,reason)
 		local pid = obj.pid
 		logger.log("info","playermgr",string.format("[delobject] pid=%d agent=%s fd=%s state=%s reason=%s",pid,obj.__agent,obj.__fd,obj.__state,reason))
 		assert(obj.__state)
-		-- typename(obj) == "cplayer"
-		if obj.__state ~= "link" then
-			closesave(obj)
-			xpcall(obj.savetodatabase,onerror,obj)
-		end
 		playermgr.num = playermgr.num - 1
 		if obj.__state == "link" then
 			playermgr.linknum = playermgr.linknum - 1
 		elseif obj.__state == "offline" then
 			playermgr.offlinenum = playermgr.offlinenum - 1
-		elseif obj.__state == "kuafu" then
-			playermgr.kuafunum = playermgr.kuafunum - 1
 		else
 			assert(obj.__state == "online")
+			if obj.home_srvname then  -- 跨服过来的玩家
+				playermgr.kuafunum = playermgr.kuafunum - 1
+			end
 			playermgr.onlinenum = playermgr.onlinenum - 1
 		end
 		playermgr.id_obj[pid] = nil
 		if obj.__fd then
 			playermgr.fd_id[obj.__fd] = nil
 		end
+		-- typename(obj) == "cplayer"
+		if obj.__state ~= "link" then
+			closesave(obj)
+			xpcall(obj.savetodatabase,onerror,obj)
+		end
+
 		-- 这里是残留代码,最初设计，连线对象也纳入了管理，连线对象可能在排队
 		-- 其掉线后，应该从排队中删除。总之，加上这句只会更安全
 		loginqueue.remove(pid)
@@ -136,6 +143,15 @@ function playermgr.delobject(pid,reason)
 	local obj = playermgr.getobject(pid)
 	if obj then
 		playermgr.__delobject(obj,reason)
+	end
+end
+
+function playermgr.checkonline(pid)
+	local player = playermgr.getplayer(pid)
+	if player and player.__state == "online" then
+		return true
+	else
+		return false
 	end
 end
 
@@ -273,13 +289,14 @@ end
 function playermgr.addtoken(token,ext)
 	local v = playermgr.tokens[token]
 	if v then
-		logger.log("error","token",format("[addtoken] token=%s ext=%s",token,ext))
+		logger.log("error","kuafu",format("[addtoken] token=%s ext=%s",token,ext))
 	end
 	if ext.exceedtime then
 		ext.exceedtime = os.time() + ext.exceedtime
 	else
 		ext.exceedtime = os.time() + 300
 	end
+	logger.log("debug","kuafu",format("[addtoken] token=%s ext=%s",token,ext))
 	playermgr.tokens[token] = ext
 end
 
@@ -288,6 +305,7 @@ function playermgr.gettoken(token)
 end
 
 function playermgr.deltoken(token)
+	logger.log("debug","kuafu",format("[deltoken] token=%s",token))
 	playermgr.tokens[token] = nil
 end
 
@@ -311,10 +329,10 @@ end
 --*/
 function playermgr.init()
 	logger.log("info","playermgr","[init]")
-	playermgr.num = 0 -- playermgr.num == playermgr.onlinenum + playermgr.offlinenum + playermgr.kuafunum + playermgr.linknum
+	playermgr.num = 0 -- playermgr.num == playermgr.onlinenum + playermgr.offlinenum + playermgr.linknum
 	playermgr.onlinenum = 0
+	playermgr.kuafunum = 0		--过来跨服的玩家数，数量已经包含在playermgr.onlinenum中
 	playermgr.offlinenum = 0
-	playermgr.kuafunum = 0
 	playermgr.linknum = 0
 	playermgr.id_obj = {}
 	playermgr.fd_id = {}

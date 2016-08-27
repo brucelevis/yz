@@ -4,13 +4,13 @@ return {
 	p = "msg",
 	si = 4500, -- [4500,5000)
 	src = [[
-msg_onmessagebox 4500 { # 回复messgebox
-	request {
-		base 0 : basetype
-		id 1 : integer
-		buttonid 2 : integer
-	}
-}
+#msg_onmessagebox 4500 { # 回复messagebox
+#	request {
+#		base 0 : basetype
+#		id 1 : integer
+#		buttonid 2 : integer
+#	}
+#}
 
 # 世界消息
 msg_worldmsg 4501 {
@@ -61,12 +61,12 @@ msg_sendmsgto 4506 {
 	}
 }
 
-# npc对话响应
-msg_onnpcsay 4507 {
+# 应答模式响应接口
+msg_respondanswer 4507 {
 	request {
 		base 0 : basetype
-		respondid 1 : integer # npcsay中对应的应答id
-		answer 2 : integer # 选项序号
+		id 1 : integer # 服务端发起应答时携带的回调id
+		answer 2 : integer # 选择项id
 	}
 }
 

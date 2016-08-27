@@ -30,11 +30,19 @@ player_reset_qualitypoint 5002 {
 	}
 }
 
-# 开关操作
+# 设置玩家自身开关状态
 player_switch 5003 {
 	request {
 		base 0 : basetype
-		costdexp 1 : boolean		# true--开启消耗双倍点,false--关闭消耗双倍点
+		switchs 1 : *SwitchType
+	}
+}
+
+# 改名
+player_rename 5004 {
+	request {
+		base 0 : basetype
+		name 1 : string		#新的名字
 	}
 }
 ]]

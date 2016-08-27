@@ -10,7 +10,7 @@ function mailmgr.onlogin(player)
 	mailmgr.getmailbox(pid) -- preload mailbox
 end
 
-function mailmgr.onlogoff(player)
+function mailmgr.onlogoff(player,reason)
 	local pid = player.pid
 	mailmgr.unloadmailbox(pid)
 end
@@ -46,6 +46,10 @@ function mailmgr.sendmail(pid,amail)
 	local srvname = route.getsrvname(pid)
 	if not srvname then -- non-exist pid
 		return nil
+	end
+	local kuafuplayer = playrmgr.kuafuplayer(pid)
+	if kuafuplayer then
+		srvname = kuafuplayer.go_srvname
 	end
 	if srvname ~= self_srvname then
 		return rpc.call(srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)

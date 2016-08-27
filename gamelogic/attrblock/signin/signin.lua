@@ -42,7 +42,7 @@ function csignin:onlogin(player)
 	-- 上线：同步签到数据给客户端
 end
 
-function csignin:onlogoff(player)
+function csignin:onlogoff(player,reason)
 end
 
 -- 确保先调用:can_signin

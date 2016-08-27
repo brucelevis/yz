@@ -18,15 +18,16 @@ function gm.task(args)
 end
 
 --- 指令: task open
---- 用法: task open test <=> 随机接受test类型任务
+--- 用法: task open test <=> 接受test类型任务
 function task.open(player,args)
-	local isok,args = checkargs(args,"string")
+	local isok,args = checkargs(args,"string","*")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"task open test <=> 随机接受test类型任务")
+		net.msg.S2C.notify(player.pid,"task open test <=> 接受test类型任务")
 		return
 	end
 	local taskkey = args[1]
-	net.task.C2S.opentask(player,{ taskkey = taskkey })
+	local taskid = tonumber(args[2])
+	net.task.C2S.opentask(player,{ taskkey = taskkey, taskid = taskid })
 end
 
 --- 指令: task add
@@ -38,7 +39,8 @@ function task.add(player,args)
 		return
 	end
 	local taskid = args[1]
-	net.task.C2S.accepttask(player,{ taskid = taskid })
+	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	taskcontainer:accepttask(taskid)
 end
 
 --- 指令: task execute
@@ -81,11 +83,12 @@ function task.endwar(player,args)
 		net.msg.S2C.notify(player.pid,"任务编号错误")
 		return
 	end
-	if not player.warid then
+	local warid = warmgr.warid(player.pid)
+	if not warid then
 		net.msg.S2C.notify(player.pid,"玩家不在战斗中")
 		return
 	end
-	warmgr.onwarend(player.warid,iswin)
+	warmgr.onwarend(warid,iswin)
 	net.msg.S2C.notify(player.pid,"任务战斗结束")
 end
 

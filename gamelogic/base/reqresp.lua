@@ -58,7 +58,7 @@ function reqresp.starttimer_checkallsession()
 		if session.exceedtime and session.exceedtime < now then
 			reqresp.sessions[id] = nil
 			if session.callback then
-				session.callback(0,session.request,response)
+				session.callback(session.pid,session.request,{})
 			end
 		end
 	end

@@ -57,10 +57,10 @@ function citemdb:onlogin(player)
 		expandspace = self.expandspace,
 		sorttype = self.sorttype,
 	})
-	net.item.S2C.allitem(self.pid,self.objs)
+	net.item.S2C.allitem(self.pid,self.type,self.objs)
 end
 
-function citemdb:onlogoff(player)
+function citemdb:onlogoff(player,reason)
 end
 
 function citemdb:genid()
@@ -152,7 +152,7 @@ function citemdb:costitembyid(itemid,num,reason)
 		num = item.num - num,
 	})
 
-	logger.log("info","item",string.format("[costitembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
+	logger.log("info","item",string.format("[costitembyid] pid=%s itemid=%s num=%s leftnum=%s reason=%s",self.pid,itemid,num,item.num,reason))
 	if item.num <= 0 then
 		self:delitem(itemid,reason)
 	end
@@ -163,7 +163,7 @@ function citemdb:additembyid(itemid,num,reason)
 	local item = self:getitem(itemid)
 	local maxnum = self:getmaxnum(item.type)
 	assert(item.num + num <= maxnum)
-	logger.log("info","item",string.format("[additembyid] pid=%s itemid=%s num=%s reason=%s",self.pid,itemid,num,reason))
+	logger.log("info","item",string.format("[additembyid] pid=%s itemid=%s num=%s leftnum=%s reason=%s",self.pid,itemid,num,item.num,reason))
 	--item.num = item.num + num
 	self:update(item.id,{
 		num = item.num + num,
@@ -338,6 +338,47 @@ function citemdb:sort()
 	end
 end
 
+function citemdb:fumoequip(itemid)
+	local item = self:getitem(itemid)
+	if not item then
+		return
+	end
+	local maintype = itemaux.getmaintype(item.type)
+	if maintype ~= ItemMainType.EQUIP then
+		return
+	end
+
+	local attrs = data_0801_FixFumoAttr[item.type]
+	if attrs then -- 固定附魔属性
+	else
+		local minortype = itemaux.getminortype(item.type)
+		local minortype_name = assert(EQUIPPOS_NAME[minortype],"Invalid item minortype:" .. tostring(minortype))
+		local equiplv = item:get("lv")
+		local fumodata = assert(data_0801_Fumo[equiplv],"Invalid equiplv:" .. tostring(equiplv))
+		local attrnum = choosekey(data_0801_PromoteEquipVar.FumoShowAttrNumRatio)
+		local attrs = {}
+		-- 随机attrnum条不重复的属性
+		for i=1,attrnum do
+			local attr = choosekey(data_0801_FumoAttrRatio,function (k,v)
+				-- 已出现属性，强制将其概率改成0
+				if attrs[k] then
+					return 0
+				end
+				local key = string.format("%s_ratio",minortype_name)
+				return v[key]
+			end)
+			local data = data_0801_FumoAttrRatio[attr]
+			local attr_factor = data[string.format("%s_factor",minortype_name)]
+			local maxlv = math.floor(fumodata[attr] * attr_factor)
+			local minlv = math.floor(maxlv * 0.2)
+			attrs[attr] = math.random(minlv,maxlv)
+		end
+		item.fumo = attrs
+	end
+end
+
+
+
 function citemdb:_onadd(item)
 	local itemid = item.id
 	local pos = item.pos
@@ -351,6 +392,10 @@ end
 
 function citemdb:onadd(item)
 	self:_onadd(item)
+	-- 装备获取后自动生成附魔属性
+	if itemaux.getmaintype(item.type) == ItemMainType.EQUIP then
+		self:fumoequip(item.id)
+	end
 	-- 背包类型暂时不发给客户端，有客户断根据物品分类确定背包
 	net.item.S2C.additem(self.pid,item)
 end

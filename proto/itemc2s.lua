@@ -66,7 +66,7 @@ item_unwield 5506 {
 item_changesuit 5507 {
 	request {
 		base 0 : basetype
-		suitno 1 : integer
+		suitno 1 : integer 		#1--套装1,2--套装2,3--套装3
 	}
 }
 
@@ -87,14 +87,6 @@ item_pickitem 5509 {
 	}
 }
 
-# 升级装备
-item_upgradeequip 5510 {
-	request {
-		base 0 : basetype
-		itemid 1 : integer
-	}
-}
-
 # 精炼装备
 item_refineequip 5511 {
 	request {
@@ -103,19 +95,13 @@ item_refineequip 5511 {
 	}
 }
 
-# 附魔装备
-item_fumoequip 5512 {
+# 顶替附魔属性
+item_replacefumo 5512 {
 	request {
 		base 0 : basetype
-		itemid 1 : integer
-	}
-}
-
-#确认附魔（附魔后，附魔属性临时存放，需要玩家确认后才真正附魔)
-item_confirm_fumoequip 5513 {
-	request {
-		base 0 : basetype
-		itemid 1 : integer
+		from_itemid 1 : integer
+		to_itemid 2 : integer
+		attrtype 3 : string			# 附魔属性类型:见ItemFumoAttrType
 	}
 }
 
@@ -145,11 +131,13 @@ item_opencard 5516 {
 	}
 }
 
-# 整理背包
+# 设置背包排序方式
 item_sortbag 5517 {
 	request {
 		base 0 : basetype
 		bagtype 1 : integer			#背包类型:1-- 普通背包，2--时装背包，3--卡片背包
+
+		sorttype 4 : integer		#排序类型(0--自然排序,1--装备优先,2--材料优先，3--药物优先，4--任务优先)
 	}
 }
 

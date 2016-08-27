@@ -24,4 +24,30 @@ function cbranchtask:onwarend(war,result)
 	end
 end
 
+function cbranchtask:getcanaccept()
+	local canaccept = {}
+	for taskid,_ in pairs(self:getformdata("task")) do
+		if not self.finishtasks[taskid] then
+			local isok,msg = self:can_accept(taskid)
+			if isok then
+				table.insert(canaccept,{ taskkey = self.name, taskid = taskid })
+			end
+		end
+	end
+	return canaccept
+end
+
+function cbranchtask:can_directaccept(taskid)
+	return true
+end
+
+function cbranchtask:directaccept(taskid)
+	local isaccept = ctaskcontainer.directaccept(self,taskid)
+	if isaccept then
+		local taskname = self:getformdata("task")[taskid].name
+		net.msg.S2C.notify(self.pid,language.format("接受【{1}】",taskname))
+	end
+	return isaccept
+end
+
 return cbranchtask

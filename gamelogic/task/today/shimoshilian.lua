@@ -10,7 +10,7 @@ function cshimoshiliantask:onfivehourupdate()
 	local donecnt = self:getdonecnt(true)
 	local donelimit = self:getdonelimit(true)
 	local leftcnt = math.min(0,donelimit - donecnt)
-	local adddonelimit = taskaux.gettaskdata(self.name,"donelimit")
+	local adddonelimit = self:getformdata("donelimit")
 	self:setdonelimit(leftcnt + adddonelimit,"onfivehourupdate")
 	self.lasttaskid = nil
 end
@@ -21,7 +21,7 @@ function cshimoshiliantask:can_accept(taskid)
 	if table.isempty(fighters) then
 		return false,errmsg
 	end
-	local neednum = data_1500_ShiMoShiLianTaskVar.StartWarNeedNum
+	local neednum = self:getformdata("var").StartWarNeedNum
 	if #fighters < neednum then
 		return false,language.format("队伍人数不足#<R>#{1}人",neednum)
 	end
@@ -43,8 +43,8 @@ function cshimoshiliantask:can_raisewar()
 	if table.isempty(fighters) then
 		return false,errmsg
 	end
-	local neednum = data_1500_ShiMoShiLianTaskVar.StartWarNeedNum
-	local needlv = data_1500_ShiMoShiLianTaskVar.StartWarNeedLv
+	local neednum = self:getformdata("var").StartWarNeedNum
+	local needlv = self:getformdata("var").StartWarNeedLv
 	if #fighters < neednum then
 		return false,language.format("队伍人数不足#<R>#{1}人",neednum)
 	end
@@ -63,9 +63,9 @@ function cshimoshiliantask:transwar(task,warid,pid)
 	local player = playermgr.getplayer(pid)
 	if warid < 0 then
 		local lv = player:team_avglv(TEAM_STATE_CAPTAIN_FOLLOW)
-		local fakedata = taskaux.gettaskdata(self.name,"fake")
+		local fakedata = self:getformdata("fake")
 		local data = fakedata[lv] or fakedata[#fakedata]
-		warid = randlist(data.warids)
+		warid = data.warids[-warid]
 	end
 	war.wardataid = warid
 	war.wartype = WARTYPE.PVE_SHARE_TASK
@@ -74,7 +74,7 @@ end
 
 function cshimoshiliantask:_transaward(awardid,lv)
 	if awardid < 0 then
-		local fakedata = taskaux.gettaskdata(self.name,"fake")
+		local fakedata = self:getformdata("fake")
 		local data = fakedata[lv] or fakedata[#fakedata]
 		awardid = data.awardid
 	end
@@ -82,7 +82,8 @@ function cshimoshiliantask:_transaward(awardid,lv)
 	local bonus = award.getaward(awarddata,awardid,function (i,data)
 		return data.ratio
 	end)
-	local ringlimit = data_1500_ShiMoShiLianTaskVar.ringLimit
+	local ringlimit = self:getformdata("ringlimit")
+	bonus = award.mergebonus(bonus)
 	bonus = deepcopy(bonus)
 	return bonus
 end
@@ -92,7 +93,7 @@ function cshimoshiliantask:transaward(task,awardid,pid)
 	local player = playermgr.getplayer(self.pid)
 	local lv = player:team_avglv(TEAM_STATE_CAPTAIN_FOLLOW)
 	local teamstate = player:teamstate()
-	local ringlimit = data_1500_ShiMoShiLianTaskVar.RingLimit
+	local ringlimit = self:getformdata("ringlimit")
 	local bonus = self:_transaward(awardid)
 	-- 队长经验加成
 	if teamstate == TEAM_STATE_CAPTAIN then
@@ -102,7 +103,7 @@ function cshimoshiliantask:transaward(task,awardid,pid)
 			if not bonus.items then
 				bonus.items = {}
 			end
-			local item = data_1500_ShiMoShiLianTaskVar.GiveItemToCaptainAt10Ring
+			local item = self:getformdata("var").GiveItemToCaptainAt10Ring
 			table.insert(bonus.items,item)
 		end
 	end
@@ -123,12 +124,12 @@ function cshimoshiliantask:transaward(task,awardid,pid)
 end
 
 function cshimoshiliantask:nexttask(taskid,reason)
-	local chinesename = taskaux.gettaskdata(self.name,"name")
-	local donelimit = taskaux.gettaskdata(self.name,"donelimit")
+	local chinesename = self:getformdata("name")
+	local donelimit = self:getformdata("donelimit")
 	local donecnt = self:getdonecnt()
 	local ringnum = self.ringnum or 0
-	local ringlimit = data_1500_ShiMoShiLianTaskVar.RingLimit
-	local look_npctype = data_1500_ShiMoShiLianTaskVar.LookNpcType
+	local ringlimit = self:getformdata("ringlimit")
+	local look_npctype = self:getformdata("var").LookNpcType
 	local leftcnt = math.min(0,donelimit-donecnt)
 	if donecnt >= donelimit then
 		net.msg.S2C.messagebox(self.pid,{
@@ -159,6 +160,9 @@ function cshimoshiliantask:nexttask(taskid,reason)
 	end
 	if next_taskid then
 		self.ringnum = (ringnum + 1) % ringlimit
+		if self.ringnum == 0 then
+			self.ringnum = ringlimit
+		end
 	end
 	return next_taskid,errmsg
 end
@@ -168,10 +172,10 @@ function cshimoshiliantask:quick_finish()
 	local donecnt = self:getdonecnt()
 	local donelimit = self:getdonelimit()
 	local leftcnt = donelimit - donecnt
-	local need_leftcnt = data_1500_ShiMoShiLianTaskVar.QuickFinishNeedLeftCnt
-	local needitem = data_1500_ShiMoShiLianTaskVar.QuickFinishNeedItem
+	local need_leftcnt = self:getformdata("var").QuickFinishNeedLeftCnt
+	local needitem = self:getformdata("var").QuickFinishNeedItem
 	local reason = "quick_finish"
-	local chinesename = taskaux.gettaskdata(self.name,"name")
+	local chinesename = self:getformdata("name")
 	if leftcnt < need_leftcnt then
 		net.msg.S2C.notify(self.pid,language.format("{1}剩余次数不足{2}次，无法使用封魔卷",chinesename,need_leftcnt))
 		return

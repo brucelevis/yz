@@ -7,7 +7,7 @@ local function docmd(srvname,pid,methodname,...)
 		player = playermgr.loadofflineplayer(pid)
 	end
 	assert(player,"Not found pid:" .. tostring(pid))
-	local modname,sep,funcname = string.match(methodname,"(.*)([.:].+)$")	
+	local modname,sep,funcname = string.match(methodname,"(.*)([.:])(.+)$")	
 	if not (modname and sep and funcname) then
 		error("[playermethod] Invalid methodname:" .. tostring(methodname))
 	end

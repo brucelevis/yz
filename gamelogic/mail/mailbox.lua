@@ -143,7 +143,7 @@ end
 function cmailbox:loadfromdatabase()
 	if not self.loadstate or self.loadstate == "unload" then
 		self.loadstate = "loading"
-		local db = dbmgr.getdb(cserver.getsrvname(self.pid))
+		local db = dbmgr.getdb(self.pid)
 		local data = db:get(db:key("mail",self.pid))
 		self:load(data)
 		self.loadstate = "loaded"
@@ -156,7 +156,7 @@ function cmailbox:savetodatabase()
 	end
 	if self.loadstate == "loaded" then
 		local data = self:save()
-		local db = dbmgr.getdb(cserver.getsrvname(self.pid))
+		local db = dbmgr.getdb(self.pid)
 		db:set(db:key("mail",self.pid),data)
 	end
 end

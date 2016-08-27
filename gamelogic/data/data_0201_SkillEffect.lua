@@ -1,13 +1,13 @@
 data_0201_SkillEffect = {
 	[900001] = {
 		logicType = 201,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 0,
-		dstParam = {0},
+		dstParam = {},
 		limitWeapon = {},
-		castCondition = 1,
+		castCondition = 0,
 		castParam = {},
 		powerPer = 0,
 		powerValue = 600,
@@ -16,101 +16,101 @@ data_0201_SkillEffect = {
 
 	[900002] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {"HP"},
 		formula = 10101,
 		attackType = 0,
 		dst = 2,
-		dstParam = {0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {0.0},
-		powerPer = 100,
+		powerPer = 1,
 		powerValue = 300,
 		targetEffId = 10001,
 	},
 
 	[900012] = {
 		logicType = 102,
-		logicTypeParam = "",
+		logicTypeParam = {},
 		formula = 10001,
 		attackType = 0,
 		dst = 12,
-		dstParam = {0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
+		powerPer = 1,
 		powerValue = 300,
 		targetEffId = 10001,
 	},
 
 	[900013] = {
 		logicType = 110,
-		logicTypeParam = "",
+		logicTypeParam = {},
 		formula = 10003,
 		attackType = 0,
 		dst = 12,
-		dstParam = {0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
+		powerPer = 1,
 		powerValue = 300,
 		targetEffId = 10001,
 	},
 
 	[900014] = {
 		logicType = 110,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10004,
 		attackType = 0,
 		dst = 2,
-		dstParam = {0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
+		powerPer = 1,
 		powerValue = 300,
 		targetEffId = 10002,
 	},
 
 	[901000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
-		dstParam = {1.0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
+		powerPer = 1,
 		powerValue = 300,
 		targetEffId = 10001,
 	},
 
 	[901010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
-		dstParam = {1.0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
+		powerPer = 1,
 		powerValue = 300,
 		targetEffId = 10001,
 	},
 
 	[901020] = {
 		logicType = 201,
-		logicTypeParam = "KSHF",
+		logicTypeParam = {"KSHF"},
 		formula = 10102,
 		attackType = 0,
 		dst = 2,
-		dstParam = {0},
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
@@ -120,53 +120,68 @@ data_0201_SkillEffect = {
 	},
 
 	[901030] = {
-		logicType = 202,
-		logicTypeParam = "HP",
-		formula = 10002,
+		logicType = 102,
+		logicTypeParam = {300001},
+		formula = 10001,
 		attackType = 0,
-		dst = 11,
-		dstParam = {1.0},
+		dst = 12,
+		dstParam = {},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
-		powerValue = 300,
+		powerPer = 1.8,
+		powerValue = 270,
 		targetEffId = 10001,
 	},
 
 	[901031] = {
-		logicType = 202,
-		logicTypeParam = "HP",
-		formula = 10002,
+		logicType = 301,
+		logicTypeParam = {101},
+		formula = 0,
 		attackType = 0,
-		dst = 11,
-		dstParam = {1.0},
+		dst = 12,
+		dstParam = {0},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
-		powerValue = 300,
-		targetEffId = 10001,
+		powerPer = 0,
+		powerValue = 0,
+		targetEffId = 0,
 	},
 
 	[901040] = {
-		logicType = 202,
-		logicTypeParam = "HP",
-		formula = 10002,
+		logicType = 102,
+		logicTypeParam = {301040},
+		formula = 10001,
 		attackType = 0,
-		dst = 11,
-		dstParam = {1.0},
+		dst = 22,
+		dstParam = {1,0.25},
 		limitWeapon = {},
 		castCondition = 0,
 		castParam = {},
-		powerPer = 100,
-		powerValue = 300,
+		powerPer = 1,
+		powerValue = 150,
 		targetEffId = 10001,
+	},
+
+	[901041] = {
+		logicType = 401,
+		logicTypeParam = {},
+		formula = 0,
+		attackType = 0,
+		dst = 12,
+		dstParam = {},
+		limitWeapon = {},
+		castCondition = 0,
+		castParam = {},
+		powerPer = 0,
+		powerValue = 0,
+		targetEffId = 0,
 	},
 
 	[901050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -181,7 +196,7 @@ data_0201_SkillEffect = {
 
 	[901060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -196,7 +211,7 @@ data_0201_SkillEffect = {
 
 	[901061] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -211,7 +226,7 @@ data_0201_SkillEffect = {
 
 	[901070] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -226,7 +241,7 @@ data_0201_SkillEffect = {
 
 	[901071] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -241,7 +256,7 @@ data_0201_SkillEffect = {
 
 	[902000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -256,7 +271,7 @@ data_0201_SkillEffect = {
 
 	[902001] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -271,7 +286,7 @@ data_0201_SkillEffect = {
 
 	[902010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -286,7 +301,7 @@ data_0201_SkillEffect = {
 
 	[902020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -301,7 +316,7 @@ data_0201_SkillEffect = {
 
 	[902021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -316,7 +331,7 @@ data_0201_SkillEffect = {
 
 	[902030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -331,7 +346,7 @@ data_0201_SkillEffect = {
 
 	[902031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -346,7 +361,7 @@ data_0201_SkillEffect = {
 
 	[902040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -361,7 +376,7 @@ data_0201_SkillEffect = {
 
 	[902050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -376,7 +391,7 @@ data_0201_SkillEffect = {
 
 	[902060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -391,7 +406,7 @@ data_0201_SkillEffect = {
 
 	[902061] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -406,7 +421,7 @@ data_0201_SkillEffect = {
 
 	[902070] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -421,7 +436,7 @@ data_0201_SkillEffect = {
 
 	[902071] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -436,7 +451,7 @@ data_0201_SkillEffect = {
 
 	[902080] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -451,7 +466,7 @@ data_0201_SkillEffect = {
 
 	[902081] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -466,7 +481,7 @@ data_0201_SkillEffect = {
 
 	[902090] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -481,7 +496,7 @@ data_0201_SkillEffect = {
 
 	[902100] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -496,7 +511,7 @@ data_0201_SkillEffect = {
 
 	[903000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -511,7 +526,7 @@ data_0201_SkillEffect = {
 
 	[903001] = {
 		logicType = 202,
-		logicTypeParam = "",
+		logicTypeParam = {},
 		formula = 0,
 		attackType = 0,
 		dst = 0,
@@ -526,7 +541,7 @@ data_0201_SkillEffect = {
 
 	[903010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -541,7 +556,7 @@ data_0201_SkillEffect = {
 
 	[903011] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -556,7 +571,7 @@ data_0201_SkillEffect = {
 
 	[903020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -571,7 +586,7 @@ data_0201_SkillEffect = {
 
 	[903021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -586,7 +601,7 @@ data_0201_SkillEffect = {
 
 	[903030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -601,7 +616,7 @@ data_0201_SkillEffect = {
 
 	[903040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -616,7 +631,7 @@ data_0201_SkillEffect = {
 
 	[903050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -631,7 +646,7 @@ data_0201_SkillEffect = {
 
 	[903051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -646,7 +661,7 @@ data_0201_SkillEffect = {
 
 	[903060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -661,7 +676,7 @@ data_0201_SkillEffect = {
 
 	[903070] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -676,7 +691,7 @@ data_0201_SkillEffect = {
 
 	[903080] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -691,7 +706,7 @@ data_0201_SkillEffect = {
 
 	[903090] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -706,7 +721,7 @@ data_0201_SkillEffect = {
 
 	[903100] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -721,7 +736,7 @@ data_0201_SkillEffect = {
 
 	[903101] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -736,7 +751,7 @@ data_0201_SkillEffect = {
 
 	[903110] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -751,7 +766,7 @@ data_0201_SkillEffect = {
 
 	[904000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -766,7 +781,7 @@ data_0201_SkillEffect = {
 
 	[904001] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -781,7 +796,7 @@ data_0201_SkillEffect = {
 
 	[904010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -796,7 +811,7 @@ data_0201_SkillEffect = {
 
 	[904020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -811,7 +826,7 @@ data_0201_SkillEffect = {
 
 	[904021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -826,7 +841,7 @@ data_0201_SkillEffect = {
 
 	[904030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -841,7 +856,7 @@ data_0201_SkillEffect = {
 
 	[904031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -856,7 +871,7 @@ data_0201_SkillEffect = {
 
 	[904040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -871,7 +886,7 @@ data_0201_SkillEffect = {
 
 	[904041] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -886,7 +901,7 @@ data_0201_SkillEffect = {
 
 	[904050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -901,7 +916,7 @@ data_0201_SkillEffect = {
 
 	[904051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -916,7 +931,7 @@ data_0201_SkillEffect = {
 
 	[904060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -931,7 +946,7 @@ data_0201_SkillEffect = {
 
 	[904061] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -946,7 +961,7 @@ data_0201_SkillEffect = {
 
 	[905000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -961,7 +976,7 @@ data_0201_SkillEffect = {
 
 	[905010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -976,7 +991,7 @@ data_0201_SkillEffect = {
 
 	[905020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -991,7 +1006,7 @@ data_0201_SkillEffect = {
 
 	[905021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1006,7 +1021,7 @@ data_0201_SkillEffect = {
 
 	[905022] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1021,7 +1036,7 @@ data_0201_SkillEffect = {
 
 	[905030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1036,7 +1051,7 @@ data_0201_SkillEffect = {
 
 	[905031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1051,7 +1066,7 @@ data_0201_SkillEffect = {
 
 	[905040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1066,7 +1081,7 @@ data_0201_SkillEffect = {
 
 	[905050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1081,7 +1096,7 @@ data_0201_SkillEffect = {
 
 	[905051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1096,7 +1111,7 @@ data_0201_SkillEffect = {
 
 	[906000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1111,7 +1126,7 @@ data_0201_SkillEffect = {
 
 	[906010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1126,7 +1141,7 @@ data_0201_SkillEffect = {
 
 	[906020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1141,7 +1156,7 @@ data_0201_SkillEffect = {
 
 	[906030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1156,7 +1171,7 @@ data_0201_SkillEffect = {
 
 	[906031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1171,7 +1186,7 @@ data_0201_SkillEffect = {
 
 	[906032] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1186,7 +1201,7 @@ data_0201_SkillEffect = {
 
 	[906033] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1201,7 +1216,7 @@ data_0201_SkillEffect = {
 
 	[906040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1216,7 +1231,7 @@ data_0201_SkillEffect = {
 
 	[906050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1231,7 +1246,7 @@ data_0201_SkillEffect = {
 
 	[906051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1246,7 +1261,7 @@ data_0201_SkillEffect = {
 
 	[906060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1261,7 +1276,7 @@ data_0201_SkillEffect = {
 
 	[906070] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1276,7 +1291,7 @@ data_0201_SkillEffect = {
 
 	[906080] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1291,7 +1306,7 @@ data_0201_SkillEffect = {
 
 	[907000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1306,7 +1321,7 @@ data_0201_SkillEffect = {
 
 	[907010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1321,7 +1336,7 @@ data_0201_SkillEffect = {
 
 	[907020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1336,7 +1351,7 @@ data_0201_SkillEffect = {
 
 	[907021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1351,7 +1366,7 @@ data_0201_SkillEffect = {
 
 	[907022] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1366,7 +1381,7 @@ data_0201_SkillEffect = {
 
 	[907030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1381,7 +1396,7 @@ data_0201_SkillEffect = {
 
 	[907040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1396,7 +1411,7 @@ data_0201_SkillEffect = {
 
 	[907050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1411,7 +1426,7 @@ data_0201_SkillEffect = {
 
 	[907051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1426,7 +1441,7 @@ data_0201_SkillEffect = {
 
 	[907060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1441,7 +1456,7 @@ data_0201_SkillEffect = {
 
 	[907061] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1456,7 +1471,7 @@ data_0201_SkillEffect = {
 
 	[907062] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1471,7 +1486,7 @@ data_0201_SkillEffect = {
 
 	[907070] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1486,7 +1501,7 @@ data_0201_SkillEffect = {
 
 	[907080] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1501,7 +1516,7 @@ data_0201_SkillEffect = {
 
 	[907090] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1516,7 +1531,7 @@ data_0201_SkillEffect = {
 
 	[907100] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1531,7 +1546,7 @@ data_0201_SkillEffect = {
 
 	[908000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1546,7 +1561,7 @@ data_0201_SkillEffect = {
 
 	[908010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1561,7 +1576,7 @@ data_0201_SkillEffect = {
 
 	[908020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1576,7 +1591,7 @@ data_0201_SkillEffect = {
 
 	[908030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1591,7 +1606,7 @@ data_0201_SkillEffect = {
 
 	[908031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1606,7 +1621,7 @@ data_0201_SkillEffect = {
 
 	[908040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1621,7 +1636,7 @@ data_0201_SkillEffect = {
 
 	[908041] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1636,7 +1651,7 @@ data_0201_SkillEffect = {
 
 	[908050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1651,7 +1666,7 @@ data_0201_SkillEffect = {
 
 	[908051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1666,7 +1681,7 @@ data_0201_SkillEffect = {
 
 	[908060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1681,7 +1696,7 @@ data_0201_SkillEffect = {
 
 	[908061] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1696,7 +1711,7 @@ data_0201_SkillEffect = {
 
 	[909000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1711,7 +1726,7 @@ data_0201_SkillEffect = {
 
 	[909010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1726,7 +1741,7 @@ data_0201_SkillEffect = {
 
 	[909020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1741,7 +1756,7 @@ data_0201_SkillEffect = {
 
 	[909021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1756,7 +1771,7 @@ data_0201_SkillEffect = {
 
 	[909030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1771,7 +1786,7 @@ data_0201_SkillEffect = {
 
 	[909031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1786,7 +1801,7 @@ data_0201_SkillEffect = {
 
 	[909040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1801,7 +1816,7 @@ data_0201_SkillEffect = {
 
 	[909041] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1816,7 +1831,7 @@ data_0201_SkillEffect = {
 
 	[909050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1831,7 +1846,7 @@ data_0201_SkillEffect = {
 
 	[909051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1846,7 +1861,7 @@ data_0201_SkillEffect = {
 
 	[909060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1861,7 +1876,7 @@ data_0201_SkillEffect = {
 
 	[910000] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1876,7 +1891,7 @@ data_0201_SkillEffect = {
 
 	[910010] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1891,7 +1906,7 @@ data_0201_SkillEffect = {
 
 	[910011] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1906,7 +1921,7 @@ data_0201_SkillEffect = {
 
 	[910020] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1921,7 +1936,7 @@ data_0201_SkillEffect = {
 
 	[910021] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1936,7 +1951,7 @@ data_0201_SkillEffect = {
 
 	[910030] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1951,7 +1966,7 @@ data_0201_SkillEffect = {
 
 	[910031] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1966,7 +1981,7 @@ data_0201_SkillEffect = {
 
 	[910040] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1981,7 +1996,7 @@ data_0201_SkillEffect = {
 
 	[910041] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -1996,7 +2011,7 @@ data_0201_SkillEffect = {
 
 	[910050] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2011,7 +2026,7 @@ data_0201_SkillEffect = {
 
 	[910051] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2026,7 +2041,7 @@ data_0201_SkillEffect = {
 
 	[910052] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2041,7 +2056,7 @@ data_0201_SkillEffect = {
 
 	[910060] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2056,7 +2071,7 @@ data_0201_SkillEffect = {
 
 	[910061] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2071,7 +2086,7 @@ data_0201_SkillEffect = {
 
 	[910062] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2086,7 +2101,7 @@ data_0201_SkillEffect = {
 
 	[910070] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2101,7 +2116,7 @@ data_0201_SkillEffect = {
 
 	[910071] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2116,7 +2131,7 @@ data_0201_SkillEffect = {
 
 	[910072] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,
@@ -2131,7 +2146,7 @@ data_0201_SkillEffect = {
 
 	[910080] = {
 		logicType = 202,
-		logicTypeParam = "HP",
+		logicTypeParam = {},
 		formula = 10002,
 		attackType = 0,
 		dst = 11,

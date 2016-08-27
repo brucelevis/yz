@@ -11,7 +11,7 @@ msg_notify 4500 {
 }
 
 # 弹框消息
-#消息弹框类型:1--邀请切磋
+#消息弹框类型:1--邀请切磋 (响应用msg.respondanswer协议)
 msg_messagebox 4501 {
 	request {
 		base 0 : basetype
@@ -94,7 +94,7 @@ msg_info 4509 {
 	}
 }
 
-#npc对话消息
+#npc对话消息 (响应用msg.respondanswer协议)
 msg_npcsay 4510 {
 	request {
 		base 0 : basetype

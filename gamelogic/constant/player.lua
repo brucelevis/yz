@@ -2,3 +2,4 @@
 
 MAX_JOBZS = 3
 MAX_LV = 100
+

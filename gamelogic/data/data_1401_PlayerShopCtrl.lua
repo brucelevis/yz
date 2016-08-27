@@ -10,6 +10,15 @@ data_1401_PlayerShopCtrl = {
 		desc = "描述",
 	},
 
+	grocery = {
+		name = "杂货店",
+		refresh_weekdays = {},
+		refresh_hours = {},
+		refresh_cost_num = {},
+		refresh_cost_restype = 1,
+		desc = "描述",
+	},
+
 }
 return data_1401_PlayerShopCtrl
 --<<data_1401_PlayerShopCtrl 导表结束>>

@@ -1,8 +1,8 @@
 require "gamelogic.award"
 
 local function onbuysomething(player,request,response)
-	local respid = response.id
-	if respid == 1 then -- confirm
+	local answer = response.answer
+	if answer == 1 then -- confirm
 		local costgold = request.attach.extra.gold
 		if not player:validpay("gold",costgold,true) then
 			return
@@ -45,7 +45,7 @@ local function test(pid,choice)
 	if choice == 0 then
 		id = net.msg.S2C.messagebox(pid,request,onbuysomething)
 	elseif choice == 1 then
-		onbuysomething(player.pid,request,{id=1})
+		onbuysomething(player.pid,request,{answer=1})
 	end
 end
 

@@ -80,3 +80,24 @@ function gm.addres(args)
 	end
 	player:addres(typ,val,"gm",true)
 end
+
+--- 用法: chongzhi 充值项ID
+--- 举例: chongzhi 1	<=> GM模拟充值第一项
+function gm.chongzhi(args)
+	local isok,args = checkargs(args,"int")
+	if not isok then
+		net.msg.S2C.notify(master_pid,"用法: chongzhi 充值项ID")
+		return
+	end
+	local id = args[1]
+	local product = master:getprodcut(id)
+	if not product then
+		net.msg.S2C.notify(master_pid,"该充值项不存在")
+		return
+	end
+	local product = {
+		id = id,
+		rmb = product.rmb,
+	}
+	master:chongzhi(product)
+end

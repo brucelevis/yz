@@ -95,7 +95,7 @@ EQUIPTYPE = {
 	["盾"] = 20,
 }
 
-EQUIP_MINORTYPE_NAME = {
+EQUIPPOS_NAME = {
 	[1] = "hat", -- 帽子
 	[2] = "weapon", -- 武器
 	[3] = "cloth",  -- 衣服
@@ -107,43 +107,52 @@ EQUIP_MINORTYPE_NAME = {
 }
 
 -- 武器
-function itemaux.isweapon(equiptype)
-	return 1 <= equiptype and equiptype <= 10
+function itemaux.isweapon(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "weapon"
+
 end
 
 -- 帽子
-function itemaux.ishat(equiptype)
-	return 11 <= equiptype and equiptype < 12
+function itemaux.ishat(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "hat"
 end
 
 -- 披风
-function itemaux.iscloak(equiptype)
-	return 13 <= equiptype and equiptype <= 13
+function itemaux.iscloak(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "cloak"
 end
 
 -- 衣服
-function itemaux.iscloth(equiptype)
-	return 14 <= equiptype and equiptype <= 16
-end
+function itemaux.iscloth(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "cloth"
+end	
 
 -- 鞋子
-function itemaux.isshoe(equiptype)
-	return 17 <= equiptype and equiptype <= 17
+function itemaux.isshoe(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "shoe"
 end
 
 -- 项链
-function itemaux.isnecklace(equiptype)
-	return 18 <= equiptype and equiptype <= 18
+function itemaux.isnecklace(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "necklace"
 end
 
 -- 戒指
-function itemaux.isring(equiptype)
-	return 19 <= equiptype and equiptype <= 19
+function itemaux.isring(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "ring"
 end
 
 -- 盾
-function itemaux.isshield(equiptype)
-	return 20 <= equiptype and equiptype <= 20
+function itemaux.isshield(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	return EQUIPPOS_NAME[itemdata.equippos] == "shield"
 end
 
 -- 缓存的（cardtype,lv)->cardsuitid的映射

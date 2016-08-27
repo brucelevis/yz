@@ -12,10 +12,19 @@ function C2S.opentask(player,request)
 	if not taskcontainer then
 		return
 	end
-	taskcontainer:opentask()
+	local taskid = request.taskid
+	if taskid and taskcontainer:can_directaccept(taskid) then
+		taskcontainer:directaccept(taskid)
+	else
+		taskcontainer:opentask()
+	end
 end
 
+-- 此接口仅测试使用
 function C2S.accepttask(player,request)
+	if not server.isinnersrv() then
+		return
+	end
 	local taskid = assert(request.taskid)
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	if not taskcontainer then
@@ -133,14 +142,17 @@ function S2C.updatetask(pid,task)
 	})
 end
 
-function S2C.tasktalk(pid,taskid,textid,transstr,needrespond)
-	if transstr then
+function S2C.tasktalk(pid,taskid,textid,transstr,respondid)
+	if next(transstr) then
 		transstr = cjson.encode(transstr)
+	else
+		transstr = nil
 	end
 	sendpackage(pid,"task","tasktalk",{
 		taskid = taskid,
 		textid = textid,
 		transstr = transstr,
+		respondid = respondid,
 	})
 end
 

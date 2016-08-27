@@ -2,59 +2,36 @@ warmgr = warmgr or {}
 
 function warmgr.init()
 	warmgr.wars = {}
+	warmgr.pid_warid = {}
+	warmgr.pid_watchwarid = {}
 end
 
 function warmgr.onlogin(player)
 	local pid = player.pid
-	local watch_warid = player.watch_warid
+	local watch_warid = warmgr.watchwarid(pid)
 	if watch_warid then
 		local war = warmgr.getwar(watch_warid)
 		if war then
 			warmgr.watchwar(player,watch_warid)
 		else
-			player.watch_warid = nil
+			warmgr.pid_watchwarid[pid] = nil
 		end
 	end
-	local warid = player.warid
-	if warid then
-		local war = warmgr.getwar(warid)
-		if war then
-			local ishelper = table.find(war.attack_helpers,pid) or table.find(war.defense_helpers,pid)
-			if ishelper then
-				warmgr.quitwar(player,warid)
-			end
-			-- dosomething
-		else
-			player.warid = nil
+	local war = warmgr.getwarbypid(pid)
+	if war then
+		local ishelper = table.find(war.attack_helpers,pid) or table.find(war.defense_helpers,pid)
+		if ishelper then
+			warmgr.quitwar(pid)
 		end
-		if not player.warid then
-			local scene = scenemgr.getscene(player.sceneid)
-			scene:set(player.pid,{
-				warid = 0,
-			})
-		end
+		-- dosomething
 	end
+	local scene = scenemgr.getscene(player.sceneid)
+	scene:set(player.pid,{
+		warid = warmgr.warid(player.pid) or 0,
+	})
 end
 
-function warmgr.onlogoff(player)
-	local watch_warid = player.watch_warid
-	if watch_warid then
-		local war = warmgr.getwar(watch_warid)
-		if war then
-			warmgr.quit_watchwar(player,watch_warid)
-		else
-			player.watch_warid = nil
-		end
-	end
-	local warid = player.warid
-	if warid then
-		local war = warmgr.getwar(warid)
-		if war then
-			-- dosomething
-		else
-			player.warid = nil
-		end
-	end
+function warmgr.onlogoff(player,reason)
 end
 
 function warmgr.packwar(war)
@@ -71,6 +48,7 @@ function warmgr.packplayer(player)
 	}
 end
 
+
 function warmgr.genwarid()
 	local warid = globalmgr.server:query("warid",0)
 	if warid > MAX_NUMBER then
@@ -81,9 +59,12 @@ function warmgr.genwarid()
 	return warid
 end
 
+
 function warmgr.addwar(warid,war)
 	assert(warmgr.getwar(warid)==nil, "Repeat warid:" .. tostring(warid))
 	war.warid = warid
+	war.attack_helpers = war.attack_helpers or {}
+	war.defense_helpers = war.defense_helpers or {}
 	war.attack_escapers = {}
 	war.defense_escapers = {}
 	war.attack_watchers = {}
@@ -91,18 +72,14 @@ function warmgr.addwar(warid,war)
 	warmgr.wars[warid] = war
 	if not table.isempty(war.attackers) then
 		for i,pid in ipairs(war.attackers) do
-			local player = playermgr.getplayer(pid)
-			assert(player)
-			player.warid = warid
+			warmgr.pid_warid[pid] = warid
 		end
 	end
 	if not table.isempty(war.defensers) then
 		for i,pid in ipairs(war.defensers) do
-			local player = playermgr.getplayer(pid)
-			assert(player)
 			if war.wartype == WARTYPE.PVP_RANK_WAR then
 			else
-				player.warid = warid
+				warmgr.pid_warid[pid] = warid
 			end
 		end
 	end
@@ -115,53 +92,52 @@ function warmgr.delwar(warid)
 		warmgr.wars[warid] = nil
 		if not table.isempty(war.attackers) then
 			for i,pid in ipairs(war.attackers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player)
-				player.warid = nil
+				warmgr.pid_warid[pid] = nil
 			end
 		end
 		if not table.isempty(war.defensers) then
 			for i,pid in ipairs(war.defensers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player)
 				if war.wartype == WARTYPE.PVP_RANK_WAR then
 				else
-					player.warid = nil
+					warmgr.pid_warid[pid] = nil
 				end
 			end
 		end
 		if not table.isempty(war.attack_watchers) then
 			for i,pid in ipairs(war.attack_watchers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player)
-				player.watch_warid = nil
+				warmgr.pid_watchwarid[pid] = nil
 			end
 		end
 		if not table.isempty(war.defense_watchers) then
 			for i,pid in ipairs(war.defense_watchers) do
-				local player = playermgr.getplayer(pid)
-				if not player then
-					player = playermgr.loadofflineplayer(pid)
-				end
-				assert(player)
-				player.watch_warid = nil
+				warmgr.pid_watchwarid[pid] = nil
 			end
 		end
 		return war
 	end
 end
 
+function warmgr.warid(pid)
+	return warmgr.pid_warid[pid]
+end
+
+function warmgr.watchwarid(pid)
+	return warmgr.pid_watchwarid[pid]
+end
+
 function warmgr.getwar(warid)
 	return warmgr.wars[warid]
+end
+
+function warmgr.getwarbypid(pid)
+	local warid = warmgr.warid(pid)
+	if warid then
+		local war = warmgr.getwar(warid)
+		if not war then
+			warmgr.pid_warid[pid] = nil
+		end
+		return war
+	end
 end
 
 function warmgr.can_startwar(war)
@@ -172,52 +148,28 @@ function warmgr.can_startwar(war)
 	-- is anyone inwar?
 	if not table.isempty(war.attackers) then
 		for i,pid in ipairs(war.attackers) do
-			local player = playermgr.getplayer(pid)
-			if not player then
-				player = playermgr.loadofflineplayer(pid)
-			end
-			assert(player,"Invalid pid:" .. tostring(pid))
-			if player.warid then
+			if warmgr.warid(pid) then
 				return false
 			end
 		end
 	end
 	if not table.isempty(war.attack_helpers) then
 		for i,pid in ipairs(war.attack_helpers) do
-			local player = playermgr.getplayer(pid)
-			if not player then
-				player = playermgr.loadofflineplayer(pid)
-			end
-			assert(player,"Invalid pid:" .. tostring(pid))
-			--援助玩家一定是离线玩家
-			assert(player.__state == "offline")
-			if player.warid then
+			if warmgr.warid(pid) then
 				return false
 			end
 		end
 	end
 	if not table.isempty(war.defensers) then
 		for i,pid in ipairs(war.defensers) do
-			local player = playermgr.getplayer(pid)
-			if not player then
-				player = playermgr.loadofflineplayer(pid)
-			end
-			assert(player,"Invalid pid:" .. tostring(pid))
-			if player.warid then
+			if warmgr.warid(pid) then
 				return false
 			end
 		end
 	end
 	if not table.isempty(war.defense_helpers) then
 		for i,pid in ipairs(war.defense_helpers) do
-			local player = playermgr.getplayer(pid)
-			if not player then
-				player = playermgr.loadofflineplayer(pid)
-			end
-			assert(player,"Invalid pid:" .. tostring(pid))
-			--援助玩家一定是离线玩家
-			assert(player.__state == "offline")
-			if player.warid then
+			if warmgr.warid(pid) then
 				return false
 			end
 		end
@@ -251,29 +203,19 @@ function warmgr.startwar(attackers,defensers,war)
 	if not isok then
 		return false
 	end
-	for i,pid in ipairs(attackers) do
-		local player = playermgr.getplayer(pid)
-		if not player then
-			player = playermgr.loadofflineplayer(pid)
-		end
-		assert(player,"Invalid pid:" .. tostring(pid))
-		if player.warid then
-			return
-		end
-	end
 	local warid = warmgr.genwarid()
 	war.warid = warid
 	sendtowarsrv("war","startwar",warmgr.packwar(war))
-	if not table.isempty(attackers) then
-		for i,pid in ipairs(attackers) do
+	if not table.isempty(war.attackers) then
+		for i,pid in ipairs(war.attackers) do
 			local player = playermgr.getplayer(pid)
 			if not player then
 				player = playermgr.loadofflineplayer(pid)
 			end
 			assert(player,"Invalid pid:" .. tostring(pid))
 			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
-			if player.watch_warid then
-				warmgr.quit_watchwar(player,player.watch_warid)
+			if warmgr.watchwarid(pid) then
+				warmgr.quit_watchwar(pid)
 			end
 		end
 	end
@@ -289,16 +231,16 @@ function warmgr.startwar(attackers,defensers,war)
 			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
 		end
 	end
-	if not table.isempty(defensers) then
-		for i,pid in ipairs(defensers) do
+	if not table.isempty(war.defensers) then
+		for i,pid in ipairs(war.defensers) do
 			local player = playermgr.getplayer(pid)
 			if not player then
 				player = playermgr.loadofflineplayer(pid)
 			end
 			assert(player,"Invalid pid:" .. tostring(pid))
 			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
-			if player.watch_warid then
-				warmgr.quit_watchwar(player,player.watch_warid)
+			if warmgr.watchwarid(pid) then
+				warmgr.quit_watchwar(pid)
 			end
 		end
 	end
@@ -327,7 +269,7 @@ end
 
 function warmgr.watchwar(player,warid,towatch_pid)
 	local pid = player.pid
-	if player.warid then
+	if warmgr.warid(pid) then
 		net.msg.S2C.notify(player.pid,language.format("战斗中无法观战"))
 		return
 	end
@@ -360,7 +302,7 @@ function warmgr.watchwar(player,warid,towatch_pid)
 		return
 	end
 	logger.log("info","war",string.format("[watchwar] warid=%s pid=%s towatch_pid",warid,pid,towatch_pid))
-	player.watch_warid = warid
+	warmgr.pid_watchwarid[pid] = warid
 	sendtowarsrv("war","watchwar",{
 		warid = warid,
 		watcher = warmgr.packresume(player),
@@ -368,9 +310,8 @@ function warmgr.watchwar(player,warid,towatch_pid)
 	})
 end
 
-function warmgr.quit_watchwar(player,warid)
-	local pid = player.pid
-	warid = warid or player.watch_warid
+function warmgr.quit_watchwar(pid)
+	local warid = warmgr.watchwarid(pid)
 	local war = warmgr.getwar(warid)
 	if not war then
 		return
@@ -392,7 +333,7 @@ function warmgr.quit_watchwar(player,warid)
 		return
 	end
 	logger.log("info","war",string.format("[quit_watchwar] warid=%s pid=%s",warid,pid))
-	player.watch_warid = nil
+	warmgr.pid_watchwarid[pid] = nil
 	sendtowarsrv("war","quit_watchwar",{
 		warid = warid,
 		pid = pid,
@@ -426,9 +367,8 @@ function warmgr.force_endwar(warid,reason)
 	warmgr.delwar(warid,reason)
 end
 
-function warmgr.quitwar(player,warid)
-	local pid = player.pid
-	warid = warid or player.warid
+function warmgr.quitwar(pid)
+	local warid = warmgr.warid(pid)
 	local war = warmgr.getwar(warid)
 	if not war then
 		return false
@@ -440,7 +380,7 @@ function warmgr.quitwar(player,warid)
 			bfound =  true
 			table.remove(war.attackers,pos)
 			table.insert(war.attack_escapers,pid)
-			player.warid = nil
+			warmgr.pid_warid[pid] = nil
 		end
 	end
 	if not bfound then
@@ -450,7 +390,7 @@ function warmgr.quitwar(player,warid)
 				bfound = true
 				table.remove(war.attack_helpers,pos)
 				table.insert(war.attack_escapers,pid)
-				player.warid = nil
+				warmgr.pid_warid[pid] = nil
 			end
 		end
 	end
@@ -461,7 +401,7 @@ function warmgr.quitwar(player,warid)
 				bfound = true
 				table.remove(war.defensers,pos)
 				table.insert(war.defense_escapers,pid)
-				player.warid = nil
+				warmgr.pid_warid[pid] = nil
 			end
 		end
 	end
@@ -472,7 +412,7 @@ function warmgr.quitwar(player,warid)
 				bfound = true
 				table.remove(war.defense_helpers,pos)
 				table.insert(war.defense_escapers,pid)
-				player.warid = nil
+				warmgr.pid_warid[pid] = nil
 			end
 		end
 	end
@@ -482,7 +422,7 @@ function warmgr.quitwar(player,warid)
 			warid = warid,
 			pid = pid,
 		})
-		sendpackage(player,"war","quitwar",{
+		sendpackage(pid,"war","quitwar",{
 			warid = warid,
 		})
 		return true

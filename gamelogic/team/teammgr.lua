@@ -1,67 +1,66 @@
-cteammgr = class("cteammgr")
+cteammgr = class("cteammgr",ccontainer)
 
 function cteammgr:init()
-	self.teamid = 0
-	self.teams = {}
+	ccontainer.init(self,{
+		pid = 0,
+		name = "cteammgr",
+	})
+	self.pid_teamid = {}
 	self.automatch_pids = {}
 	self.automatch_teams = {}
 	self.publish_teams = {}
 end
 
 function cteammgr:clear()
-	self.teams = {}
+	ccontainer.clear(self)
+	self.pid_teamid = {}
 	self.automatch_pids = {}
 	self.authmatch_teams = {}
 	self.publish_teams = {}
 end
 
 function cteammgr:onlogin(player)
-	local teamid = player:getteamid()
-	if teamid then
-		local team = self:getteam(teamid)
-		if team then
-			team:onlogin(player)
-		end
+	local pid = player.pid
+	local team = self:getteambypid(pid)
+	if team then
+		team:onlogin(player)
 	end
 end
 
-function cteammgr:onlogoff(player)
-	local teamid = player:getteamid()
-	if teamid then
-		local team = self:getteam(teamid)
-		if team then
-			team:onlogoff(player)
-		end
+function cteammgr:onlogoff(player,reason)
+	local pid = player.pid
+	local team = self:getteambypid(pid)
+	if team then
+		team:onlogoff(player,reason)
 	end
 end
 
 function cteammgr:publishteam(player,param)
-	local teamid = player:getteamid()
-	if not teamid then
+	local pid = player.pid
+	local team = self:getteambypid(pid)
+	if not team or team.captain ~= pid then
 		return
 	end
-	local pid = player.pid
-	local team = self:getteam(teamid)
-	if team.captain ~= pid then
+	if self.publish_teams[team.id] then
+		net.msg.S2C.notify(pid,language.format("你已经发布队伍了"))
 		return
 	end
 	if self.publish_teams[teamid] then
 		net.msg.S2C.notify(pid,language.format("你已经发布队伍了"))
 		return
 	end
-	logger.log("info","team",format("[publishteam] pid=%d teamid=%s param=%s",pid,teamid,param))
 	team.target = param.target
 	team.minlv = param.minlv
 	team.maxlv = param.maxlv
 	local now = os.time()
 	local data = data_0301_TeamTarget[team.target]
 	local lifetime = data.lifetime or 300
-	self.publish_teams[teamid] = {
+	self.publish_teams[team.id] = {
 		time = now,
 		lifetime = lifetime,
 	}
 	local package = {
-		publishteam = self:pack_publishteam(teamid),
+		publishteam = self:pack_publishteam(team.id),
 	}
 	playermgr.broadcast(function (obj)
 		sendpackage(obj.pid,"team","publishteam",package)
@@ -76,7 +75,7 @@ function cteammgr:pack_publishteam(teamid)
 		captain = resumemgr.getresume(team.captain)
 	end
 	local package = {
-		teamid = team.teamid,
+		teamid = team.id,
 		time = publish.time,
 		target = team.target,
 		minlv = team.minlv,
@@ -99,43 +98,23 @@ function cteammgr:starttimer_check_publishteam()
 	timer.timeout("timer.check_publishteam",60,functor(self.starttimer_check_publishteam,self))
 	local now = os.time()
 	for teamid,publish in pairs(self.publish_teams) do
-		if publish.lifetime and publish.lifetime + publish.time > now then
+		if publish.lifetime and publish.lifetime + publish.time <= now then
 			self:delpublishteam(teamid)
 		end
 	end
 end
 
-
-function cteammgr:genid()
-	if self.teamid >= MAX_NUMBER then
-		self.teamid = 0
-	end
-	self.teamid = self.teamid + 1
-	return self.teamid
-end
-
-
 function cteammgr:createteam(player,param)
-	local teamid = player:getteamid()
+	local pid = player.pid
+	local teamid = self:teamid(pid)
 	if teamid then
 		return
 	end
-	local pid = player.pid
-	if not self:before_createteam(player,param) then
-		return
-	end
-	teamid = self:genid()
-	logger.log("info","team",format("[createteam] pid=%d teamid=%d param=%s",pid,teamid,param))
-	local team = cteam.new(teamid,{})
-	team:create(player,param)
-	self:addteam(teamid,team)
-	-- TODO: modify
-	local default_automatch = 1
-	if default_automatch == 1 then
-		self:team_automatch(teamid)
-	end
-	self:after_createteam(player,teamid)
-	return teamid,team
+	param.captain = pid
+	local team = cteam.new(param)
+	self:addteam(team)
+	logger.log("info","team",format("[createteam] pid=%d teamid=%d param=%s",pid,team.id,param))
+	return team
 end
 
 -- 该接口已作废
@@ -144,173 +123,187 @@ function cteammgr:dismissteam(player)
 	if true then
 		return
 	end
-	local teamid = player:getteamid()
-	if not teamid then
-		return
-	end
 	local pid = player.pid
-	if not self:before_dismissteam(player,teamid) then
-		return false
-	end
-	logger.log("info","team",string.format("[dismissteam] pid=%d teamid=%d",pid,teamid))
-
-	local team = self:getteam(teamid)
+	local team = self:getteambypid(pid)
 	if not team then
 		return
 	end
-	self:delteam(teamid)
-	self:after_dismissteam(player,teamid)
+	logger.log("info","team",string.format("[dismissteam] pid=%d teamid=%d",pid,team.id))
+	self:delteam(team.id)
 	return true
 end
 
 function cteammgr:jointeam(player,teamid)
-	if player:getteamid() then
+	local pid = player.pid
+	if self:teamid(pid) then
 		return
 	end
 	local team = self:getteam(teamid)
 	if not team then
 		return
 	end
-	local pid = player.pid
-	if not self:before_jointeam(player,teamid) then
-		return false
-	end
-	logger.log("info","team",string.format("[jointeam] pid=%d teamid=%d",pid,teamid))
+	logger.log("info","team",string.format("[jointeam] pid=%d teamid=%d",pid,team.id))
 	team:join(player)
 	self:unautomatch(pid,"jointeam")
-	self:after_jointeam(player,teamid)
+	self:onjointeam(player,team.id)
+	local captain = playermgr.getplayer(team.captain)
+	if captain and player.sceneid == captain.sceneid then
+		teammgr:backteam(player)
+	end
+	local scene = scenemgr.getscene(player.sceneid)
+	local teamstate = team:teamstate(pid)
+	scene:set(pid,{
+		teamid = team.id,
+		teamstate = teamstate,
+	})
 	return true
 end
 
 function cteammgr:quitteam(player)
-	local teamid = player:getteamid()
-	if not teamid then
+	local pid = player.pid
+	local team = self:getteambypid(pid)
+	if not team then
 		return
 	end
-	local pid = player.pid
-	if not self:before_quitteam(player,teamid) then
-		return false
-	end
-	logger.log("info","team",string.format("[quitteam] pid=%d teamid=%d",pid,teamid))
-	local team = self:getteam(teamid)
+	logger.log("info","team",string.format("[quitteam] pid=%d teamid=%d",pid,team.id))
 	team:quit(player.pid)
-	self:after_quitteam(player.pid,teamid)
+	self:onquitteam(player.pid,team.id)
 	return true
 end
 
 function cteammgr:kickmember(player,targetid)
 	local pid = player.pid
-	local teamid = player:getteamid()
-	if not teamid then
+	local team = teammgr:getteambypid(pid)
+	if not team or team.captain ~= pid then
 		return
 	end
-	local team = teammgr:getteam(teamid)
-	if team.captain ~= pid then
-		return
-	end
-	logger.log("info","team",string.format("[kickmember] pid=%d teamid=%d targetid=%d",pid,teamid,targetid))
+	logger.log("info","team",string.format("[kickmember] pid=%d teamid=%d targetid=%d",pid,team.id,targetid))
 	team:quit(targetid)
-	self:after_quitteam(targetid,teamid)
+	self:onquitteam(targetid,team.id)
 end
 
 -- 暂离队伍
 function cteammgr:leaveteam(player)
-	local teamid = player:getteamid()
-	if not teamid then
-		return
-	end
 	local pid = player.pid
-	local team = self:getteam(teamid)
-	if team.captain == pid then
+	local team = self:getteambypid(pid)
+	if not team or team.captain == pid then
 		return
 	end
 	if team.leave[pid] then
 		return
 	end
-	if not self:before_leaveteam(player,teamid) then
-		return false
-	end
-	logger.log("info","team",string.format("[leaveteam] pid=%d teamid=%d",pid,teamid))
+	logger.log("info","team",string.format("[leaveteam] pid=%d teamid=%d",pid,team.id))
 	team:leaveteam(player)
-	self:after_leaveteam(player,teamid)
+	self:onleaveteam(player,team.id)
 	return true
-
 end
 
 function cteammgr:backteam(player)
-	local teamid = player:getteamid()
-	if not teamid then
-		return
-	end
 	local pid = player.pid
-	local team = self:getteam(teamid)
+	local team = self:getteambypid(pid)
 	if not team then
 		return
 	end
 	if not team.leave[pid] then
 		return
 	end
-	if not self:before_backteam(player,teamid) then
+	local captain = playermgr.getplayer(team.captain)
+	if not captain then
 		return false
 	end
-	logger.log("info","team",string.format("[backteam] pid=%d teamid=%d",pid,teamid))
+	if not player:jumpto(captain.sceneid,captain.pos) then
+		return
+	end
+	logger.log("info","team",string.format("[backteam] pid=%d teamid=%d",pid,team.id))
 	team:back(player)
-	self:after_backteam(player,teamid)
+	self:onbackteam(player,team.id)
 	return true
+end
+
+function cteammgr:teamid(pid)
+	return self.pid_teamid[pid]
 end
 
 function cteammgr:getteam(teamid)
-	return self.teams[teamid]
+	return self:get(teamid)
 end
 
-function cteammgr:addteam(teamid,team)
-	assert(self.teams[teamid] == nil,"repeat teamid:" .. tostring(teamid))
-	self.teams[teamid] = team
-	channel.add(team.channel)
-end
-
-function cteammgr:delteam(teamid)
-	local team = self:getteam(teamid)
-	if team then
-		channel.del(team.channel)
-		for pid,_ in pairs(team.leave) do
-			team:quit(pid)
-		end
-		for pid,_ in pairs(team.follow) do
-			team:quit(pid)
-		end
-		if team.captain then
-			team:quit(team.captain)
-		end
-		logger.log("info","team",string.format("[delteam] teamid=%d",teamid))
-		self.teams[teamid] = nil
-		self:team_unautomatch(teamid,"delteam")
-		return team
-	end
-end
-
-function cteammgr:changecaptain(teamid,tid)
-	local team = self:getteam(teamid)
-	local team = self:getteam(teamid)
-	if not self:before_changecaptain(teamid,tid) then
-		return false
-	end
-	logger.log("info","team",string.format("[changecaptain] teamid=%d captain=%d->%d",teamid,team.captain,tid))
-	team:changecaptain(tid)
-	self:after_changecaptain(teamid,tid)
-	return true
-end
-
-function cteammgr:team_changetarget(player,target,minlv,maxlv)
-	local teamid = player:getteamid()
+function cteammgr:getteambypid(pid)
+	local teamid = self:teamid(pid)
 	if not teamid then
 		return
 	end
 	local team = self:getteam(teamid)
-	if team.captain ~= player.pid then
+	if not team then
+		self.pid_teamid[pid] = nil
+	end
+	return team
+end
+
+function cteammgr:addteam(team)
+	self:add(team)
+	return team.id
+end
+
+function cteammgr:onadd(team)
+	team.channel = string.format("team#%d",team.id)
+	channel.add(team.channel)
+	self.pid_teamid[team.captain] = team.id
+	local captain = playermgr.getplayer(team.captain)
+	local scene = scenemgr.getscene(captain.sceneid)
+	scene:set(captain.pid,{
+		teamid = team.id,
+		teamstate = team:teamstate(captain.pid),
+	})
+	sendpackage(captain.pid,"team","selfteam",{
+		team = team:pack(),
+	})
+	self:unautomatch(team.captain,"createteam")
+	self:oncreateteam(team)
+end
+
+
+function cteammgr:delteam(teamid)
+	local team = self:getteam(teamid)
+	if team then
+		logger.log("info","team",string.format("[delteam] teamid=%d",teamid))
+		self:del(teamid)
+		return team
+	end
+end
+
+function cteammgr:ondel(team)
+	for pid,_ in pairs(team.leave) do
+		team:quit(pid)
+	end
+	for pid,_ in pairs(team.follow) do
+		team:quit(pid)
+	end
+	if team.captain then
+		team:quit(team.captain)
+	end
+	channel.del(team.channel)
+	self:team_unautomatch(team.id,"delteam")
+end
+
+function cteammgr:changecaptain(teamid,tid)
+	local team = self:getteam(teamid)
+	if not team then
 		return
 	end
-	logger.log("info","team",string.format("[team_changetarget] teamid=%s target=%s lv=%s",teamid,target,lv))
+	logger.log("info","team",string.format("[changecaptain] teamid=%d captain=%d->%d",team.id,team.captain,tid))
+	team:changecaptain(tid)
+	self:onchangecaptain(team.id,tid)
+	return true
+end
+
+function cteammgr:team_changetarget(player,target,minlv,maxlv)
+	local pid = player.pid
+	local team = self:getteambypid(pid)
+	if not team or team.captain ~= pid then
+		return
+	end
+	logger.log("info","team",string.format("[team_changetarget] teamid=%s target=%s lv=%s",team.id,target,lv))
 	team.target = target
 	team.minlv = minlv
 	team.maxlv = maxlv
@@ -318,7 +311,7 @@ end
 
 function cteammgr:automatch_changetarget(player,target,minlv,maxlv)
 	local pid = player.pid
-	local teamid = player:getteamid()
+	local teamid = self:teamid(pid)
 	if teamid then
 		return
 	end
@@ -443,49 +436,27 @@ function cteammgr:packteam(teamid)
 	return team:pack()
 end
 
-function cteammgr:before_createteam(player,param)
-	return true
+function cteammgr:oncreateteam(player,teamid)
 end
 
-function cteammgr:after_createteam(player,teamid)
+
+function cteammgr:onjointeam(player,teamid)
 end
 
-function cteammgr:before_jointeam(player,teamid)
-	return true
-end
-
-function cteammgr:after_jointeam(player,teamid)
-end
-
-function cteammgr:before_leaveteam(player,teamid)
-	return true
-end
-
-function cteammgr:after_leaveteam(player,teamid)
+function cteammgr:onleaveteam(player,teamid)
 	huodongmgr.onleaveteam(player,teamid)
 end
 
-function cteammgr:before_backteam(player,teamid)
-	return true
-end
-
-function cteammgr:after_backteam(player,teamid)
+function cteammgr:onbackteam(player,teamid)
 	huodongmgr.onbackteam(player,teamid)
 end
 
-function cteammgr:before_changecaptain(teamid,pid)
-	return true
+function cteammgr:onchangecaptain(teamid,pid)
 end
 
-function cteammgr:after_changecaptain(teamid,pid)
-end
-
-function cteammgr:before_quitteam(player,teamid)
-	return true
-end
 
 -- 踢出成员也会走这里接口
-function cteammgr:after_quitteam(pid,teamid)
+function cteammgr:onquitteam(pid,teamid)
 	local player = playermgr.getplayer(pid)
 	if player then
 		huodongmgr.onquitteam(player,teamid)

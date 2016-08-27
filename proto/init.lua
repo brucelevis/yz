@@ -23,27 +23,29 @@ end
 	新增协议proto以及协议定义文件protoc2s.lua,pros2c.lua时
 	在proto_profix表中增加proto字段
 ]]
-local proto_profix = 
+local proto_profix =
 {
-	"inittype", -- 公共类型[0,500)
-	"test",		-- 测试协议[500,1000)
-	"login",	-- 登录协议[1000,1500)
-	"kuafu",	-- 跨服协议[1500,2000)
-	"mail",		-- 邮箱协议[2000,2500)
-	"scene",    -- 场景协议[2500,3000)
-	"friend",	-- 好友协议[3000,3500)
-	"task",		-- 任务协议[3500,4000)
-	"team",		-- 队伍协议[4000,4500)
-	"msg",		-- 消息协议[4500,5000)
-	"player",	-- 玩家协议[5000,5500)
-	"item",		-- 物品/背包协议[5500,6000)
-	"war",		-- 战斗协议[6000,6500)
-	"title",	-- 称谓协议[6500,6600)
-	"safelock",	-- 安全锁协议[6600,6700)
-	"chapter",	-- 关卡协议[6700,6800)
-	"skill",	-- 技能协议[6800,6900)
-	"shop",		-- 商城协议[6900,7000)
-	"guaji",	-- 挂机协议[7000,7100)
+	"inittype", 	-- 公共类型[0,500)
+	"test",			-- 测试协议[500,1000)
+	"login",		-- 登录协议[1000,1500)
+	"kuafu",		-- 跨服协议[1500,2000)
+	"mail",			-- 邮箱协议[2000,2500)
+	"scene",    	-- 场景协议[2500,3000)
+	"friend",		-- 好友协议[3000,3500)
+	"task",			-- 任务协议[3500,4000)
+	"team",			-- 队伍协议[4000,4500)
+	"msg",			-- 消息协议[4500,5000)
+	"player",		-- 玩家协议[5000,5500)
+	"item",			-- 物品/背包协议[5500,6000)
+	"war",			-- 战斗协议[6000,6500)
+	"title",		-- 称谓协议[6500,6600)
+	"safelock",		-- 安全锁协议[6600,6700)
+	"chapter",		-- 关卡协议[6700,6800)
+	"skill",		-- 技能协议[6800,6900)
+	"shop",			-- 商城协议[6900,7000)
+	"guaji",		-- 挂机协议[7000,7100)
+	"navigation",	-- 活动导航协议[7100,7200)
+	"playunit",		-- 通用玩法协议[7200,7300)
 }
 
 ---------------------------------------------------
@@ -79,7 +81,7 @@ limited_max 30000 {
 }
 ]]
 
-local typeCommonModule = require_("inittypecommon") 
+local typeCommonModule = require_("inittypecommon")
 local typeCommonSrc = typeCommonModule.src
 
 local function genProto(t, info)

@@ -59,15 +59,15 @@ function huodongmgr.gethuodong(name)
 	end
 end
 
-function huodongmgr.delhuodong(name)
-	local huodong = huodongmgr:gethuodong(name)
-	if huodong then
-		huodongmgr.huodongs[name] = nil
-		huodong:release()
+function huodongmgr.onlogoff(player,reason)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onlogoff then
+			huodong:onlogoff(player,reason)
+		end
 	end
 	for name,playunit in pairs(huodongmgr.playunit) do
 		if playunit.onlogoff then
-			playunit.onlogoff(player)
+			playunit.onlogoff(player,reason)
 		end
 	end
 end

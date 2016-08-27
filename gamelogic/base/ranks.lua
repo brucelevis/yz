@@ -42,6 +42,7 @@ function cranks:getattr(rank,attrs)
 			break
 		end
 	end
+	assert(mod ~= rank,"Not found id")
 	local typ = type(mod)
 	assert(typ=="number" or typ=="string")
 	return mod
@@ -96,14 +97,16 @@ end
 	})
 ]]
 function cranks:register(callback)
-	self.callback = callback
-	-- NOTE: function callback.id(self,rank)
-	if callback.id then
-		self.id = callback.id
-	end
-	-- NOTE: function callback.cmp(self,rank1,rank2)
-	if callback.cmp then
-		self.cmp = callback.cmp
+	for k,func in pairs(callback) do
+		if k == "onadd" or
+			k == "ondel" or
+			k == "onupdate" or
+			k == "onclear" or
+			k == "id" or
+			k == "cmp" then
+			assert(type(func) == "function")
+			self[k] = func
+		end
 	end
 end
 
@@ -147,10 +150,7 @@ function cranks:add(rank)
 	local length = self:len()
 	if length > 0 and self:cmp(self.ranks[length],rank) <= 0 then
 		if self.maxlimit and length >= self.maxlimit then
-			if self.callback and self.callback.onadd then
-				self.callback.onadd(false,rank)
-			end
-			return false
+			return
 		end
 	else
 		if self.maxlimit and length >= self.maxlimit then
@@ -163,10 +163,10 @@ function cranks:add(rank)
 	rank.pos = self.length
 	self.ranks[rank.pos] = rank
 	self:__sort(rank.pos,1)
-	if self.callback and self.callback.onadd then
-		self.callback.onadd(true,rank)
+	if self.onadd then
+		self:onadd(rank)
 	end
-	return true,rank
+	return rank
 end
 
 function cranks:del(...)
@@ -178,24 +178,16 @@ function cranks:del(...)
 	end
 	local id = self:__id(ids)
 	local rank = self.id_rank[id]
-	if not rank then
-		if self.callback and self.callback.ondel then
-			self.callback.ondel(false)
-		end
-		return false
+	if rank then
+		return self:__del(rank)
 	end
-	self:__del(rank)
 end
 
 function cranks:delbypos(pos)
 	local rank = self.ranks[pos]
-	if not rank then
-		if self.callback and self.callback.ondel then
-			self.callback.ondel(false)
-		end
-		return false
+	if rank then
+		return self:__del(rank)
 	end
-	self:__del(rank)
 end
 
 function cranks:__del(rank)
@@ -209,20 +201,17 @@ function cranks:__del(rank)
 	end
 	self.ranks[length] = nil
 	self.length = length - 1
-	if self.callback and self.callback.ondel then
-		self.callback.ondel(true,rank)
+	if self.ondel then
+		self:ondel(rank)
 	end
-	return true,rank
+	return rank
 end
 
 function cranks:update(newrank)
 	local id = self:id(newrank)
 	local rank = self.id_rank[id]
 	if not rank then
-		if self.callback and self.callback.onupdate then
-			self.callback.onupdate(false,newrank)
-		end
-		return false
+		return
 	end
 	local oldpos = rank.pos
 	for k,v in pairs(newrank) do
@@ -236,10 +225,10 @@ function cranks:update(newrank)
 	elseif self.ranks[oldpos+1] and self:cmp(self.ranks[oldpos+1],rank) < 0 then -- 尝试后移
 		self:__sort(oldpos,self:len())
 	end
-	if self.callback and self.callback.onupdate then
-		self.callback.onupdate(true,rank,oldpos)
+	if self.onupdate then
+		self:onupdate(rank,oldpos)
 	end
-	return true,rank
+	return rank
 end
 
 function cranks:__sort(startpos,endpos)
@@ -279,6 +268,9 @@ function cranks:clear()
 	self.length = 0
 	self.ranks = {}    -- pos:rank
 	self.id_rank = {} -- id:rank
+	if self.onclear then
+		self:onclear()
+	end
 end
 
 -- 存盘相关

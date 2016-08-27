@@ -9,6 +9,10 @@ data_0902_CommonActionAndEffect = {
 		time = 0.100000,
 	},
 
+	[1004] = {
+		time = 0.100000,
+	},
+
 }
 return data_0902_CommonActionAndEffect
 --<<data_0902_CommonActionAndEffect 导表结束>>

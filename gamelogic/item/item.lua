@@ -12,33 +12,7 @@ function citem:init(param)
 	-- 位置一般是放入容器后才有的属性
 	self.pos = param.pos
 
-	-- 精炼增加的属性
-	self.refine = {
-		cnt = nil,					-- 精炼次数
-		succ_ratio = nil,			-- 精炼当前成功概率(基数为100）
-
-		maxhp = nil,				-- 血量上限
-		maxmp = nil,				-- 魔法上限
-		atk = nil,					-- 攻击力
-		latk = nil,					-- 远程攻击力
-		def = nil,					-- 防御
-		sp = nil,					-- 物理攻击速度
-		fsp = nil,					-- 法术攻击速度(咏唱速度)
-		dfsp = nil,					-- 咏唱延迟(delay 法术攻击速度)
-		fdef = nil,					-- 法术防御
-		fsqd = nil,					-- 法术强度
-		hpr = nil,					-- 生命值回复(hp recorver)
-		mpr = nil,					-- 魔法值回复(mp recorver)
-		jzfs = nil,					-- 近战反伤
-		ycfs = nil,					-- 远程反伤
-		mffs = nil,					-- 魔法反伤
-		hjct = nil,					-- 护甲穿透
-		fsct = nil,					-- 法术穿透
-		bt = nil,					-- 霸体
-		xx = nil,					-- 吸血
-		fsxx = nil,					-- 法术吸血
-	}
-
+	
 	-- 附魔增加的属性
 	self.fumo = {
 		maxhp = nil,			-- 血量上限
@@ -67,8 +41,6 @@ function citem:init(param)
 		xx = nil,				-- 吸血
 		fsxx = nil,				-- 法术吸血
 	}
-	-- 附魔后属性先存到tmpfumo中，确认附魔后再移到fumo中，属性格式同fumo
-	self.tmpfumo = nil
 	self.cardid = nil  -- 插入的卡片物品ID
 	self.isopen = nil    -- 卡片是否开启
 	self.lv = nil		 -- 卡片等级(仅对卡片有效)
@@ -85,15 +57,7 @@ function citem:load(data)
 	self.createtime = data.createtime or os.time()
 	self.pos = data.pos
 
-	self.refine = data.refine or {}
 	self.fumo = data.fumo or {}
-	local tmpfumo = data.tmpfumo
-	if tmpfumo then
-		local now = os.time()
-		if not tmpfumo.exceedtime or tmpfumo.exceedtime > now then
-			self.tmpfumo = tmpfumo
-		end
-	end
 	self.cardid = data.cardid
 	self.isopen = data.isopen
 	self.lv = data.lv
@@ -108,9 +72,7 @@ function citem:save()
 	data.createtime = self.createtime
 	data.pos = self.pos
 
-	data.refine = self.refine
 	data.fumo = self.fumo
-	data.tmpfumo = self.tmpfumo
 	data.cardid = self.cardid
 	data.isopen = self.isopen
 	data.lv = self.lv
@@ -213,6 +175,9 @@ end
 function __hotfix(oldmod)
 	-- 重新初始化注册的使用函数
 	hotfix.hotfix("gamelogic.item.use.drag")
+	hotfix.hotfix("gamelogic.item.use.baotu")
+	hotfix.hotfix("gamelogic.item.use.box")
+	hotfix.hotfix("gamelogic.item.use.consume")
 end
 
 return citem

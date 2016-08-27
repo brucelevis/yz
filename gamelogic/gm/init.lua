@@ -1,5 +1,3 @@
-require "gamelogic.skynet"
-
 gm = gm or {}
 master = nil
 master_pid = nil
@@ -57,7 +55,7 @@ function gm.docmd(pid,cmdline)
 	master = player
 	master_pid = player == 0 and 0 or player.pid
 	local tbl = {xpcall(docmd,onerror,cmdline)}
-	-- gm指令执行的报错不记录到onerror.log中
+	-- gm指令执行的报错不记录到日志中
 	--local tbl = {pcall(docmd,cmdline)}
 	master = nil
 	master_pid = nil
@@ -88,6 +86,7 @@ function gm.init()
 	require "gamelogic.gm.skill"
 	require "gamelogic.gm.mergeserver"
 	require "gamelogic.gm.task"
+	require "gamelogic.gm.war"
 end
 
 function gm.onlogin(player)

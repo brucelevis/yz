@@ -13,8 +13,6 @@ function cresume:init(pid)
 	if not cserver.isdatacenter() then
 		self.nosavetodatabase = true
 	end
-
-	
 end
 
 function cresume:load(data)
@@ -36,14 +34,15 @@ function cresume:loadfromdatabase()
 			local db = dbmgr.getdb()
 			data = db:get(db:key("resume",self.pid))
 		else
-			data = rpc.call("datacenter","resumemgr","query",self.pid,"*")
+			data = rpc.call(cserver.datacenter(),"resumemgr","query",self.pid,"*")
 		end
 		if not data or not next(data) then
+			self.loadstate = "loadnull"
 			self:onloadnull()
 		else
+			self.loadstate = "loaded"
 			self:load(data)
 		end
-		self.loadstate = "loaded"
 	end
 end
 
@@ -72,10 +71,9 @@ function cresume:deletefromdatabase()
 end
 
 function cresume:onloadnull()
-	self.loadnull = true
 	if cserver.isgamesrv() then
-		print("resume:create",route.getsrvname(self.pid),skynet.getenv("srvname"),self.pid)
-		if route.getsrvname(self.pid) ~= skynet.getenv("srvname") then
+		--print("resume:create",route.getsrvname(self.pid),cserver.getsrvname(),self.pid)
+		if route.getsrvname(self.pid) ~= cserver.getsrvname() then
 			logger.log("error","error",string.format("[from datacenter loadnull] srvname=%s pid=%s",route.getsrvname(self.pid),self.pid))
 			return
 		end
@@ -84,7 +82,10 @@ function cresume:onloadnull()
 		else
 			player = playermgr.loadofflineplayer(self.pid)
 		end
-		self:create(player:packresume())
+		local data = player:packresume()
+		data.home_srvname = cserver.getsrvname()
+		data.now_srvname = cserver.getsrvname()
+		self:create(data)
 	elseif cserver.isdatacenter() then
 	end
 end
@@ -93,10 +94,9 @@ function cresume:create(resume)
 	assert(resume)
 	logger.log("info","resume",format("[create] pid=%d resume=%s",self.pid,resume))
 	self.loadstate = "loaded"
-	self.loadnull = nil
 	self.data = resume
 	if cserver.isgamesrv() then
-		rpc.call("datacenter","resumemgr","create",self.pid,self:save())
+		rpc.call(cserver.datacenter(),"resumemgr","create",self.pid,self:save())
 	elseif cserver.isdatacenter() then
 		self:savetodatabase()
 	end
@@ -127,21 +127,33 @@ function cresume:delref(pid)
 end
 
 
+-- resume:set(key,val,notsync)
+-- resume:set({[key]=val},notsync)
 function cresume:set(key,val,notsync)
-	cdatabaseable.set(self,key,val)
-	if not notsync then
-		self:sync({[key] = val,})
+	if type(key) == "table" then
+		local attrs = key
+		notsync = val
+		for key,val in pairs(attrs) do
+			cdatabaseable.set(self,key,val)
+		end
+		if not notsync then
+			self:sync(attrs)
+		end
+	else
+		cdatabaseable.set(self,key,val)
+		if not notsync then
+			self:sync({[key] = val,})
+		end
 	end
 end
 
 function cresume:sync(data)
-	data.srvname = cserver.getsrvname()
 	for pid,_ in pairs(self.pid_ref) do
 		if pid ~= self.pid then
 			sendpackage(pid,"friend","sync",data)
 		end
 	end
-	rpc.call("datacenter","resumemgr","sync",self.pid,data)
+	rpc.call(cserver.datacenter(),"resumemgr","sync",self.pid,data)
 end
 
 return cresume

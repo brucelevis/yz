@@ -122,4 +122,33 @@ function gm.addjobexp(args)
 	player:addjobexp(val,"gm")
 end
 
+--- 指令: newplayerday
+--- 用法: newplayerday 玩家刷天，重置相关数据，不指定玩家ID，将自己刷天
+function gm.newplayerday(args)
+	local pid = tonumber(args[1]) or master_pid
+	local player = playermgr.getplayer(pid)
+	if not player then
+		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		return
+	end
+	player:ondayupdate()
+	player.today.dayno = 1
+end
+
+--- 用法: clear 容器类别
+--- 举例: clear item		<=> 清空背包
+function gm.clear(args)
+	local isok,args = checkargs(args,"string")
+	if not isok then
+		return
+	end
+	local typ = args[1]
+	local container = master[typ]
+	if not container.clear then
+		net.msg.S2C.notify(master_pid,string.format("容器(%s)不存在",typ))
+		return
+	end
+	container:clear()
+end
+
 return gm

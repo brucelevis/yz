@@ -1,0 +1,32 @@
+local function test(pid)
+	local player = playermgr.getplayer(pid)
+	assert(player)
+	player.testman = 1
+	player.taskdb.shimen:clear("test")
+	net.task.C2S.accepttask(player,{ taskid = 10200101 })
+	local task = player.taskdb:gettask(10200101)
+	assert(task)
+	net.task.C2S.executetask(player,{ taskid = 10200101 })
+	assert(task.state == TASK_STATE_FINISH)
+	net.task.C2S.submittask(player,{ taskid = 10200101})
+	task = player.taskdb:gettask(10200101)
+	assert(not task)
+	player.taskdb.shimen:clear("test")
+	net.task.C2S.accepttask(player,{ taskid = 10200201 })
+	task = player.taskdb:gettask(10200201)
+	assert(task)
+	player.itemdb:clear()
+	player:additembytype(101001,1,nil,"shimentest")
+	net.task.C2S.executetask(player,{ taskid = 10200201 })
+	assert(task.state == TASK_STATE_FINISH)
+	net.task.C2S.giveuptask(player,{ taskid = 10200201 })
+	task = player.taskdb:gettask(10200201)
+	assert(not task)
+	net.task.C2S.opentask(player,{ taskkey = "shimen" })
+	assert(player.taskdb.shimen.len == 0)
+	local respondid = reqresp.id
+	net.msg.C2S.respondanswer(player,{ id = respondid, answer = 1})
+	print("OK")
+end
+
+return test

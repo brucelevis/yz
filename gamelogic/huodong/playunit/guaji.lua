@@ -10,7 +10,7 @@ function playunit_guaji.onlogin(player)
 	sendpackage(player.pid,"guaji","state",{state=state})
 end
 
-function playunit_guaji.onlogoff(player)
+function playunit_guaji.onlogoff(player,reason)
 end
 
 function playunit_guaji.isguajimap(mapid)
@@ -23,7 +23,7 @@ end
 function playunit_guaji.canenter(player,sceneid)
 	local scene = scenemgr.getscene(sceneid)
 	local isok,map = playunit_guaji.isguajimap(scene.mapid)
-	-- 非挂机地图不检30
+	-- 非挂机地图不检
 	if not isok then
 		return true
 	end
@@ -61,9 +61,12 @@ function playunit_guaji.guaji(player)
 	end
 	local teamstate = player:teamstate()
 	if teamstate == TEAM_STATE_FOLLOW then
-		return false,language.format("跟随状态无法挂机")
+		return false,language.format("只有队长才能进行挂机")
 	end
-	if player:inwar() then
+	if teamstate == TEAM_STATE_LEAVE then
+		return false,language.format("只有队长才能进行挂机")
+	end
+	if player:warid() then
 		return false,language.format("战斗中无法挂机")
 	end
 	if playunit_guaji.getstate(player) == playunit_guaji.GUAJI_STATE then
@@ -84,7 +87,7 @@ function playunit_guaji.unguaji(player)
 	if teamstate == TEAM_STATE_FOLLOW then
 		return false,language.format("跟随状态无法取消挂机")
 	end
-	if player:inwar() then
+	if player:warid() then
 		return false,language.format("战斗中无法取消挂机")
 	end
 	if playunit_guaji.getstate(player) == playunit_guaji.UNGUAJI_STATE then
@@ -104,7 +107,7 @@ function playunit_guaji.setstate(player,state)
 	end
 	local teamstate = player:teamstate()
 	if teamstate == TEAM_STATE_CAPTAIN then
-		local team = teammgr:getteam(player.teamid)
+		local team = player:getteam()
 		for uid in pairs(team.follow) do
 			local member = playermgr.getplayer(uid)
 			if member then
@@ -163,6 +166,12 @@ function playunit_guaji.onwarend(war,result)
 				doaward("player",player.pid,reward,reason,true)
 			end
 		end
+	end
+end
+
+function playunit_guaji.onjointeam(player,teamid)
+	if playunit_guaji.getstate(player) == playunit_guaji.GUAJI_STATE then
+		playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
 	end
 end
 

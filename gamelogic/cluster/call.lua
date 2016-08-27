@@ -10,13 +10,11 @@ end
 
 function rpc.dispatch (_,session,source,_,srvname,protoname,...)
 	logger.log("debug","netcluster",format("[recv] source=%s session=%d srvname=%s protoname=%s,request=%s",source,session,srvname,protoname,{...}))
-	local rettbl = table.pack(pcall(rpc.__dispatch,session,source,srvname,protoname,...))
+	local rettbl = table.pack(xpcall(rpc.__dispatch,onerror,session,source,srvname,protoname,...))
 	local isok = table.remove(rettbl,1)
 	if isok then
 		skynet.ret(skynet.pack(table.unpack(rettbl)))
 	else
-		local errmsg = table.concat(rettbl)
-		logger.log("error","errdetail",errmsg)
 		skynet.response()(false)
 	end
 end

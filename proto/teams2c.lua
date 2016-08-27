@@ -99,16 +99,5 @@ team_publishteams 4009 {
 		publishteams 1 : *PublishTeamType
 	}
 }
-
-# 更新自动匹配信息(全量更新,在更改自动匹配状态后/更改自动匹配组队目标后同步)
-team_update_automatch 4010 {
-	request {
-		base 0 : basetype
-		automatch 1 : boolean		# true--自动匹配状态,false--非自动匹配状态
-		target 2 : integer			# 自动匹配目标(automatch==true才有意义)
-		minlv 3 : integer			# 匹配的最低等级
-		maxlv 4 : integer			# 匹配的最高等级
-	}
-}
 ]]
 }

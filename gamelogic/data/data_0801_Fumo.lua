@@ -26,9 +26,6 @@ data_0801_Fumo = {
 		bt = 100,
 		xx = 100,
 		fsxx = 100,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[20] = {
@@ -56,9 +53,6 @@ data_0801_Fumo = {
 		bt = 110,
 		xx = 110,
 		fsxx = 110,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[30] = {
@@ -86,9 +80,6 @@ data_0801_Fumo = {
 		bt = 120,
 		xx = 120,
 		fsxx = 120,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[40] = {
@@ -116,9 +107,6 @@ data_0801_Fumo = {
 		bt = 130,
 		xx = 130,
 		fsxx = 130,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[50] = {
@@ -146,9 +134,6 @@ data_0801_Fumo = {
 		bt = 140,
 		xx = 140,
 		fsxx = 140,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[60] = {
@@ -176,9 +161,6 @@ data_0801_Fumo = {
 		bt = 150,
 		xx = 150,
 		fsxx = 150,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[70] = {
@@ -206,9 +188,6 @@ data_0801_Fumo = {
 		bt = 160,
 		xx = 160,
 		fsxx = 160,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[80] = {
@@ -236,9 +215,6 @@ data_0801_Fumo = {
 		bt = 170,
 		xx = 170,
 		fsxx = 170,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[90] = {
@@ -266,9 +242,6 @@ data_0801_Fumo = {
 		bt = 180,
 		xx = 180,
 		fsxx = 180,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 	[100] = {
@@ -296,9 +269,6 @@ data_0801_Fumo = {
 		bt = 190,
 		xx = 190,
 		fsxx = 190,
-
-		costitem = {[401001]=1},
-		costcoin = 0,
 	},
 
 }

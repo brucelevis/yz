@@ -19,14 +19,11 @@ player_resource 5001 {
 	}
 }
 
-# 玩家自身的开关
+# 玩家自身的开关，登录时发送所有数据，游戏中增量更新
 player_switch 5002 {
 	request {
 		base 0 : basetype
-		gm 1 : boolean			# gm开关:true--是GM，其他--不是GM
-		friend 2 : boolean		# 好友系统是否打开;true--打开;其他--不打开
-		automatch 3 : boolean	# 组队是否默认自动匹配;true--自动匹配;其他--不自动匹配
-		costdexp 4 : boolean	# true--开启消耗双倍点，false--关闭消耗双倍点
+		switchs 1 : *SwitchType
 	}
 }
 
@@ -65,6 +62,14 @@ player_update 5004 {
 		qualitypoint 10 : QualityPointType  #素质点信息
 		huoli 11 : integer	 #活力
 		storehp 12 : integer #储备生命
+	}
+}
+
+# 充值列表
+player_chongzhilist 5005 {
+	request {
+		base 0 : basetype
+		seen 1 : *integer		# 可见的充值项ID列表(见data_1401_ChongZhi)
 	}
 }
 

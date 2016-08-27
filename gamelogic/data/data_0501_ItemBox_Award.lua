@@ -3,7 +3,7 @@ data_0501_ItemBox_Award = {
 
 	[1] = {
 		awardtable = {
-						
+			
 			{
 				gold = 1,
 				silver = 1,
@@ -15,7 +15,7 @@ data_0501_ItemBox_Award = {
 				ratio = 1,
 			},
 
-			
+
 			{
 				gold = 1,
 				silver = 1,
@@ -27,7 +27,7 @@ data_0501_ItemBox_Award = {
 				ratio = 2,
 			},
 
-			
+
 			{
 				gold = 1,
 				silver = 1,
@@ -39,7 +39,7 @@ data_0501_ItemBox_Award = {
 				ratio = 2,
 			},
 
-			
+
 			{
 				gold = 1,
 				silver = 1,
@@ -51,7 +51,7 @@ data_0501_ItemBox_Award = {
 				ratio = 3,
 			},
 
-			
+
 			{
 				gold = 1,
 				silver = 1,
@@ -63,7 +63,7 @@ data_0501_ItemBox_Award = {
 				ratio = 4,
 			},
 
-			
+
 			{
 				gold = 1,
 				silver = 1,
@@ -75,7 +75,7 @@ data_0501_ItemBox_Award = {
 				ratio = 5,
 			},
 
-			
+
 			{
 				gold = 1,
 				silver = 1,

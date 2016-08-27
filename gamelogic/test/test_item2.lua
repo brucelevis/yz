@@ -4,6 +4,7 @@ local function test(pid)
 	player.itemdb:clear()
 	player.carddb:clear()
 	player.fashionshowdb:clear()
+	player.equipposdb:clear()
 	player:addcoin(-player.coin,reason)
 
 	local itemtype = 102002			-- 10级短剑
@@ -15,25 +16,25 @@ local function test(pid)
 	-- 装备最大折叠都是1
 	assert(#items == 4)
 	local item = items[1]
-	-- 升级材料不足
-	net.item.C2S.upgradeequip(player,{
-		itemid = item.id,
+	local produce_itemtype = 102003
+	-- 打造装备: 材料不足
+	net.item.C2S.produceitem(player,{
+		itemtype = produce_itemtype,
+		num = 1,
 	})
 	local item = assert(itemdb:getitem(item.id))
 	-- 增加材料
-	local itemdata = itemaux.getitemdata(itemtype)
-	local costitem = itemdata.upgrade_costitem
-	local costcoin = itemdata.upgrade_costcoin
+	local itemdata = itemaux.getitemdata(produce_itemtype)
+	local costitem = itemdata.produce_costitem
+	local costcoin = itemdata.produce_costcoin
 	for itemtype,num in pairs(costitem) do
 		player:additembytype(itemtype,num,nil,reason)
 	end
 	player:addcoin(costcoin,reason)
-	local next_itemtype = item.type + 1
-	assert(itemdb:getnumbytype(next_itemtype) == 0)
-	net.item.C2S.upgradeequip(player,{
-		itemid = item.id,
+	net.item.C2S.produceitem(player,{
+		itemtype = produce_itemtype,
+		num = 1
 	})
-	assert(item.type == next_itemtype)
 	for itemtype,num in pairs(costitem) do
 		assert(itemdb:getnumbytype(itemtype) == 0)
 	end
@@ -41,17 +42,19 @@ local function test(pid)
 
 	-- 测试精炼
 	local item = items[2]
+	player:wield(item)
 	assert(table.isempty(item.refine))
 	-- 精炼材料不足
 	net.item.C2S.refineequip(player,{
 		itemid = item.id,
 	})
 	assert(player.coin == 0)
-	assert(table.isempty(item.refine))
+	local equippos = player.equipposdb:get(item:get("equippos"))
+	assert(table.isempty(equippos.refine))
 	-- 增加材料
 	local cnt = 1  -- 首次精炼：100%成功
 	local refinedata = data_0801_Refine[cnt]
-	local costitem = refinedata.weapon_costitem
+	local costitem = EQUIPPOS_NAME[equippos.id] == "weapon" and refinedata.weapon_costitem or refinedata.costitem
 	local costcoin = refinedata.costcoin
 	for itemtype,num in pairs(costitem) do
 		player:additembytype(itemtype,num,nil,reason)
@@ -64,46 +67,22 @@ local function test(pid)
 		assert(itemdb:getnumbytype(itemtype) == 0)
 	end
 	assert(player.coin == 0)
-	assert(not table.isempty(item.refine))
-	assert(item.refine.cnt == 1)
+	assert(not table.isempty(equippos.refine))
+	assert(equippos.refine.cnt == 1)
 
-	-- 测试附魔
-	local item = items[3]
-	assert(table.isempty(item.fumo))
-	-- 附魔材料不足
-	net.item.C2S.fumoequip(player,{
-		itemid = item.id,
+	-- 测试顶替附魔
+	local item1 = items[1]
+	local item2 = items[2]
+	-- just test
+	item1.fumo.maxhp = 100
+	item2.fumo.maxhp = 1
+	net.item.C2S.replacefumo(player,{
+		from_itemid = item1.id,
+		to_itemid = item2.id,
+		attrtype = "maxhp",
 	})
-	if not table.isempty(item.tmpfumo) then
-		net.item.C2S.confirm_fumoequip(player,{
-			itemid = item.id
-		})
-	end
-	assert(player.coin == 0)
-	assert(table.isempty(item.fumo))
-	-- 增加材料
-	local equiplv = item:get("equiplv")
-	local data = data_0801_Fumo[equiplv]
-	local costitem = data.costitem
-	local costcoin = data.costcoin
-	for itemtype,num in pairs(costitem) do
-		player:additembytype(itemtype,num,nil,reason)
-	end
-	player:addcoin(costcoin,reason)
-	net.item.C2S.fumoequip(player,{
-		itemid = item.id
-	})
-	if not table.isempty(item.tmpfumo) then
-		net.item.C2S.confirm_fumoequip(player,{
-			itemid = item.id
-		})
-	end
-	for itemtype,num in pairs(costitem) do
-		assert(itemdb:getnumbytype(itemtype) == 0)
-	end
-	assert(player.coin == 0)
-	assert(not table.isempty(item.fumo))
-
+	
+	assert(item2.fumo.maxhp == 100)
 	-- TODO: 测试插入卡片
 end
 

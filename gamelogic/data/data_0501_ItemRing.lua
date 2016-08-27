@@ -14,7 +14,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 1,
 		needjob = {},
 		maxhp = 0,
@@ -34,11 +34,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108002] = {
@@ -54,7 +54,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 10,
 		needjob = {},
 		maxhp = 0,
@@ -74,11 +74,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108003] = {
@@ -94,7 +94,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 20,
 		needjob = {},
 		maxhp = 0,
@@ -114,11 +114,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108004] = {
@@ -134,7 +134,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 30,
 		needjob = {},
 		maxhp = 0,
@@ -154,11 +154,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108005] = {
@@ -174,7 +174,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 40,
 		needjob = {},
 		maxhp = 0,
@@ -194,11 +194,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108006] = {
@@ -214,7 +214,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 50,
 		needjob = {},
 		maxhp = 0,
@@ -234,11 +234,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108007] = {
@@ -254,7 +254,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 60,
 		needjob = {},
 		maxhp = 0,
@@ -274,11 +274,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108008] = {
@@ -294,7 +294,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 70,
 		needjob = {},
 		maxhp = 0,
@@ -314,11 +314,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108009] = {
@@ -334,7 +334,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 80,
 		needjob = {},
 		maxhp = 0,
@@ -354,11 +354,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108010] = {
@@ -374,7 +374,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 90,
 		needjob = {},
 		maxhp = 0,
@@ -394,11 +394,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[108011] = {
@@ -414,7 +414,7 @@ data_0501_ItemRing = {
 		desc = "",
 
 		equiptype = 19,
-		equippos = 2,
+		equippos = 8,
 		lv = 100,
 		needjob = {},
 		maxhp = 0,
@@ -434,11 +434,11 @@ data_0501_ItemRing = {
 		mpr = 0,
 		dfsp = 0,
 		xiuzheng = 0,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 }

@@ -17,7 +17,7 @@ local function test(pid1,pid2,pid3)
 	scene1:dump()
 
 	net.team.C2S.createteam(player1,{target=1,lv=0})
-	local teamid = player1.teamid
+	local teamid = player1:teamid()
 	assert(teamid)
 	net.team.C2S.apply_jointeam(player2,{teamid=teamid})
 	net.team.C2S.agree_jointeam(player1,{pid=pid2})

@@ -1,10 +1,4 @@
-cserver = class("cserver",cdatabaseable,{
-	gameflag = skynet.getenv("gameflag"),
-	accountcenter = {
-		--host="127.0.0.1:80",
-		host = skynet.getenv("accountcenter") or "192.168.1.244:80",
-	}
-})
+cserver = class("cserver",cdatabaseable)
 
 function cserver:init()
 	self.flag = "cserver"
@@ -82,7 +76,7 @@ function cserver:isopen(typ)
 		if not cserver.isgamesrv() then
 			return false
 		end
-		if not clustermgr.isconnect("datacenter") then	
+		if not clustermgr.isconnect(cserver.datacenter()) then	
 			return false
 		end
 		return true
@@ -92,7 +86,7 @@ end
 function cserver.starttimer_logstatus()
 	local interval = skynet.getenv("servermode") == "DEBUG" and 5 or 60
 	timer.timeout("timer.logstatus",interval,cserver.starttimer_logstatus)
-	logger.log("info","status",string.format("onlinenum=%s linknum=%s offlinenum=%s kuafunum=%s num=%s task=%s mqlen=%s",playermgr.onlinenum,playermgr.linknum,playermgr.offlinenum,playermgr.kuafunum,playermgr.num,skynet.task(),skynet.mqlen()))
+	logger.log("info","status",string.format("onlinenum=%s linknum=%s offlinenum=%s kuafunum=%s gokuafunum=%s num=%s task=%s mqlen=%s",playermgr.onlinenum,playermgr.linknum,playermgr.offlinenum,playermgr.kuafunum,playermgr.gokuafunum,playermgr.num,skynet.task(),skynet.mqlen()))
 end
 
 -- class method
@@ -108,7 +102,23 @@ end
 
 function cserver.isdatacenter(srvname)
 	srvname = srvname or cserver.getsrvname()
-	return srvname == "datacenter"
+	return string.find(srvname,"datacenter") ~= nil
+end
+
+function cserver.datacenter()
+	return skynet.getenv("datacenter") or "datacenter"
+end
+
+function cserver.accountcenter()
+	return skynet.getenv("accountcenter") or "192.168.1.244:80"
+end
+
+function cserver.warsrv()
+	return skynet.getenv("warsrv")
+end
+
+function cserver.gameflag()
+	return skynet.getenv("gameflag") or "ro"
 end
 
 function cserver.isgamesrv(srvname)

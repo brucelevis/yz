@@ -1,5 +1,5 @@
+require "gamelogic.serverinfo"
 require "gamelogic.logger.init"
-require "gamelogic.skynet"
 require "gamelogic.base.init"
 require "gamelogic.hotfix.init"
 require "gamelogic.channel"

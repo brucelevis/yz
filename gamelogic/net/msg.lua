@@ -37,6 +37,15 @@ function netmsg.filter(msg)
 	return true,msg
 end
 
+--function C2S.onmessagebox(player,request)
+--	local id = request.id
+--	local buttonid = request.buttonid
+--	if id == 0 then
+--		return
+--	end
+--	return reqresp.resp(player.pid,id,{id=buttonid})
+--end
+
 function C2S.worldmsg(player,request)
 	local msg = assert(request.msg)
 	local rawmsg = msg
@@ -112,7 +121,7 @@ function C2S.teammsg(player,request)
 		net.msg.S2C.notify(player.pid,msg)
 		return
 	end
-	local teamid = player:getteamid()
+	local teamid = player:teamid()
 	local team = teammgr:getteam(teamid)
 	if not team then
 		return
@@ -141,6 +150,14 @@ function C2S.orgmsg(player,request)
 
 end
 
+local COST_HORNNUM = {
+	[0] = 1,
+	[21] = 2,
+	[31] = 3,
+	[41] = 4,
+	[51] = 5,
+}
+
 function C2S.hornmsg(player,request)
 	local msg = assert(request.msg)
 	-- check can send hornmsg
@@ -149,6 +166,32 @@ function C2S.hornmsg(player,request)
 		net.msg.S2C.notify(player.pid,msg)
 		return
 	end
+	local itemdb = player:getitemdb(501001)
+	local hasnum = itemdb:getnumbytype(501001)
+	local usehornkey = string.format("itemusecnt.%s",501001)
+	local costhornnum
+	local usehornnum = player.today:query(usehornkey,0)
+	for key,val in pairs(COST_HORNNUM) do
+		if usehornnum >= key then
+			if not costhornnum or costhornnum < val then
+				costhornnum = val
+			end
+		end
+	end
+	if hasnum < costhornnum then
+		net.msg.S2C.notify(player.pid,language.format("{1}不足{2}个",itemaux.itemlink(501001),costhornnum))
+		return
+	end
+	local now = os.time()
+	local usehorntime = player.thistemp:query("usehorntime")
+	if usehorntime then
+		net.msg.S2C.notify(player.pid,language.format("道具{1}秒后完成冷却",3 - (now - usehorntime)))
+		return
+	end
+	local reason = "usehorn"
+	itemdb:costitembytype(501001,costhornnum,reason)
+	player.thistemp:set("usehorntime",now,3)
+	player.today:add(usehornkey,1)
 	local sender = netmsg.packsender(player)
 	local packmsg = {
 		sender = sender,
@@ -187,9 +230,9 @@ function C2S.sendmsgto(player,request)
 end
 
 function C2S.respondanswer(player,request)
-	local respondid = assert(request.respondid)
-	local answer = assert(request.answer)
-	reqresp.resp(player.pid,respondid,{ answer = answer })
+	local id = assert(request.id)
+	local answer = request.answer or 0
+	reqresp.resp(player.pid,id,{ answer = answer })
 end
 
 -- s2c
@@ -238,7 +281,7 @@ end
 function onbuysomething(pid,request,response)
 	local player = playermgr.getplayer(pid)
 	local answer = response.answer
-	if answer == 0 then -- 超时回调
+	if not answer or answer == 0 then -- 超时回调
 		-- player is nil
 		local pid = request.pid
 		-- dosomething
@@ -341,7 +384,8 @@ function S2C.npcsay(pid,npc,msg,options,callback,...)
 	end
 	local respondid
 	if callback and type(callback) == "function" then
-		respondid = reqresp.req(pid,...,callback)
+		local request = table.pack(...)
+		respondid = reqresp.req(pid,request,callback)
 	end
 	sendpackage(pid,"msg","npcsay",{
 		name = npc.name,

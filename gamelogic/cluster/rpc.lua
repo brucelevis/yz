@@ -1,7 +1,7 @@
 
 local function getcmd(t,cmd)
-	local _cmd = string.format("return %s",cmd)
-	t[cmd] = load(_cmd,"=(load)","bt",_G)
+	local cmd = string.format("return %s",cmd)
+	t[cmd] = load(cmd,"=(load)","bt",_G)
 	return t[cmd]
 end
 local compile_cmd = setmetatable({},{__index=getcmd})

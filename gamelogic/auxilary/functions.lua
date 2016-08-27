@@ -1,6 +1,19 @@
 -- 辅助库全局函数
 
+INVALID_NAMES = {
+	["$"] = true
+}
+
 function isvalid_name(name)
+	local isok,filter_name = wordfilter.filter(name)
+	if not isok or filter_name ~= name then
+		return false,language.format("名字非法")
+	end
+	for ban_name in pairs(INVALID_NAMES) do
+		if string.find(name,ban_name,1,true) then
+			return false,language.format("名字包含非法单词")
+		end
+	end
 	return true
 end
 

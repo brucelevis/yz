@@ -25,6 +25,18 @@ data_1100_LivenessAward = {
 		num = 20,
 	},
 
+	[5] = {
+		needliveness = 150,
+		item = 501001,
+		num = 25,
+	},
+
+	[6] = {
+		needliveness = 180,
+		item = 501001,
+		num = 30,
+	},
+
 }
 return data_1100_LivenessAward
 --<<data_1100_LivenessAward 导表结束>>

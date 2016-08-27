@@ -5,9 +5,7 @@ data_1500_ShiMoShiLianTaskVar = {
 
 	StartWarNeedLv = 10, 		-- 发起战斗需要的等级
 
-	RingLimit = 10, 		-- 10环为一轮
-
-	LookNpcType = 101002, 		-- 10环时需要跳转到的NPC类型
+	LookNpcType = 20001002, 		-- 10环时需要跳转到的NPC类型
 
 	GiveItemToCaptainAt10Ring = {type=401001,num=1}, 		-- 10环给队长的物品
 

@@ -53,7 +53,6 @@ function cfrienddb:oncreate(player)
 	if not server:isopen("friend") then
 		return
 	end
-	resumemgr.oncreate(player)
 end
 
 function cfrienddb:onload()
@@ -120,12 +119,12 @@ function cfrienddb:onlogin(player)
 	end
 end
 
-function cfrienddb:onlogoff(player)
+function cfrienddb:onlogoff(player,reason)
 	local server = globalmgr.server
 	if not server:isopen("friend") then
 		return
 	end
-	resumemgr.onlogoff(player) -- keep before
+	resumemgr.onlogoff(player,reason) -- keep before
 	local frdblk = self:getfrdblk(self.pid)
 	frdblk:delref(self.pid)
 	for _,pid in ipairs(self.frdlist) do

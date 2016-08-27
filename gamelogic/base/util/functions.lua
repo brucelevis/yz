@@ -412,7 +412,7 @@ end
 
 
 -- 为了兼容框架，pid可能是连线对象（包括在线玩家），或者玩家ID
--- 登录相关协议传玩家对象，其他协议均传玩家ID
+-- 登录相关协议传连线对象，其他协议均传玩家ID
 function sendpackage(pid,protoname,subprotoname,request)
 	local agent,uid
 	if type(pid) == "table" then

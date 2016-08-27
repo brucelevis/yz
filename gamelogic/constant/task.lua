@@ -12,4 +12,5 @@ TASK_PLAY_FINDITEM = 2 -- 寻物任务
 TASK_PLAY_NPCWAR = 3 --  明雷战斗任务
 TASK_PLAY_NONPCWAR = 4 -- 暗雷战斗任务
 TASK_PLAY_COLLECT = 5 -- 采集任务
+TASK_PLAY_QUESTION = 6 -- 答题任务
 

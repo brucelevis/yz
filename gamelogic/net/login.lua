@@ -25,7 +25,7 @@ function C2S.register(obj,request)
 		passwd = passwd,
 		channel = channel,
 	})
-	local status,response = httpc.post(cserver.accountcenter.host,url,request)
+	local status,response = httpc.post(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then -- register success
@@ -92,7 +92,7 @@ function C2S.login(obj,request)
 		passwd = passwd,
 		ip = obj.__ip,
 	})
-	local status,response = httpc.post(cserver.accountcenter.host,url,request)
+	local status,response = httpc.post(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then
@@ -101,11 +101,11 @@ function C2S.login(obj,request)
 			obj.channel = result.channel
 			url = string.format("/rolelist")
 			local request = make_request({
-				gameflag = cserver.gameflag,
+				gameflag = cserver.gameflag(),
 				srvname = cserver.getsrvname(),
 				acct = account,
 			})
-			local status2,response2 = httpc.post(cserver.accountcenter.host,url,request)
+			local status2,response2 = httpc.post(cserver.accountcenter(),url,request)
 			if status2 == 200 then
 				local errcode2,result = unpack_response(response2)
 				if errcode2 == STATUS_OK then
@@ -203,13 +203,13 @@ function C2S.createrole(obj,request)
 	local data = cjson.encode(newrole)
 	local url = string.format("/createrole")
 	local request = make_request({
-		gameflag = cserver.gameflag,
+		gameflag = cserver.gameflag(),
 		srvname = cserver.getsrvname(),
 		acct = account,
 		roleid = pid,
 		role = data
 	})
-	local status,response = httpc.post(cserver.accountcenter.host,url,request)
+	local status,response = httpc.post(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode = unpack_response(response)
 		if errcode == STATUS_OK then	
@@ -233,17 +233,16 @@ function C2S.createrole(obj,request)
 	end
 end
 
-
 function C2S.entergame(obj,request)
 	local roleid = assert(request.roleid)
-	local token = request.token
-	if not playermgr.isroleexist(roleid) then
+	local token = request.token -- 跨服进入游戏会带token标记
+	if not token and not playermgr.isroleexist(roleid) then
 		netlogin.S2C.entergame_result(obj,{errcode = STATUS_ROLE_NOEXIST,})
 		return
 	end
 	local token_cache
 	if not obj.passlogin then
-		-- token auth
+		-- token认证
 		if token then
 			token_cache = playermgr.gettoken(token)
 			if not token_cache or token_cache.pid ~= roleid then
@@ -262,7 +261,16 @@ function C2S.entergame(obj,request)
 		netlogin.S2C.entergame_result(obj,{errcode = STATUS_REPEAT_LOGIN,})
 		return
 	end
-	if not token then -- token认证登录不排队
+	local kuafuplayer = playermgr.getkuafuplayer(roleid)
+	if kuafuplayer then		-- 进入原服时自动跳转到跨服
+		local go_srvname = assert(kuafuplayer.go_srvname)
+		obj.pid = roleid
+		local home_srvname = kuafuplayer.home_srvname or cserver.getsrvname()
+		playermgr.gosrv(obj,go_srvname,home_srvname)
+		netlogin.S2C.entergame_result(obj,{errcode = STATUS_REDIRECT_SERVER,})
+		return
+	end
+	if not token then -- token认证进入游戏不排队
 		local server = globalmgr.server
 		if playermgr.onlinenum >= server.onlinelimit then
 			loginqueue.push({fd=obj.__fd,roleid=roleid})
@@ -271,31 +279,38 @@ function C2S.entergame(obj,request)
 			return
 		end
 	end
+
+	local player
 	if oldplayer then	-- 顶号
-		local go_srvname
-		-- token认证登录不检查：是否可以自动跳到跨服
-		if not token and oldplayer.__state == "kuafu" and oldplayer.go_srvname then
-			go_srvname = oldplayer.go_srvname
-		end
 		if oldplayer.__agent and not oldplayer:isdisconnect() then -- 连线对象才提示，非连线对象可能有：离线对象/跨服对象
 			net.msg.S2C.notify(oldplayer,string.format("您的帐号被%s替换下线",gethideip(obj.__ip)))
 			net.msg.S2C.notify(obj,string.format("%s的帐号已被你替换下线",gethideip(oldplayer.__ip)))
 		end
 		playermgr.kick(oldplayer,"replace")
-		if go_srvname then
-			playermgr.gosrv(obj,go_srvname)
-			netlogin.S2C.entergame_result(obj,{errcode = STATUS_REDIRECT_SERVER,})
-			return
+		-- 只有顶替“在线”玩家才忽略走“重新载入玩家”逻辑，因为非在线玩家(如玩家在原服对应的离线玩家
+		-- 其维持的数据可能是过时的副本数据
+		if oldplayer.__state == "online" then
+			player = oldplayer
+		else
+			player = playermgr.recoverplayer(roleid)
 		end
+	else
+		player = playermgr.recoverplayer(roleid)
 	end
-	local player = playermgr.recoverplayer(roleid)
+	-- token认证登录成功后，通知原服将玩家标记成跨服
 	if token_cache then
-		local home_srvname = assert(token_cache.home_srvname)
-		player.home_srvname = home_srvname
-		player.player_data = token_cache.player_data
-		local now_srvname = cserver.getsrvname()
-		rpc.call(home_srvname,"rpc","playermgr.set_go_srvname",roleid,now_srvname)
 		playermgr.deltoken(token)
+		local home_srvname = token_cache.home_srvname
+		-- 去跨服认证通过，通知原服，将玩家标记成跨服
+		if home_srvname then
+			player.home_srvname = home_srvname
+			player.player_data = token_cache.player_data
+			local now_srvname = cserver.getsrvname()
+			rpc.call(home_srvname,"rpc","playermgr.addkuafuplayer",{
+				pid = roleid,
+				go_srvname = now_srvname,
+			})
+		end
 	end
 	playermgr.transfer_mark(obj,player)
 	playermgr.nettransfer(obj,player)
@@ -316,11 +331,11 @@ function C2S.delrole(obj,request)
 	local roleid = assert(request.roleid)
 	local url = string.format("/delrole")
 	local request = make_request({
-		gameflag = cserver.gameflag,
+		gameflag = cserver.gameflag(),
 		acct = acct,
 		roleid = roleid,
 	})
-	local status,response = httpc.post(cserver.accountcenter.host,url,request)
+	local status,response = httpc.post(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode = unpack_response(response)
 		if errcode == STATUS_OK then -- delrole success
@@ -344,7 +359,7 @@ function C2S.tokenlogin(obj,request)
 		acct = account,
 		channel = channel,
 	})
-	local status,response = httpc.post(cserver.accountcenter.host,url,request)
+	local status,response = httpc.post(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then

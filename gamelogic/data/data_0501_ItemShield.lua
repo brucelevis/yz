@@ -14,7 +14,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 1,
 		needjob = {},
 		maxhp = 0,
@@ -34,11 +34,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106002] = {
@@ -54,7 +54,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 10,
 		needjob = {},
 		maxhp = 0,
@@ -74,11 +74,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106003] = {
@@ -94,7 +94,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 20,
 		needjob = {},
 		maxhp = 0,
@@ -114,11 +114,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106004] = {
@@ -134,7 +134,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 30,
 		needjob = {},
 		maxhp = 0,
@@ -154,11 +154,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106005] = {
@@ -174,7 +174,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 40,
 		needjob = {},
 		maxhp = 0,
@@ -194,11 +194,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106006] = {
@@ -214,7 +214,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 50,
 		needjob = {},
 		maxhp = 0,
@@ -234,11 +234,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106007] = {
@@ -254,7 +254,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 60,
 		needjob = {},
 		maxhp = 0,
@@ -274,11 +274,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106008] = {
@@ -294,7 +294,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 70,
 		needjob = {},
 		maxhp = 0,
@@ -314,11 +314,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106009] = {
@@ -334,7 +334,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 80,
 		needjob = {},
 		maxhp = 0,
@@ -354,11 +354,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106010] = {
@@ -374,7 +374,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 90,
 		needjob = {},
 		maxhp = 0,
@@ -394,11 +394,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 	[106011] = {
@@ -414,7 +414,7 @@ data_0501_ItemShield = {
 		desc = "",
 
 		equiptype = 20,
-		equippos = 2,
+		equippos = 6,
 		lv = 100,
 		needjob = {},
 		maxhp = 0,
@@ -434,11 +434,11 @@ data_0501_ItemShield = {
 		mpr = 0,
 		dfsp = 1,
 		xiuzheng = 1,
-		upgrade_costitem = {
+		produce_costitem = {
 			[401001] = 1,
 			[401001] = 1,
 		},
-		upgrade_costcoin = 10,
+		produce_costcoin = 10,
 	},
 
 }

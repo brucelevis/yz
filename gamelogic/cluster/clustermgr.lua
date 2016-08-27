@@ -16,7 +16,7 @@ function clustermgr.checkserver()
 		end
 	end
 	-- 数据中心,自身战斗服
-	local srvlist = {skynet.getenv("datacenter"),skynet.getenv("warsrv"),}
+	local srvlist = {cserver.datacenter(),cserver.warsrv(),}
 	for _,srvname in pairs(srvlist) do
 		assert(self_srvname ~= srvname)
 		local ok,result = pcall(rpc.call,srvname,"heartbeat")

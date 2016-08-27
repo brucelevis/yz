@@ -5,12 +5,6 @@ function resumemgr.init()
 	resumemgr.objs = {}
 end
 
-function resumemgr.oncreate(player)
-	local pid = player.pid
-	local data = player:packresume()
-	resumemgr.create(pid,data)
-end
-
 function resumemgr.create(pid,data)
 	local resume = cresume.new(pid)
 	resume:create(data)
@@ -20,20 +14,27 @@ end
 function resumemgr.onlogin(player)
 	local pid = player.pid
 	local resume = resumemgr.getresume(pid)
+	local data = player:packresume()
+	data.now_srvname = cserver.getsrvname()
+	data.online = true
 	-- 兼容处理
-	if not resume then
-		resumemgr.create(player.pid,player:packresume())
+	if not resume:get("home_srvname") then
+		data.home_srvname = cserver.getsrvname()
 	end
-	resume = resumemgr.getresume(pid)
-	resume:set("online",true,true)
-	resume:sync(player:packresume())
+	resume:set(data)
 end
 
-function resumemgr.onlogoff(player)
+function resumemgr.onlogoff(player,reason)
 	local pid = player.pid
 	local resume = resumemgr.getresume(pid)
-	resume:set("online",false,true)
-	resume:sync(player:packresume())
+	local data = player:packresume()
+	data.now_srvname = cserver.getsrvname()
+	data.online = false
+	-- 兼容处理
+	if not resume:get("home_srvname") then
+		data.home_srvname = cserver.getsrvname()
+	end
+	resume:set(data)
 end
 
 function resumemgr.loadresume(pid)
@@ -45,7 +46,7 @@ end
 function resumemgr.getresume(pid)
 	if not resumemgr.objs[pid] then
 		local resume = resumemgr.loadresume(pid)
-		if not resume.loadnull then
+		if resume.loadstate == "loaded" then
 			resumemgr.addresume(pid,resume)
 		end
 	end
@@ -69,7 +70,7 @@ function resumemgr.delresume(pid)
 		local srvname = cserver.getsrvname()
 		if cserver.isdatacenter(srvname) then
 		else
-			rpc.call("datacenter","resumemgr","delref",pid)
+			rpc.call(cserver.datacenter(),"resumemgr","delref",pid)
 		end
 	end
 end
@@ -112,6 +113,7 @@ function CMD.create(srvname,pid,data)
 end
 
 -- datacenter <-> gamesrv
+-- 增量同步
 function CMD.sync(srvname,pid,data)
 	logger.log("debug","resume",format("[sync] srvname=%s pid=%d data=%s",srvname,pid,data))
 	data.pid = pid

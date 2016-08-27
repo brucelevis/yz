@@ -1,7 +1,7 @@
 playunit_baotu = playunit_baotu or {}
 huodongmgr.playunit.baotu = playunit_baotu
 
-function playunit_baotu.onlogoff(player)
+function playunit_baotu.onlogoff(player,reason)
 	-- 下线立即触发发奖励，并且邮寄给玩家
 	if player.baotu_cache then
 		local baotu_cache = player.baotu_cache
