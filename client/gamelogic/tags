@@ -1,0 +1,105 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+agent.dispatch	agent.lua	/^function agent.dispatch(srvname,v)$/;"	f
+agent.init	agent.lua	/^function agent.init()$/;"	f
+ajust_super	base/class.lua	/^local function ajust_super(super)$/;"	f
+callmeta.__call 	base/functor.lua	/^callmeta.__call = function (func,...)$/;"	f
+cdatabaseable:__getattr	base/databaseable.lua	/^function cdatabaseable:__getattr(attrs)$/;"	f
+cdatabaseable:__set	base/databaseable.lua	/^function cdatabaseable:__set(key,val)$/;"	f
+cdatabaseable:__split	base/databaseable.lua	/^function cdatabaseable:__split(key)$/;"	f
+cdatabaseable:add	base/databaseable.lua	/^function cdatabaseable:add(key,val)$/;"	f
+cdatabaseable:basic_add	base/databaseable.lua	/^function cdatabaseable:basic_add(key,val)$/;"	f
+cdatabaseable:basic_delete	base/databaseable.lua	/^function cdatabaseable:basic_delete(key)$/;"	f
+cdatabaseable:basic_get	base/databaseable.lua	/^function cdatabaseable:basic_get(key,default)$/;"	f
+cdatabaseable:basic_set	base/databaseable.lua	/^function cdatabaseable:basic_set(key,val)$/;"	f
+cdatabaseable:clear	base/databaseable.lua	/^function cdatabaseable:clear()$/;"	f
+cdatabaseable:delete	base/databaseable.lua	/^function cdatabaseable:delete(key)$/;"	f
+cdatabaseable:get	base/databaseable.lua	/^function cdatabaseable:get(key,default)$/;"	f
+cdatabaseable:init	base/databaseable.lua	/^function cdatabaseable:init(param)$/;"	f
+cdatabaseable:isdirty	base/databaseable.lua	/^function cdatabaseable:isdirty()$/;"	f
+cdatabaseable:set	base/databaseable.lua	/^function cdatabaseable:set(key,val)$/;"	f
+cdatabaseable:update	base/databaseable.lua	/^function cdatabaseable:update(action,key,oldval,newval)$/;"	f
+choosekey	base/init.lua	/^function choosekey(dct)$/;"	f
+choosevalue	base/init.lua	/^function choosevalue(dct)$/;"	f
+class	base/class.lua	/^function class(name,...)$/;"	f
+copy	base/init.lua	/^function copy(o)$/;"	f
+currentdir	base/init.lua	/^function currentdir()$/;"	f
+deepcopy	base/init.lua	/^function deepcopy(o,seen)$/;"	f
+dispatch	agent.lua	/^local function dispatch(srvname,typ,...)$/;"	f
+dispatch	init.lua	/^local function dispatch(...)$/;"	f
+filter	base/init.lua	/^function filter(t,func)$/;"	f
+format	base/init.lua	/^function format(fmt,...)$/;"	f
+functor	base/functor.lua	/^function functor(func,...)$/;"	f
+getdayhour	base/init.lua	/^function getdayhour(now)$/;"	f
+getdayno	base/init.lua	/^function getdayno(flag)$/;"	f
+getdaysecond	base/init.lua	/^function getdaysecond()$/;"	f
+getdayzerotime	base/init.lua	/^function getdayzerotime()$/;"	f
+gethourminute	base/init.lua	/^function gethourminute(now)$/;"	f
+gethourno	base/init.lua	/^function gethourno(flag)$/;"	f
+getminutesecond	base/init.lua	/^function getminutesecond(now)$/;"	f
+getmonthday	base/init.lua	/^function getmonthday(now)$/;"	f
+getsecond	base/init.lua	/^function getsecond()$/;"	f
+getweekday	base/init.lua	/^function getweekday(now)$/;"	f
+getweekno	base/init.lua	/^function getweekno(flag)$/;"	f
+getyear	base/init.lua	/^function getyear(now)$/;"	f
+getyearmonth	base/init.lua	/^function getyearmonth(now)$/;"	f
+hexstr	base/init.lua	/^function hexstr(str)$/;"	f
+if type(func) 	base/functor.lua	/^	if type(func) == "function" then$/;"	f
+init	init.lua	/^local function init()$/;"	f
+isdigit	base/init.lua	/^function isdigit(str)$/;"	f
+ishit	base/init.lua	/^function ishit(num,limit)$/;"	f
+keys	base/init.lua	/^function keys(t)$/;"	f
+less_than	base/init.lua	/^local function less_than(lhs,rhs)$/;"	f
+list	base/init.lua	/^function list(t)$/;"	f
+lower_bound	base/init.lua	/^function lower_bound(t,val,cmp)$/;"	f
+map	base/init.lua	/^function map(func,...)$/;"	f
+net.init	net/init.lua	/^function net.init()$/;"	f
+netcache.default_refresh	base/netcache.lua	/^function netcache.default_refresh(pid,data)$/;"	f
+netcache.dump	base/netcache.lua	/^function netcache.dump(printf)$/;"	f
+netcache.main	base/netcache.lua	/^function netcache.main()$/;"	f
+netcache.refresh	base/netcache.lua	/^function netcache.refresh(delay)$/;"	f
+netcache.register_all	base/netcache.lua	/^function netcache.register_all()$/;"	f
+netcache.register_refresh	base/netcache.lua	/^function netcache.register_refresh(name,key,func,delay)$/;"	f
+netcache.reload	base/netcache.lua	/^function netcache.reload(oldmodule)$/;"	f
+netcache.starttimer	base/netcache.lua	/^function netcache.starttimer()$/;"	f
+netcache.update	base/netcache.lua	/^function netcache.update(pid,name,key,val)$/;"	f
+new	base/class.lua	/^	local function new(istemp)$/;"	f
+oncreaterole	test/test_login.lua	/^	function oncreaterole(srvname,response)$/;"	f
+onentergame	test/test_login.lua	/^	function onentergame(srvname,response)$/;"	f
+onlogin	test/test_login.lua	/^	function onlogin(srvname,response)$/;"	f
+onregister	test/test_login.lua	/^	function onregister(srvname,response)$/;"	f
+pprintf	base/init.lua	/^function pprintf(fmt,...)$/;"	f
+pretty_format	base/init.lua	/^function pretty_format(fmt,...)$/;"	f
+pretty_tostring	base/init.lua	/^function pretty_tostring(obj,indent)$/;"	f
+printf	base/init.lua	/^function printf(fmt,...)$/;"	f
+randlist	base/init.lua	/^function randlist(list)$/;"	f
+range	base/init.lua	/^function range(b,e,step)$/;"	f
+reload_class	base/class.lua	/^local function reload_class(name)$/;"	f
+remove_from	base/init.lua	/^function remove_from(t,val,maxcnt)$/;"	f
+self_tostring	base/init.lua	/^function self_tostring(obj)$/;"	f
+sendpackage	base/init.lua	/^function sendpackage(srvname,protoname,subprotoname,args)$/;"	f
+setvalue	base/netcache.lua	/^local function setvalue(tbl,val,...)$/;"	f
+shuffle	base/init.lua	/^function shuffle(list,inplace)$/;"	f
+slice	base/init.lua	/^function slice(list,b,e,step)$/;"	f
+socketmgr.close	socketmgr.lua	/^function socketmgr.close(srvname) $/;"	f
+socketmgr.delsrv	socketmgr.lua	/^function socketmgr.delsrv(srvname)$/;"	f
+socketmgr.dispatch	socketmgr.lua	/^function socketmgr.dispatch()$/;"	f
+socketmgr.getsrv	socketmgr.lua	/^function socketmgr.getsrv(srvname)$/;"	f
+socketmgr.init	socketmgr.lua	/^function socketmgr.init()$/;"	f
+socketmgr.onclose	socketmgr.lua	/^function socketmgr.onclose(srvname)$/;"	f
+socketmgr.recv_package	socketmgr.lua	/^function socketmgr.recv_package(srvname)$/;"	f
+socketmgr.send_package	socketmgr.lua	/^function socketmgr.send_package(srvname,pack)$/;"	f
+socketmgr.send_request	socketmgr.lua	/^function socketmgr.send_request(srvname,protoname,subprotoname,request)$/;"	f
+socketmgr.unpack_package	socketmgr.lua	/^function socketmgr.unpack_package(text)$/;"	f
+split	base/init.lua	/^function split(str,pat,maxsplit)$/;"	f
+test	test/test_login.lua	/^local function test(srvname,account,passwd,callback)$/;"	f
+update_hierarchy	base/class.lua	/^local function update_hierarchy(name)$/;"	f
+uppper_bound	base/init.lua	/^function uppper_bound(t,val,cmp)$/;"	f
+usage	socketmgr.lua	/^local function usage()$/;"	f
+values	base/init.lua	/^function values(t)$/;"	f
+wait	agent.lua	/^function wait(protoname,subprotoname,callback)$/;"	f
+wakeup	agent.lua	/^function wakeup(protoname,subprotoname)$/;"	f
