@@ -1,3 +1,4 @@
+local socket = require "socket"
 require "gamelogic.serverinfo"
 require "gamelogic.logger.init"
 require "gamelogic.base.init"
@@ -11,7 +12,6 @@ require "gamelogic.db.init"
 require "gamelogic.timectrl.init"
 require "gamelogic.net.init"
 require "gamelogic.console.init"
-require "gamelogic.globalmgr"
 require "gamelogic.cluster.init"
 require "gamelogic.service.init"
 require "gamelogic.loginqueue"
@@ -86,6 +86,12 @@ function game.init()
 	})
 	reqresp.init()
 
+	local httpport = skynet.getenv("httpport")
+	if httpport then
+		local agentnum = skynet.getenv("agentnum") or 1
+		local openhttp = require "gamelogic.service.httpd"
+		openhttp(httpport,agentnum)
+	end
 	game.initall = true
 	game.startgame() -- 初始化完后启动的逻辑
 	logger.log("info","startserver",string.format("[startgame] runno=%s",globalmgr.server:query("runno",0)))

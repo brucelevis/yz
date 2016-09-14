@@ -342,3 +342,17 @@ function table.diff_set(set1,set2)
 	end
 	return ret
 end
+
+function table.isarray(tbl)
+	if type(tbl) ~= "table" then
+		return false
+	end
+	local len = #tbl
+	for k,v in pairs(tbl) do
+		if type(k) ~= "number" or k > len then
+			return false
+		end
+	end
+	return true
+end
+

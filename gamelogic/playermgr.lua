@@ -1,11 +1,31 @@
 playermgr = playermgr or {}
 
+--/*
+-- 所有与玩家相关对象均置入id_obj中，其中包括
+-- 连线对象（link)/离线玩家(offline)/在线玩家（online):来跨服的玩家带.home_srvname属性
+-- 连线对象/在线对象，有连接ID，同时在fd_id中作标记
+--*/
+function playermgr.init()
+	logger.log("info","playermgr","[init]")
+	playermgr.num = 0 -- playermgr.num == playermgr.onlinenum + playermgr.offlinenum + playermgr.linknum
+	playermgr.onlinenum = 0
+	playermgr.kuafunum = 0		--过来跨服的玩家数，数量已经包含在playermgr.onlinenum中
+	playermgr.offlinenum = 0
+	playermgr.linknum = 0
+	playermgr.id_obj = {}
+	playermgr.fd_id = {}
+
+	-- 跨服对象相关
+	playermgr.tokens = {}
+	playermgr.starttimer_checktoken()
+end
+
+
 function playermgr.getobject(pid)
 	return playermgr.id_obj[pid]
 end
 
 function playermgr.getplayer(pid)
-	assert(pid >= 0)
 	local player = playermgr.getobject(pid)
 	if player then
 		if player.__state == "offline" then
@@ -79,7 +99,7 @@ function playermgr.addobject(obj,reason)
 	playermgr.id_obj[pid] = obj
 	if obj.__fd then
 		playermgr.fd_id[obj.__fd] = pid
-	else
+	elseif obj.__state ~= "offline" then
 		logger.log("warning","playermgr",string.format("[addobject but no fd] pid=%s agent=%s fd=%s state=%s reason=%s",pid,obj.__agent,obj.__fd,obj.__state,reason))
 	end
 	playermgr.num = playermgr.num + 1
@@ -94,7 +114,6 @@ function playermgr.addobject(obj,reason)
 		end
 		playermgr.onlinenum = playermgr.onlinenum + 1
 	end
-	-- typename(obj) == "cplayer"
 	if obj.__state ~= "link" then
 		obj.savename = string.format("%s.%s",obj.flag,obj.pid)
 		autosave(obj)
@@ -122,7 +141,6 @@ function playermgr.__delobject(obj,reason)
 		if obj.__fd then
 			playermgr.fd_id[obj.__fd] = nil
 		end
-		-- typename(obj) == "cplayer"
 		if obj.__state ~= "link" then
 			closesave(obj)
 			xpcall(obj.savetodatabase,onerror,obj)
@@ -200,6 +218,7 @@ function playermgr.genpid()
 	local maxroleid = math.floor(tonumber(skynet.getenv("maxroleid")))
 	local db = dbmgr.getdb()
 	local pid = db:get(db:key("role","maxroleid")) or minroleid
+	pid = tonumber(pid)
 	pid = pid + 1
 	if pid >= maxroleid then
 		return nil
@@ -215,6 +234,7 @@ function playermgr.createplayer(pid,conf)
 	logger.log("info","playermgr",format("[createplayer] pid=%d player=%s",pid,conf))
 	local db = dbmgr.getdb()
 	local maxpid = db:get(db:key("role","maxroleid")) or 0
+	maxpid = tonumber(maxpid)
 	if pid > maxpid then
 		db:set(db:key("role","maxroleid"),pid)
 	end
@@ -231,7 +251,7 @@ function playermgr.isroleexist(pid)
 end
 
 -- 逻辑服如果删了角色未通知帐号中心同步删角色，则会出现：下次登录帐号恢复角色数据时载入为空
--- 一般而言调用该函数前需要判定角色是否存在,角色存在则假定其已定能载入成功（不成功说明上层逻辑可能有问题)
+-- 一般而言调用该函数前需要判定角色是否存在,角色存在则假定其一定能载入成功（不成功说明上层逻辑可能有问题)
 function playermgr.recoverplayer(pid)
 	assert(tonumber(pid),"invalid pid:" .. tostring(pid))
 	local player = playermgr.newplayer(pid)
@@ -247,7 +267,7 @@ end
 function playermgr.nettransfer(obj1,obj2)
 	--obj1一般为连线对象，连线对象存在conmanager.connectIdMapPlayerObj中
 	local id1,id2 = obj1.pid,obj2.pid
-	logger.log("info","playermgr",string.format("[nettransfer] id1=%s fd1=%s id2=%s fd2=%s",id1,obj1.__fd,id2,obj2.__fd))
+	logger.log("info","playermgr",string.format("[nettransfer] id1=%s fd1=%s agent1=%s id2=%s fd2=%s agent2=%s",id1,obj1.__fd,obj1.__agent,id2,obj2.__fd,obj2.__agent))
 	local agent = assert(obj1.__agent,"link object havn't agent,pid:" .. tostring(id1))
 	obj2.m_agent = obj1.m_agent
 	obj2.m_connectionId = obj1.m_connectionId
@@ -319,27 +339,6 @@ function playermgr.starttimer_checktoken()
 			end
 		end
 	end
-end
-
-
---/*
--- 所有与玩家相关对象均置入id_obj中，其中包括
--- 连线对象（link)/离线玩家(offline)/跨服玩家（kuafu)/在线玩家（online)
--- 连线对象/在线对象，有连接ID，同时在fd_id中作标记
---*/
-function playermgr.init()
-	logger.log("info","playermgr","[init]")
-	playermgr.num = 0 -- playermgr.num == playermgr.onlinenum + playermgr.offlinenum + playermgr.linknum
-	playermgr.onlinenum = 0
-	playermgr.kuafunum = 0		--过来跨服的玩家数，数量已经包含在playermgr.onlinenum中
-	playermgr.offlinenum = 0
-	playermgr.linknum = 0
-	playermgr.id_obj = {}
-	playermgr.fd_id = {}
-
-	-- 跨服对象相关
-	playermgr.tokens = {}
-	playermgr.starttimer_checktoken()
 end
 
 -- 适配框架

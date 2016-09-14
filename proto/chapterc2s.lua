@@ -27,5 +27,14 @@ chapter_get_unlockcondition 6702 {
 	}
 }
 
+#剧情回顾
+chapter_reviewstory 6703 {
+	request {
+		base 0 : basetype
+		line 1 : integer #1-主线 2-支线
+		section 2 : integer #章节
+	}
+}
+
 ]]
 }

@@ -9,12 +9,37 @@ end
 
 function CMD.forward(srvname,request)
 	logger.log("debug","war",format("[CMD.forward] srvname=%s request=%s",srvname,request))
-	local pid = assert(request.pid,"no pid")
-	local protoname = assert(request.protoname,"no protoname")
-	local protoname,subprotoname = string.match(protoname,"([^_]-)%_(.+)")
-	request.pid = nil
-	request.protoname = nil
-	sendpackage(pid,protoname,subprotoname,request)
+	local pids = assert(request.pids,"no pid")
+	local cmd = assert(request.cmd)
+	local protoname,subprotoname = string.match(cmd,"([^_]-)%_(.+)")
+	local request = request.request
+	for i,pid in ipairs(pids) do
+		sendpackage(pid,protoname,subprotoname,request)
+	end
+end
+
+function CMD.warresult(srvname,request)
+	local warid = assert(request.warid)
+	local result = assert(request.result)
+	warmgr.onwarend(warid,result)
+end
+
+function CMD.delitem(srvname,request)
+	local warid = assert(request.warid)
+	local pid = assert(request.pid)
+	local itemid = assert(request.itemid)
+	local num = assert(request.num)
+	local player = playermgr.getplayer(pid)
+	if player then
+		local item = player.itemdb:getitem(itemid)
+		if item then
+			assert(item.num >= num)
+			player.itemdb:costitembyid(itemid,num,string.format("inwar:%d",warid))
+		end
+	end
+end
+
+function CMD.sethpmp(srvname,request)
 end
 
 

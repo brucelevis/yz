@@ -7,6 +7,7 @@ netlogin = netlogin or {
 local C2S = netlogin.C2S
 local S2C = netlogin.S2C
 
+
 function C2S.register(obj,request)
 	local account = assert(request.acct)
 	local passwd = assert(request.passwd)
@@ -25,7 +26,7 @@ function C2S.register(obj,request)
 		passwd = passwd,
 		channel = channel,
 	})
-	local status,response = httpc.post(cserver.accountcenter(),url,request)
+	local status,response = httpc.postx(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then -- register success
@@ -51,22 +52,17 @@ local function debuglogin(obj,request)
 			obj.passlogin = true
 			obj.account = account
 			obj.channel = "inner"
-			local isroleexist = false
-			local player = playermgr.getplayer(pid)
-			if not player then
-				player = playermgr.loadofflineplayer(pid)
-			end
-
-			if not player then
+			local roletype = 10001
+			if not playermgr.isroleexist(pid) then
 				-- return STATUS_ROLE_NOEXIST
 				return STATUS_OK,{}
 			else
 				return STATUS_OK,{
 					{
-						roleid = player.pid,
-						name = player.name,
-						lv = player.lv,
-						roletype = player.roletype,
+						roleid = pid,
+						name = account,
+						lv = 1,
+						roletype = 10001,
 					}
 				}
 			end
@@ -92,7 +88,7 @@ function C2S.login(obj,request)
 		passwd = passwd,
 		ip = obj.__ip,
 	})
-	local status,response = httpc.post(cserver.accountcenter(),url,request)
+	local status,response = httpc.postx(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then
@@ -105,7 +101,7 @@ function C2S.login(obj,request)
 				srvname = cserver.getsrvname(),
 				acct = account,
 			})
-			local status2,response2 = httpc.post(cserver.accountcenter(),url,request)
+			local status2,response2 = httpc.postx(cserver.accountcenter(),url,request)
 			if status2 == 200 then
 				local errcode2,result = unpack_response(response2)
 				if errcode2 == STATUS_OK then
@@ -173,7 +169,11 @@ function C2S.createrole(obj,request)
 		netlogin.S2C.createrole_result(obj,{errcode = STATUS_SEX_INVALID})
 		return
 	end
-	if not isvalid_name(name) then
+	local isok,errmsg = isvalid_name(name)
+	if not isok then
+		if errmsg then
+			net.msg.S2C.notify(obj,errmsg)
+		end
 		netlogin.S2C.createrole_result(obj,{errcode = STATUS_NAME_INVALID})
 		return
 	end
@@ -188,7 +188,7 @@ function C2S.createrole(obj,request)
 
 	local pid = playermgr.genpid()
     if not pid then
-		netlogin.S2C.createrole_result(obj,{result = STATUS_OVERLIMIT,})
+		netlogin.S2C.createrole_result(obj,{errcode = STATUS_OVERLIMIT,})
 		return
     end
 	local newrole = {
@@ -196,7 +196,7 @@ function C2S.createrole(obj,request)
 		roletype = roletype,
 		sex = sex,
 		name = name,
-		lv = 0,
+		lv = 1,
 		gold = 0,
 	}
 
@@ -209,7 +209,7 @@ function C2S.createrole(obj,request)
 		roleid = pid,
 		role = data
 	})
-	local status,response = httpc.post(cserver.accountcenter(),url,request)
+	local status,response = httpc.postx(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode = unpack_response(response)
 		if errcode == STATUS_OK then	
@@ -236,6 +236,18 @@ end
 function C2S.entergame(obj,request)
 	local roleid = assert(request.roleid)
 	local token = request.token -- 跨服进入游戏会带token标记
+	local banlogin,detail = globalmgr.ban.login(roleid)
+	if banlogin then
+		local msg
+		if detail and detail.exceedtime and detail.exceedtime ~= "" then
+			msg = language.format("角色已被禁止登录,截止时间:{1}",detail.exceedtime)
+		else
+			msg = language.format("角色已被禁止登录")
+		end
+		net.msg.S2C.notify(obj,msg)
+		netlogin.S2C.entergame_result(obj,{errcode = STATUS_BAN_ROLE})
+		return
+	end
 	if not token and not playermgr.isroleexist(roleid) then
 		netlogin.S2C.entergame_result(obj,{errcode = STATUS_ROLE_NOEXIST,})
 		return
@@ -312,6 +324,12 @@ function C2S.entergame(obj,request)
 			})
 		end
 	end
+	-- 时序: C2S.entergame -> 中途阻塞 -> 连线对象断开连接 -> 阻塞完毕
+	-- 此时: 对象身上无连线信息
+	if not obj.__agent then
+		logger.log("warning","playermgr",string.format("[no agent when C2S.entergame,may be block in C2S.entergame] id=%s",obj.pid))
+		return
+	end
 	playermgr.transfer_mark(obj,player)
 	playermgr.nettransfer(obj,player)
 	player:entergame()
@@ -335,7 +353,7 @@ function C2S.delrole(obj,request)
 		acct = acct,
 		roleid = roleid,
 	})
-	local status,response = httpc.post(cserver.accountcenter(),url,request)
+	local status,response = httpc.postx(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode = unpack_response(response)
 		if errcode == STATUS_OK then -- delrole success
@@ -359,7 +377,7 @@ function C2S.tokenlogin(obj,request)
 		acct = account,
 		channel = channel,
 	})
-	local status,response = httpc.post(cserver.accountcenter(),url,request)
+	local status,response = httpc.postx(cserver.accountcenter(),url,request)
 	if status == 200 then
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then

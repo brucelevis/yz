@@ -8,7 +8,9 @@ data_0201_RoleSkillState = {
 		useSkill_fashu = 1,
 		switchPos = 1,
 		takeMedicine = 1,
-		targetEffId = 10003,
+		forceWugongTarget = 0,
+		targetEffId = 0,
+		immunStates = {},
 	},
 
 	[102] = {
@@ -20,7 +22,9 @@ data_0201_RoleSkillState = {
 		useSkill_fashu = 0,
 		switchPos = 0,
 		takeMedicine = 0,
+		forceWugongTarget = 0,
 		targetEffId = 10003,
+		immunStates = {},
 	},
 
 	[103] = {
@@ -32,7 +36,9 @@ data_0201_RoleSkillState = {
 		useSkill_fashu = 0,
 		switchPos = 0,
 		takeMedicine = 0,
-		targetEffId = 10003,
+		forceWugongTarget = 0,
+		targetEffId = 0,
+		immunStates = {},
 	},
 
 	[104] = {
@@ -44,7 +50,9 @@ data_0201_RoleSkillState = {
 		useSkill_fashu = 0,
 		switchPos = 0,
 		takeMedicine = 0,
+		forceWugongTarget = 0,
 		targetEffId = 10003,
+		immunStates = {},
 	},
 
 	[105] = {
@@ -56,7 +64,9 @@ data_0201_RoleSkillState = {
 		useSkill_fashu = 1,
 		switchPos = 0,
 		takeMedicine = 0,
+		forceWugongTarget = 0,
 		targetEffId = 10003,
+		immunStates = {},
 	},
 
 	[106] = {
@@ -68,7 +78,37 @@ data_0201_RoleSkillState = {
 		useSkill_fashu = 0,
 		switchPos = 0,
 		takeMedicine = 0,
+		forceWugongTarget = 0,
 		targetEffId = 10003,
+		immunStates = {},
+	},
+
+	[107] = {
+		des = "挑衅",
+		jinzhan_wugong = 0,
+		yuancheng_wugong = 0,
+		useSkill_jinzhan = 0,
+		useSkill_yuancheng = 0,
+		useSkill_fashu = 0,
+		switchPos = 0,
+		takeMedicine = 0,
+		forceWugongTarget = 1,
+		targetEffId = 10004,
+		immunStates = {},
+	},
+
+	[108] = {
+		des = "霸体",
+		jinzhan_wugong = 0,
+		yuancheng_wugong = 0,
+		useSkill_jinzhan = 0,
+		useSkill_yuancheng = 0,
+		useSkill_fashu = 0,
+		switchPos = 0,
+		takeMedicine = 0,
+		forceWugongTarget = 0,
+		targetEffId = 0,
+		immunStates = {101,105},
 	},
 
 }

@@ -42,7 +42,7 @@ function rpc.call(srvname,protoname,cmd,...)
 end
 
 function rpc.pcall(srvname,protoname,cmd,...)
-	return pcall(rpc.call,srvname,protoname,cmd,...)
+	return xpcall(rpc.call,onerror,srvname,protoname,cmd,...)
 end
 
 return rpc

@@ -90,7 +90,7 @@ function cplayer:init(pid)
 		task = self.taskdb,
 		item = self.itemdb,
 		fashionshow = self.fashionshowdb,
-		carddb = self.carddb,
+		card = self.carddb,
 		delaytonextlogin = self.delaytonextlogin,
 		switch = self.switch,
 		suitequip = self.suitequip,
@@ -175,9 +175,11 @@ function cplayer:packresume()
 		roletype = self.roletype,
 		jobzs = self.jobzs,
 		joblv = self.joblv,
+		fightpoint = 0, --战力，规则待定
 	}
 	return resume
 end
+
 
 function cplayer:savetodatabase()
 	assert(self.pid)
@@ -260,7 +262,8 @@ function cplayer:create(conf)
 	self.loadstate = "loaded"
 
 	self.account = account
-	self.name = name
+	--self.name = name
+	self:setname(name)
 	self.roletype = roletype		-- 角色类型(职业类型)
 	self.sex = sex					-- 性别(1--男,2--女)
 	self.gold = conf.gold or 0
@@ -272,7 +275,7 @@ function cplayer:create(conf)
 	self.joblv = conf.joblv or 1
 	self.jobexp = conf.jobexp or 0
 	self.viplv = conf.viplv or 0
-	self.objid = 100
+	self.objid = 1000		-- [1,1000)为预留ID
 	-- 素质点
 	self:set("qualitypoint",{
 		sum = 48,
@@ -381,7 +384,7 @@ function cplayer:synctoac()
 		roleid = self.pid,
 		role = cjson.encode(role),
 	})
-	httpc.post(cserver.accountcenter(),url,request)
+	httpc.postx(cserver.accountcenter(),url,request)
 end
 
 
@@ -390,7 +393,7 @@ local function heartbeat(pid)
 	if player then
 		local interval = 120
 		timer.timeout("player.heartbeat",interval,functor(heartbeat,pid))
-		sendpackage(pid,"player","heartbeat",{})
+		--sendpackage(pid,"player","heartbeat",{})
 	end
 end
 
@@ -398,6 +401,7 @@ function cplayer:oncreate(conf)
 	logger.log("info","createrole",string.format("[createrole end] account=%s pid=%d name=%s roletype=%d sex=%s lv=%s gold=%d ip=%s:%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,conf.__ip,conf.__port))
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.oncreate then
+			obj.loadstate = "loaded"
 			obj:oncreate(self)
 		end
 	end
@@ -407,6 +411,9 @@ function cplayer:comptible_process()
 	-- 部分旧号无等级字段（先兼容下，后续删除这里代码）
 	if not self.lv then
 		self.lv = 1
+	end
+	if not self.thisweek:query("dexpoint") then
+		self.thisweek:set("dexppoint",data_GlobalVar.ResetDexpPoint)
 	end
 	if not self.scene_strategy then
 		self.scene_strategy = STRATEGY_SEE_ALL
@@ -469,16 +476,21 @@ function cplayer:onlogin()
 			obj:onlogin(self)
 		end
 	end
+	navigation.onlogin(self)
 	teammgr:onlogin(self)
 	warmgr.onlogin(self)
 	gm.onlogin(self)
+
 	channel.subscribe("world",self.pid)
 	self:synctoac()
 end
 
--- reason: replace/disconnect
+-- reason: replace/disconnect/delay_exitgame
 function cplayer:onlogoff(reason)
 	logger.log("info","login",string.format("[logoff] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s channel=%s ip=%s:%s agent=%s reason=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self.channel,self:ip(),self:port(),self.__agent,reason))
+	if reason ~= "replace" then
+		self:set("logofftime",os.time())
+	end
 	mailmgr.onlogoff(self,reason)
 	huodongmgr.onlogoff(self,reason)
 	for k,obj in pairs(self.autosaveobj) do
@@ -491,6 +503,7 @@ function cplayer:onlogoff(reason)
 	-- 放到teammgr:onlogoff之后
 	self:leavescene(self.sceneid)
 	channel.unsubscribe("world",self.pid)
+	-- 保持在最后
 	self:synctoac()
 end
 
@@ -502,18 +515,18 @@ function cplayer:ondisconnect(reason)
 end
 
 function cplayer:ondayupdate()
-	for k,obj in pairs(self.autosaveobj) do
-		if obj.ondayupdate then
-			obj:ondayupdate(self)
-		end
-	end
 end
 
-function cplayer:onweekupdate()
+function cplayer:onmondayupdate()
 end
 
-function cplayer:onweekupdate2()
+function cplayer:onmondayupdate_infivehour()
+	self.thisweek:set("dexppoint",data_GlobalVar.ResetDexpPoint)
+	sendpackage(self.pid,"player","resource",{
+		dexppoint = self.thisweek:query("dexppoint") or 0,
+	})
 end
+
 
 function cplayer:validpay(typ,num,notify)
 	local hasnum
@@ -536,6 +549,7 @@ function cplayer:validpay(typ,num,notify)
 	return true
 end
 
+-- 转身等玩法可能用到，根据玩法看是否重新分配素质点等信息！，切记同步更新关联数据
 function cplayer:setlv(val,reason)
 	local oldval = self.lv
 	assert(val <= playeraux.getmaxlv())
@@ -555,18 +569,27 @@ end
 
 function cplayer:onaddlv(val,reason)
 	-- 例如：10级升到11级，可获得int(10/5+3）= 5点剩余点数
-	local add_qualitypoint = math.floor((self.lv-1) / 5 + 3)
-	self:add_qualitypoint(add_qualitypoint,"onaddlv")
+	local add_qualitypoint = 0
+	for lv=self.lv-val+1,self.lv do
+		add_qualitypoint = add_qualitypoint + math.floor((lv-1) / 5 + 3)
+	end
+	if add_qualitypoint ~= 0 then
+		self:add_qualitypoint(add_qualitypoint,"onaddlv")
+	end
 	self.taskdb:onchangelv()
 end
 
 
 function cplayer:addexp(val,reason)
+	local maxlv = playeraux.getmaxlv()
+	if self.lv >= maxlv then
+		return 0
+	end
 	local oldval = self.exp
 	local newval = oldval + val
 	logger.log("debug","lv",string.format("[addexp] pid=%d addexp=%d reason=%s",self.pid,val,reason))
 	local addlv = 0
-	for lv=self.lv,playeraux.getmaxlv()-1 do
+	for lv=self.lv,maxlv-1 do
 		local maxexp = playeraux.getmaxexp(lv)
 		if newval >= maxexp then
 			newval = newval - maxexp
@@ -580,6 +603,7 @@ function cplayer:addexp(val,reason)
 	if addlv > 0 then
 		self:addlv(addlv,reason)
 	end
+	return val
 end
 
 -- 增加职业转生等级
@@ -587,7 +611,7 @@ function cplayer:addjobzs(val,reason)
 	local oldval = self.jobzs
 	local newval = oldval + val
 	assert(newval <= MAX_JOBZS)
-	logger.log("info","lv",string.format("[addjobzs] pid=%s jobzs=%d+%d=%d reason=%s",self.pid,oldval,newval,reason))
+	logger.log("info","lv",string.format("[addjobzs] pid=%s jobzs=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
 	self.jobzs = newval
 	sendpackage(self.pid,"player","update",{jobzs=self.jobzs})
 end
@@ -607,6 +631,11 @@ function cplayer:addjoblv(val,reason)
 	logger.log("info","lv",string.format("[addjoblv] pid=%d joblv=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
 	self.joblv = newval
 	sendpackage(self.pid,"player","update",{joblv=self.joblv})
+	self:onaddjoblv(val,reason)
+end
+
+function cplayer:onaddjoblv(val,reason)
+	self.warskilldb:addpoint(val,"addjoblv")
 end
 
 function cplayer:addjobexp(val,reason)
@@ -770,7 +799,7 @@ function cplayer:reset_qualitypoint()
 	for typ in pairs(data_1001_PlayerVar.ValidQualityPointType) do
 		local hasnum = self:query("qualitypoint." .. typ,0)
 		for i=1,hasnum-1 do
-			addnum = addnum + math.floor(i/10+2)
+			addnum = addnum + math.floor((i-1)/10+2)
 		end
 	end
 	self:add("qualitypoint.sum",addnum)
@@ -783,16 +812,22 @@ function cplayer:reset_qualitypoint()
 end
 
 function cplayer:genid()
+	-- 基本不可能溢出,玩家平均每天消耗10万ID，超过32位整数也需要>70年时间
 	if self.objid > MAX_NUMBER then
-		self.objid = 100
+		self.objid = 1000
 	end
 	self.objid = self.objid + 1
 	return self.objid
 end
 
-function cplayer:additembytype(itemtype,num,bind,reason)
+function cplayer:additembytype(itemtype,num,bind,reason,tip)
 	local itemdb = self:getitemdb(itemtype)
-	return itemdb:additembytype(itemtype,num,bind,reason)
+	local num1,num2 = itemdb:additembytype(itemtype,num,bind,reason)
+	if tip then
+		local itemdata = itemaux.getitemdata(itemtype)
+		net.msg.S2C.notify(self.pid,language.format("获得 #<II{1}># #<O>【{2}】+{3}#",itemtype,itemdata.name,num1))
+	end
+	return num1,num2
 end
 
 function cplayer:getitemdb(itemtype)
@@ -806,7 +841,7 @@ function cplayer:getitemdb(itemtype)
 	end
 end
 
--- 返回的也是itemdb，只是是根据背包类型获取
+-- 返回的也是itemdb，根据背包类型获取
 function cplayer:getitembag(bagtype)
 	if bagtype == BAGTYPE.NORMAL or bagtype == "itemdb" then
 		return self.itemdb
@@ -890,9 +925,9 @@ function cplayer:addres(typ,num,reason,btip)
 	if btip then
 		local msg
 		if num > 0 then
-			msg = language.format("{1} #<O>{2}# #<{3}>#","获得",num,flag)
+			msg = language.format("{1}#<O>{2}# #<{3}>#","获得",num,flag)
 		else
-			msg = language.format("{1} #<O>{2}# #<{3}>#","花费",-num,flag)
+			msg = language.format("{1}#<O>{2}# #<{3}>#","花费",-num,flag)
 		end
 		net.msg.S2C.notify(self.pid,msg)
 	end
@@ -932,7 +967,7 @@ function cplayer:teamid()
 	return team and team.id
 end
 
--- 组对成员
+-- 组队成员
 function cplayer:packmember()
 	return {
 		pid = self.pid,
@@ -1067,11 +1102,7 @@ function cplayer:setpos(sceneid,pos)
 				if pid ~= self.pid then
 					local member = playermgr.getplayer(pid)
 					if member then
-						member.pos = {
-							x = self.pos.x,
-							y = self.pos.y,
-							dir = self.pos.dir,
-						}
+						member:setpos(sceneid,deepcopy(pos))
 					end
 				end
 			end
@@ -1102,12 +1133,13 @@ function cplayer:onfivehourupdate()
 
 	local monthno = getyearmonth()
 	if self:query("monthno") ~= monthno then
-		self:onmonthupdate()
+		self:onmonthupdate_infivehour()
 	end
+	navigation.onfivehourupdate(self)
 end
 
 -- 每个月第一天的5点时更新
-function cplayer:onmonthupdate()
+function cplayer:onmonthupdate_infivehour()
 	self:set("monthno",getyearmonth())
 end
 
@@ -1120,8 +1152,8 @@ function cplayer:gettarget(targetid)
 end
 
 function cplayer:isgm()
-	if skynet.getenv("servermode") == "DEBUG" then
-		return  true
+	if cserver.isinnersrv() then
+		return true
 	end
 	if self:query("gm") then
 		return true
@@ -1173,9 +1205,49 @@ function cplayer:getname()
 	return self.name
 end
 
+function cplayer:has_dexp_addn(playname,exp)
+	local data = data_ExpPlayUnit[playname]
+	if not data then
+		return false
+	end
+	local exp_addn = 0
+	if data.cost_dexp ~= 0 then
+		if self.switch:isopen("costdexp") then
+			local dexp = self.thisweek:query("dexppoint") or 0
+			if dexp >= data.cost_dexp then
+				self.thisweek:add("dexppoint",-data.cost_dexp)
+				sendpackage(self.pid,"player","resource",{
+					dexppoint = self.thisweek:query("dexppoint") or 0,
+				})
+				exp_addn = math.floor(exp * data.dexp_addn)
+			end
+		end
+	end
+	return true,exp_addn
+end
+
 -- 玩法消耗的双倍点
-function cplayer:can_cost_dexp(playname)
-	return true,1
+function cplayer:has_exp_addn(playname,exp)
+	local data = data_ExpPlayUnit[playname]
+	if not data then
+		return false
+	end
+	local exp_addn = 0
+	local detail = {}
+	local isok,dexp_addn = self:has_dexp_addn(playname,exp)
+	if isok then
+		detail.dexp_addn = dexp_addn
+	end
+	if data.captain_addn ~= 0 then
+		if self:teamstate() == TEAM_STATE_CAPTAIN or true then
+			detail.captain_addn = math.floor(exp * data.captain_addn)
+		end
+	end
+	for k,addn in pairs(detail) do
+		exp_addn = exp_addn + addn
+	end
+	--print(true,exp_addn,table.dump(detail))
+	return true,exp_addn,detail
 end
 
 function cplayer:team_maxlv(state)
@@ -1188,8 +1260,8 @@ function cplayer:team_maxlv(state)
 		local maxlv = 0
 		for i,uid in ipairs(team:members(state)) do
 			local member = playermgr.getplayer(uid)
-			if member.maxlv > maxlv then
-				maxlv = member.maxlv
+			if member.lv > maxlv then
+				maxlv = member.lv
 			end
 		end
 		return maxlv
@@ -1232,38 +1304,6 @@ function cplayer:captain_lv()
 	end
 end
 
-function cplayer:set_respondhandler(callback,...)
-	if not callback or type(callback) ~= "function" then
-		return
-	end
-	if not self.respondid then
-		self.respondid = 0
-		self.respondhandler = {}
-	end
-	local respondid = self.respondid
-	self.respondid = respondid + 1
-	if self.respondid > MAX_NUMBER then
-		self.respondid = 0
-	end
-	local args = table.pack(...)
-	self.respondhandler[respondid] = {
-		callback = callback,
-		args = args,
-	}
-	return respondid
-end
-
-function cplayer:do_respondhandler(respondid,...)
-	local data = self.respondhandler[respondid]
-	if not data then
-		return
-	end
-	self.respondhandler[respondid] = nil
-	local args = data.args
-	local callback = data.callback
-	callback(self,table.unpack(args,1,args.n),...)
-end
-
 -- 延迟下线机制 [START]
 function cplayer:can_exitgame()
 	if self.bforce_exitgame then
@@ -1296,7 +1336,7 @@ end
 function cplayer.__exitgame(pid)
 	local player = playermgr.getplayer(pid)
 	if player then
-		player:exitgame()
+		player:exitgame("delay_exitgame")
 	end
 end
 
@@ -1322,7 +1362,7 @@ function cplayer:getchongzhilist()
 	local valid_products = {}
 	for id,product in pairs(data_1401_ChongZhi) do
 		if table.find(product.channels,0) or table.find(product.channels,channel) then
-			if product.maxbuycnt ~= 0 then		-- 0: 禁止购买
+			if product.maxbuycnt ~= 0 then		-- 0: 禁止购买; -1:购买次数不受限制
 				if product.maxbuycnt < 0 or self:getchongzhicnt(id) < product.maxbuycnt then
 					valid_products[id] = product
 				end
@@ -1405,5 +1445,165 @@ function cplayer:chongzhi(buy_product)
 end
 
 -- 充值 [END]
+
+
+function cplayer:getres(restype)
+	return self[restype]
+end
+
+-- e.g:
+-- local isok,lackres,costres = player:checkres({
+--		items = {xxx},
+--		gold = xxx,
+--		silver = xxx,
+--		coin = xxx,
+-- })
+-- if not isok then
+--	--dosomething
+-- end
+function cplayer:checkres(needres)
+	local isok = true
+	local cost = {}
+	local lack = {}
+	for restype,resval in pairs(needres) do
+		if restype == "items" then
+			cost.items = {}
+			lack.items = {}
+			for i,item in ipairs(resval) do
+				assert(item.num > 0)
+				local itemdb = self:getitemdb(item.type)
+				local hasnum = itemdb:getnumbytype(item.type)
+				if hasnum < item.num then
+					table.insert(lack.items,{
+						type = item.type,
+						num = item.num - hasnum,
+					})
+					if hasnum > 0 then
+						table.insert(cost.items,{
+							type = item.type,
+							num = hasnum,
+						})
+					end
+					isok = false
+				else
+					table.insert(cost.items,{
+						type = item.type,
+						num = item.num,
+					})
+				end
+			end
+		else
+			local hasval = self:getres(restype)
+			if hasval < resval then
+				lack[restype] = resval - hasval
+				cost[restype] = hasval
+				isok = false
+			else
+				cost[restype] = resval
+			end
+		end
+	end
+	cost.gold = (cost.gold or 0) + self:togold(lack)
+	return isok,lack,cost
+end
+
+function cplayer:costres(costres,reason,btip)
+	for restype,resval in pairs(costres) do
+		if restype == "items" then
+			for i,item in ipairs(resval) do
+				local itemdb = self:getitemdb(item.type)
+				if itemdb:getnumbytype(item.type) < item.num then
+					if btip then
+						net.msg.S2C.notify(self.pid,language.format("{1}数量不足",itemaux.itemlink(item.type)))
+					end
+					return false
+				end
+			end
+		else
+			if not self:validpay(restype,resval,btip) then
+				return false
+			end
+		end
+	end
+	for restype,resval in pairs(costres) do
+		if restype == "items" then
+			for i,item in ipairs(resval) do
+				local itemdb = self:getitemdb(item.type)
+				itemdb:costitembytype(item.type,item.num,reason)
+				if btip then
+					net.msg.S2C.notify(self.pid,language.format("消耗#<II{1}>#{2}-{3}",item.type,itemaux.itemlink(item.type),item.num))
+				end
+			end
+		else
+			self:addres(restype,-resval,reason,true)
+		end
+	end
+	return true
+end
+
+function cplayer:togold(lackres)
+	local needgold = 0
+	for restype,resval in pairs(lackres) do
+		if restype == "items" then
+			for i,item in ipairs(resval) do
+				local itemdata = itemaux.getitemdata(item.type)
+				needgold = needgold +  itemdata.buygold * item.num
+			end
+		else
+			local resid = RESTYPE[restype]
+			local resdata = data_ResType[resid]
+			needgold = needgold + resval / resdata.goldbuyhowmuch
+		end
+	end
+	needgold = math.ceil(needgold)
+	return needgold
+end
+
+function cplayer:oncostres(needres,reason,btip,callback)
+	local isok,lackres,costres = self:checkres(needres)
+	if not isok then
+		return openui.messagebox(self.pid,{
+			type = MB_LACK_CONDITION,
+			title = language.format("条件不足"),
+			buttons = {
+				openui.button(language.format("花费#<O>{1}# #<IR2>#兑换并购买",costres.gold)),
+			},
+			attach = {
+				lackres = lackres,
+				costgold = costres.gold,
+			}},function (uid,request,response)
+				local player = playermgr.getplayer(uid)
+				if not player then
+					return
+				end
+				if response.answer ~= 1 then
+					return
+				end
+				if not self:costres(costres,reason,btip) then
+					return
+				end
+				if callback then
+					callback(uid)
+				end
+			end)
+	else
+		if not self:costres(costres,reason,btip) then
+			return
+		end
+		if callback then
+			callback(self.pid)
+		end
+	end
+end
+
+function cplayer:setname(name)
+	local db = dbmgr.getdb()
+	local oldname = self.name
+	self.name = name
+	if oldname then
+		db:hdel("names",oldname)
+	end
+	db:hset("names",name,self.pid)
+end
 
 return cplayer

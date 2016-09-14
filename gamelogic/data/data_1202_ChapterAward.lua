@@ -1,46 +1,60 @@
 --<<data_1202_ChapterAward 导表开始>>
 data_1202_ChapterAward = {
 
-	[1] = {
-		section = 1,
+	[101] = {
+		section = 100001,
 		needstar = 3,
 		item = 501001,
+		num = 2,
+	},
+
+	[102] = {
+		section = 100001,
+		needstar = 12,
+		item = 601001,
 		num = 1,
 	},
 
-	[2] = {
-		section = 1,
-		needstar = 6,
-		item = 501001,
+	[103] = {
+		section = 100001,
+		needstar = 21,
+		item = 601002,
+		num = 2,
+	},
+
+	[104] = {
+		section = 100001,
+		needstar = 30,
+		item = 601003,
 		num = 1,
 	},
 
-	[3] = {
-		section = 1,
-		needstar = 9,
-		item = 501001,
-		num = 5,
-	},
-
-	[5] = {
-		section = 3,
-		needstar = 9,
-		item = 501001,
+	[105] = {
+		section = 100002,
+		needstar = 3,
+		item = 409001,
 		num = 1,
 	},
 
-	[7] = {
-		section = 3,
-		needstar = 6,
-		item = 501001,
+	[106] = {
+		section = 100002,
+		needstar = 12,
+		item = 409002,
+		num = 2,
+	},
+
+	[107] = {
+		section = 100002,
+		needstar = 21,
+		item = 409003,
 		num = 1,
 	},
 
-	[11] = {
-		section = 3,
-		needstar = 15,
-		item = 501001,
-		num = 5,
+	[108] = {
+		section = 100002,
+		needstar = 30,
+		item = 409004,
+		num = 2,
 	},
 
 }

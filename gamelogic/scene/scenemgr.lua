@@ -11,10 +11,10 @@ function scenemgr.init()
 		if mapid == 2 then	-- 新手村地图
 			local scene = scenemgr.addscene(mapid,mapid)
 			table.insert(scenemgr.newcomer_sceneids,scene.sceneid)
-			for i = 1,4 do
-				local scene = scenemgr.addscene(mapid)
-				table.insert(scenemgr.newcomer_sceneids,scene.sceneid)
-			end
+			-- for i = 1,4 do
+			-- 	local scene = scenemgr.addscene(mapid)
+			-- 	table.insert(scenemgr.newcomer_sceneids,scene.sceneid)
+			-- end
 		else
 			scenemgr.addscene(mapid,mapid)
 		end
@@ -24,6 +24,7 @@ function scenemgr.init()
 	scenemgr.itemid = 0
 	scenemgr.starttimer_checkallnpc()
 	scenemgr.starttimer_checkallitem()
+	scenemgr.starttimer_statscene()
 end
 
 function scenemgr.getmap(mapid)
@@ -234,6 +235,26 @@ function scenemgr.starttimer_checkallnpc()
 			end
 		end
 	end
+end
+
+function scenemgr.starttimer_statscene()
+	local normal_map = data_0401_Map
+	local stat = {}
+	for mapid,v in pairs(normal_map) do
+		local mapids = {mapid}
+		if mapid == 2 then -- 新手村
+			mapids = scenemgr.newcomer_sceneids
+		end
+		for i,sceneid in pairs(mapids) do
+			local scene = scenemgr.getscene(sceneid)
+			local info = scene:info()
+			info.mapname = scene.mapname
+			stat[mapid] = info
+		end
+	end
+	logger.log("info","scene",format("[stat] scenes=%s",stat))
+	local delay = skynet.getenv("servermode") == "DEBUG" and 30 or 90
+	timer.timeout("timer.statscene",delay,scenemgr.starttimer_statscene)
 end
 
 function scenemgr.genitemid()

@@ -172,5 +172,16 @@ function string.get_soundex_similar(str1,str2)
 	return diff / (maxlen * 4)
 end
 
+function string.totime(str)
+	local year,mon,day,hour,min,sec = string.match(str,"^(%d+)/(%d+)/(%d+)%s+(%d+):(%d+):(%d+)$")
 
+	return os.time({
+		year = tonumber(year),
+		month = tonumber(mon),
+		day = tonumber(day),
+		hour = tonumber(hour),
+		min = tonumber(min),
+		sec = tonumber(sec),
+	})
+end
 

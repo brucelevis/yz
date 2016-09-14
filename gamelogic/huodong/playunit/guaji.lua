@@ -11,6 +11,10 @@ function playunit_guaji.onlogin(player)
 end
 
 function playunit_guaji.onlogoff(player,reason)
+	if reason == "replace" then
+		return
+	end
+	playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
 end
 
 function playunit_guaji.isguajimap(mapid)
@@ -159,12 +163,17 @@ end
 function playunit_guaji.onwarend(war,result)
 	local reason = "guaji.onwarend"
 	if warmgr.iswin(result) then
-		local reward = war.reward
 		for i,uid in ipairs(war.attackers) do
 			local player = playermgr.getplayer(uid)
 			if player then
+				local reward = deepcopy(war.reward)
+				local isok,exp_addn = player:has_exp_addn("guaji",reward.exp)
+				if isok and exp_addn > 0 then
+					reward.exp = reward.exp + exp_addn
+				end
 				doaward("player",player.pid,reward,reason,true)
 			end
+			navigation.addprogress(player.pid,"guaji")
 		end
 	end
 end

@@ -33,7 +33,7 @@ mail_getattach 2003 {
 mail_sendmail 2004 {
 	request {
 		base 0 : basetype
-		pid 1 : integer
+		to 1 : integer		# 收件人玩家ID
 		title 2 : string
 		content 3 : string
 		attach 4 : AttachType

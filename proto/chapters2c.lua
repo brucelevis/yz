@@ -50,5 +50,15 @@ chapter_send_unlockcondition 6704 {
 	}
 }
 
+#剧情回顾中相关的对白表id,transstr为转换字符串用cjson.decode解压后使用
+chapter_sendstory 6705 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+		textids 2 : *integer
+		transstr 3 : string
+	}
+}
+
 ]]
 }

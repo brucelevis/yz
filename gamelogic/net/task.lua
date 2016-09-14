@@ -22,7 +22,7 @@ end
 
 -- 此接口仅测试使用
 function C2S.accepttask(player,request)
-	if not server.isinnersrv() then
+	if not cserver.isinnersrv() then
 		return
 	end
 	local taskid = assert(request.taskid)

@@ -19,5 +19,12 @@ shop_refresh 6901 {
 	}
 }
 
+shop_open 6902 {
+	request {
+		base 0 : basetype
+		shopname 1 : string		# 商店名:grocery--杂货店
+	}
+}
+
 ]]
 }

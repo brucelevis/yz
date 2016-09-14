@@ -10,13 +10,14 @@ local function test(pid1,pid2)
 	local mailbox2 = mailmgr.getmailbox(pid2)
 	mailbox1:delallmail()
 	mailbox2:delallmail()
-	local mailrequest = net.mail.C2S
-	local allmail = mailrequest.openmailbox(player1)
-	allmail = allmail.mails
+	local allmail = mailbox1:getmails()
 	assert(#allmail == 0)
+
+	local mailrequest = net.mail.C2S
+	mailrequest.openmailbox(player1)
 	-- cann't send to youself
 	mailrequest.sendmail(player1,{
-		pid = pid1,
+		to = pid1,
 		title = "",
 		content = "",
 	})
@@ -25,7 +26,7 @@ local function test(pid1,pid2)
 	mails = mailbox2:getmails()
 	assert(#mails == 0)
 	mailrequest.sendmail(player1,{
-		pid = pid2,
+		to = pid2,
 		title = "title",
 		content = "content",
 	})
@@ -39,15 +40,14 @@ local function test(pid1,pid2)
 	mails = mailbox2:getmails()
 	assert(#mails == 0)
 	mailrequest.sendmail(player1,{
-		pid = pid2,
+		to = pid2,
 		title = "title",
 		content = "content",
 		attach = {
 			gold = 100,
 			silver = 200,
 			items = {
-				{type=14101,num=2,},
-				{type=14201,num=5},
+				{type=401001,num=2,},
 			},
 		}
 	})
@@ -66,7 +66,7 @@ local function test(pid1,pid2)
 	for i = 1,num do
 		local suffix = tostring(i)
 		mailrequest.sendmail(player1,{
-			pid = pid2,
+			to = pid2,
 			title = "title" .. suffix,
 			content = "content" .. suffix,
 		})

@@ -11,15 +11,40 @@ msg_notify 4500 {
 }
 
 # 弹框消息
-#消息弹框类型:1--邀请切磋 (响应用msg.respondanswer协议)
+# 响应用msg.respondanswer协议
+#消息弹框类型:
+#MB_TEST		  = 0					-- 测试弹框
+#MB_INVITE_QIECUO = 1					-- 邀请切磋
+#MB_RECALLMEMBER = 2					-- 召回队员
+#MB_APPLY_BECOME_CAPTAIN = 3			-- 申请称谓队长
+#MB_INVITE_JOINTEAM = 4					-- 邀请入队
+#MB_SHIMOSHILIAN_REACHLIMIT = 5			-- 使魔试炼次数达到上限
+#MB_SHIMOSHILIAN_10_RING = 6			-- 使魔试炼达到10环
+#MB_INVITE_BECOME_CAPTAIN = 7			-- 邀请成为队长
+#MB_NOTIFY_BACKTEAM		= 8				-- 通知归队
+
+#MB_LACK_CONDITION		= 9				-- 条件不足,
+# 对于MB_LACK_CONDITION:attach格式:{lackres=缺少的资源,costgold=消耗的金币}
+# lackres格式统一为:
+#{
+#	items={
+#		{type=物品类型,num=物品数量},
+#	},
+#	#具体资源命名见data_ResType#flag字段
+#	gold = xxx,
+#	silver = xxx,
+#	coin = xxx,
+#	...
+#}
+
 msg_messagebox 4501 {
 	request {
 		base 0 : basetype
 		id 1 : integer			#消息ID，回应服务器时转发,如果为0，表示该消息无须回应
-		title 2 : string		#标题
-		content 3 : string		#内容
+		title 2 : string		#标题(空--不显示)
+		content 3 : string		#内容(空--不显示)
 		attach 4 : string		#json打包的字符串，不同类型弹框消息有不同含义
-		buttons 5 : *string     #按钮文字
+		buttons 5 : *ButtonType #按钮信息
 		type 6 : integer		#消息弹框类型
 	}
 }
@@ -101,7 +126,7 @@ msg_npcsay 4510 {
 		name 1 : string
 		shape 2 : integer
 		msg 3 : string
-		options 4 : *string # 按顺序显示选项内容
+		options 4 : *string		#按钮信息,按顺序显示选项
 		respondid 5 : integer # 应答id,无选项时为nil
 	}
 }

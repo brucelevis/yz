@@ -3,8 +3,9 @@ data_0501_ItemBox = {
 
 	[801001] = {
 		name = "测试宝箱",
-		shape = 10000,
+		shape = 801001,
 		rmb = 10,
+		buygold = 100.000000,
 		coin_price = 50000,
 		maxnum = 999,
 		quality = 1,

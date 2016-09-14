@@ -47,7 +47,7 @@ function mailmgr.sendmail(pid,amail)
 	if not srvname then -- non-exist pid
 		return nil
 	end
-	local kuafuplayer = playrmgr.kuafuplayer(pid)
+	local kuafuplayer = playermgr.getkuafuplayer(pid)
 	if kuafuplayer then
 		srvname = kuafuplayer.go_srvname
 	end

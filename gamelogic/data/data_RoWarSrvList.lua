@@ -97,6 +97,38 @@ data_RoWarSrvList = {
 		machine_type = "虚拟机",
 	},
 
+	warsrv_11 = {
+		srvname = "warsrv_11",
+		showsrvname = "[11]服的战斗服",
+		gamesrv = "gamesrv_11",
+		ip = "192.168.1.239",
+		inner_ip = "192.168.1.239",
+		cluster_port = 3080,
+		zonename = "inner",
+		showzonename = "内部区",
+		openday = "42622",
+		closeday = "",
+		purpose = "内网测试",
+		machine_name = "",
+		machine_type = "虚拟机",
+	},
+
+	warsrv_12 = {
+		srvname = "warsrv_12",
+		showsrvname = "[12]服的战斗服",
+		gamesrv = "gamesrv_12",
+		ip = "192.168.1.196",
+		inner_ip = "192.168.1.196",
+		cluster_port = 3080,
+		zonename = "inner",
+		showzonename = "内部区",
+		openday = "42622",
+		closeday = "",
+		purpose = "压力测试",
+		machine_name = "",
+		machine_type = "虚拟机",
+	},
+
 }
 return data_RoWarSrvList
 --<<data_RoWarSrvList 导表结束>>

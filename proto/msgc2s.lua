@@ -66,7 +66,7 @@ msg_respondanswer 4507 {
 	request {
 		base 0 : basetype
 		id 1 : integer # 服务端发起应答时携带的回调id
-		answer 2 : integer # 选择项id
+		answer 2 : integer # 选择项id(空/-1表示关闭了窗口)
 	}
 }
 

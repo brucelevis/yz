@@ -5,6 +5,11 @@ function resumemgr.init()
 	resumemgr.objs = {}
 end
 
+function resumemgr._init()
+	-- 建立name -> pid的映射，方便重名检查
+	resumemgr.name_pid = {}
+end
+
 function resumemgr.create(pid,data)
 	local resume = cresume.new(pid)
 	resume:create(data)
@@ -17,10 +22,6 @@ function resumemgr.onlogin(player)
 	local data = player:packresume()
 	data.now_srvname = cserver.getsrvname()
 	data.online = true
-	-- 兼容处理
-	if not resume:get("home_srvname") then
-		data.home_srvname = cserver.getsrvname()
-	end
 	resume:set(data)
 end
 
@@ -30,10 +31,6 @@ function resumemgr.onlogoff(player,reason)
 	local data = player:packresume()
 	data.now_srvname = cserver.getsrvname()
 	data.online = false
-	-- 兼容处理
-	if not resume:get("home_srvname") then
-		data.home_srvname = cserver.getsrvname()
-	end
 	resume:set(data)
 end
 
@@ -65,12 +62,12 @@ function resumemgr.delresume(pid)
 	resumemgr.objs[pid] = nil
 	if resume then
 		logger.log("info","resume",format("[delresume] pid=%d",pid))
-		resume:savetodatabase()
 		closesave(resume)
+		resume:savetodatabase()
 		local srvname = cserver.getsrvname()
 		if cserver.isdatacenter(srvname) then
 		else
-			rpc.call(cserver.datacenter(),"resumemgr","delref",pid)
+			rpc.pcall(cserver.datacenter(),"resumemgr","delref",pid)
 		end
 	end
 end
@@ -121,20 +118,17 @@ function CMD.sync(srvname,pid,data)
 	if not resume then
 		return
 	end
-	for k,v in pairs(data) do
-		resume:set(k,v,true)
-	end
+	resume:set(data,nil,true)
 	if cserver.isdatacenter() then
 		-- syncto gamesrv
 		for srvname2,_ in pairs(resume.srvname_ref) do
 			if srvname2 ~= srvname then
-				rpc.call(srvname2,"resumemgr","sync",resume.pid,data)
+				-- 防止部分服断开连接后影响其他服的同步
+				-- 服务器断开连接的情况可能有： 1. 停服了 2. 网络不好
+				if clustermgr.isconnect(srvname2) then
+					rpc.pcall(srvname2,"resumemgr","sync",resume.pid,data)
+				end
 			end
-		end
-	elseif cserver.isgamesrv() then
-		-- syncto client
-		for pid,_ in pairs(resume.pid_ref) do
-			sendpackage(pid,"friend","sync",data)
 		end
 	end
 end

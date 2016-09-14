@@ -3,6 +3,7 @@ local skynet = require "skynet"
 require "gamelogic.game"
 
 local function init(...)
+	net.dispatch()
 	game.init()
 	g_serverinfo.sproto4shareinit()
 end

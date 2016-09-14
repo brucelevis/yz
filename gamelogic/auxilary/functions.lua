@@ -14,6 +14,12 @@ function isvalid_name(name)
 			return false,language.format("名字包含非法单词")
 		end
 	end
+	-- 策划要求只做本服重名检查
+	local db = dbmgr.getdb()
+	local isok = db:hget("names",name)
+	if isok then
+		return false,language.format("名字重名")
+	end
 	return true
 end
 

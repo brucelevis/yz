@@ -4,7 +4,7 @@
 -- [[
 -- 流程:
 -- 1. 玩家进入游戏后，将其加入场景
--- 2. 玩家移动时定时通知服务器，服务器将其移动信息广播给可看见他的玩家
+-- 2. 玩家移动时定时(如1s)通知服务器，服务器将其移动信息广播给可看见他的玩家
 --    并将自身可见的新增玩家通知给自己
 -- 3. 当场景切换时，会存在若干是否可以切换场景的判定条件，因此切场景必
 --    需经过服务端判定，即由服务端控制“强制跳转”
@@ -33,22 +33,66 @@ require "gamelogic.logger.init"
 local skynet = require "gamelogic.skynet"
 
 local MAINSRV_NAME="SKYNETSERVICE"
-
+local MAX_SEEN_PLAYER = skynet.getenv("max_seen_player") or 30
 
 local scene = {}
+local sendproto_whenseen = {
+	addplayer = 1,
+	delplayer = 2,
+	move = 3,
+}
+
+local function mustsee(player,target)
+	if player.teamid and player.teamid ~= 0 and player.teamid == target.teamid then
+		return true
+	end
+	return false
+end
 
 local function sendpackage(pid,protoname,subprotoname,request)
 	local player = scene.getplayer(pid)
 	if not player then
 		return
 	end
+	-- 优化: 限制单个玩家同时可见玩家.
+	local uid = request.pid
+	local bsend = true
+	if sendproto_whenseen[subprotoname] == 1 then
+		local target = scene.getplayer(uid)
+		if mustsee(player,target) or (not player.seen[uid] and player.seen_num < MAX_SEEN_PLAYER) then
+			player.seen_num = player.seen_num + 1
+			player.seen[uid] = true
+		else
+			bsend = false
+		end
+	elseif sendproto_whenseen[subprotoname] == 2 then
+		local target = scene.getplayer(uid)
+		if mustsee(player,target) or player.seen[uid] then
+			player.seen_num = player.seen_num - 1
+			player.seen[uid] = nil
+		else
+			bsend = false
+		end
+	elseif sendproto_whenseen[subprotoname] == 3 then
+		local target = scene.getplayer(uid)
+		if mustsee(player,target) or player.seen[uid] then
+		else
+			bsend = false
+		end
+	end
 	local agent = player.agent
-	logger.log("debug","netclient",format("[send] sceneid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",scene.sceneid,pid,agent,protoname,subprotoname,request))
-	skynet.send(agent,"lua","senddata",{
-		p = protoname,
-		s = subprotoname,
-		a = request,
-	})
+	if bsend then
+		-- addplayer不传递seen
+		local seen = request.seen
+		request.seen = nil
+		logger.log("debug","netclient",format("[send] sceneid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",scene.sceneid,pid,agent,protoname,subprotoname,request))
+		skynet.send(agent,"lua","senddata",{
+			p = protoname,
+			s = subprotoname,
+			a = request,
+		})
+		request.seen = seen
+	end
 end
 
 function scene.init(param)
@@ -73,6 +117,10 @@ function scene.init(param)
 			agent 
 			row 所在块行号
 			col 所在块列号
+
+			-- 优化信息
+			seen = {}		# 可见玩家
+			seen_num = 0	# 可见玩家数
 
 		}
 	]]
@@ -120,14 +168,14 @@ function scene.sendpackage(uid,protoname,cmd,package)
 	if obj.agent then
 		assert(obj.scene_strategy)
 		if obj.scene_strategy == STRATEGY_SEE_SELF_TEAM then
-			if (obj.teamid and obj.teamid == player.teamid) or 
+			if (obj.teamid and obj.teamid ~= 0 and obj.teamid == player.teamid) or 
 				obj.pid == player.pid then
 				sendpackage(obj.pid,protoname,cmd,package)
 			end
 		elseif obj.scene_strategy == STRATEGY_SEE_CAPTAIN then
 			if player.teamstate == TEAM_STATE_CAPTAIN or
 				player.teamstate == TEAM_STATE_LEAVE or
-				not player.teamid then
+				(not player.teamid or player.teamid == 0) then
 				sendpackage(obj.pid,protoname,cmd,package)
 			end
 		else
@@ -168,8 +216,6 @@ function scene.move(pid,package)
 	end
 end
 
--- 进入场景/离开场景改成用call方式,这样方便逻辑层确保进入场景成功再执行后续切入场景逻辑
--- 用send方式，进入场景后场景服必须给主服回调一个进入场景成功的接口,这样不方便写同步代码
 function scene.enter(player)
 	local pid = player.pid
 	if scene.getplayer(pid) then  -- 正常流程不会走到这来，除非上层同场景切换时没有先调用离开场景
@@ -180,15 +226,18 @@ function scene.enter(player)
 	player.sceneid = scene.sceneid
 	player.mapid = scene.mapid
 	player.mapname = scene.mapname
+	player.seen = {}
+	player.seen_num = 0
 	local row,col = scene.getrowcol(player.pos.x,player.pos.y)
 	scene.players[pid] = player
-	sendpackage(player.pid,"scene","enter",{
-		pid = player.pid,
-		sceneid = player.sceneid,
-		mapid = player.mapid,
-		pos = player.pos,
-		mapname = player.mapname,
-	})
+	-- 进入/离开场景给主服控制，场景服压力过大时，可能导致进入/离开场景阻塞太久
+	--sendpackage(player.pid,"scene","enter",{
+	--	pid = player.pid,
+	--	sceneid = player.sceneid,
+	--	mapid = player.mapid,
+	--	pos = player.pos,
+	--	mapname = player.mapname,
+	--})
 	scene.addtoblock(player,row,col,function (uid)
 		if uid == player.pid then
 			return
@@ -199,28 +248,27 @@ function scene.enter(player)
 		-- 同步自己可以看见的玩家
 		scene.sendpackage(player.pid,"scene","addplayer",obj)
 	end)
-	skynet.ret(skynet.pack(true))
 end
 
 function scene.leave(pid)
 	local player = scene.getplayer(pid)
 	-- 这里不能用断言,上层切换场景前都是先调用离开场景,进入游戏时首次切入场景，此时player会是空
 	if not player then
-		skynet.ret(skynet.pack(false))
 		return
 	end
 	logger.log("info","scene",string.format("[leave] address=%s sceneid=%d mapid=%d pid=%d",scene.address,scene.sceneid,scene.mapid,pid))
+
+	--sendpackage(player.pid,"scene","leave",{pid=pid})
+	local delplayer = {pid=player.pid}
 	scene.delfromblock(player,player.row,player.col,function (uid)
 		if uid == player.pid then
 			return
 		end
 		-- 广播给其他可以看见自己的玩家
-		scene.sendpackage(uid,"scene","delplayer",player)
+		scene.sendpackage(uid,"scene","delplayer",delplayer)
 	end)
-	sendpackage(player.pid,"scene","leave",{pid=pid})
 	-- 放到最后
 	scene.players[pid] = nil
-	skynet.ret(skynet.pack(true))
 end
 
 -- 重新载入场景，功能上等价于scene.leave+scene.enter
@@ -247,12 +295,18 @@ function scene.query(pid,targetid)
 end
 
 -- call方式
-function scene.allpids(source)
+function scene.allpids()
 	local pids = {}
 	for pid,player in pairs(scene.players) do
 		table.insert(pids,pid)
 	end
 	skynet.ret(skynet.pack(pids))
+end
+
+function scene.info()
+	local info = {}
+	info.player_num = table.count(scene.players)
+	skynet.ret(skynet.pack(info))
 end
 
 -- 退出服务
@@ -464,6 +518,7 @@ local command = {
 	set = scene.set,
 	query = scene.query,  -- 查询玩家场景信息
 	allpids = scene.allpids,
+	info = scene.info,
 	exit = scene.exit,
 	broadcast = scene.broadcast,
 	-- test

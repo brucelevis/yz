@@ -94,9 +94,10 @@ function cresume:create(resume)
 	assert(resume)
 	logger.log("info","resume",format("[create] pid=%d resume=%s",self.pid,resume))
 	self.loadstate = "loaded"
-	self.data = resume
+	self:set(resume,true)
+	--self.data = resume
 	if cserver.isgamesrv() then
-		rpc.call(cserver.datacenter(),"resumemgr","create",self.pid,self:save())
+		rpc.pcall(cserver.datacenter(),"resumemgr","create",self.pid,self:save())
 	elseif cserver.isdatacenter() then
 		self:savetodatabase()
 	end
@@ -127,33 +128,34 @@ function cresume:delref(pid)
 end
 
 
--- resume:set(key,val,notsync)
--- resume:set({[key]=val},notsync)
-function cresume:set(key,val,notsync)
-	if type(key) == "table" then
-		local attrs = key
-		notsync = val
-		for key,val in pairs(attrs) do
-			cdatabaseable.set(self,key,val)
-		end
-		if not notsync then
-			self:sync(attrs)
-		end
+-- resume:set(key,val,nosync_todc)
+-- resume:set({[key]=val},nil,nosync_todc)
+function cresume:set(key,val,nosync_todc)
+	local attrs
+	if type(key) ~= "table" then
+		attrs = {[key] = val}
 	else
-		cdatabaseable.set(self,key,val)
-		if not notsync then
-			self:sync({[key] = val,})
-		end
+		attrs = key
 	end
+	for k,v in pairs(attrs) do
+		cdatabaseable.set(self,k,v)
+	end
+	self:sync(attrs,notsync_todc)
 end
 
-function cresume:sync(data)
+function cresume:sync(data,nosync_todc)
 	for pid,_ in pairs(self.pid_ref) do
 		if pid ~= self.pid then
-			sendpackage(pid,"friend","sync",data)
+			player = playermgr.getplayer(pid)
+			if player then
+				player.frienddb:syncfrdblk(self.pid,data)
+			end
 		end
 	end
-	rpc.call(cserver.datacenter(),"resumemgr","sync",self.pid,data)
+	if nosync_todc then
+		return
+	end
+	rpc.pcall(cserver.datacenter(),"resumemgr","sync",self.pid,data)
 end
 
 return cresume

@@ -1,13 +1,13 @@
 return {
 	p = "war",
-	si = 6000,  --[6000,6500)
+	si = 6000,  --[6000,6200)
 	src = [[
 
 war_warresult 6000 {
 	request {
 		base 0 : basetype
 		warid 1 : integer
-		result 2 : integer
+		result 2 : integer		#空--强制结束的战斗,<0--负，==0--平，>0--胜
 	}
 }
 

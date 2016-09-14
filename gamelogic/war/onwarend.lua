@@ -4,9 +4,17 @@ function warmgr.register_onwarend(wartype,callback)
 	warmgr.onwarend_callback[wartype] = callback
 end
 
+-- PVP
 warmgr.register_onwarend(WARTYPE.PVP_QIECUO,function (warid,result)
 end)
 
+warmgr.register_onwarend(WARTYPE.PVP_ARENA_RANK,function (warid,result)
+	local war = warmgr.getwar(warid)
+	globalmgr.rank.arena:onwarend(war,result)
+end)
+
+
+-- PVE
 warmgr.register_onwarend(WARTYPE.PVE_PERSONAL_TASK,function (warid,result)
 	local war = warmgr.getwar(warid)
 	if not table.find(war.attackers,war.pid) then
@@ -47,5 +55,6 @@ warmgr.register_onwarend(WARTYPE.PVE_GUAJI,function (warid,result)
 	local war = warmgr.getwar(warid)
 	huodongmgr.playunit.guaji.onwarend(war,result)
 end)
+
 
 return warmgr.onwarend_callback

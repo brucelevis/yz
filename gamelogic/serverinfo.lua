@@ -9,7 +9,6 @@ g_serverinfo.rlAllowedPrefixes["proto."] = true
 -----------------------------------------------------
 
 function serverinfo:startgame()
-	net.dispatch()
 	if self.initAll then
 		self:initAll()
 	end

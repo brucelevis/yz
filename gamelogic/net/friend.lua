@@ -45,7 +45,7 @@ function S2C.dellist(pid,typ,pids)
 	end
 	sendpackage(pid,"friend","dellist",{
 		pids = pids,
-		typ = typ,
+		type = typ,
 	})
 end
 
@@ -56,7 +56,7 @@ function S2C.addlist(pid,typ,pids,newflag)
 	end
 	sendpackage(pid,"friend","addlist",{
 		pids = pids,
-		typ = typ,
+		type = typ,
 		newflag = newflag,
 	})
 end

@@ -217,15 +217,33 @@ data_1500_BranchTaskAward = {
 		ratiotype = 2,
 	},
 
-	[10100205] = {
+	[101002051] = {
 		awardtable = {
 			
 			{
 				exp = 500,
 				jobexp = 500,
 				gold = 0,
-				silver = 500,
+				silver = 0,
 				coin = 500,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[101002052] = {
+		awardtable = {
+			
+			{
+				exp = 0,
+				jobexp = 0,
+				gold = nil,
+				silver = 500,
+				coin = 600,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,

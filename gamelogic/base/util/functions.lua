@@ -11,7 +11,7 @@ HOUR_SECS = 3600
 DAY_SECS = 24 * HOUR_SECS 
 WEEK_SECS = 7 * DAY_SECS
 
-SAVE_DELAY = 120
+SAVE_DELAY = 240
 
 -- number
 MAX_NUMBER = math.floor(2 ^ 31 - 1)
@@ -147,8 +147,8 @@ end
 
 --ratio
 function ishit(num,limit)
-	assert(limit >= num)
 	limit = limit or BASE_RATIO
+	assert(limit >= num)
 	return math.random(1,limit) <= num
 end
 
@@ -389,6 +389,18 @@ function strftime(fmt,secs)
 	return string.gsub(fmt,"%%([dhmsDHMS])",repls)
 end
 
+--如果参数为nil,则取当前对应时间
+function mktime(year,month,day,hour,min,sec)
+	local now = os.time()
+	year = year or getyear(now)
+	month = month or getyearmonth(now)
+	day = day or getmonthday(now)
+	hour = hour or getdayhour(now)
+	min = min or gethourminute(now)
+	sec = sec or getminutesecond(now)
+	return os.time({year=year,month=month,day=day,hour=hour,min=min,sec=sec})
+end
+
 --filesystem
 function currentdir()
 	local ok,lfs = pcall(require,"lfs")
@@ -403,11 +415,11 @@ end
 
 function sendtowarsrv(protoname,subprotoname,request)
 	-- test
-	if true then
+	if cserver.getsrvname() ~= "gamesrv_11" and subprotoname ~= "forward" then
 		return
 	end
 	local warsrv = skynet.getenv("warsrv")
-	return rpc.call(warsrv,protoname,subprotoname,request)
+	return rpc.pcall(warsrv,protoname,subprotoname,request)
 end
 
 

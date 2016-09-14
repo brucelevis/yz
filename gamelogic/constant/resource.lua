@@ -11,5 +11,5 @@ function getresname(resid)
 	if type(resid) == "string" then
 		resid = RESTYPE[resid]
 	end
-	return data_ResType[resid].name
+	return data_ResType[resid].flag
 end

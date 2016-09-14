@@ -8,7 +8,7 @@ local S2C = netnavigation.S2C
 
 -- C2S
 function C2S.activitydata(player,request)
-	navigation.askfor_activitydata(player)
+	navigation.open_navigationui(player)
 end
 
 function C2S.activityaward(player,request)
@@ -23,15 +23,21 @@ end
 
 
 -- S2C
-function S2C.sendactivitydata(pid)
+function S2C.sendactivitydata(player,data)
+	player.navigation_updated = nil
+	sendpackage(player.pid,"navigation","sendactivitydata",{
+		activities = data.activities,
+		liveness = data.liveness,
+		livenessawarded = data.awardrecord,
+	})
 end
 
-function S2C.needupdate(pid)
-	sendpackage(pid,"navigation","needupdate")
+function S2C.needupdate(player)
+	sendpackage(player.pid,"navigation","needupdate",{})
 end
 
 function S2C.showredpoint(pid)
-	sendpackage(pid,"navigation","showredpoint")
+	sendpackage(pid,"navigation","showredpoint",{})
 end
 
 return netnavigation

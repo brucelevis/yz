@@ -116,6 +116,14 @@ item_update_equippos 5508 {
 		equippos 1 : EquipPosType
 	}
 }
+
+# 成功打造装备
+item_produceequip_succ 5509 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer	#打造生成的物品ID，服务端保证先发additem协议
+	}
+}
 ]]
 }
 

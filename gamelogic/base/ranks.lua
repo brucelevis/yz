@@ -7,9 +7,11 @@ function cranks:init(name,ids,sortids,param)
 	self.sortids = sortids
 	if param then
 		self.desc = param.desc and true or false
-		self.limit = param.limit or 100
-		assert(self.limit > 0)
-		self.maxlimit = self.limit * 2
+		-- 无limit表示排行榜大小不受限制
+		if param.limit then
+			self.limit = param.limit
+			self.maxlimit = param.maxlimit or self.limit * 2
+		end
 		if param.callback then
 			self:register(param.callback)
 		end

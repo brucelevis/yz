@@ -13,7 +13,7 @@ mail_syncmail 2000 {
 mail_allmail 2001 {
 	request {
 		base 0 : basetype
-		mails 1 : *MailType
+		mails 1 : *MailType			#空/空列表--清空所有邮件
 	}
 }
 

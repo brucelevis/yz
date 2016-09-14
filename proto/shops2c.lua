@@ -6,9 +6,9 @@ return {
 .ShopGoodsType {
 	id 0 : integer				# 商品ID
 	itemtype 1 : integer		# 物品类型
-	num 2 : integer				# 单词购买数量
+	num 2 : integer				# 单次购买数量
 	bind 3 : integer			# 是否绑定: 0/空--不绑定 其他--绑定
-	leftnum 4 : integer			# 物品剩余数量(==0--售罄,<0--无限库存)
+	leftnum 4 : integer			# 该商品剩余数量(==0--售罄,<0--无限库存)
 	restype 5 : integer			# 消耗的资源类型，资源类型分类见导表：资源ID分类.xls
 
 	price 6 : integer			# 当前价格

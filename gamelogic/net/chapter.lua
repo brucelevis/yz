@@ -22,6 +22,12 @@ function C2S.get_unlockcondition(player,request)
 	player.chapterdb:get_unlockcondition(chapterid)
 end
 
+function C2S.reviewstory(player,request)
+	local line = assert(request.line)
+	local section = assert(request.section)
+	player.chapterdb:reviewstory(line,section)
+end
+
 --s2c
 function S2C.unlock(pid,chapterid)
 	sendpackage(pid,"chapter","unlock",{
@@ -51,6 +57,19 @@ function S2C.send_unlockcondition(pid,chapterid,data)
 	sendpackage(pid,"chapter","send_unlockcondition",{
 		chapterid = chapterid,
 		needtasks = data.needtasks,
+	})
+end
+
+function S2C.sendstory(pid,taskid,textids,transstr)
+	if next(transstr) then
+		transstr = cjson.encode(transstr)
+	else
+		transstr = nil
+	end
+	sendpackage(pid,"chapter","sendstory",{
+		taskid = taskid,
+		textids = textids,
+		transstr = transstr,
 	})
 end
 

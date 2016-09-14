@@ -5,7 +5,6 @@
 cdelaytonextlogin = class("cdelaytonextlogin")
 
 function cdelaytonextlogin:init(pid)
-	self._self_call_onlogin = true -- 需要手动调用onlogin
 	self.pid = pid
 	self.queue = {}
 end

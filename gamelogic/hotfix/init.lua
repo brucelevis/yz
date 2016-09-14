@@ -1,7 +1,10 @@
+local skynet = skynet or require "skynet"
 local patten = "../src/?.lua"
 
 local ignore_module = {
-	"gamelogic%.service%..+d",
+	"gamelogic%.service%.scened",
+	"gamelogic%.service%.redisd",
+	"gamelogic%.service%.testd",
 }
 
 local srvname = skynet.getenv("srvname")

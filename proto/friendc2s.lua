@@ -38,5 +38,22 @@ friend_sendmsg 3004 {
 		msg 2 : string
 	}
 }
+
+# 搜索玩家(pid或者完整名字)
+friend_search 3005 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		name 2 : string
+	}
+}
+
+# 更换好友推荐
+friend_change_recommend 3006 {
+	request {
+		base 0 : basetype
+	}
+}
+
 ]]
 }

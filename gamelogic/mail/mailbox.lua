@@ -76,6 +76,7 @@ function cmailbox:delmail(mailid)
 				break
 			end
 		end
+		return mail
 	end
 end
 

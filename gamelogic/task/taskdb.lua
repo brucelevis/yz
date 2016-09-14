@@ -115,6 +115,12 @@ function ctaskdb:onlogoff(player,reason)
 end
 
 function ctaskdb:onchangelv()
+	for name,_ in pairs(self.taskcontainers) do
+		local taskcontainer = self[name]
+		if taskcontainer.onchangelv then
+			taskcontainer:onchangelv()
+		end
+	end
 	self:update_canaccept()
 end
 
@@ -140,15 +146,18 @@ function ctaskdb:onfivehourupdate()
 			taskcontainer:onfivehourupdate(player)
 		end
 	end
+	self:update_canaccept()
 end
 
-function ctaskdb:ondayupdate(player)
-	for name,_ in pairs(self.taskcontainers) do
-		local taskcontainer = self[name]
-		if taskcontainer.ondayupdate then
-			taskcontainer:ondayupdate(player)
-		end
+function ctaskdb:isfinishtask(taskid)
+	local taskcontainer = self:gettaskcontainer(taskid)
+	if not taskcontainer then
+		return false
 	end
+	if not taskcontainer.finishtasks[taskid] then
+		return false
+	end
+	return true
 end
 
 return ctaskdb

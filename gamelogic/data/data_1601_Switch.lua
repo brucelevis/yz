@@ -5,60 +5,98 @@ data_1601_Switch = {
 		name = "gm",
 		flag = "gm",
 		default = 0,
+		setbyclient = 0,
 	},
 
 	[1002] = {
 		name = "加好友验证",
 		flag = "friend",
 		default = 0,
+		setbyclient = 0,
 	},
 
 	[1003] = {
 		name = "消耗双倍点",
 		flag = "costdexp",
 		default = 1,
+		setbyclient = 1,
 	},
 
 	[1004] = {
+		name = "默认允许同意申请队长",
+		flag = "team.agreetocaptain",
+		default = 1,
+		setbyclient = 1,
+	},
+
+	[1100] = {
 		name = "抓鬼",
-		flag = "autoteam_zhuagui",
+		flag = "automatch.zhuagui",
 		default = 1,
+		setbyclient = 1,
 	},
 
-	[1005] = {
+	[1101] = {
 		name = "宝图怪",
-		flag = "autoteam_baotu",
+		flag = "automatch.baotu",
 		default = 1,
+		setbyclient = 1,
 	},
 
-	[1006] = {
+	[1102] = {
 		name = "主线任务",
-		flag = "autoteam_zhuxian",
+		flag = "automatch.zhuxian",
 		default = 1,
+		setbyclient = 1,
 	},
 
-	[1007] = {
+	[1103] = {
 		name = "职业任务",
-		flag = "autoteam_zhiye",
+		flag = "automatch.zhiye",
 		default = 1,
+		setbyclient = 1,
 	},
 
-	[1008] = {
+	[1104] = {
 		name = "单人PK",
-		flag = "autoteam_singlepk",
+		flag = "automatch.singlepk",
 		default = 1,
+		setbyclient = 1,
 	},
 
-	[1009] = {
+	[1105] = {
 		name = "多人PK",
-		flag = "autoteam_multipk",
+		flag = "automatch.multipk",
 		default = 1,
+		setbyclient = 1,
 	},
 
-	[1010] = {
+	[1106] = {
 		name = "工会战",
-		flag = "autoteam_orgpk",
+		flag = "automatch.orgpk",
 		default = 1,
+		setbyclient = 1,
+	},
+
+	[1150] = {
+		name = "默认站位",
+		flag = "zhanwei.default",
+		default = 1,
+		setbyclient = 1,
+	},
+
+	[1151] = {
+		name = "前排站位",
+		flag = "zhanwei.front",
+		default = 0,
+		setbyclient = 1,
+	},
+
+	[1152] = {
+		name = "后排站位",
+		flag = "zhanwei.back",
+		default = 0,
+		setbyclient = 1,
 	},
 
 }

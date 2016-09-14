@@ -24,15 +24,13 @@ function cscene:enter(player,pos)
 			for uid,_ in pairs(team.follow) do
 				local member = playermgr.getplayer(uid)
 				if member then
-					skynet.call(self.scenesrv,"lua","enter",member:packscene(self.sceneid,pos))
-					member:setpos(self.sceneid,pos)
+					skynet.send(self.scenesrv,"lua","enter",member:packscene(self.sceneid,pos))
 					self:onenter(member,pos)
 				end
 			end
 		end
 	end
-	skynet.call(self.scenesrv,"lua","enter",player:packscene(self.sceneid,pos))
-	player:setpos(self.sceneid,pos)
+	skynet.send(self.scenesrv,"lua","enter",player:packscene(self.sceneid,pos))
 	self:onenter(player,pos)
 end
 
@@ -43,13 +41,13 @@ function cscene:leave(player)
 			for uid,_ in pairs(team.follow) do
 				local member = playermgr.getplayer(uid)
 				if member then
-					skynet.call(self.scenesrv,"lua","leave",uid)
+					skynet.send(self.scenesrv,"lua","leave",uid)
 					self:onleave(member)
 				end
 			end
 		end
 	end
-	skynet.call(self.scenesrv,"lua","leave",player.pid)
+	skynet.send(self.scenesrv,"lua","leave",player.pid)
 	self:onleave(player)
 end
 
@@ -91,6 +89,10 @@ function cscene:allpids()
 	return skynet.call(self.scenesrv,"lua","allpids")
 end
 
+function cscene:info()
+	return skynet.call(self.scenesrv,"lua","info")
+end
+
 function cscene:broadcast(protoname,subprotoname,request)
 	skynet.send(self.scenesrv,"lua","broadcast",{
 		protoname = protoname,
@@ -124,6 +126,15 @@ end
 -- 进入场景后处理流程
 function cscene:onenter(player,pos)
 	channel.subscribe(self.channel,player.pid)
+	player:setpos(self.sceneid,pos)
+	-- 进入/离开场景给主服控制，场景服压力过大时，可能导致进入/离开场景阻塞太久
+	sendpackage(player.pid,"scene","enter",{
+		pid = player.pid,
+		sceneid = player.sceneid,
+		pos = player.pos,
+		mapid = self.mapid,
+		mapname = self.mapname,
+	})
 	local npcs = {}
 	for _,npc in pairs(self.npcs) do
 		table.insert(npcs,self:packnpc(npc))
@@ -139,6 +150,7 @@ end
 
 function cscene:onleave(player)
 	channel.unsubscribe(self.channel,player.pid)
+	sendpackage(player.pid,"scene","leave",{pid=player.pid})
 	huodongmgr.onleavescene(player,self.sceneid)
 end
 

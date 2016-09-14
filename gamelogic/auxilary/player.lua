@@ -4,7 +4,8 @@ playeraux = playeraux or {}
 
 function playeraux.getmaxlv()
 	if not playeraux.maxlv then
-		playeraux.maxlv = table.count(data_1001_LvExp)
+		--playeraux.maxlv = table.count(data_1001_LvExp)
+		playeraux.maxlv = 100
 	end
 	return playeraux.maxlv
 end

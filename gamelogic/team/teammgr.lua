@@ -150,6 +150,9 @@ function cteammgr:jointeam(player,teamid)
 	if captain and player.sceneid == captain.sceneid then
 		teammgr:backteam(player)
 	end
+	sendpackage(pid,"team","selfteam",{
+		team = team:pack(),
+	})
 	local scene = scenemgr.getscene(player.sceneid)
 	local teamstate = team:teamstate(pid)
 	scene:set(pid,{
@@ -307,6 +310,16 @@ function cteammgr:team_changetarget(player,target,minlv,maxlv)
 	team.target = target
 	team.minlv = minlv
 	team.maxlv = maxlv
+	team:broadcast(function (uid)
+		sendpackage(uid,"team","updateteam",{
+			team = {
+				teamid = team.id,
+				target = team.target,
+				minlv = team.minlv,
+				maxlv = team.maxlv,
+			}
+		})
+	end)
 end
 
 function cteammgr:automatch_changetarget(player,target,minlv,maxlv)
@@ -359,6 +372,15 @@ function cteammgr:team_automatch(teamid)
 	self.automatch_teams[teamid] = {
 		time = os.time(),
 	}
+	team:broadcast(function (uid)
+		sendpackage(uid,"team","updateteam",{
+			team = {
+				teamid = team.id,
+				automatch = true,
+			}
+		})
+	end)
+
 end
 
 function cteammgr:team_unautomatch(teamid,reason)

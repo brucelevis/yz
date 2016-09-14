@@ -69,9 +69,21 @@ function netitem.produceequip(player,itemtype)
 		return
 	end
 	local itemdata = itemaux.getitemdata(itemtype)
+	if itemdata.lv < 10 then
+		net.msg.S2C.notify(player.pid,language.format("只能打造10级或以上装备"))
+		return
+	end
 	local costitem = itemdata.produce_costitem
 	local costcoin = itemdata.produce_costcoin
 	for itemtype,num in pairs(costitem) do
+		if data_0501_ItemSet[itemtype] then
+			itemtype = data_0501_ItemSet[itemtype].items[player.roletype]
+			-- 特定职业无法打造该物品
+			if not itemtype then
+				net.msg.S2C.notify(player.pid,language.format("你的职业无法打造该装备"))
+				return
+			end
+		end
 		-- 材料和装备一定是在同一个背包中!
 		if num ~= 0 and itemdb:getnumbytype(itemtype) < num then
 
@@ -85,6 +97,9 @@ function netitem.produceequip(player,itemtype)
 
 	local reason = string.format("produceequip:%s",itemtype)
 	for itemtype,num in pairs(costitem) do
+		if data_0501_ItemSet[itemtype] then
+			itemtype = data_0501_ItemSet[itemtype].items[player.roletype]
+		end
 		itemdb:costitembytype(itemtype,num,reason)
 	end
 	if costcoin > 0 then
@@ -95,6 +110,7 @@ function netitem.produceequip(player,itemtype)
 		num = 1,
 	})
 	itemdb:additem(item,reason)
+	openui.produceequip_succ(player.pid,item.id)
 end
 
 

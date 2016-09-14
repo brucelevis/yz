@@ -27,7 +27,7 @@ local function ontimer(id)
 	--printf("saveobjs:%s",table.keys(__saveobjs))
 	if obj then
 		local flag = uniqueflag(obj)
-		logger.log("info","saveobj",string.format("[ontimer] uniqueflag=%s",flag))
+		--logger.log("info","saveobj",string.format("[ontimer] uniqueflag=%s",flag))
 		timer.timeout(flag,SAVE_DELAY,functor(ontimer,obj.__saveobj_id))
 		nowsave(obj)
 	end

@@ -1,6 +1,6 @@
 return {
 	p = "war",
-	si = 6000, --[6000,6500)
+	si = 6000, --[6000,6200)
 	src = [[
 
 war_start_pvpwar 6000 {
@@ -51,6 +51,15 @@ war_invite_qiecuo 6006 {
 	request {
 		base 0 : basetype
 		targetid 1 : integer  #目标玩家ID
+	}
+}
+
+# c2ws,gs只负责转发数据
+war_forward 6007 {
+	request {
+		base 0 : basetype
+		cmd 1 : string
+		request 2 : string		#json编码后的字符串
 	}
 }
 ]]

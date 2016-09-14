@@ -77,5 +77,21 @@ local function test(pid)
 	net.task.C2S.executetask(player,{taskid = 90000003})
 end
 
+local function test3(pid)
+	local player = playermgr.getplayer(pid)
+	assert(player)
+	player.testman = 1
+	player.taskdb.test:clear()
+	local taskid = 90000010
+	net.task.C2S.accepttask(player,{taskid = taskid})
+	local task = player.taskdb:gettask(taskid)
+	assert(task)
+	net.task.C2S.executetask(player,{taskid = taskid})
+	local respondid = reqresp.id
+	net.msg.C2S.respondanswer(player,{ id = respondid, answer = 0})
+	assert(task.execute_result == TASK_SCRIPT_NONE)
+	net.task.C2S.executetask(player,{taskid = taskid})
+	net.msg.C2S.respondanswer(player,{ id = respondid+1, answer = 1})
+end
 
-return test
+return test3

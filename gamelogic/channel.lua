@@ -26,6 +26,13 @@ function channel.del(name,...)
 		table.insert(args,1,name)
 		name = table.concat(args,"#")
 	end
+	-- 延迟1s后再删除频道,减少channel.unsubscribe后紧跟channel.del可能存在的时序问题(涉及不同服)
+	skynet.timeout(1,function ()
+		channel._del(name)
+	end)
+end
+
+function channel._del(name)
 	local chan = channel.get(name)
 	if chan then
 		logger.log("info","channel",string.format("[del] name=%s channel=%s",name,chan.channel))

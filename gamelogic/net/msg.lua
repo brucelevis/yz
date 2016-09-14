@@ -17,13 +17,31 @@ end
 
 -- 快讯
 function netmsg.sendquickmsg(msg)
-	channel.publish("world",{
-		p = "msg",
-		s = "quickmsg",
-		a = {
-			msg = msg,
-		}
-	})
+	-- 快讯内容:服务端决定，可能需要翻译，不便于用频道
+	--channel.publish("world",{
+	--	p = "msg",
+	--	s = "quickmsg",
+	--	a = {
+	--		msg = msg,
+	--	}
+	--})
+	
+	for i,pid in pairs(playermgr.allplayer()) do
+		local player = playermgr.getplayer(pid)
+		if type(msg) == "table" then  -- 打包的消息
+			local lang
+			-- player 可能只是个连线对象
+			if typename(player) == "cplayer" then
+				lang = player:getlanguage()
+			else
+				lang = language.language_from
+			end
+			translate_msg = language.translateto(msg,lang)
+		else
+			translate_msg = msg
+		end
+		sendpackage(pid,"msg","notify",{msg=translate_msg})
+	end
 end
 
 function netmsg.filter(msg)
@@ -37,15 +55,6 @@ function netmsg.filter(msg)
 	return true,msg
 end
 
---function C2S.onmessagebox(player,request)
---	local id = request.id
---	local buttonid = request.buttonid
---	if id == 0 then
---		return
---	end
---	return reqresp.resp(player.pid,id,{id=buttonid})
---end
-
 function C2S.worldmsg(player,request)
 	local msg = assert(request.msg)
 	local rawmsg = msg
@@ -56,6 +65,21 @@ function C2S.worldmsg(player,request)
 		end
 	end
 	-- check can send worldmsg
+	local banspeak,detail = globalmgr.ban.speak({
+		acct = player.account,
+		ip = player:ip(),
+		roleid = player.pid,
+	})
+	--print(player.account,player:ip(),player.pid)
+	if banspeak then
+		if detail and detail.exceedtime and detail.exceedtime ~= "" then
+			msg = language.format("你已被禁言,截止时间:{1}",detail.exceedtime)
+		else
+			msg = language.format("你已被禁言")
+		end
+		net.msg.S2C.notify(player.pid,msg)
+		return
+	end
 	local isok,msg = netmsg.filter(msg)
 	if not isok then
 		net.msg.S2C.notify(player.pid,msg)
@@ -231,7 +255,7 @@ end
 
 function C2S.respondanswer(player,request)
 	local id = assert(request.id)
-	local answer = request.answer or 0
+	local answer = request.answer or -1		-- -1: 客户端关闭了窗口
 	reqresp.resp(player.pid,id,{ answer = answer })
 end
 
@@ -277,71 +301,6 @@ function S2C.info(pid,msg)
 	sendpackage(pid,"msg","info",{msg=msg,})
 end
 
---[[
-function onbuysomething(pid,request,response)
-	local player = playermgr.getplayer(pid)
-	local answer = response.answer
-	if not answer or answer == 0 then -- 超时回调
-		-- player is nil
-		local pid = request.pid
-		-- dosomething
-	else
-		if answer == 1 then
-			if not costok() then
-				return
-			end
-			addres()
-		end
-	end
-end
-netmsg.S2C.messagebox(10001,{
-				type = MB_LACK_CONDITION,
-				title = "条件不足",
-				content = "是否花费100金币购买:",
-				buttons = {
-					"确认",
-					"取消",
-				},
-				attach = {
-					silver = 1000,
-					items = {
-						{
-							itemid = 14101,
-							num = 3,
-						},
-						{
-							itemid = 14201,
-							num = 2,
-						},
-					},
-					ext = {
-						gold = 100,
-					}
-				},onbuysomething)
---]]
-
-
-function S2C.messagebox(pid,request,callback)
-	local player = playermgr.getplayer(pid)
-	if not player then
-		return
-	end
-	local lang = player:getlanguage()
-	local pack_request = {}
-	pack_request.type = assert(request.type)
-	pack_request.title = assert(language.translateto(request.title))
-	pack_request.content = assert(language.translateto(request.content))
-	pack_request.attach = cjson.encode(request.attach)
-	pack_request.buttons = {}
-	local lang = player:getlanguage()
-	for i,button_str in ipairs(request.buttons) do
-		pack_request.buttons[i] = language.translateto(button_str,lang)
-	end
-	local id = reqresp.req(pid,request,callback)
-	pack_request.id = id
-	sendpackage(pid,"msg","messagebox",pack_request)
-	return id
-end
 
 
 function S2C.bulletin(msg,func)
@@ -377,7 +336,10 @@ function S2C.npcsay(pid,npc,msg,options,callback,...)
 				if not options2 then
 					options2 = {}
 				end
-				table.insert(options2,language.translateto(option,lang))
+				if type(option) == "table" then
+					option = language.translateto(option,lang)
+				end
+				table.insert(options2,option)
 			end
 		end
 		options = options2

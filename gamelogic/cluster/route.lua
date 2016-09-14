@@ -52,7 +52,7 @@ function route.addroute(pids,srvname)
 	if srvname == self_srvname then
 		for servername,_ in pairs(clustermgr.connection) do
 			if cserver.isgamesrv(servername) and servername ~= self_srvname then
-				xpcall(rpc.call,onerror,servername,"route","addroute",pids)
+				rpc.pcall(servername,"route","addroute",pids)
 			end
 		end
 	end
@@ -73,7 +73,7 @@ function route.delroute(pids,srvname)
 	if srvname == self_srvname then
 		for servername,_ in pairs(clustermgr.connection) do
 			if cserver.isgamesrv(servername) and servername ~= self_srvname then
-				xpcall(rpc.call,onerror,servername,"route","delroute",pids)
+				rpc.pcall(servername,"route","delroute",pids)
 			end
 		end
 	end

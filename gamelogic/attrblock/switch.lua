@@ -10,8 +10,14 @@ function cswitch:onlogin(player)
 end
 
 function cswitch:isopen(flag)
+	local player = playermgr.getplayer(self.pid)
+	if flag == "gm" then
+		return  player:isgm()
+	elseif flag == "friend" then
+		return globalmgr.server:isopen(flag)
+	end
 	local isopen = self:query(flag)
-	if state == nil then
+	if isopen == nil then
 		for _,switch in pairs(data_1601_Switch) do
 			if switch.flag == flag then
 				isopen = switch.default == 1 and true or false
@@ -23,13 +29,16 @@ function cswitch:isopen(flag)
 end
 
 function cswitch:setswitch(switchs)
+	local valid_switchs = {}
 	for _,switch in ipairs(switchs) do
-		if data_1601_Switch[switch.id] then
-			local flag = data_1601_Switch[switch.id].flag
+		local data = data_1601_Switch[switch.id]
+		if data and data.setbyclient == 1 then
+			local flag = data.flag
 			self:set(flag,switch.state)
+			table.insert(valid_switchs,switch)
 		end
 	end
-	net.player.S2C.switch(self.pid,switchs)
+	net.player.S2C.switch(self.pid,valid_switchs)
 end
 
 function cswitch:allswitch()

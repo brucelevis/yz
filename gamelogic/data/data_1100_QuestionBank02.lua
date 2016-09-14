@@ -1,5 +1,5 @@
---<<data_1100_QuestionBank 导表开始>>
-data_1100_QuestionBank = {
+--<<data_1100_QuestionBank02 导表开始>>
+data_1100_QuestionBank02 = {
 
 	[101001] = {
 		question = "烹饪类道具：汤圆 可以从以下哪种渠道获得？",
@@ -1010,5 +1010,5 @@ data_1100_QuestionBank = {
 	},
 
 }
-return data_1100_QuestionBank
---<<data_1100_QuestionBank 导表结束>>
+return data_1100_QuestionBank02
+--<<data_1100_QuestionBank02 导表结束>>

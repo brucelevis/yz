@@ -4,76 +4,82 @@ data_1500_MainTaskText = {
 	[1011] = {
 		texts = {
 			
-			{ npc1 = 0, type = 3, emoji1 = 0, name = "nil", talk = 0, npc2 = 0, emoji2 = 0, content = "远离城市的喧嚣,没想到在这异世界也有如此安静的地方。据说这里正逢灾祸,原以为会是满目焦土,破败荒凉的样子呢。", },
+			{ npc1 = 0, type = 3, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "王都在背后渐渐模糊……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 3, emoji1 = 0, name = "nil", talk = 0, npc2 = 0, emoji2 = 0, content = "勇者也好,所罗门的转世也好,刚才还如梦虚幻,到了这里,也都变得明晰真实起来了。", },
+			{ npc1 = 0, type = 3, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "商人的吆喝声,旅者匆匆忙忙的脚步声,街头巷尾居民们的私语,\n 还有勇者们在训练场上挥洒汗水时笃定的呐喊,都在耳边慢慢消失了。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 3, emoji1 = 0, name = "nil", talk = 0, npc2 = 0, emoji2 = 0, content = "我的勇者之路,将从这里开始。", },
+			{ npc1 = 0, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "如此安静啊……没想到,异世界也有这样的所在。据说这里正逢灾祸,原以为会是满目焦土,破败荒凉的样子呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 3, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "“这么好的景色,真是不忍心辜负啊……”", },
+			{ npc1 = 0, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "勇者也好,所罗门的转世也好,刚才还如梦虚幻,到了这里,也都变得明晰真实起来了呐。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "？？？", talk = 101010, npc2 = 0, emoji2 = 0, content = "什么辜不辜负的,冒险就是冒险,贪恋沿途的景色,可是要影响勇者进步的。", },
+			{ npc1 = 0, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "勇者之路,似乎已经开始了呢……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "你是……？", },
+			{ npc1 = 0, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "不过,这么好的景色,真是不忍心辜负啊……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "和你一样,通过传送之门来到这个世界的勇者。我叫伊菲,我们之前见过面的。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "？？？", talk = 101010, npc2 = 0, emoji2 = 0, content = "感慨什么的,花时间在这种事上不如投身真正的冒险。风景虽美,过分留恋可是会影响勇者的进步啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "你是那个初心者？我是$playername。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "抱歉,您是……？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "哈哈哈,那是以前的事了,我现在可是一名王国认证的弓箭手。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "与你一样,通过传送之门来到这个世界的勇者。我叫伊菲,之前见过呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "从刚才我就一直注意你,你的身手很不错,我们结伴一起走吧！", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "初心者……是刚才那位初心者吧？$playername,又见面了呢,请多指教！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "……", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "$playername（君或酱）吗？初心者什么的,那都是以前的事了,我现在可是一名王国认证的弓箭手哟。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "我对这里不熟悉,恐怕帮不了你什么……", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "从刚才就一直注意到,$playername（君或酱）身手不错呢,结伴同行吧！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "说这话好像我要占你便宜似的,既然是冒险,当然是互相帮忙。“冒险从来不是某一个人的故事”,这可是米利暗大人说的。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "好吧,反正我一个人走也挺……无聊的。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "真是太好了！不过……初来乍到,对这里不是很熟悉,恐怕帮不到伊菲君什么,所以……真是太遗憾了！实在抱歉！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "来之前,我打听到这个名叫“赫麦”的小村子可是个强盗之村呢。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "友人间互相提携,在冒险中似乎是必须的呢。咳咳,“冒险从来不是某一个人的故事”,这可是米利暗大人说的。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "强盗？盗贼协会的落脚点吗？", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "既然这样,那就承伊菲君的好意啦。居然这么快就忘了米利暗大人的教导,真是惭愧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "是野贼而已。据说以前向协会递交申请,因为名声太坏被拒绝了。虽然是盗贼协会,但也是个有规矩的地方呢。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "这个名叫“赫麦”的小村子,来之前听说是个有名的强盗之村呐。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "……还好,我还没什么财物。", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "强盗？盗贼协会的落脚点吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "进村子前,我得把包裹整理一下,免得被偷了……", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "好像不是哦,也许只是野贼吧。据说曾向协会递交申请,因为名声太坏被拒绝了。盗贼协会,也是个有规矩的地方呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 2, emoji1 = 0, name = "？？？", talk = 101020, npc2 = 101020, emoji2 = 0, content = "【拟声词】", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "不过还好啦,钱财什么的,目前……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "什么东西跑过去了？", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "进村子前,还是整理一下包裹吧,丢失财物是谁也不愿见的事……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "看不清,像是【吉祥物】。", },
+			{ npc1 = 101010, type = 2, emoji1 = 0, name = "？？？", talk = 101020, npc2 = 101020, emoji2 = 0, content = "【拟声词】", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "诶？！我的钱袋？！", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "啊！什么东西跑过去了？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "可恶！真是防不胜防,追！", },
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "看不清,像是【吉祥物】。", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "啊喏……伊菲君,你的钱袋……", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 101010, type = 1, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "啊,可恶,刚才那个家伙！想必是被顺走了,真是失于防范啊,追！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -81,7 +87,7 @@ data_1500_MainTaskText = {
 	[1012] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "这么弱,居然这样就死了。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 101010, npc2 = 0, emoji2 = 0, content = "这么弱,居然这样就死了吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -89,37 +95,37 @@ data_1500_MainTaskText = {
 	[1021] = {
 		texts = {
 			
-			{ npc1 = 102030, type = 1, emoji1 = 0, name = "【吉祥物】", talk = 102030, npc2 = 0, emoji2 = 0, content = "【拟声词】", },
+			{ npc1 = 102030, type = 1, emoji1 = 0, name = "【吉祥物】", talk = 102030, npc2 = 0, emoji2 = 0, content = "【拟声词】", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102030, emoji2 = 0, content = "竟然是装死！不能就这么让它跑了,快抓住它。", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102030, emoji2 = 0, content = "这家伙,居然装死！逃跑是绝对不能容忍的！快抓住它！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "站住！你们是什么人？", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "站住！你们是什么人？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102020, emoji2 = 0, content = "喂！刚刚有一只【吉祥物】跑过去了,你看到没有？", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102020, emoji2 = 0, content = "喂,小鬼,刚刚有一只【吉祥物】跑过去了,看到了吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "【吉祥物】？你们找它干什么？", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "【吉祥物】？你们找它做什么？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102020, emoji2 = 0, content = "干什么？那家伙顺走了我的钱袋,我们当然是要取回失物,再好好教训那个小怪物一顿。", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102020, emoji2 = 0, content = "做什么？那家伙顺走了我的钱袋。当然是取回失物,再好好教训它一顿。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "哼！难怪【吉祥物】回来的时候鼻青脸肿的,果然是被你们这些外村人欺负了！", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "哼！鼻青脸肿的【吉祥物】果然是被你们这些外村人欺负了才这样的吧！不可原谅！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 102020, emoji2 = 0, content = "是它先偷了我们的东西。", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 102020, emoji2 = 0, content = "偷盗财物,还说什么被人欺负的话……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "【吉祥物】是我最好的朋友,你们打伤了它,就得赔钱！", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "就算这样,使我最好的朋友【吉祥物】受到如此严重的伤害,也是不能宽恕的！请道歉并给予补偿！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102020, emoji2 = 0, content = "开什么玩笑？你的宠物偷了我的东西却要我赔钱？！", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "伊菲", talk = 102010, npc2 = 102020, emoji2 = 0, content = "到底在说什么啊？你这家伙！不可原谅的到底是谁啊？补偿？说的是金钱吧？开什么玩笑！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "没有钱,就别怪我不客气了！", },
+			{ npc1 = 102010, type = 2, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 102020, emoji2 = 0, content = "既然如此,再说下去已经完全没有必要了吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -127,7 +133,7 @@ data_1500_MainTaskText = {
 	[1022] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 0, emoji2 = 0, content = "啊啊啊啊！快来人啊！打小孩儿了！！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "熊孩子", talk = 102020, npc2 = 0, emoji2 = 0, content = "啊啊啊啊！来……来人啊！！外村人欺负小孩子了！！！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -135,7 +141,7 @@ data_1500_MainTaskText = {
 	[1032] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "女勇者", talk = 103050, npc2 = 0, emoji2 = 0, content = "一群人打两个,真是叫人看不下去。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "女勇者", talk = 103050, npc2 = 0, emoji2 = 0, content = "以多欺少这种事,果然到什么时候都无法容忍啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -143,13 +149,13 @@ data_1500_MainTaskText = {
 	[1042] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 104010, npc2 = 0, emoji2 = 0, content = "丫头,这招美女救英雄玩砸了吧~", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 104010, npc2 = 0, emoji2 = 0, content = "美女救英雄,感觉像是在童话般的梦境中呢,谢啦~小妞。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "女勇者", talk = 104020, npc2 = 0, emoji2 = 0, content = "这群刁民,真是气死人了。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "女勇者", talk = 104020, npc2 = 0, emoji2 = 0, content = "闭嘴！真是欺人太甚,这群刁民。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "恐怕这些人不只是刁民而已。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "恐怕不只是刁民而已吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -157,52 +163,52 @@ data_1500_MainTaskText = {
 	[1052] = {
 		texts = {
 			
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "啊……你们……你们是谁？", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "啊……请问……你们……你们是谁啊？将老朽围住,发生了什么事情吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105010, emoji2 = 0, content = "打不过就装无辜,太假了吧！", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105010, emoji2 = 0, content = "还真是无辜呢！摆出这副可怜兮兮的样子是因为完全打不过吧？当别人是傻瓜吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "小伙子,我不懂你是什么意思。", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "年轻人,这么说……可就太冤枉了。打打杀杀的事情当着别人大声地喊出来,我以为,这样似乎有些不妥呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105010, emoji2 = 0, content = "你不懂也没关系,赫麦名声在外,以为我们那么好糊弄吗？", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105010, emoji2 = 0, content = "先拿起武器攻击被盗走财物的无辜路人,再大言不惭地判定别人行为不妥这种事,还真像是强盗所作所为啊！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "年轻人,你这样说就太不讲理了。", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "实在抱歉,不过究竟发生了什么……可以说一说吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105010, emoji2 = 0, content = "跟强盗有什么理可讲？", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105010, emoji2 = 0, content = "跟强盗讲道理,听起来好像有些滑稽啊？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105010, emoji2 = 0, content = "看来事有蹊跷……伊菲,冷静一些。", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105010, emoji2 = 0, content = "刚刚发生的事却完全不记得,这样的话就太奇怪了……伊菲君,无论如何,请冷静下来吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105010, emoji2 = 0, content = "我们是从迦南王城赶来的勇者,请问这里之前发生了什么？", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105010, emoji2 = 0, content = "十分抱歉,我们是从王都赶来的勇者,从贵处路过,引起了许多不必要的麻烦,真是非常对不起。不过,这里是不是发生了什么意外,不知可否……？这么唐突地问起来,实在抱歉啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "哦！你们终于来了,勇者大人们！", },
+			{ npc1 = 105030, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105010, emoji2 = 0, content = "勇者……是王都派来拯救迦南的勇者大人们吗？终于来了,勇者大人们！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105020, type = 2, emoji1 = 0, name = "女勇者", talk = 105020, npc2 = 105010, emoji2 = 0, content = "你们就是这样欢迎客人的吗？魔神又是怎么一回事？", },
+			{ npc1 = 105020, type = 2, emoji1 = 0, name = "女勇者", talk = 105020, npc2 = 105010, emoji2 = 0, content = "哈？这样欢迎勇者大人还真是隆重啊！那么,村民们口中说的“魔神大人”又是怎样一回事呢？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105020, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "唉,实不相瞒,确实是有一位魔神跑到我们这里。", },
+			{ npc1 = 105020, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "咳咳,实不相瞒,大概不久前,有一位魔神来过这里啊……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105020, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "从那以后,不知为什么,村民们总是突然变得很暴躁,经常与路人发生冲突。", },
+			{ npc1 = 105020, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "从那以后,村民们有时会突然变得很暴躁,冒犯到过路人这样无理的事也偶有发生,只不过原因还不是很清楚的样子……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105030, emoji2 = 0, content = "它在哪里？", },
+			{ npc1 = 105020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105030, emoji2 = 0, content = "得到这些消息,真是太感谢了！如果可以的话,你可以……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105020, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "应该就在这附近的丛林里,如果你们能赶走它,那就太感激了。", },
+			{ npc1 = 105020, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "似乎是在这附近的丛林里呢,勇者大人们如果能赶走它的话,那真是感激不尽啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105010, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105030, emoji2 = 0, content = "先别急着谢,你们之前偷我的钱,别以为我忘了。", },
+			{ npc1 = 105010, type = 2, emoji1 = 0, name = "伊菲", talk = 105010, npc2 = 105030, emoji2 = 0, content = "哼,之前偷了本大人的钱袋的事,要这样蒙混过去了吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 105010, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "这个……这个……自然如数奉还。", },
+			{ npc1 = 105010, type = 2, emoji1 = 0, name = "村长", talk = 105030, npc2 = 105030, emoji2 = 0, content = "这个……这个……呃,若是发生了这样失礼的事情,实在是对不住！勇者大人遗失的财物,无论如何也会尽力补偿您的,请大人宽恕！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -210,82 +216,82 @@ data_1500_MainTaskText = {
 	[1061] = {
 		texts = {
 			
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "说起来,小妹妹你到底是个谁啊？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "毫无预兆地从天而降,真是让人意外呢。说起来,还不知道小妞的名字啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "女勇者", talk = 106020, npc2 = 106020, emoji2 = 0, content = "这样对自己的恩人说话,不觉得无礼吗？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "女勇者", talk = 106020, npc2 = 106020, emoji2 = 0, content = "用如此粗鄙的语气对自己的恩人说话,不觉得十分无礼吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "好吧,我叫伊菲,这是我的朋友$playername 。非常感谢这位美丽的小姐出手相救,不知可否领教您的芳名？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "恩人？咳咳,好吧好吧……呃,我叫伊菲,这是我的朋友$playername （君或酱）。非常感谢这位美丽的小姐出手相助,不知可否请教您的芳名？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "女勇者", talk = 106020, npc2 = 106020, emoji2 = 0, content = "我叫爱拉忒,是一个……巫毒。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "女勇者", talk = 106020, npc2 = 106020, emoji2 = 0, content = "爱拉忒,一个……巫毒。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "巫毒？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "巫毒？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "似乎是一些与魔鬼打交道怪人,据说是恶魔的仆役。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "与魔鬼打交道,听说是一群怪人,似乎做了恶魔的仆役,有些危险呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "喂喂,别这样看着我,我也是听别人说的。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "喂喂,用这样恶毒的眼神盯着别人也是很无礼的吧？我也是听别人说的……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "是啊。阴毒,诡诈,无所不用其极。为了利益不惜出卖他人,甚至自己的灵魂。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "是啊。恶毒,诡诈,无所不用其极。为了利益不惜出卖他人,甚至自己的灵魂。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "你们离我远一点,说不定下一秒就把你献给恶魔了。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "请保证在安全距离之外,否则说不定下一秒就把你献给恶魔了。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "只是一种说法,爱拉忒,请不要介意。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "只是传言,爱拉忒酱,请不要介意。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "一种说法？好吧,也许你们可以不介意。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "传言？好吧,也许你们可以不介意。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "在别人面前说这种诋毁污蔑的话,还装作若无其事的样子,世上怎么会有这么差劲的人！", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "在别人面前说这种诋毁污蔑的话,还装作若无其事的样子,世上怎么会有这么差劲的人！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "……", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "……对……对不起我只是……", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "……对……对不起我只是……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "哈哈哈,干嘛生这么大的气嘛,开个玩笑,玩笑而已……", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "哈哈哈,消消气消消气,只是开个玩笑,玩笑而已……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "呵呵呵呵,真是个好有趣的玩笑！难道你的长辈从没有教过你基本的礼貌吗？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "呵呵,真是个好有趣的玩笑！为乐取笑别人难道最基本的礼貌都可以不遵守吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "……", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "我要去丛林里找那只可恶的魔神,再见了,尊贵的勇·者·们。居然遇到这么粗鄙的人,真是大开眼界。", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "真是不可理喻我要去丛林里找那只可恶的魔神,再见了,尊贵的勇·者·们。居然有这么粗鄙的人,真是让人大开眼界。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "尊贵的勇者们……阴阳怪气,切！", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "尊贵的勇者们……阴阳怪气,切！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "爱拉忒,你不跟我们一起吗？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106020, emoji2 = 0, content = "可是,爱拉忒酱不与我们一起吗？丛林里恐怕会有危险。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "喂等等！打了那么久,先在这儿休息一下嘛！", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "就是就是,刚才打了那么久,先在这儿休整一下嘛！哎——真想睡上一觉啊——", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "？？？", talk = 106010, npc2 = 106020, emoji2 = 0, content = "科科科科……", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "？？？", talk = 106010, npc2 = 106020, emoji2 = 0, content = "科科科科……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "什么声音？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 106020, emoji2 = 0, content = "什么声音？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "是蘑菇,蠢货！你坐着的那个蘑菇,不觉得有点大得惊人了吗？", },
+			{ npc1 = 106010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 106020, emoji2 = 0, content = "是蘑菇,蠢材！那个蘑菇,大得有些惊人了吧？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106030, type = 1, emoji1 = 0, name = "怪叫的蘑菇", talk = 106030, npc2 = 0, emoji2 = 0, content = "科科科科~~~", },
+			{ npc1 = 106030, type = 1, emoji1 = 0, name = "怪叫的蘑菇", talk = 106030, npc2 = 0, emoji2 = 0, content = "科科科科~~~", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 106030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "蘑菇？蘑菇怎么会发出这种声音？！", },
+			{ npc1 = 106030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "蘑菇？蘑菇怎么会发出这种声音？！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -293,13 +299,10 @@ data_1500_MainTaskText = {
 	[1062] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 0, emoji2 = 0, content = "刚出门就遇到怪物,真是晦气。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 106010, npc2 = 0, emoji2 = 0, content = "刚出门就遇到怪物,真是晦气啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 0, emoji2 = 0, content = "还不是你坐在人家的头上！", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 0, emoji2 = 0, content = "你们看,那边好像有个人。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 106020, npc2 = 0, emoji2 = 0, content = "被人坐在头顶,不生气很难的吧？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -307,25 +310,28 @@ data_1500_MainTaskText = {
 	[1071] = {
 		texts = {
 			
-			{ npc1 = 107030, type = 1, emoji1 = 0, name = "混乱的士兵", talk = 107030, npc2 = 0, emoji2 = 0, content = "科……科科……", },
+			{ npc1 = 107020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 107020, npc2 = 0, emoji2 = 0, content = "诶,那边好像有个人。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 107030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "他在……学那些蘑菇吗？", },
+			{ npc1 = 107030, type = 1, emoji1 = 0, name = "混乱的士兵", talk = 107030, npc2 = 0, emoji2 = 0, content = "科……科科……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 107030, type = 1, emoji1 = 0, name = "混乱的士兵", talk = 107030, npc2 = 0, emoji2 = 0, content = "啊！人类……可恶的人类,快滚开！", },
+			{ npc1 = 107030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "是在……学那些蘑菇怪吗……那个人？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 107010, type = 1, emoji1 = 0, name = "伊菲", talk = 107010, npc2 = 0, emoji2 = 0, content = "怎么像疯狗一样乱咬人？！", },
+			{ npc1 = 107030, type = 1, emoji1 = 0, name = "混乱的士兵", talk = 107030, npc2 = 0, emoji2 = 0, content = "啊！人类……可恶的人类,快滚开！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 107010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "他好像产生了幻觉。", },
+			{ npc1 = 107010, type = 1, emoji1 = 0, name = "伊菲", talk = 107010, npc2 = 0, emoji2 = 0, content = "真是的,这个人怎么这样说话啊？！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 107010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 107020, npc2 = 107020, emoji2 = 0, content = "看样子,他应该是吃了这些蘑菇怪的肉才会变成这样……", },
+			{ npc1 = 107010, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "似乎产生了幻觉呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 107010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 107020, npc2 = 107020, emoji2 = 0, content = "不管怎么说,先把他救出来再说吧。", },
+			{ npc1 = 107010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 107020, npc2 = 107020, emoji2 = 0, content = "看样子似乎吃了这些蘑菇怪的肉才会变成这样吧……", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 107010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 107020, emoji2 = 0, content = "不管怎么说,先把他救出来吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -333,7 +339,7 @@ data_1500_MainTaskText = {
 	[1072] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "混乱的士兵", talk = 107030, npc2 = 0, emoji2 = 0, content = "人类……滚！滚开！可恶的人类！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "混乱的士兵", talk = 107030, npc2 = 0, emoji2 = 0, content = "人类……滚！滚开！可恶的人类！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -341,13 +347,7 @@ data_1500_MainTaskText = {
 	[1082] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 108010, npc2 = 0, emoji2 = 0, content = "怎么回事,他们到底跟谁一伙儿的？", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 108020, npc2 = 0, emoji2 = 0, content = "这都看不出来,你眼睛瞎了吗？", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "剑士", talk = 108050, npc2 = 0, emoji2 = 0, content = "年轻人,这里太危险,你们快跟我来！", },
+			{ npc1 = 108050, type = 1, emoji1 = 0, name = "剑士", talk = 108050, npc2 = 0, emoji2 = 0, content = "喂！情况太危险了,请到这边来！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -355,7 +355,7 @@ data_1500_MainTaskText = {
 	[1092] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 109010, npc2 = 0, emoji2 = 0, content = "这狗杂碎原来是想吃独食。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 109010, npc2 = 0, emoji2 = 0, content = "可恶,看来是想吃独食呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -363,49 +363,49 @@ data_1500_MainTaskText = {
 	[1102] = {
 		texts = {
 			
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "呼呼……这家伙真难对付！", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "呼呼……这家伙真难对付啊！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 1, emoji1 = 0, name = "剑士", talk = 110030, npc2 = 0, emoji2 = 0, content = "呵呵呵呵……羊羔们,你们逃不出但他林大人的掌心。我要把你们献做燔祭,我要让你们知道但他林大人的神威。", },
+			{ npc1 = 110030, type = 1, emoji1 = 0, name = "剑士", talk = 110030, npc2 = 0, emoji2 = 0, content = "呵呵呵呵……羊羔们是绝对逃不出但他林大人的掌心的。成为但他林大人的祭品吧,这位大人会让你们知道他的厉害。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 1, emoji1 = 0, name = "剑士", talk = 110030, npc2 = 0, emoji2 = 0, content = "哈！啊！放开我！你们这些该死的祭品！", },
+			{ npc1 = 110030, type = 1, emoji1 = 0, name = "剑士", talk = 110030, npc2 = 0, emoji2 = 0, content = "哈！啊！放手混蛋！该死的祭品！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "真是个疯子。", },
+			{ npc1 = 110030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "魔神居然能令人疯狂至此吗……？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "伊菲", talk = 110010, npc2 = 110010, emoji2 = 0, content = "魔神那么有本事,他怎么不来救你？", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "伊菲", talk = 110010, npc2 = 110010, emoji2 = 0, content = "既然有这种实力,就请这位大人亲自来救你好了！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 110010, emoji2 = 0, content = "他刚才所说的“但他林”是魔神的名字吗？", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 110010, emoji2 = 0, content = "“但他林”……魔神的名字吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "只是72位魔神中的一位而已。", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "只是72位魔神中的一位而已。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "据说这个家伙诡怪异常,从不以真面目示人,狡猾得很。", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "据说这个家伙诡怪异常,从不以真面目示人,狡猾得很呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 110010, emoji2 = 0, content = "那这个人应该怎么处置？", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 110010, emoji2 = 0, content = "那么,应该怎样处置这个人呢？？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "伊菲", talk = 110010, npc2 = 110010, emoji2 = 0, content = "当然是先打断他的腿,再挖出眼睛,然后扒光衣服开膛摘心！", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "伊菲", talk = 110010, npc2 = 110010, emoji2 = 0, content = "惩罚什么的也不必太严厉啦,不过可别拦着我扒光他的裤子打屁股。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 110010, emoji2 = 0, content = "……", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 110010, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "……", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "伊菲", talk = 110010, npc2 = 110010, emoji2 = 0, content = "呃……哈哈哈哈！开玩笑的。", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "伊菲", talk = 110010, npc2 = 110010, emoji2 = 0, content = "呃……哈哈哈哈！开玩笑的。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "虽然他可恶至极,但我们可不是魔神的走狗。", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "伊菲君的玩笑向来如此粗鄙吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "就放他在这儿,自生自灭吧。", },
+			{ npc1 = 110030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 110030, npc2 = 110010, emoji2 = 0, content = "实在想这样做的话,请在我看不到的时候自便吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -413,55 +413,55 @@ data_1500_MainTaskText = {
 	[2011] = {
 		texts = {
 			
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "刚才的事,咳咳,是我不好。对不起,爱拉忒。", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "刚才的事,咳咳,是我不好。爱拉忒酱,非常抱歉！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "虽然你狠过分,看在你箭法的份上,勉为其难原谅你了。", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "的确过分,不过看在箭法精准的份上,只好原谅伊菲君了。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "真是的,魔神怎么会跑出来,这到底是哪个白痴干的蠢事？", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "说起来也真是的,魔神不是被镇压在神殿吗,怎么会跑出来？这到底是哪个蠢材干的蠢事？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "对巫毒来说,也不失为一件好事啊。", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "这对为魔神服务的巫毒来说,也不失为一件好事啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "……", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "伊菲君……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "我随便说说……", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "啊啊,只是随便说说……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "尽快收起你的敌意和偏见,否则说不准什么时候,我的法杖会敲碎你的脑袋。", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "藏好敌意和偏见好吗？请再说这样无理的话了,伊菲君。否则说不准什么时候,这只法杖会敲碎你的脑袋。毕竟我的脾气可不怎么好。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "好吧……好啦！跟我这种人待在一起,你得学得稍微宽容一点,不然很快就会变老的。", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 201020, emoji2 = 0, content = "好吧……好啦！不过,爱拉忒酱还是稍微宽容一点吧,不然很快就会变老的。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "好了两位……怎么又吵起来了……", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "好了两位……这样争论不休真是叫人很为难呢……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "诶？那个人不是赫麦的村长吗？他怎么会在这里？", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "啊？那个人……是赫麦的村长吗？怎么会在这里啊？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "村长？", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 201020, emoji2 = 0, content = "打扰一下……村长？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201030, type = 1, emoji1 = 0, name = "村长", talk = 201030, npc2 = 0, emoji2 = 0, content = "……", },
+			{ npc1 = 201030, type = 1, emoji1 = 0, name = "村长", talk = 201030, npc2 = 0, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "好奇怪,他在做什么？", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 201020, emoji2 = 0, content = "好奇怪,在做什么啊？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201030, type = 1, emoji1 = 0, name = "村长", talk = 201030, npc2 = 0, emoji2 = 0, content = "……", },
+			{ npc1 = 201030, type = 1, emoji1 = 0, name = "村长", talk = 201030, npc2 = 0, emoji2 = 0, content = "……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201020, npc2 = 201020, emoji2 = 0, content = "看他的样子,该不会是……", },
+			{ npc1 = 201010, type = 2, emoji1 = 0, name = "伊菲", talk = 201020, npc2 = 201020, emoji2 = 0, content = "看样子,该不会是再吃、那个……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201030, type = 1, emoji1 = 0, name = "村长", talk = 201030, npc2 = 0, emoji2 = 0, content = "吼……吼——", },
+			{ npc1 = 201030, type = 1, emoji1 = 0, name = "村长", talk = 201030, npc2 = 0, emoji2 = 0, content = "吼……吼——", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 201030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "啊！他在破坏死去勇者的尸骸！", },
+			{ npc1 = 201030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "啊！那是……死去士兵的尸骸！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -469,19 +469,10 @@ data_1500_MainTaskText = {
 	[2012] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "他已经完全失去理智了。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "已经完全失去理智了呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 0, emoji2 = 0, content = "不然谁会吃那种东西……呕……", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 0, emoji2 = 0, content = "平白无故惹这么大个麻烦。", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 0, emoji2 = 0, content = "还不是你们闯的祸。", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 201010, npc2 = 0, emoji2 = 0, content = "这么说就太没道理了喂！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 201020, npc2 = 0, emoji2 = 0, content = "还不是你们闯的祸。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -489,28 +480,28 @@ data_1500_MainTaskText = {
 	[2021] = {
 		texts = {
 			
-			{ npc1 = 202010, type = 1, emoji1 = 0, name = "伊菲", talk = 202010, npc2 = 0, emoji2 = 0, content = "说起来……你们都不饿吗？自从离开王城,我可是一口水都没喝过。", },
+			{ npc1 = 202010, type = 1, emoji1 = 0, name = "伊菲", talk = 202010, npc2 = 0, emoji2 = 0, content = "说起来……大家都不饿吗？匆匆忙忙离开王城之后,可是连喝水的机会都没有呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202030, type = 1, emoji1 = 0, name = "？？？", talk = 202030, npc2 = 0, emoji2 = 0, content = "我烤了一只野兔,快来一起吃吧。", },
+			{ npc1 = 202030, type = 1, emoji1 = 0, name = "？？？", talk = 202030, npc2 = 0, emoji2 = 0, content = "野兔已经烤好啦,快来一起吃吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 202020, npc2 = 202020, emoji2 = 0, content = "我们都快筋疲力尽了,$playername 你哪来得时间烤兔子？", },
+			{ npc1 = 202010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 202020, npc2 = 202020, emoji2 = 0, content = "大家都快筋疲力尽了,$playername（君或酱）却有时间烤兔子吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 202020, emoji2 = 0, content = "刚才不是我说话。", },
+			{ npc1 = 202010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 202020, emoji2 = 0, content = "诶？刚才说话的,并不是我啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202010, type = 2, emoji1 = 0, name = "伊菲", talk = 202010, npc2 = 202020, emoji2 = 0, content = "不是你难道是我？", },
+			{ npc1 = 202010, type = 2, emoji1 = 0, name = "伊菲", talk = 202010, npc2 = 202020, emoji2 = 0, content = "不是$playername（君或酱）,难道是我说的？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202030, type = 2, emoji1 = 0, name = "？？？", talk = 202030, npc2 = 202010, emoji2 = 0, content = "对啊,不是你难道是我？", },
+			{ npc1 = 202030, type = 2, emoji1 = 0, name = "？？？", talk = 202030, npc2 = 202010, emoji2 = 0, content = "对啊,难道是我说的？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 202010, emoji2 = 0, content = "！！！", },
+			{ npc1 = 202010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 202010, emoji2 = 0, content = "！！！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 202010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 202010, emoji2 = 0, content = "这什么情况！", },
+			{ npc1 = 202010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 202010, emoji2 = 0, content = "伊、伊菲君,怎么有两位？！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -518,13 +509,10 @@ data_1500_MainTaskText = {
 	[2022] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 202010, npc2 = 0, emoji2 = 0, content = "你们两个,下手可真够狠的！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 202010, npc2 = 0, emoji2 = 0, content = "爱拉忒酱,可真是不留情面呢！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "你不是也没有留情吗？", },
-
-
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 202020, npc2 = 0, emoji2 = 0, content = "正好趁机报复,何乐而不为？", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 202020, npc2 = 0, emoji2 = 0, content = "这可是趁机报复的好机会啊,不是吗？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -532,43 +520,43 @@ data_1500_MainTaskText = {
 	[2032] = {
 		texts = {
 			
-			{ npc1 = 203010, type = 2, emoji1 = 0, name = "伊菲", talk = 203010, npc2 = 203020, emoji2 = 0, content = "这家伙真不简单,咱们三个联手都赢不了他。", },
+			{ npc1 = 203010, type = 2, emoji1 = 0, name = "伊菲", talk = 203010, npc2 = 203020, emoji2 = 0, content = "这家伙真不简单,若不是联手,恐怕要输得很难看呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "我都不知道,原来我可以这么强。", },
+			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "是啊。很难想象,如我这样年轻的法师居然也可以有这样的实力。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "没猜错的话,你就是魔神但他林吧。难怪没人见过你的真实面目。", },
+			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "但他林大人,躲躲藏藏不会太无聊了吗？难怪无人有幸目睹大人的真容,这种假借他人面容行卑鄙之事的手段,还真是下作啊。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203030, type = 1, emoji1 = 0, name = "爱拉忒幻象", talk = 203030, npc2 = 0, emoji2 = 0, content = "哈哈哈哈,有意思！小娃娃,你够聪明。", },
+			{ npc1 = 203030, type = 1, emoji1 = 0, name = "爱拉忒幻象", talk = 203030, npc2 = 0, emoji2 = 0, content = "哈哈哈哈,有意思！小娃娃,这样的赞赏之语还真是令人愉快呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203030, type = 1, emoji1 = 0, name = "爱拉忒幻象", talk = 203030, npc2 = 203020, emoji2 = 0, content = "让我看看你们还有什么本事！", },
+			{ npc1 = 203030, type = 1, emoji1 = 0, name = "爱拉忒幻象", talk = 203030, npc2 = 203020, emoji2 = 0, content = "让我看看你们还有什么本事！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "哼哼哼,哈哈哈哈哈！", },
+			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "哼哼哼,哈哈哈哈哈！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "不错,真不错,来自传送之门的勇者们。", },
+			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "不错,真不错,来自传送之门的勇者们。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "别在那装神弄鬼,出来！", },
+			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "别在那装神弄鬼,出来！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "装神弄鬼？鬼神又岂在我的眼里？", },
+			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "装神弄鬼？鬼神又岂在我的眼里？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203040, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "啊……这就是……魔神？", },
+			{ npc1 = 203040, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "啊……这就是……魔神？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "果然是……", },
+			{ npc1 = 203010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 203020, npc2 = 203020, emoji2 = 0, content = "果然……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "有幸见到我的真身,你们应该感到无比荣耀。", },
+			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "有幸见到我的真身,你们应该感到无比荣耀。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "见识一下魔神的手段吧！然后,做我忠诚的奴仆！", },
+			{ npc1 = 203040, type = 1, emoji1 = 0, name = "但他林", talk = 203040, npc2 = 0, emoji2 = 0, content = "见识一下魔神的手段吧！然后,做我忠诚的奴仆！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -576,7 +564,7 @@ data_1500_MainTaskText = {
 	[2042] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 204010, npc2 = 0, emoji2 = 0, content = "明明只是个怪物,偏偏要伪装成美女。这恶趣味真是让人受不了。", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 204010, npc2 = 0, emoji2 = 0, content = "明明只是个怪物偏偏要伪装成美女的恶趣味,还真是让人受不了呢。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -584,7 +572,7 @@ data_1500_MainTaskText = {
 	[2052] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 205010, npc2 = 0, emoji2 = 0, content = "这是你喜欢的类型吧,爱拉忒!", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 205010, npc2 = 0, emoji2 = 0, content = "这种类型很讨女孩子喜欢把,爱拉忒酱~", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -592,7 +580,7 @@ data_1500_MainTaskText = {
 	[2062] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 206010, npc2 = 0, emoji2 = 0, content = "搞什么？原来他们是一个人吗？！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 206010, npc2 = 0, emoji2 = 0, content = "搞什么？居然是一个人吗？！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -600,7 +588,7 @@ data_1500_MainTaskText = {
 	[2072] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 207010, npc2 = 0, emoji2 = 0, content = "还有什么花招,尽管使出来吧！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 207010, npc2 = 0, emoji2 = 0, content = "还有什么花招,尽管使出来吧！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -608,7 +596,7 @@ data_1500_MainTaskText = {
 	[2082] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 208010, npc2 = 0, emoji2 = 0, content = "魔神大人,你手下的酒囊饭袋还真不少！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 208010, npc2 = 0, emoji2 = 0, content = "魔神大人手下的酒囊饭袋还真不少呢！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -616,7 +604,7 @@ data_1500_MainTaskText = {
 	[2092] = {
 		texts = {
 			
-			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 209020, npc2 = 0, emoji2 = 0, content = "让我看看你还有什么本事！", },
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 209020, npc2 = 0, emoji2 = 0, content = "用尽全力了也不过如此吗？但他林大人？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -624,73 +612,73 @@ data_1500_MainTaskText = {
 	[2101] = {
 		texts = {
 			
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "四百年了,已经四百年没有经历这样令人血脉贲张的战斗了。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "四百年了,已经四百年没有经历这样令人血脉贲张的战斗了。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "你们激起了我对鲜血的渴望,对征战的热情。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "你们激起了我对鲜血的渴望,对征战的热情。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 2, emoji1 = 0, name = "伊菲", talk = 210010, npc2 = 210020, emoji2 = 0, content = "他自言自语地在干嘛？", },
+			{ npc1 = 210010, type = 2, emoji1 = 0, name = "伊菲", talk = 210010, npc2 = 210020, emoji2 = 0, content = "自言自语的,在说什么啊？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "小娃娃,很不错。尤其是你,小姑娘。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "不错,非常不错,尤其是你小姑娘。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "哼！", },
+			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "哼！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "我在你身上感受到了不甘、愤怒,你渴望强大,渴望被认同。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "不甘、愤怒让你与你的前辈们一样,渴望强大,渴望被认同。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "闭嘴,你这个恶魔！", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "闭嘴,你这个恶魔！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "做我的使魔怎么样？假以时日,你一定会成为非常优秀的杀人利器。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "做我的使魔吧？假以时日,一定会成为非常优秀的杀人利器。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "你想得到的,都会成为你的囊中之物,你想毁灭的,必将一一化为齑粉。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "你想得到的,都会成为你的囊中之物,你想毁灭的,必将一一化为齑粉。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "住口！你给我住口！", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "住口！你给我住口！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "爱拉忒,冷静！", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "冷静,爱拉忒酱！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "你再害怕什么？害怕你那脆弱的小心肝,关不住巫毒的叛逆和沸腾的杀意？或者,你更喜欢被叫做——魔法师？", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "害怕什么？害怕你那脆弱的小心肝,关不住巫毒的叛逆和沸腾的杀意？或者,我该叫你——法师？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "魔法师？巫毒……和魔法师有什么关系？", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "法师？巫毒……和法师有什么关系？", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 1, emoji1 = 0, name = "伊菲", talk = 210010, npc2 = 0, emoji2 = 0, content = "现在不是说这个的时候吧！", },
+			{ npc1 = 210010, type = 1, emoji1 = 0, name = "伊菲", talk = 210010, npc2 = 0, emoji2 = 0, content = "现在不是说这个的时候吧！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "抛弃它吧,释放你的本性。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "抛弃它吧,释放你的本性吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "你对魔法师了解多少？你对生为魔法师的人们又了解多少？", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "口口声声说着恶毒的话,到底对法师了解多少？这样挑拨人心煽动罪恶的魔神究竟对生为法师的人们了解多少呢？！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 2, emoji1 = 0, name = "伊菲", talk = 210010, npc2 = 210020, emoji2 = 0, content = "丫头,别被它骗了！喂,怪物,快点滚回圣殿去,乖乖看守你的魔柱。", },
+			{ npc1 = 210010, type = 2, emoji1 = 0, name = "伊菲", talk = 210010, npc2 = 210020, emoji2 = 0, content = "爱拉忒酱,别被它骗了！喂,怪物,快点滚回圣殿去,乖乖看守你的魔柱吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 2, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "哼,小东西,也许再过一百年,你这番话我还会考虑一下。", },
+			{ npc1 = 210030, type = 2, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "哼,小东西,再过一百年,你这番话我还会考虑一下。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 2, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "但是现在,还没到你嚣张的时候。", },
+			{ npc1 = 210030, type = 2, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "但是现在,还没有这个资本。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "够了,像它这种没有感情,只会玩弄他人的魔鬼,根本不值得我们多费唇舌。", },
+			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "够了,这种没有感情,只会玩弄他人的魔鬼,根本不值得我们多费唇舌。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "如果真的有什么叛逆与杀意,那么,我最想杀死的,就是你——这恶意曲解魔法师的混蛋！", },
+			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "叛逆与杀意,有过真的存在,此时此刻我最想杀死的,就是恶意曲解魔法师的混蛋！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "为你犯下的罪孽忏悔吧！", },
+			{ npc1 = 210010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 210020, emoji2 = 0, content = "想所罗门陛下忏悔吧,恶毒的魔神！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "小小巫毒也妄想成为审判魔神的人,不自量力。", },
+			{ npc1 = 210030, type = 1, emoji1 = 0, name = "但他林", talk = 210030, npc2 = 0, emoji2 = 0, content = "小小巫毒也妄想成为审判魔神的人,不自量力。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -698,22 +686,22 @@ data_1500_MainTaskText = {
 	[2102] = {
 		texts = {
 			
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "伊菲！", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "伊菲君！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "这个笨蛋受伤了,我们快走！", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "笨蛋！伊菲君受了伤,尽快离开这里吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "可是但他林……", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "可是,但他林……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "还不明白吗？他之前故意放水拖那么久,就是为了消耗我们的体力,再打下去只会让魔神占尽便宜罢了。", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "现在可不是逞强的时候！还不明白吗,说不定之前故意放水,让它的使魔拖延时间,是为了消耗我们的体力吧。再这样下去的话,恐怕只会让魔神占尽便宜罢了。而且……", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "既然这样,我听你的。", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "既然这样,就听爱拉忒酱的啦。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "那边有条小路,似乎没有但他林的使魔,我们就往那里去吧。", },
+			{ npc1 = 210020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 210020, npc2 = 0, emoji2 = 0, content = "那边的小路,似乎没有但他林的使魔呢,我们就往那里去吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},

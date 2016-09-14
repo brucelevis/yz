@@ -8,6 +8,7 @@ return {
 	name 1 : string
 	lv 2 : integer
 	roletype 3 : integer
+	joblv 4 : integer
 }
 
 
@@ -55,7 +56,7 @@ team_publishteam 4004 {
 	}
 }
 
-# 同步一个队伍信息
+# 同步一个队伍信息(全量同步,一般用于获取其他队伍的完整信息)
 team_syncteam 4005 {
 	request {
 		base 0 : basetype
@@ -97,6 +98,14 @@ team_publishteams 4009 {
 	request {
 		base 0 : basetype
 		publishteams 1 : *PublishTeamType
+	}
+}
+
+# 更新队伍(增量更新)：如组队目标/组队状态
+team_updateteam 4010 {
+	request {
+		base 0 : basetype
+		team 1 : TeamType
 	}
 }
 ]]

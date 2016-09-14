@@ -8,6 +8,7 @@ function cfrienddb:init(pid)
 		flag = self.flag,
 	})
 	self.frdlist = {}
+	self.frdshiplist = {} -- 好友度表
 	self.applyerlist = {}
 	self.applyerlimit = 20
 	self.frdlimit = 60
@@ -49,8 +50,7 @@ function cfrienddb:clear()
 end
 
 function cfrienddb:oncreate(player)
-	local server = globalmgr.server
-	if not server:isopen("friend") then
+	if not globalmgr.server:isopen("friend") then
 		return
 	end
 end
@@ -74,8 +74,7 @@ end
 
 
 function cfrienddb:onlogin(player)
-	local server = globalmgr.server
-	if not server:isopen("friend") then
+	if not globalmgr.server:isopen("friend") then
 		return
 	end
 	resumemgr.onlogin(player) -- keep before
@@ -91,14 +90,14 @@ function cfrienddb:onlogin(player)
 	local new_frdlist
 	if #self.frdlist > frdcnt then
 		frdlist = table.slice(self.frdlist,1,frdcnt)
-		new_frdlist = table.slice(frdcnt+1,#self.frdlist)
+		new_frdlist = table.slice(self.frdlist,frdcnt+1,#self.frdlist)
 	end
 	net.friend.S2C.addlist(self.pid,"friend",frdlist)
 	if new_frdlist then
 		net.friend.S2C.addlist(self.pid,"friend",new_frdlist,true)
 	end
 	for _,pid in ipairs(self.applyerlist) do
-		frdblk = self.getfrdblk(pid)
+		frdblk = self:getfrdblk(pid)
 		frdblk:addref(self.pid)
 		net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
 	end
@@ -106,8 +105,8 @@ function cfrienddb:onlogin(player)
 	local applyerlist = self.applyerlist
 	local new_applyerlist
 	if #self.applyerlist > applyercnt then
-		applyerlist = table.slice(1,applyercnt)
-		new_applyerlist = table.slice(applyercnt+1,#self.applyerlist)
+		applyerlist = table.slice(self.applyerlist,1,applyercnt)
+		new_applyerlist = table.slice(self.applyerlist,applyercnt+1,#self.applyerlist)
 	end
 	net.friend.S2C.addlist(self.pid,"applyer",applyerlist)
 	if new_applyerlist then
@@ -120,8 +119,7 @@ function cfrienddb:onlogin(player)
 end
 
 function cfrienddb:onlogoff(player,reason)
-	local server = globalmgr.server
-	if not server:isopen("friend") then
+	if not globalmgr.server:isopen("friend") then
 		return
 	end
 	resumemgr.onlogoff(player,reason) -- keep before
@@ -132,7 +130,7 @@ function cfrienddb:onlogoff(player,reason)
 		frdblk:delref(self.pid)
 	end
 	for _,pid in ipairs(self.applyerlist) do
-		frdblk = self:getfrdblk()
+		frdblk = self:getfrdblk(pid)
 		frdblk:delref(self.pid)
 	end
 	self:set("applyercnt",#self.applyerlist)
@@ -148,13 +146,20 @@ function cfrienddb:delfrdblk(pid)
 end
 
 function cfrienddb:pack_frdblk(frdblk)
-	return {
+	local data = {
 		pid = frdblk.pid,
 		name = frdblk:query("name"),
 		lv = frdblk:query("lv"),
 		roletype = frdblk:query("roletype"),
 		srvname = frdblk:query("srvname"),
+		online = frdblk:query("online"),
+		fightpoint = frdblk:query("fightpoint"),
 	}
+	-- 不同列表数据在这里分别打包
+	if table.find(self.frdlist,frdblk.pid) then
+		data.frdship = self.frdship[pid] or 0
+	end
+	return data
 end
 
 
@@ -319,6 +324,10 @@ function cfrienddb:sendmsg(pid,msg)
 	else
 		rpc.call(srvname,"modmethod","net.friend",".addmsgs",pid,self.pid,msg)
 	end
+end
+
+function cfriedndb:syncfrdblk(pid,data)
+	
 end
 
 -- getter

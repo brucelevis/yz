@@ -177,4 +177,20 @@ function itemaux.getcardsuitid(cardtype_set,lv)
 	return itemaux.cardtype_lv_cardsuitid[key]
 end
 
+function itemaux.fumo_maxval(attrtype,itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	local equiplv = itemdata.equiplv
+	local fumodata = data_0801_Fumo[equiplv]
+	local minortype = itemaux.getminortype(itemtype)
+	local minortype_name = EQUIPPOS_NAME[minortype]
+	local data = data_0801_FumoAttrRatio[attrtype]
+	local attr_factor = data[string.format("%s_factor",minortype_name)]
+	return math.floor(fumodata[attrtype] * attr_factor)
+end
+
+function itemaux.fumo_minval(attrtype,itemtype)
+	local maxval = itemaux.fumo_maxval(attrtype,itemtype)
+	return math.floor(maxval * 0.2)
+end
+
 return itemaux

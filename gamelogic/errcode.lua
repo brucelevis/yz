@@ -16,12 +16,15 @@ STATUS_REPEAT_LOGIN = -14			--重复登录
 STATUS_OVERLIMIT = -15				--达到上限
 STATUS_PASSWD_FMT_ERR = -16			--密码格式错误
 STATUS_UNAUTH		 = -17			--认证失败
-STATUS_BANACCT		 = -18			--禁止登录账号
-STATUS_BANIP		 = -19			--禁止登录ip
+STATUS_BAN_ACCT		 = -18			--禁止登录账号
+STATUS_BAN_IP		 = -19			--禁止登录ip
 STATUS_REDIRECT_SERVER = -20		-- 重定向服务器
 STATUS_CHANNEL_ERR = -21			-- 非法渠道
 STATUS_SIGN_ERR = -22				-- 签名错误
 STATUS_SEX_INVALID = -23			-- 性别非法
+STATUS_TOKEN_TIMEOUT = -24			-- TOKEN超时
+STATUS_BAN_ROLE		= -25			-- 禁止登录角色
+STATUS_FAIL			= -26			-- 执行失败
 
 
 ErrorStringForCode = {
@@ -42,10 +45,13 @@ ErrorStringForCode = {
 	[STATUS_OVERLIMIT]					= "达到上限", 
 	[STATUS_PASSWD_FMT_ERR]				= "密码格式错误", 
 	[STATUS_UNAUTH]						= "认证失败", 
-	[STATUS_BANACCT]					= "禁止登录账号", 
-	[STATUS_BANIP]						= "禁止登录ip", 
+	[STATUS_BAN_ACCT]					= "禁止登录账号", 
+	[STATUS_BAN_IP]						= "禁止登录ip", 
 	[STATUS_REDIRECT_SERVER]			= "重定向服务器",
 	[STATUS_CHANNEL_ERR]				= "非法渠道",
 	[STATUS_SIGN_ERR]					= "签名错误",
 	[STATUS_SEX_INVALID]				= "性别非法",
+	[STATUS_TOKEN_TIMEOUT]				= "TOKEN超时",
+	[STATUS_BAN_ROLE]					= "禁止登录角色",
+	[STATUS_FAIL]						= "执行失败",
 }

@@ -2,3 +2,4 @@
 
 require "gamelogic.huodong.playunit.baotu"
 require "gamelogic.huodong.playunit.guaji"
+require "gamelogic.huodong.playunit.dati"

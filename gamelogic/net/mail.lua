@@ -11,11 +11,11 @@ function C2S.openmailbox(player)
 	local pid = player.pid
 	local mailbox = mailmgr.getmailbox(pid)
 	local mails = mailbox:getmails()
-	local packdata = {}
+	local allmail = {}
 	for _,mail in ipairs(mails) do
-		table.insert(packdata,mail:pack())
+		table.insert(allmail,mail:pack())
 	end
-	return {mails = packdata,}
+	netmail.S2C.allmail(pid,allmail)
 end
 
 function C2S.readmail(player,request)
@@ -35,7 +35,8 @@ function C2S.delmail(player,request)
 	local mailid = assert(request.mailid)
 	local mailbox = mailmgr.getmailbox(pid)
 	local mail = mailbox:delmail(mailid)
-	return {result = mail and true or false,}		
+	local result = mail and true or false
+	netmail.S2C.delmail_result(pid,result)
 end
 
 function C2S.getattach(player,request)
@@ -47,9 +48,9 @@ end
 
 function C2S.sendmail(player,request)
 	local pid = player.pid
-	local targetid = assert(request.pid)
+	local targetid = assert(request.to)
 	local title = request.title or ""
-	local content = assert(request.content)
+	local content = request.content or ""
 	local attach = request.attach or {}
 	if pid == targetid then
 		return
@@ -72,12 +73,26 @@ function C2S.delallmail(player,request)
 	local pid = player.pid
 	local mailbox = mailmgr.getmailbox(pid)
 	mailbox:delallmail()
+	netmail.S2C.allmail(pid,{})
 end
 
 -- s2c
-function S2C.syncmail(pid,maildata)
-	maildata.pid = pid
-	sendpackage(pid,"mail","syncmail",maildata)
+function S2C.syncmail(pid,mail)
+	sendpackage(pid,"mail","syncmail",{
+		mail = mail,
+	})
+end
+
+function S2C.allmail(pid,mails)
+	sendpackage(pid,"mail","allmail",{
+		mails = mails,
+	})
+end
+
+function S2C.delmail_result(pid,result)
+	sendpackage(pid,"mail","delmail_result",{
+		result = result,
+	})
 end
 
 return netmail

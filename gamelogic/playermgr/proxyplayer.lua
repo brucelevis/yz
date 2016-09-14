@@ -34,18 +34,23 @@ function cproxyplayer_meta.__call(self,first,...)
 	end
 	local root = self.parent
 	while root.parent do
-		--print(root.parent,root.parent.cmd)
 		table.insert(cmds,1,root.parent.cmd)
 		table.insert(cmds,1,".")
 		root = root.parent
 	end
 	local cmd = table.concat(cmds)
-	local resume = resumemgr.getresume(pid)
-	if not resume or not resume:get("now_srvname") then
+	--local resume = resumemgr.getresume(pid)
+	--if not resume or not resume:get("now_srvname") then
+	--	logger.log("warning","cluster","[ignore cproxyplayer:call]",pid,cmd,...)
+	--	error("cproxyplayer:call")
+	--end
+	--local now_srvname = resume:get("now_srvname")
+	local kuafuplayer = playermgr.getkuafuplayer(pid)
+	if not kuafuplayer or not kuafuplayer.go_srvname then
 		logger.log("warning","cluster","[ignore cproxyplayer:call]",pid,cmd,...)
 		error("cproxyplayer:call")
 	end
-	local now_srvname = resume:get("now_srvname")
+	local now_srvname = kuafuplayer.go_srvname
 	--print("rpc.call",now_srvname,"playermethod",pid,cmd,...)
 	return rpc.call(now_srvname,"playermethod",pid,cmd,...)
 end

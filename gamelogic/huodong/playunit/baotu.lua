@@ -49,7 +49,7 @@ function playunit_baotu.onuse(pid,packdata,bsendmail)
 		end
 		scenemgr.addnpc(npc,npc.sceneid)
 		-- todo: modify
-		net.msg.sendquickmsg(string.format("【%s】根据在寻宝途中触动了魔法机关，唤醒了在【%s(%d,%d)】沉睡的【%s】",player.name,scene.mapname,npc.pos.x,npc.pos.y,npc.name))
+		net.msg.sendquickmsg(language.format("【{1}】根据在寻宝途中触动了魔法机关，唤醒了在【%{2}(%{3},%{4})】沉睡的【%{5}】",player.name,scene.mapname,npc.pos.x,npc.pos.y,npc.name))
 	else
 		local item = assert(packdata.item)
 		local reward = {items={item},}

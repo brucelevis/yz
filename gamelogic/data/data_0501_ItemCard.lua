@@ -3,7 +3,7 @@ data_0501_ItemCard = {
 
 	[301001] = {
 		name = "兽人卡片",
-		shape = 1000,
+		shape = 301001,
 		src = {1,2},
 		function_desc = "",
 		desc = "",
@@ -294,7 +294,7 @@ data_0501_ItemCard = {
 
 	[301002] = {
 		name = "老虎卡片",
-		shape = 1000,
+		shape = 301001,
 		src = {1,2},
 		function_desc = "",
 		desc = "",

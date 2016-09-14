@@ -82,6 +82,7 @@ function ctemplate:createnpc(playunit,nid,pid)
 		name = npcdata.name,
 		posid = tostring(npcdata.posid),
 		isclient = npcdata.isclient,
+		purpose = nil,
 	}
 	newnpc = self:transnpc(playunit,newnpc,pid)
 	playunit.resourcemgr:addnpc(newnpc)
@@ -112,6 +113,8 @@ function ctemplate:isnearby(player,npc,dis)
 	end
 	local scene = scenemgr.getscene(player.sceneid)
 	if scene.mapid ~= mapid or getdistance(player.pos,pos2) > dis then
+		local distance = getdistance(player.pos,pos2)
+		self:log("debug","task",format("[nonearby] pid=%d npcmap=%d playermap=%d dis=%d pos=%s pos2=%s",player.pid,mapid,scene.mapid,distance,player.pos,pos2))
 		return false
 	end
 	return true
@@ -176,10 +179,11 @@ end
 
 function ctemplate:transaward(playunit,awardid,pid)
 	local awarddata = self:getformdata("award")
-	local bonus = award.getaward(awarddata,awardid)
+	local bonus = deepcopy(award.getaward(awarddata,awardid))
+	local tmplist = {"exp","jobexp","gold","silver","coin"}
 	for _,perbonus in ipairs(bonus) do
 		for k,v in pairs(perbonus) do
-			if type(v) == "string" and table.find({"exp","jobexp","gold","silver","coin"},k) then
+			if type(v) == "string" and table.find(tmplist,k) then
 				local v2 = tonumber(v)
 				if v2 then
 					bonus[k] = v2
@@ -188,25 +192,16 @@ function ctemplate:transaward(playunit,awardid,pid)
 				end
 			end
 		end
-		perbonus = self:revisebonus(playunit,perbonus)
+		self:revisebonus(playunit,perbonus)
 	end
 	return bonus
 end
 
 function ctemplate:revisebonus(playunit,bonus)
-	return bonus
 end
 
-function ctemplate:calformula(v)
-	-- 公式一: v = x * ( 100 + y * z) / 100
-	local x,y,z = string.match(v,"(%d+)%*%(100%+(%d+)%*(%d+)%)%/100")
-	if x then
-		x,y,z = tonumber(x),tonumber(y),tonumber(z)
-		if x and y and z then
-			return math.floor(x*(100+y*z)/100)
-		end
-	end
-	return v
+function ctemplate:calformula(formulastr)
+	return formulastr
 end
 
 function ctemplate:transtext(playunit,text,pid)
@@ -232,7 +227,7 @@ end
 function ctemplate:customexec(playunit,script,pid)
 	local cmd = script.cmd
 	local args = script.args
-	self:log("err","err",format("[unknow script] script=%s pid=%d",script,pid))
+	self:log("error","err",format("[unknow script] script=%s pid=%d",script,pid))
 end
 
 function ctemplate:onwarend(warid,result)

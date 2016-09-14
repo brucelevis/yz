@@ -47,7 +47,7 @@ function award.__player(pid,bonus,reason,btip)
 				local hasbonus_num = itemdb:additem2(item,reason)
 				if btip then
 					local itemdata = itemaux.getitemdata(item.type)
-					net.msg.S2C.notify(pid,language.format("获得 #<II{1}># #<O>{2}*{3}#",item.type,itemdata.name,hasbonus_num))
+					net.msg.S2C.notify(pid,language.format("获得 #<II{1}># #<O>【{2}】+{3}#",item.type,itemdata.name,hasbonus_num))
 				end
 				item.num = item.num - hasbonus_num
 				if item.num > 0 then
@@ -142,7 +142,9 @@ end
 
 function doaward(typ,id,reward,reason,btip)
 	local func = assert(award[typ],"Invalid type:" .. tostring(typ))
-	reward = award.mergebonus(reward)
+	if table.isarray(reward) then
+		reward = award.mergebonus(reward)
+	end
 	local srvname = getsrvname(typ,id)
 	logger.log("info","award",format("[doaward] srvname=%s typ=%s id=%d reward=%s reason=%s btip=%s",srvname,typ,id,reward,reason,btip))
 	return func(id,reward,reason,btip)

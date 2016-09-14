@@ -4,6 +4,7 @@ cchapterdb = class("cchapterdb",ccontainer)
 function cchapterdb:init(conf)
 	ccontainer.init(self,conf)
 	self.mainlinestar = {}
+	self.branchline = {}
 	self.awardrecord = {}
 	self.loadstate = "unload"
 end
@@ -15,7 +16,11 @@ function cchapterdb:load(data)
 	ccontainer.load(self,data)
 	self.awardrecord = data.awardrecord
 	for _,chapter in pairs(self.objs) do
-		self:_onupdate(chapter)
+		if self:getchapterdata(chapter.id) then
+			self:_onupdate(chapter)
+		else
+			self:del(chapter.id)
+		end
 	end
 end
 
@@ -34,12 +39,17 @@ end
 
 function cchapterdb:_onupdate(chapter)
 	local chapterdata = self:getchapterdata(chapter.id)
+	local section = chapterdata.section
 	if chapterdata.line == 1 then
-		local section = chapterdata.section
 		if not self.mainlinestar[section] then
 			self.mainlinestar[section] = {}
 		end
 		self.mainlinestar[section][chapter.id] = chapter.star
+	else
+		if not self.branchline[section] then
+			self.branchline[section] = {}
+		end
+		self.branchline[section][chapter.id] = 1
 	end
 end
 
@@ -131,7 +141,7 @@ function cchapterdb:mainlineaward(awardid)
 	assert(player)
 	logger.log("info","chapter",format("[award] pid=%d section=%d awardid=%d",self.pid,section,awardid))
 	table.insert(self.awardrecord,awardid)
-	player:additembytype(awarddata.item,awarddata.num,nil,"chapteraward")
+	player:additembytype(awarddata.item,awarddata.num,nil,"chapteraward",true)
 	net.chapter.S2C.awardrecord(self.pid,self.awardrecord)
 end
 
@@ -140,6 +150,8 @@ function cchapterdb:raisewar(chapterid)
 	if not chapterdata or not self:get(chapterid) then
 		return
 	end
+	local player = playermgr.getplayer(self.pid)
+	local attackers = player:getfighters()
 	local warid = chapterdata.warid
 	local war = {
 		wardataid = warid,
@@ -147,10 +159,18 @@ function cchapterdb:raisewar(chapterid)
 		defense_helpers = {},
 		wartype = WARTYPE.PVE_CHAPTER,
 		chapterid = chapterid,
+		attackers = attackers,
 	}
-	local player = playermgr.getplayer(self.pid)
-	local attackers = player:getfighters()
 	warmgr.startwar(attackers,{},war)
+
+	-- 临时处理，战斗系统做好后删除
+	if not cserver.isinnersrv() and not cserver.getsrvname() ~= "gamesrv_11" then
+		return
+	end
+	local pid = self.pid
+	timer.timeout2(format("chapter%d",pid),1,function()
+		warmgr.onwarend(warmgr.warid(pid),3)
+	end)
 end
 
 function cchapterdb:onwarend(war,result)
@@ -211,6 +231,40 @@ function cchapterdb:get_unlockcondition(chapterid)
 	end
 	data.needtasks = next(needtasks) and needtasks or nil
 	net.chapter.S2C.send_unlockcondition(self.pid,chapterid,data)
+end
+
+function cchapterdb:reviewstory(line,section)
+	local lineinfo
+	if line == 1 then
+		lineinfo = self.mainlinestar
+	else
+		lineinfo = self.branchline
+	end
+	if not lineinfo[section] then
+		net.msg.S2C.notify(self.pid,language.format("该章节未解锁"))
+		return
+	end
+	local textids,transstr = {},{}
+	local chapterdata,taskcontainer,taskid
+	local player = playermgr.getplayer(self.pid)
+	local sortedchapter = table.keys(lineinfo[section])
+	table.sort(sortedchapter)
+	for _,chapterid in ipairs(sortedchapter) do
+		if self:get(chapterid) then
+			chapterdata = self:getchapterdata(chapterid)
+			for _,tid in ipairs(chapterdata.story) do
+				taskcontainer = player.taskdb:gettaskcontainer(tid)
+				local tbl1,tbl2 = taskcontainer:reviewstory(tid)
+				table.extend(textids,tbl1)
+				table.update(transstr,tbl2)
+				taskid = tid
+			end
+		end
+	end
+	if table.isempty(textids) then
+		return
+	end
+	net.chapter.S2C.sendstory(self.pid,taskid,textids,transstr)
 end
 
 return cchapterdb

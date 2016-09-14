@@ -25,27 +25,32 @@ function cmaintask:onwarend(war,result)
 end
 
 function cmaintask:onlogin(player)
-	if player:query("logincnt") == 1 then
-		local taskid = 10000101
-		if self:can_accept(taskid) then
-			self:accepttask(taskid)
+	if cserver.isinnersrv() then
+		local tmplist = table.keys(self.objs)
+		table.extend(tmplist,table.keys(self.finishtasks))
+		for _,taskid in ipairs(tmplist) do
+			local taskdata = self:getformdata("task")[taskid]
+			if taskdata and istrue(taskdata.chapterid) then
+				player.chapterdb:unlockchapter(taskdata.chapterid)
+			end
 		end
 	end
 	ctaskcontainer.onlogin(self,player)
 end
 
 function cmaintask:getcanaccept()
-	local canaccept = {}
+	return
+end
+
+function cmaintask:onchangelv()
 	for taskid,_ in pairs(self:getformdata("task")) do
 		if not self.finishtasks[taskid] then
-			local isok,msg = self:can_accept(taskid)
-			if isok then
-				table.insert(canaccept,{ taskkey = self.name, taskid = taskid })
+			if self:can_accept(taskid) then
+				self:accepttask(taskid)
+				return
 			end
 		end
 	end
-	return canaccept
 end
-
 
 return cmaintask

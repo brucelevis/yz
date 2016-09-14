@@ -12,6 +12,9 @@ friend_sync 3000 {
 		name 3 : string
 		roletype 4 : integer
 		lv 5 : integer
+		online 6 : boolean	#是否在线
+		fightpoint 7 : integer #战力
+		frdship 8 : integer #好友度(仅好友列表中的玩家有)
 	}
 }
 
@@ -20,7 +23,7 @@ friend_addlist 3001 {
 	request {
 		base 0 : basetype
 		pids 1 : *integer
-		# 0--applayer; 1--friend; 2--toapply
+		# 0--applayer; 1--friend; 2--toapply; 3--recommend
 		type 2 : integer
 		# true--新增的列表，false--原有列表；上线时会发送原有列表，新增列表，后续增加关系都是发新增列表
 		newflag 3 : boolean
@@ -32,7 +35,7 @@ friend_dellist 3002 {
 	request {
 		base 0 : basetype
 		pids 1 : *integer
-		# 0--applayer; 1--friend; 2--toapply
+		# 0--applayer; 1--friend; 2--toapply; 3--recommend
 		type 2 : integer
 	}
 }
@@ -45,5 +48,6 @@ friend_addmsgs 3003 {
 		msgs 2 : *string
 	}
 }
+
 ]]
 }

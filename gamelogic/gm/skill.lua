@@ -47,3 +47,14 @@ function skill.clear(player)
 	player.warskilldb:clear()
 end
 
+function skill.wield(player,args)
+	local isok,args = checkargs(args,"int","int")
+	if not isok then
+		net.msg.S2C.notify(player.pid,"用法: skill wield 技能id 使用位置(1～4)")
+		return
+	end
+	local skillid = args[1]
+	local position = args[2]
+	player.warskilldb:wieldskill(skillid,position)
+end
+

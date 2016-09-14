@@ -16,6 +16,7 @@ function citem:useitem_601002(player,target,num)
 	sendpackage(player.pid,"player","resource",{
 		dexppoint = player.thisweek:query("dexppoint") or 0
 	})
+	net.msg.S2C.notify(player.pid,language.format("使用成功,双倍点+{1}",addvalue))
 	return true
 end
 

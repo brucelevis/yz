@@ -138,7 +138,6 @@ return {
 	attach 5 : AttachType
 	readtime 6 : integer
 	srcid 7 : integer #邮件来源ID（0--系统，其他--玩家ID)
-	pid 8 : integer  # 邮件拥有者ID(可能没用)
 }
 
 .TaskType {
@@ -151,7 +150,7 @@ return {
 	patrol 6 : string		#巡逻目标坐标id
 	collect 7 : string		#采集点坐标id
 	collecttips 8 : string	#采集进度条文字显示
-	items 9 : *ItemType		#需求物品
+	items 9 : ItemType		#需求物品
 	npcs 10 : *SceneNpcType	#客户端npc,即任务中可见
 	submitnpc 11 : integer	#任务完成状态下，提交npcid
 	ringnum 12 : integer	#当前环数
@@ -171,6 +170,12 @@ return {
 .SwitchType {
 	id 1 : integer		#开关id
 	state 2 : boolean	#开关状态
+}
+
+# 按钮类型
+.ButtonType {
+	content 0 : string		#按钮内容
+	timeout 1 : integer		#超时时间,如:10表示倒计时10s
 }
 
 ]]

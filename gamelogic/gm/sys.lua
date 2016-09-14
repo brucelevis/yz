@@ -173,8 +173,8 @@ function gm.daobiao(args)
 		local fd = io.popen(cmd,"r")
 		local output = fd:read("*a")
 		fd:close()
-		gm.say(master_pid,string.format("%s开始导表...",srvname))
-		gm.say(master_pid,output)
+		gm.say(string.format("%s开始导表...",srvname))
+		gm.say(output)
 	end
 	net.msg.S2C.notify(master_pid,"导表执行完毕")
 end

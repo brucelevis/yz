@@ -3,6 +3,7 @@ cbranchtask = class("cbranchtask",ctaskcontainer)
 
 function cbranchtask:init(conf)
 	ctaskcontainer.init(self,conf)
+	self.canacceptnum = nil
 end
 
 function cbranchtask:addtask(task)
@@ -39,6 +40,20 @@ end
 
 function cbranchtask:can_directaccept(taskid)
 	return true
+end
+
+function cbranchtask:onlogin(player)
+	if cserver.isinnersrv() then
+		local tmplist = table.keys(self.objs)
+		table.extend(tmplist,table.keys(self.finishtasks))
+		for _,taskid in ipairs(tmplist) do
+			local chapterid = self:getformdata("task")[taskid].chapterid
+			if chapterid then
+				player.chapterdb:unlockchapter(chapterid)
+			end
+		end
+	end
+	ctaskcontainer.onlogin(self,player)
 end
 
 function cbranchtask:directaccept(taskid)

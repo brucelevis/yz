@@ -70,16 +70,23 @@ function C2S.recallmember(player,request)
 	end
 	for i,uid in ipairs(pids) do
 		if uid ~= pid and team:ismember(uid) then
-			net.msg.S2C.messagebox(uid,{
+			openui.messagebox(uid,{
 				type = MB_RECALLMEMBER,
 				title = language.format("召回"),
-				content = language.format("队长#<G>{1}#(等级:{2}级)召回你归队",player.name,player.lv),
-				buttons = {language.format("确认"),language.format("取消"),},
+				content = language.format("队长#<G>{1}#(等级:{2}级)召回你回归队伍，是否立即回归队伍？",player.name,player.lv),
+				buttons = {
+					openui.button(language.format("取消")),
+					openui.button(language.format("归队"),5),
+				},
+				lifetime = 5,
 				attach = {},},
 				function (uid,request,response)
 					local obj = playermgr.getplayer(uid)
+					if not obj then
+						return
+					end
 					local answer = response.answer
-					if answer ~= 1 then
+					if not (answer == 2 or answer == 0) then
 						return
 					end
 					if obj:teamid() ~= teamid then
@@ -116,16 +123,31 @@ function C2S.apply_become_captain(player,request)
 	if not captain then
 		teammgr:changecaptain(teamid,player.pid)
 	else
-		net.msg.S2C.messagebox(team.captain,{
+		local lifetime = 20
+		local buttons
+		if captain.switch:isopen("team.agreetocaptain") then
+			buttons = {
+				openui.button(language.format("同意"),lifetime),
+				openui.button(language.format("拒绝")),
+			}
+		else
+			buttons = {
+				openui.button(language.format("同意")),
+				openui.button(language.format("拒绝"),lifetime)
+			}
+		end
+		openui.messagebox(team.captain,{
 			type = MB_APPLY_BECOME_CAPTAIN,
 			title = language.format("申请队长"),
 			content = language.format("队员#<G>{1}#(等级:{2}级)申请成为队长",player.name,player.lv),
-			buttons = {language.format("同意"),language.format("拒绝"),},
+			buttons = buttons,
+			lifetime = lifetime,
 			attach = {},},
 			function (uid,request,response)
 				local obj = playermgr.getplayer(uid)
 				local answer = response.answer
-				if answer ~= 1 then
+				if not ((request.buttons[1].timeout and request.buttons[1].timeout > 0 and answer == 0) or
+					(answer == 1)) then
 					return
 				end
 				if obj:teamid() ~= teamid then
@@ -149,17 +171,35 @@ end
 
 function C2S.changecaptain(player,request)
 	local pid = request.pid
+	local captain_pid = player.pid
 	local team = player:getteam()
 	if not team then
 		return
 	end
-	if team.captain ~= player.pid then
+	if team.captain ~= captain_pid then
 		return
 	end
 	if not team.follow[pid] then
 		return
 	end
-	teammgr:changecaptain(team.id,pid)
+	local teamid = team.id
+	openui.messagebox(pid,{
+		type = MB_INVITE_BECOME_CAPTAIN,
+		title = language.format("邀请成为队长"),
+		content = language.format("队长#<G>{1}#(等级:{2}级)邀请你成为队长，是否同意？",player.name,player.lv),
+		buttons = {
+			openui.button(language.format("拒绝")),
+			openui.button(language.format("同意"),20),
+		},
+		lifetime = 20,
+		attach = {},},
+		function (uid,request,response)
+			if not (response.answer == 2 or response.answer == 0) then
+				net.msg.S2C.notify(captain_pid,language.format("该队员拒绝了你的提升队长邀请"))
+				return
+			end
+			teammgr:changecaptain(teamid,uid)
+			end)
 end
 
 function C2S.kickmember(player,request)
@@ -181,7 +221,8 @@ function C2S.invite_jointeam(player,request)
 	local tid = request.pid
 	local teamid = player:teamid()
 	if not teamid then
-		teamid = teammgr:createteam(player,{})
+		local team = teammgr:createteam(player,{})
+		teamid = team.id
 	end
 	local team = teammgr:getteam(teamid)
 	if not team then
@@ -200,14 +241,21 @@ function C2S.invite_jointeam(player,request)
 		return
 	end
 
-	net.msg.S2C.messagebox(tid,{
+	openui.messagebox(tid,{
 		type = MB_INVITE_JOINTEAM,
 		title = language.format("邀请入队"),
-		content = language.format("#<G>{1}#(等级:{2}级)邀请你加入他的队伍",player.name,player.lv),
-		buttons = {language.format("同意"),language.format("拒绝")},
+		content = language.format("#<G>{1}#(等级:{2}级)邀请你加入他的队伍。\n队伍目标:{3} {4}-{5}级队伍",player.name,player.lv,team:targetname(),team.minlv,team.maxlv),
+		buttons = {
+			openui.button(language.format("同意")),
+			openui.button(language.format("拒绝"),10),
+		},
+		lifetime = 10,
 		attach = {},},
 		function (uid,request,response)
 			local obj = playermgr.getplayer(uid)
+			if not obj then
+				return
+			end
 			local answer = response.answer
 			if answer ~= 1 then
 				return
@@ -375,6 +423,29 @@ function C2S.agree_jointeam(player,request)
 		return
 	end
 	teammgr:jointeam(target,team.id)
+	local teamstate = target:teamstate()
+	if teamstate == TEAM_STATE_LEAVE then
+		openui.messagebox(target.pid,{
+			type = MB_NOTIFY_BACKTEAM,
+			title = language.format("归队提示"),
+			content = language.format("是否立即回归队伍"),
+			buttons = {
+				openui.button("取消"),
+				openui.button("归队",5),
+			},
+			lifetime = 5,
+			attach = {},},
+			function (uid,request,response)
+				local player = playermgr.getplayer(uid)
+				if not player then
+					return
+				end
+				if not (response.answer == 2 or response.answer == 0) then
+					return
+				end
+				teammgr:backteam(player)
+			end)
+	end
 end
 
 function C2S.look_publishteams(player,request)

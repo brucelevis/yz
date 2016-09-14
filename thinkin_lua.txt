@@ -1,0 +1,61 @@
+1.Lua核心部分
+模块		功能				对内部api命名方式 luaX_xxxx
+lvm.c		lua虚拟机对opcode的解析和运作	luaV
+lstate.c	lua虚拟机的外在数据是个lua_State结构体，引用整个虚拟机数据	luaE
+ldo.c		函数运行流程，调用以及返回	luaD
+lfunc.c		function数据类型	luaF
+ltable.c	table数据类型	luaH
+lstring.c	string数据类型	luaS
+lobject.c	其他数据类型	luaO
+ltm.c		元表相关		luaT
+lmem.c		内存管理		luaM
+lzio.c		带缓冲的流处理	luaZ
+lgc.c		垃圾回收		luaC
+lapi.c		和宿主系统结合的api	lua
+
+lparser.c	luaY
+llex.c		luaX
+上面2个模块是用来将lua程序文本解析得到内部的数据结构（常量、opcode集合）
+lcode.c		解析完后最终生成虚拟机理解的数据	luaK
+ldump.c		lundump.c		预编译		luaU
+
+lualib.h	自由加载需要的部分（coroutine、string、table、math等）
+loadlib.c 	linit.c 内建库初始化
+
+2.阅读顺序：
+	a.外围的库，以及如何实现功能扩展，不必陷入细节
+	b.阅api的具体实现，lua对外暴露的api是一个对内部模块的封装
+	c.了解luavm
+	d.函数调用、返回，string、table、metatable如何实现
+	e.debug模块
+	f.parser等编译相关
+	g.垃圾回收
+	
+	
+Recommended reading order:
+lmathlib.c, lstrlib.c: get familiar with the external C API. Don't bother with the pattern matcher though. Just the easy functions.
+lapi.c: Check how the API is implemented internally. Only skim this to get a feeling for the code. Cross-reference to lua.h and luaconf.h as needed.
+lobject.h: tagged values and object representation. skim through this first. you'll want to keep a window with this file open all the time.
+lstate.h: state objects. ditto.
+lopcodes.h: bytecode instruction format and opcode definitions. easy.
+lvm.c: scroll down to luaV_execute, the main interpreter loop. see how all of the instructions are implemented. skip the details for now. reread later.
+ldo.c: calls, stacks, exceptions, coroutines. tough read.
+lstring.c: string interning. cute, huh?
+ltable.c: hash tables and arrays. tricky code.
+ltm.c: metamethod handling, reread all of lvm.c now.
+You may want to reread lapi.c now.
+ldebug.c: surprise waiting for you. abstract interpretation is used to find object names for tracebacks. does bytecode verification, too.
+lparser.c, lcode.c: recursive descent parser, targetting a register-based VM. start from chunk() and work your way through. read the expression parser and the code generator parts last.
+lgc.c: incremental garbage collector. take your time.
+Read all the other files as you see references to them. Don't let your stack get too deep though.
+If you're done before X-Mas and understood all of it, you're good. The information density of the code is rather high.
+
+心得：
+1.extern 置于函数前，在其他地方定义，此处仅声明，LUALIB_API 就是用define关联extern的宏
+2.l_mathop  也是一个宏，用于替换执行的函数名， 由于number是可以定制的，所以用#define l_mathop(x) (x ## l) 动态添加为fabsl等
+3.luaL_checknumber(L,1)	从栈顶取一个数		lua_pushnumber
+
+
+
+
+

@@ -59,8 +59,11 @@ function cdb:get(key)
 end
 
 function cdb:set(key,value)
-	assert(value~=nil)
 	logger.log("debug","db",format("[set] key=%s value=%s",key,value))
+	if (not value) or 
+		(type(value) == "table" and not next(value)) then
+		return
+	end
 	value = cjson.encode(value)
 	return skynet.call(self.dbsrv,"lua","set",key,value)
 end

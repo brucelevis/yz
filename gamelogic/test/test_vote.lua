@@ -1,4 +1,5 @@
 local function test()
+	local votemgr = globalmgr.votemgr
 	local vote = votemgr:newvote({
 		exceedtime = os.time() + 300,
 		member_vote = {

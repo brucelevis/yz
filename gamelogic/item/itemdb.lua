@@ -12,7 +12,7 @@ function citemdb:init(conf)
 	self.loadstate = "unload"
 	self.itempos_begin = ITEMPOS_BEGIN
 
-	-- 部分背包有用
+	-- 物品排序类型(部分背包有用)
 	self.sorttype = 0
 end
 
@@ -351,10 +351,15 @@ function citemdb:fumoequip(itemid)
 	local attrs = data_0801_FixFumoAttr[item.type]
 	if attrs then -- 固定附魔属性
 	else
+		local equiplv = item:get("lv")
+		local fumodata = data_0801_Fumo[equiplv]
+		if not fumodata then	-- 无须附魔的装备
+			return
+		end
 		local minortype = itemaux.getminortype(item.type)
 		local minortype_name = assert(EQUIPPOS_NAME[minortype],"Invalid item minortype:" .. tostring(minortype))
-		local equiplv = item:get("lv")
-		local fumodata = assert(data_0801_Fumo[equiplv],"Invalid equiplv:" .. tostring(equiplv))
+		
+
 		local attrnum = choosekey(data_0801_PromoteEquipVar.FumoShowAttrNumRatio)
 		local attrs = {}
 		-- 随机attrnum条不重复的属性
@@ -369,9 +374,9 @@ function citemdb:fumoequip(itemid)
 			end)
 			local data = data_0801_FumoAttrRatio[attr]
 			local attr_factor = data[string.format("%s_factor",minortype_name)]
-			local maxlv = math.floor(fumodata[attr] * attr_factor)
-			local minlv = math.floor(maxlv * 0.2)
-			attrs[attr] = math.random(minlv,maxlv)
+			local maxval = math.floor(fumodata[attr] * attr_factor)
+			local minval = math.floor(maxval * 0.2)
+			attrs[attr] = math.random(minval,maxval)
 		end
 		item.fumo = attrs
 	end

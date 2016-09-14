@@ -15,15 +15,17 @@ function clustermgr.checkserver()
 			end
 		end
 	end
-	-- 数据中心,自身战斗服
-	local srvlist = {cserver.datacenter(),cserver.warsrv(),}
-	for _,srvname in pairs(srvlist) do
-		assert(self_srvname ~= srvname)
-		local ok,result = pcall(rpc.call,srvname,"heartbeat")
-		if not ok then
-			clustermgr.disconnect(srvname)
-		else
-			clustermgr.onconnect(srvname)
+	if not cserver.isdatacenter() then
+		-- 数据中心,自身战斗服
+		local srvlist = {cserver.datacenter(),cserver.warsrv(),}
+		for _,srvname in pairs(srvlist) do
+			assert(self_srvname ~= srvname)
+			local ok,result = pcall(rpc.call,srvname,"heartbeat")
+			if not ok then
+				clustermgr.disconnect(srvname)
+			else
+				clustermgr.onconnect(srvname)
+			end
 		end
 	end
 end

@@ -17,6 +17,7 @@ local function test(pid,choice)
 		return
 	end
 	local request = {
+		type = MB_TEST,
 		title = "条件不足",
 		content = "是否花费100金币购买:",
 		attach = {
@@ -43,7 +44,7 @@ local function test(pid,choice)
 	local LACK_CONDITION = 0
 	local id
 	if choice == 0 then
-		id = net.msg.S2C.messagebox(pid,request,onbuysomething)
+		id = openui.messagebox(pid,request,onbuysomething)
 	elseif choice == 1 then
 		onbuysomething(player.pid,request,{answer=1})
 	end

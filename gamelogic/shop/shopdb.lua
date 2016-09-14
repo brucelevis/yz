@@ -7,10 +7,6 @@ function cshopdb:init(pid)
 		pid = pid,
 		name = "secret",
 	})
-	self.grocery = cgroceryshop.new({
-		pid = pid,
-		name = "grocery",
-	})
 end
 
 function cshopdb:load(data)

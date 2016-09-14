@@ -50,10 +50,10 @@ function gm.docmd(pid,cmdline)
 			player = playermgr.loadofflineplayer(pid)
 		end
 	else
-		player = 0
+		player = nil
 	end
 	master = player
-	master_pid = player == 0 and 0 or player.pid
+	master_pid = master and master.pid or 0
 	local tbl = {xpcall(docmd,onerror,cmdline)}
 	-- gm指令执行的报错不记录到日志中
 	--local tbl = {pcall(docmd,cmdline)}
@@ -69,7 +69,7 @@ function gm.docmd(pid,cmdline)
 	end
 	logger.log("info","gm",format("[gm.docmd] pid=%s cmd='%s' issuccess=%s result=%s",pid,cmdline,issuccess,result))
 	if pid ~= 0 then
-		net.msg.S2C.notify(pid,string.format("执行%s\n%s",issuccess and "未报错" or "报错了",result))
+		net.msg.S2C.notify(pid,string.format("执行%s",issuccess and "成功" or "报错了！"))
 	end
 	return issuccess,result
 end
@@ -87,6 +87,8 @@ function gm.init()
 	require "gamelogic.gm.mergeserver"
 	require "gamelogic.gm.task"
 	require "gamelogic.gm.war"
+	require "gamelogic.gm.shop"
+	require "gamelogic.gm.chapter"
 end
 
 function gm.onlogin(player)
@@ -108,12 +110,12 @@ function gm.onlogin(player)
 	end
 end
 
-function gm.say(pid,msg)
+function gm.say(msg,pid)
+	pid = pid or master_pid
 	local sender = {
 		pid = 0,
 		name = "系统",
 	}
-	print("gm.say",pid,msg)
 	sendpackage(pid,"msg","worldmsg",{
 		sender = sender,
 		msg = msg

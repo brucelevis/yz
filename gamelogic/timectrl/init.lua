@@ -64,9 +64,9 @@ function timectrl.day_update(now)
 	timectrl.ondayupdate()
 	local weekday = getweekday(now)
 	if weekday == 0 then
-		timectrl.week_update2(now)
+		timectrl.sunday_update(now)
 	elseif weekday == 1 then
-		timectrl.week_update(now)
+		timectrl.monday_update(now)
 	end
 	local day = getmonthday(now)
 	if day == 1 then
@@ -74,12 +74,12 @@ function timectrl.day_update(now)
 	end
 end
 
-function timectrl.week_update(now)
-	timectrl.onweekupdate()
+function timectrl.monday_update(now)
+	timectrl.onmondayupdate()
 end
 
-function timectrl.week_update2(now)
-	timectrl.onweekupdate2()
+function timectrl.sunday_update(now)
+	timectrl.onsundayupdate()
 end
 
 function timectrl.month_update(now)
@@ -90,18 +90,18 @@ function timectrl.fivehourupdate(now)
 	timectrl.onfivehourupdate()
 	local weekday = getweekday(now)
 	if weekday == 0 then			-- 星期天
-		timectrl.week_update2_infivehour(now)
+		timectrl.sunday_update_infivehour(now)
 	elseif weekday == 1 then		-- 星期一 
-		timectrl.week_update_infivehour(now)
+		timectrl.monday_update_infivehour(now)
 	end
 end
 
-function timectrl.week_update_infivehour(now)
-	timectrl.onweekupdate_infivehour()
+function timectrl.monday_update_infivehour(now)
+	timectrl.onmondayupdate_infivehour()
 end
 
-function timectrl.week_update2_infivehour(now)
-	timectrl.onweekupdate2_infivehour()
+function timectrl.sunday_update_infivehour(now)
+	timectrl.onsundayupdate_infivehour()
 end
 
 function timectrl.error_handle(...)
@@ -126,6 +126,7 @@ end
 
 function timectrl.onhourupdate()
 	logger.log("info","timectrl","onhourupdate")
+	globalmgr.onhourupdate()
 	playermgr.broadcast(cplayer.onhourupdate)
 end
 
@@ -134,12 +135,12 @@ function timectrl.ondayupdate()
 	playermgr.broadcast(cplayer.ondayupdate)
 end
 
-function timectrl.onweekupdate()
-	logger.log("info","timectrl","onweekupdate")
+function timectrl.onmondayupdate()
+	logger.log("info","timectrl","onmondayupdate")
 end
 
-function timectrl.onweekupdate2()
-	logger.log("info","timectrl","onweekupdate2")
+function timectrl.onsundayupdate()
+	logger.log("info","timectrl","onsundayupdate")
 end
 
 function timectrl.onmonthupdate()
@@ -148,15 +149,17 @@ end
 
 function timectrl.onfivehourupdate()
 	logger.log("info","timectrl","onfivehourupdate")
+	globalmgr.onfivehourupdate()
 	playermgr.broadcast(cplayer.onfivehourupdate)
 end
 
-function timectrl.onweekupdate_infivehour()
-	logger.log("info","timectrl","onweekupdate_infivehour")
+function timectrl.onmondayupdate_infivehour()
+	logger.log("info","timectrl","onmondayupdate_infivehour")
+	playermgr.broadcast(cplayer.onmondayupdate_infivehour)
 end
 
-function timectrl.onweekupdate2_infivehour()
-	logger.log("info","timectrl","onweekupdate2_infivehour")
+function timectrl.onsundayupdate_infivehour()
+	logger.log("info","timectrl","onsundayupdate_infivehour")
 end
 
 return timectrl

@@ -39,13 +39,43 @@ function warmgr.packwar(war)
 end
 
 function warmgr.packplayer(player)
-	return {
-		pid = player.pid,
-		attr = {},  -- 玩家属性
-		items = {},
-		pets = {},
-		skills = {},
+	local warplayer = {}
+	warplayer.pid = player.pid
+	warplayer.attr = {
+		roletype = player.roletype,
+		name = player.name,
+		lv = player.lv,
+		exp = player.exp,
+		viplv = player.viplv,
+		sex = player.sex,
+		jobzs = player.jobzs,
+		joblv = player.joblv,
+		jobexp = player.jobexp,
+		qualitypoint = player:query("qualitypoint"),
+		huoli = player:query("huoli"),
 	}
+	local items = {}
+	for i,item in pairs(player.itemdb.objs) do
+		local maintype = itemaux.getmaintype(item.type)
+		if maintype == ItemMainType.EQUIP then
+			-- 已佩戴的装备
+			if item.pos == item:get("equippos") then
+				table.insert(items,item:pack())
+			end
+		elseif maintype == ItemMainType.DRUG then
+			table.insert(items,item:pack())
+		end
+	end
+	warplayer.items = items
+	warplayer.pets = {}
+	warplayer.skills = player.warskilldb:getcurskills()
+	local cards = {}
+	for i,item in pairs(player.carddb.objs) do
+		table.insert(cards,item:pack())
+	end
+	warplayer.cards = cards
+	--pprintf("warplayer:%s",warplayer)
+	return warplayer
 end
 
 
@@ -77,7 +107,7 @@ function warmgr.addwar(warid,war)
 	end
 	if not table.isempty(war.defensers) then
 		for i,pid in ipairs(war.defensers) do
-			if war.wartype == WARTYPE.PVP_RANK_WAR then
+			if war.wartype == WARTYPE.PVP_ARENA_RANK then
 			else
 				warmgr.pid_warid[pid] = warid
 			end
@@ -97,11 +127,10 @@ function warmgr.delwar(warid)
 		end
 		if not table.isempty(war.defensers) then
 			for i,pid in ipairs(war.defensers) do
-				if war.wartype == WARTYPE.PVP_RANK_WAR then
+				if war.wartype == WARTYPE.PVP_ARENA_RANK then
 				else
 					warmgr.pid_warid[pid] = nil
-				end
-			end
+				end end
 		end
 		if not table.isempty(war.attack_watchers) then
 			for i,pid in ipairs(war.attack_watchers) do
@@ -213,7 +242,10 @@ function warmgr.startwar(attackers,defensers,war)
 				player = playermgr.loadofflineplayer(pid)
 			end
 			assert(player,"Invalid pid:" .. tostring(pid))
-			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
+			sendtowarsrv("war","addplayer",{
+				warid = warid,
+				player = warmgr.packplayer(player),
+			})
 			if warmgr.watchwarid(pid) then
 				warmgr.quit_watchwar(pid)
 			end
@@ -228,7 +260,10 @@ function warmgr.startwar(attackers,defensers,war)
 			assert(player,"Invalid pid:" .. tostring(pid))
 			--援助玩家一定是离线玩家
 			assert(player.__state == "offline")
-			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
+			sendtowarsrv("war","addplayer",{
+				warid = warid,
+				player = warmgr.packplayer(player),
+			})
 		end
 	end
 	if not table.isempty(war.defensers) then
@@ -238,7 +273,10 @@ function warmgr.startwar(attackers,defensers,war)
 				player = playermgr.loadofflineplayer(pid)
 			end
 			assert(player,"Invalid pid:" .. tostring(pid))
-			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
+			sendtowarsrv("war","addplayer",{
+				warid = warid,
+				player = warmgr.packplayer(player),
+			})
 			if warmgr.watchwarid(pid) then
 				warmgr.quit_watchwar(pid)
 			end
@@ -253,7 +291,10 @@ function warmgr.startwar(attackers,defensers,war)
 			assert(player,"Invalid pid:" .. tostring(pid))
 			--援助玩家一定是离线玩家
 			assert(player.__state == "offline")
-			sendtowarsrv("war","addplayer",warmgr.packplayer(player))
+			sendtowarsrv("war","addplayer",{
+				warid = warid,
+				player = warmgr.packplayer(player),
+			})
 		end
 	end
 	sendtowarsrv("war","finish_startwar",{warid=warid})

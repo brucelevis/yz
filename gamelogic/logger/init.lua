@@ -66,14 +66,15 @@ local function escape(str)
 end
 
 function logger.reportbymail(subject,content)
-	local cmd = string.format("cd ../logicshell && sh reportbymail.sh \"%s\" \"%s\"",escape(subject),escape(content))
+	local cmd = string.format("cd ../logicshell && sh reportbymail.sh %q %q",escape(subject),escape(content))
+	--local cmd = string.format("cd ../logicshell && sh curl/reportbymail.sh %q %q",escape(subject),escape(content))
 	local fd = io.popen(cmd)
 	fd:close()
 end
 
 function logger.sendmail(to_list,subject,content)
-	
-	local cmd = string.format("cd ../logicshell && python sendmail.py %s \"%s\" \"%s\"",to_list,escape(subject),escape(content))
+	local cmd = string.format("cd ../logicshell && python sendmail.py '%s' %q %q",to_list,escape(subject),escape(content))
+	--local cmd = string.format("cd ../logicshell && sh curl/sendmail.sh '%s' %q %q",to_list,escape(subject),escape(content))
 	local fd = io.popen(cmd)
 	fd:close()
 end

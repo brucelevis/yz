@@ -37,20 +37,26 @@ function C2S.switch(player,request)
 	if table.isempty(switchs) then
 		return
 	end
-	player:setswitch(switchs)
+	player.switch:setswitch(switchs)
 end
 
 function C2S.rename(player,request)
 	local name = assert(request.name)
+	-- will check name-repeat
 	local isok,errmsg = isvalid_name(name)
 	if not isok then
 		net.msg.S2C.notify(player.pid,errmsg)
 		return
 	end
-	player.name = name
+	player:setname(name)
 	sendpackage(player.pid,"player","update",{
 		name = name,
 	})
+end
+
+function C2S.changejob(player,request)
+	local jobid = assert(request.jobid)
+	player:changejob(jobid)
 end
 
 -- s2c

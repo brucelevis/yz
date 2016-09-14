@@ -1,17 +1,18 @@
 cserver = class("cserver",cdatabaseable)
 
 function cserver:init()
+	logger.log("info","server","[init]")
 	self.flag = "cserver"
 	cdatabaseable.init(self,{
 		pid = 0,
 		flag = self.flag,
 	})
-	self.loadstate = "unload"
 	self.data = {}
 	self.onlinelimit = tonumber(skynet.getenv("maxclient")) or 10240
+
+	self.loadstate = "unload"
 	self.savename = string.format("%s.%s",self.flag,self.pid)
 	autosave(self)
-	logger.log("info","server","[init]")
 end
 
 function cserver:create()
@@ -90,16 +91,6 @@ function cserver.starttimer_logstatus()
 end
 
 -- class method
-function cserver.isfrdsrv(srvname)
-	srvname = srvname or cserver.getsrvname()
-	return string.find(srvname,"frdsrv") ~= nil
-end
-
-function cserver.isresumesrv(srvname)
-	srvname = srvname or cserver.getsrvname()
-	return string.find(srvname,"resume") ~= nil
-end
-
 function cserver.isdatacenter(srvname)
 	srvname = srvname or cserver.getsrvname()
 	return string.find(srvname,"datacenter") ~= nil

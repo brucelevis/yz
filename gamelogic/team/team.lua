@@ -14,6 +14,7 @@ end
 
 function cteam:onlogin(player)
 	local pid = player.pid
+	channel.subscribe(self.channel,pid)
 	-- 同步申请者列表
 	sendpackage(pid,"team","addapplyer",{applyers=self.applyers})
 	-- 同步自身队伍信息
@@ -31,6 +32,10 @@ end
 
 function cteam:onlogoff(player,reason)
 	local pid = player.pid
+	channel.unsubscribe(self.channel,pid)
+	if reason == "replace" then
+		return
+	end
 	-- 下线后暂离队伍，如果是队长则先切换队长
 	if self.captain == pid then
 		local newcaptain = self:choose_newcaptain()
@@ -63,9 +68,7 @@ function cteam:join(player)
 			})
 		end
 	end)
-	sendpackage(pid,"team","selfteam",{
-		team = self:pack(),
-	})
+	
 end
 
 function cteam:back(player)
@@ -257,6 +260,7 @@ function cteam:addapplyer(player)
 		pid = pid,
 		name = player.name,
 		lv = player.lv,
+		joblv = player.joblv,
 		roletype = player.roletype,
 		time = os.time(),
 	}
@@ -276,7 +280,7 @@ function cteam:delapplyer(pid,ispos)
 		logger.log("info","team",string.format("[delapplyer] teamid=%d pid=%d",self.id,applyer.pid))
 		table.remove(self.applyers,pos)
 		self:broadcast(function (uid)
-			sendpackage(uid,"team","delapplyer",{applyers={pid,}})
+			sendpackage(uid,"team","delapplyer",{applyers={applyer.pid,}})
 		end)
 	end
 end
@@ -300,15 +304,27 @@ end
 
 -- player : 1--player object,2 -- resume object
 function cteam:packmember(player)
-	return {
-		pid = player.pid,
-		name = player.name,
-		lv = player.lv,
-		roletype = player.roletype,
-		teamstate = self:teamstate(player.pid),	
-		jobzs = player.jobzs,
-		joblv = player.joblv,
-	}
+	if typename(player) == "cplayer" then
+		return {
+			pid = player.pid,
+			name = player.name,
+			lv = player.lv,
+			roletype = player.roletype,
+			teamstate = self:teamstate(player.pid),	
+			jobzs = player.jobzs,
+			joblv = player.joblv,
+		}
+	else
+		return {
+			pid = player.pid,
+			teamstate = self:teamstate(player.pid),
+			name = player:get("lv"),
+			lv = player:get("lv"),
+			roletype = player:get("roletype"),
+			jobzs = player:get("jobzs"),
+			joblv = player:get("joblv"),
+		}
+	end
 end
 
 function cteam:packmembers()
@@ -425,6 +441,14 @@ function cteam:isall_logoff()
 		end
 	end
 	return true
+end
+
+function cteam:targetname()
+	if self.target == 0 then
+		return "无目标"
+	end
+	local data = data_0301_TeamTarget[self.target]
+	return data.minor_target
 end
 
 return cteam

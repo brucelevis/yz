@@ -2,39 +2,39 @@
 data_1100_LivenessAward = {
 
 	[1] = {
-		needliveness = 30,
-		item = 501001,
-		num = 5,
+		needliveness = 50,
+		item = 409001,
+		num = 1,
 	},
 
 	[2] = {
-		needliveness = 60,
-		item = 501001,
-		num = 10,
+		needliveness = 100,
+		item = 409002,
+		num = 2,
 	},
 
 	[3] = {
-		needliveness = 90,
-		item = 501001,
-		num = 15,
+		needliveness = 150,
+		item = 409003,
+		num = 1,
 	},
 
 	[4] = {
-		needliveness = 120,
-		item = 501001,
-		num = 20,
+		needliveness = 200,
+		item = 409004,
+		num = 2,
 	},
 
 	[5] = {
-		needliveness = 150,
-		item = 501001,
-		num = 25,
+		needliveness = 250,
+		item = 409005,
+		num = 1,
 	},
 
 	[6] = {
-		needliveness = 180,
-		item = 501001,
-		num = 30,
+		needliveness = 300,
+		item = 409006,
+		num = 2,
 	},
 
 }

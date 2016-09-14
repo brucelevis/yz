@@ -40,6 +40,14 @@ function task.add(player,args)
 	end
 	local taskid = args[1]
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	if not taskcontainer then
+		net.msg.S2C.notify(player.pid,"任务id有误")
+		return
+	end
+	if taskcontainer:gettask(taskid) then
+		net.msg.S2C.notify(player.pid,"已有相同任务，请勿重复添加")
+		return
+	end
 	taskcontainer:accepttask(taskid)
 end
 
@@ -98,6 +106,7 @@ function task.submit(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
 		net.msg.S2C.notify(player.pid,"用法: task submit 90000001 <=> 提交任务90000001")
+		return
 	end
 	local taskid = args[1]
 	net.task.C2S.submittask(player,{ taskid = taskid })
@@ -109,6 +118,7 @@ function task.finish(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
 		net.msg.S2C.notify(player.pid,"用法: task finish 90000001 <=> 立即完成任务")
+		return
 	end
 	local taskid = args[1]
 	local task = player.taskdb:gettask(taskid)
@@ -117,6 +127,41 @@ function task.finish(player,args)
 	end
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	taskcontainer:finishtask(task,"gm")
+end
+
+--- 指令: task setringnum
+--- 用法: task setringnum shimen 10 <=> 设置师门任务为10环
+function task.setringnum(player,args)
+	local isok,args = checkargs(args,"string","int")
+	if not isok then
+		return
+	end
+	local taskkey = args[1]
+	local ringnum = args[2]
+	local taskcontainer = player.taskdb[taskkey]
+	if not taskcontainer then
+		return
+	end
+	taskcontainer.ringnum = ringnum
+	player.taskdb:onlogin(player)
+end
+
+--- 指令: task setdone
+--- 用法: task setdone shimen 10 <=> 设置师门任务完成10次
+function task.setdone(player,args)
+	local isok,args = checkargs(args,"string","int")
+	if not isok then
+		return
+	end
+	local taskkey = args[1]
+	local cnt = args[2]
+	local taskcontainer = player.taskdb[taskkey]
+	if not taskcontainer then
+		return
+	end
+	local oldcnt = taskcontainer:getdonecnt()
+	taskcontainer:adddonecnt(cnt-oldcnt)
+	navigation.addprogress(player.pid,taskcontainer.name,cnt-oldcnt)
 end
 
 task.onwarend = task.endwar

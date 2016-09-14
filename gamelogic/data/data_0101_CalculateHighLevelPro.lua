@@ -83,8 +83,8 @@ data_0101_CalculateHighLevelPro = {
 		ZHILI = 0,
 		LINGQIAO = 1,
 		XINYUN = 0,
-		INIT = 100,
-		LVGROW = 0,
+		INIT = 50,
+		LVGROW = 0.5,
 	},
 
 	["RENXING"] = {
@@ -95,7 +95,7 @@ data_0101_CalculateHighLevelPro = {
 		LINGQIAO = 0,
 		XINYUN = 0,
 		INIT = 10,
-		LVGROW = 0,
+		LVGROW = 0.5,
 	},
 
 	["SP"] = {
@@ -117,7 +117,7 @@ data_0101_CalculateHighLevelPro = {
 		LINGQIAO = 0,
 		XINYUN = 1,
 		INIT = 0,
-		LVGROW = 0,
+		LVGROW = 0.5,
 	},
 
 	["WLDS"] = {
@@ -127,8 +127,8 @@ data_0101_CalculateHighLevelPro = {
 		ZHILI = 0,
 		LINGQIAO = 0,
 		XINYUN = 0.4,
-		INIT = 100,
-		LVGROW = 0,
+		INIT = 50,
+		LVGROW = 0.5,
 	},
 
 	["WUFANG"] = {

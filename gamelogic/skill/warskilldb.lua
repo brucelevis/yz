@@ -96,7 +96,7 @@ function cwarskilldb:openskills(job)
 	if not skillids then
 		return
 	end
-	logger.log("info","skill",format("[openskill] pid=%d job=%d",self.pid,job))
+	logger.log("info","skill",format("[openskill] pid=%d job=%d skills=%s",self.pid,job,skillids))
 	for _,skillid in ipairs(skillids) do
 		if not self:get(skillid) then
 			local pos = self.len + 1
@@ -146,6 +146,19 @@ function cwarskilldb:setcurslot(idx)
 	end
 	self.curslot = idx
 	net.skill.S2C.updateslot(self.pid,self.skillslot[self.curslot],self.curslot)
+end
+
+function cwarskilldb:getcurskills()
+	local skills = {}
+	if self.skillslot[self.curslot] then
+		for _,skillid in pairs(self.skillslot[self.curslot]) do
+			local skill = self:get(skillid)
+			if skill then
+				table.insert(skills,{ id = skillid, lv = skill.level })
+			end
+		end
+	end
+	return skills
 end
 
 function cwarskilldb:changepos(skillid1,skillid2)

@@ -10,9 +10,8 @@ end
 function csecretshop:onlogin(player)
 	if self.len == 0 then
 		self:_refresh("onlogin")
-	else
-		self:sync_allgoods()
 	end
+	self:sync_allgoods()
 end
 
 function csecretshop:_refresh(reason)
@@ -62,12 +61,12 @@ function csecretshop:_refresh(reason)
 	logger.log("info","shop",format("[%s] [refresh] goodslst=%s reason=%s",self.name,goodslst,reason))
 	self:clear()
 	self:gen_goods(goodslst)
-	self:sync_allgoods()
 end
 
 function csecretshop:refresh()
 	-- check resouce
 	self:_refresh("refresh_bygold")
+	self:sync_allgoods()
 end
 
 function csecretshop:buygoods(player,goods_id,buynum)
@@ -75,11 +74,7 @@ function csecretshop:buygoods(player,goods_id,buynum)
 		return
 	end
 	-- dosomething()
-	local isok,errmsg = self:buy(player,goods_id,buynum)
-	if not isok then
-		net.msg.S2C.notify(player.pid,errmsg)
-		return
-	end
+	self:buy(player,goods_id,buynum)
 end
 
 function csecretshop:pack_goods(goods)
