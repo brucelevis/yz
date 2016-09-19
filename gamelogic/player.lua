@@ -175,7 +175,6 @@ function cplayer:packresume()
 		roletype = self.roletype,
 		jobzs = self.jobzs,
 		joblv = self.joblv,
-		fightpoint = 0, --战力，规则待定
 	}
 	return resume
 end
@@ -343,10 +342,18 @@ end
 
 -- 跨服前处理流程
 function cplayer:ongosrv(srvname)
+	self:onkuafu(srvname)
 end
 
 -- 回到原服前处理流程
-function cplayer:ongohome()
+function cplayer:ongohome(srvname)
+	self:onkuafu(srvname)
+end
+
+function cplayer:onkuafu(srvname)
+	teammgr:quitteam(self)
+	warmgr.quitwar(self.pid)
+	warmgr.quit_watchwar(self.pid)
 end
 
 -- 是否可以离线托管
@@ -400,8 +407,8 @@ end
 function cplayer:oncreate(conf)
 	logger.log("info","createrole",string.format("[createrole end] account=%s pid=%d name=%s roletype=%d sex=%s lv=%s gold=%d ip=%s:%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,conf.__ip,conf.__port))
 	for k,obj in pairs(self.autosaveobj) do
+		obj.loadstate = "loaded"
 		if obj.oncreate then
-			obj.loadstate = "loaded"
 			obj:oncreate(self)
 		end
 	end
@@ -480,7 +487,14 @@ function cplayer:onlogin()
 	teammgr:onlogin(self)
 	warmgr.onlogin(self)
 	gm.onlogin(self)
-
+	
+	-- 跨服上线后回调的逻辑
+	if self.kuafu_onlogin then
+		local kuafu_onlogin = self.kuafu_onlogin
+		self.kuafu_onlogin = nil
+		local func = unpack_function(kuafu_onlogin)
+		func()
+	end
 	channel.subscribe("world",self.pid)
 	self:synctoac()
 end
@@ -639,6 +653,10 @@ function cplayer:onaddjoblv(val,reason)
 end
 
 function cplayer:addjobexp(val,reason)
+	local maxlv = playeraux.getmaxjoblv(self.jobzs)
+	if self.joblv >= maxlv then
+		return 0
+	end
 	local oldval = self.jobexp
 	local newval = oldval + val
 	logger.log("debug","lv",string.format("[addjobexp] pid=%d addjobexp=%d reason=%s",self.pid,val,reason))
@@ -657,6 +675,7 @@ function cplayer:addjobexp(val,reason)
 	if addlv > 0 then
 		self:addjoblv(addlv,reason)
 	end
+	return val
 end
 
 -- 转职(职业ID,就是角色类型ID)

@@ -131,12 +131,11 @@ function ctaskcontainer:raisewar(task,args,pid)
 	task.execute_result = TASK_SCRIPT_SUSPEND
 
 	-- 临时处理，战斗系统做好后删除
-	if not cserver.isinnersrv() and not cserver.getsrvname() ~= "gamesrv_11" or task.execute_result ~= TASK_SCRIPT_SUSPEND then
-		return
+	if cserver.isinnersrv() and cserver.getsrvname() ~= "gamesrv_11" then
+		timer.timeout2(format("taskwar%d",pid),1,function()
+			warmgr.onwarend(warmgr.warid(pid),1)
+		end)
 	end
-	timer.timeout2(format("taskwar%d",pid),1,function()
-		warmgr.onwarend(warmgr.warid(pid),1)
-	end)
 end
 
 function ctaskcontainer:can_raisewar(task)
@@ -241,6 +240,7 @@ function ctaskcontainer:addtask(task)
 	self:log("info","task",string.format("[addtask] pid=%d taskid=%d",self.pid,taskid))
 	self:add(task,taskid)
 	self.lasttaskid = taskid
+	self.nowtaskid = taskid
 end
 
 function ctaskcontainer:deltask(taskid,reason)
@@ -306,6 +306,7 @@ function ctaskcontainer:pack(task)
 	if next(task.resourcemgr.npclist) then
 		data.npcs = {}
 		for _,npc in pairs(task.resourcemgr.npclist) do
+			-- 跟玩家的NPC/任务NPC
 			if npc.isclient then
 				table.insert(data.npcs,{
 					id = npc.id,
@@ -404,7 +405,6 @@ function ctaskcontainer:accepttask(taskid)
 			self:doscript(task,script,self.pid)
 		end
 		self:addtask(task)
-		self.nowtaskid = taskid
 		local player = playermgr.getplayer(self.pid)
 		if player.taskdb:incanaccept(self.name) then
 			player.taskdb:update_canaccept()
@@ -763,9 +763,12 @@ function ctaskcontainer:talkto(task,args,pid)
 	else
 		local callback = function(pid,request,respond)
 			local player = playermgr.getplayer(pid)
+			if not player then
+				return
+			end
 			local taskid = request.taskid
 			local task = player.taskdb:gettask(taskid)
-			if not player or not task then
+			if not task then
 				return
 			end
 			task.execute_result = TASK_SCRIPT_PASS
@@ -795,11 +798,14 @@ function ctaskcontainer:optiontalkto(task,args,pid)
 	end
 	local callback = function(pid,request,respond)
 		local player = playermgr.getplayer(pid)
+		if not player then
+			return
+		end
 		local option2awardid = request.options
 		local taskid = request.taskid
 		local answer = respond.answer
 		local task = player.taskdb:gettask(taskid)
-		if not player or not task then
+		if not task then
 			return
 		end
 		local awardid = option2awardid[answer]

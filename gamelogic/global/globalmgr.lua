@@ -3,6 +3,7 @@ globalmgr = globalmgr or {}
 function globalmgr.init()
 	assert(not globalmgr.binit)
 	globalmgr.binit = true
+	globalmgr.id = 0
 	local server = cserver.new()
 	server:loadfromdatabase()
 	server:add("runno",1)
@@ -47,6 +48,14 @@ function globalmgr.onfivehourupdate()
 			ranks:onfivehourupdate()
 		end
 	end
+end
+
+function globalmgr.genid()
+	if globalmgr.id > MAX_NUMBER then
+		globalmgr.id = 0
+	end
+	globalmgr.id = globalmgr.id + 10000
+	return globalmgr.id-10000,globalmgr.id
 end
 
 return globalmgr

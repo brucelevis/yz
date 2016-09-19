@@ -1,7 +1,7 @@
 clustermgr = clustermgr or {}
 
 function clustermgr.checkserver()
-	timer.timeout("clustermgr.checkserver",60,clustermgr.checkserver)
+	timer.timeout("clustermgr.checkserver",30,clustermgr.checkserver)
 	local self_srvname = cserver.getsrvname()
 	-- 游戏服之间集群
 	local srvlist = data_RoGameSrvList
@@ -36,7 +36,7 @@ end
 
 function clustermgr.onconnect(srvname)
 	local oldstate = clustermgr.connection[srvname]
-	clustermgr.connection[srvname] = true
+	clustermgr.connection[srvname] = 1
 	if not oldstate then
 		local self_srvname = cserver.getsrvname()
 		logger.log("info","cluster",string.format("%s connected %s",self_srvname,srvname))
@@ -56,15 +56,20 @@ end
 
 function clustermgr.disconnect(srvname)
 	local oldstate = clustermgr.connection[srvname]
-	clustermgr.connection[srvname] = nil
 	if oldstate then
-		logger.log("critical","cluster",string.format("%s lost connect %s",cserver.getsrvname(),srvname))
-		if cserver.isdatacenter(srvname) then
-			playermgr.broadcast(function (player)
-				sendpackage(player.pid,"player","switch",{
-					friend = false,
-				})
-			end)
+		oldstate = oldstate + 1
+		clustermgr.connection[srvname] = oldstate
+		-- 连续>=3次以上断开连接才算断开连接
+		if oldstate > 3 then
+			logger.log("critical","cluster",string.format("%s lost connect %s",cserver.getsrvname(),srvname))
+			clustermgr.connection[srvname] = nil
+			if cserver.isdatacenter(srvname) then
+				playermgr.broadcast(function (player)
+					sendpackage(player.pid,"player","switch",{
+						friend = false,
+					})
+				end)
+			end
 		end
 	end
 end

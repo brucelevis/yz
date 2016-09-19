@@ -42,7 +42,7 @@ data_1500_BranchTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 101041, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 110101, }, },
 			{ cmd = 'talkto', args = { textid = 1012, }, },
 		},
 		finishbyclient = 0,
@@ -169,7 +169,7 @@ data_1500_BranchTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 105041, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 110102, }, },
 			{ cmd = 'talkto', args = { textid = 1052, }, },
 		},
 		finishbyclient = 0,
@@ -265,7 +265,7 @@ data_1500_BranchTaskProcess = {
 			{ cmd = 'setpatrol', args = { posid = 21001003, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 110103, }, },
 			{ cmd = 'addnpc', args = { nid = { 201031,201041,201051 }, both = 1, }, },
 			{ cmd = 'talkto', args = { textid = 2012, }, },
 		},
@@ -297,7 +297,7 @@ data_1500_BranchTaskProcess = {
 			{ cmd = 'setpatrol', args = { posid = 21001001, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100001, }, },
+			{ cmd = 'raisewar', args = { warid = 110104, }, },
 			{ cmd = 'addnpc', args = { nid = { 202011,202021,202031 }, both = 1, }, },
 			{ cmd = 'talkto', args = { textid = 2022, }, },
 		},

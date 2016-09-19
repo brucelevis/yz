@@ -15,6 +15,7 @@ data_0201_Skill = {
 		jobID = 0,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[100011] = {
@@ -33,6 +34,7 @@ data_0201_Skill = {
 		jobID = 10001,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[100012] = {
@@ -51,6 +53,7 @@ data_0201_Skill = {
 		jobID = 10001,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[100013] = {
@@ -69,6 +72,7 @@ data_0201_Skill = {
 		jobID = 10001,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[100014] = {
@@ -87,6 +91,7 @@ data_0201_Skill = {
 		jobID = 10001,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101000] = {
@@ -105,6 +110,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101010] = {
@@ -123,6 +129,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101020] = {
@@ -141,6 +148,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101030] = {
@@ -159,6 +167,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101040] = {
@@ -177,6 +186,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101050] = {
@@ -195,6 +205,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101060] = {
@@ -213,6 +224,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[101070] = {
@@ -231,6 +243,7 @@ data_0201_Skill = {
 		jobID = 10002,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102000] = {
@@ -249,6 +262,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102010] = {
@@ -267,6 +281,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102020] = {
@@ -285,6 +300,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[102030] = {
@@ -303,6 +319,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[102040] = {
@@ -321,6 +338,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102050] = {
@@ -339,6 +357,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[102060] = {
@@ -357,6 +376,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102070] = {
@@ -375,6 +395,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102080] = {
@@ -393,6 +414,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[102090] = {
@@ -411,6 +433,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[102100] = {
@@ -429,6 +452,7 @@ data_0201_Skill = {
 		jobID = 10003,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[103000] = {
@@ -447,6 +471,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[103010] = {
@@ -465,6 +490,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103020] = {
@@ -483,6 +509,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103030] = {
@@ -501,6 +528,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103040] = {
@@ -519,6 +547,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103050] = {
@@ -537,6 +566,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[103060] = {
@@ -555,6 +585,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103070] = {
@@ -573,6 +604,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103080] = {
@@ -591,6 +623,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103090] = {
@@ -609,6 +642,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[103100] = {
@@ -627,6 +661,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[103110] = {
@@ -645,6 +680,7 @@ data_0201_Skill = {
 		jobID = 10004,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[104000] = {
@@ -663,6 +699,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[104010] = {
@@ -681,6 +718,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 0,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[104020] = {
@@ -699,6 +737,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[104030] = {
@@ -717,6 +756,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[104040] = {
@@ -735,6 +775,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 1,
 	},
 
 	[104050] = {
@@ -753,6 +794,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[104060] = {
@@ -771,6 +813,7 @@ data_0201_Skill = {
 		jobID = 10005,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[105000] = {
@@ -789,6 +832,7 @@ data_0201_Skill = {
 		jobID = 10007,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[105010] = {
@@ -807,6 +851,7 @@ data_0201_Skill = {
 		jobID = 10007,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[105020] = {
@@ -825,6 +870,7 @@ data_0201_Skill = {
 		jobID = 10007,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[105030] = {
@@ -843,6 +889,7 @@ data_0201_Skill = {
 		jobID = 10007,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[105040] = {
@@ -861,6 +908,7 @@ data_0201_Skill = {
 		jobID = 10007,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[105050] = {
@@ -879,6 +927,7 @@ data_0201_Skill = {
 		jobID = 10007,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106000] = {
@@ -897,6 +946,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106010] = {
@@ -915,6 +965,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106020] = {
@@ -933,6 +984,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106030] = {
@@ -951,6 +1003,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106040] = {
@@ -969,6 +1022,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106050] = {
@@ -987,6 +1041,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106060] = {
@@ -1005,6 +1060,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106070] = {
@@ -1023,6 +1079,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[106080] = {
@@ -1041,6 +1098,7 @@ data_0201_Skill = {
 		jobID = 10008,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107000] = {
@@ -1059,6 +1117,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107010] = {
@@ -1077,6 +1136,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107020] = {
@@ -1095,6 +1155,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107030] = {
@@ -1113,6 +1174,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107040] = {
@@ -1131,6 +1193,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107050] = {
@@ -1149,6 +1212,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107060] = {
@@ -1167,6 +1231,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107070] = {
@@ -1185,6 +1250,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107080] = {
@@ -1203,6 +1269,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107090] = {
@@ -1221,6 +1288,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[107100] = {
@@ -1239,6 +1307,7 @@ data_0201_Skill = {
 		jobID = 10010,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108000] = {
@@ -1257,6 +1326,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108010] = {
@@ -1275,6 +1345,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108020] = {
@@ -1293,6 +1364,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108030] = {
@@ -1311,6 +1383,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108040] = {
@@ -1329,6 +1402,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108050] = {
@@ -1347,6 +1421,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[108060] = {
@@ -1365,6 +1440,7 @@ data_0201_Skill = {
 		jobID = 10012,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109000] = {
@@ -1383,6 +1459,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109010] = {
@@ -1401,6 +1478,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109020] = {
@@ -1419,6 +1497,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109030] = {
@@ -1437,6 +1516,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109040] = {
@@ -1455,6 +1535,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109050] = {
@@ -1473,6 +1554,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[109060] = {
@@ -1491,6 +1573,7 @@ data_0201_Skill = {
 		jobID = 10014,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110000] = {
@@ -1509,6 +1592,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110010] = {
@@ -1527,6 +1611,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110020] = {
@@ -1545,6 +1630,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110030] = {
@@ -1563,6 +1649,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110040] = {
@@ -1581,6 +1668,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110050] = {
@@ -1599,6 +1687,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110060] = {
@@ -1617,6 +1706,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110070] = {
@@ -1635,6 +1725,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 	[110080] = {
@@ -1653,6 +1744,7 @@ data_0201_Skill = {
 		jobID = 10018,
 		costMP = 5,
 		buffPro = 0,
+		implflag = 0,
 	},
 
 }

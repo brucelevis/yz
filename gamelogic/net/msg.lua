@@ -256,7 +256,16 @@ end
 function C2S.respondanswer(player,request)
 	local id = assert(request.id)
 	local answer = request.answer or -1		-- -1: 客户端关闭了窗口
-	reqresp.resp(player.pid,id,{ answer = answer })
+	local session = reqresp.sessions[id]
+	if session and session.pid == player.pid then
+		local fromsrv = session.request.fromsrv
+		if fromsrv then
+			-- forward to fromsrv
+			playermgr.gosrv(player,fromsrv,nil,pack_function(reqresp.resp,player.pid,id,{answer = answer}))
+		else
+			reqresp.resp(player.pid,id,{ answer = answer })
+		end
+	end
 end
 
 -- s2c

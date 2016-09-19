@@ -29,4 +29,30 @@ function C2S.gohome(player,request)
 	playermgr.gohome(player)
 end
 
+function netkuafu.packsrv(srv)
+	return {
+		srvname = srv.srvname,
+		showsrvname = srv.showsrvname,
+		srvno = srv.srvno,
+		ip = srv.ip,
+		port = srv.port,
+		zonename = srv.zonename,
+		showzonename = srv.showzonename,
+	}
+end
+
+function C2S.srvlist(player,request)
+	local srvlist = {}
+	local self_srvname = cserver.getsrvname()
+	local self_srv = data_RoGameSrvList[self_srvname]
+	for srvname,srv in pairs(data_RoGameSrvList) do
+		if istrue(srv.isopen) and srv.zonename == self_srv.zonename then
+			table.insert(srvlist,netkuafu.packsrv(srv))
+		end
+	end
+	sendpackage(player.pid,"kuafu","srvlist",{
+		srvlist = srvlist,
+	})
+end
+
 return netkuafu

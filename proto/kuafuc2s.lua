@@ -15,5 +15,11 @@ kuafu_gohome 1501 {
 		base 0 : basetype
 	}
 }
+
+kuafu_srvlist 1502 {
+	request {
+		base 0 : basetype
+	}
+}
 ]]
 }

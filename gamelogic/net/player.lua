@@ -55,6 +55,10 @@ function C2S.rename(player,request)
 end
 
 function C2S.changejob(player,request)
+	if player.joblv < 10 then
+		net.msg.S2C.notify(player.pid,"职业等级不足10级")
+		return
+	end
 	local jobid = assert(request.jobid)
 	player:changejob(jobid)
 end

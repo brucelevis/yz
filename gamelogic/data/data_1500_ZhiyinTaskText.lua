@@ -55,7 +55,7 @@ data_1500_ZhiyinTaskText = {
 			{ npc1 = 101015, type = 1, emoji1 = 0, name = "米利暗", talk = 101015, npc2 = 0, emoji2 = 0, content = "如果这个平衡没有被打破,迦南王国也许会一直平静下去。然而近日存放契约的圣约柜竟离奇消失。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 101015, type = 1, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "失去了制约的魔神们很快突破了封印,逃亡各地作乱,以致民不聊生。", option1 = "", option2 = "", option3 = "", option4 = "", },
+			{ npc1 = 101015, type = 1, emoji1 = 0, name = "米利暗", talk = 101015, npc2 = 0, emoji2 = 0, content = "失去了制约的魔神们很快突破了封印,逃亡各地作乱,以致民不聊生。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},
@@ -132,7 +132,7 @@ data_1500_ZhiyinTaskText = {
 			{ npc1 = 103015, type = 1, emoji1 = 0, name = "艾格娅", talk = 103015, npc2 = 0, emoji2 = 0, content = "作为迦南王国的吉祥物,【吉祥物】们拥有可爱形态的同时,也具有强大的灵力哟。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 103015, type = 1, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "别小瞧了这些小家伙,虽然是刚刚加入的勇者,输给这群小家伙也是很难看的。所以,组队进行挑战吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
+			{ npc1 = 103015, type = 1, emoji1 = 0, name = "艾格娅", talk = 103015, npc2 = 0, emoji2 = 0, content = "别小瞧了这些小家伙,虽然是刚刚加入的勇者,输给这群小家伙也是很难看的。所以,组队进行挑战吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
 			{ npc1 = 103015, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "组队挑战？", option1 = "", option2 = "", option3 = "", option4 = "", },

@@ -55,9 +55,24 @@ function logger.critical(filename,...)
 end
 
 function logger.log(loglevel,filename,...)
+	local level = logger.LOGLEVEL_NAME_ID[loglevel]
+	if logger.loglevel > level then
+		return
+	end
 	local log = assert(logger[loglevel],"invalid mode:" .. tostring(loglevel))
 	assert(select("#",...) > 0,string.format("%s %s:null logname",loglevel,filename))
 	log(filename,...)
+end
+
+function logger.logf(loglevel,filename,...)
+	local level = logger.LOGLEVEL_NAME_ID[loglevel]
+	if logger.loglevel > level then
+		return
+	end
+	local log = assert(logger[loglevel],"invalid mode:" .. tostring(loglevel))
+	assert(select("#",...) > 0,string.format("%s %s:null logname",loglevel,filename))
+	local msg = format(...)
+	log(filename,msg)
 end
 
 local function escape(str) 

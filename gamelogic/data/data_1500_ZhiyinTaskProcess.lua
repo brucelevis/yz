@@ -7,7 +7,7 @@ data_1500_ZhiyinTaskProcess = {
 		name = "迦南的召唤",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 101015, }, },
-			{ cmd = 'findnpc', args = { nid = 101015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 101015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1011, }, },
 		},
 		execution = {
@@ -39,7 +39,7 @@ data_1500_ZhiyinTaskProcess = {
 		name = "希望之勇者",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 102015, }, },
-			{ cmd = 'findnpc', args = { nid = 102015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 102015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1021, }, },
 		},
 		execution = {
@@ -71,11 +71,11 @@ data_1500_ZhiyinTaskProcess = {
 		name = "战斗训练",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = { 103015,103025 }, both = 1, }, },
-			{ cmd = 'findnpc', args = { nid = 103015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 103015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1031, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100101, }, },
 			{ cmd = 'talkto', args = { textid = 1032, }, },
 		},
 		finishbyclient = 0,
@@ -104,11 +104,11 @@ data_1500_ZhiyinTaskProcess = {
 		name = "格斗技巧",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 104015, }, },
-			{ cmd = 'findnpc', args = { nid = 104015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 104015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1041, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100102, }, },
 			{ cmd = 'talkto', args = { textid = 1042, }, },
 		},
 		finishbyclient = 0,
@@ -137,7 +137,7 @@ data_1500_ZhiyinTaskProcess = {
 		name = "重要的选择",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 105015, }, },
-			{ cmd = 'findnpc', args = { nid = 105015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 105015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1051, }, },
 		},
 		execution = {
@@ -146,7 +146,7 @@ data_1500_ZhiyinTaskProcess = {
 		finishbyclient = 0,
 		autoexec = 0,
 		acceptnpc = 0,
-		submitnpc = 0,
+		submitnpc = 105015,
 		recommendteam = 3,
 		cangiveup = 0,
 		needlv = 0,
@@ -169,7 +169,7 @@ data_1500_ZhiyinTaskProcess = {
 		name = "姓名登记",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 106015, }, },
-			{ cmd = 'findnpc', args = { nid = 106015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 106015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1061, }, },
 		},
 		execution = {
@@ -178,7 +178,7 @@ data_1500_ZhiyinTaskProcess = {
 		finishbyclient = 0,
 		autoexec = 0,
 		acceptnpc = 0,
-		submitnpc = 0,
+		submitnpc = 106015,
 		recommendteam = 3,
 		cangiveup = 0,
 		needlv = 0,
@@ -201,7 +201,7 @@ data_1500_ZhiyinTaskProcess = {
 		name = "加入公会吧",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 107015, }, },
-			{ cmd = 'findnpc', args = { nid = 107015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 107015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1071, }, },
 		},
 		execution = {
@@ -233,11 +233,11 @@ data_1500_ZhiyinTaskProcess = {
 		name = "大祭司的试炼",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = { 108015,108025 }, both = 1, }, },
-			{ cmd = 'findnpc', args = { nid = 108015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 108015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1081, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100103, }, },
 			{ cmd = 'talkto', args = { textid = 1082, }, },
 		},
 		finishbyclient = 0,
@@ -256,7 +256,7 @@ data_1500_ZhiyinTaskProcess = {
 		chapterid = 0,
 		icon_id = 0,
 		desc = "即将踏上冒险之旅,快快接受米利暗的试炼吧~",
-		accepted_desc = "击败失恋中的妖怪",
+		accepted_desc = "击败试炼中的妖怪",
 		executed_desc = "与艾格娅对话",
 	},
 
@@ -266,10 +266,10 @@ data_1500_ZhiyinTaskProcess = {
 		name = "挑战艾格娅",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 109015, }, },
-			{ cmd = 'findnpc', args = { nid = 109015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 109015, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100104, }, },
 			{ cmd = 'talkto', args = { textid = 1092, }, },
 		},
 		finishbyclient = 0,
@@ -298,7 +298,7 @@ data_1500_ZhiyinTaskProcess = {
 		name = "踏上征程吧",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = 110015, }, },
-			{ cmd = 'findnpc', args = { nid = 110015, respond = nil, }, },
+			{ cmd = 'findnpc', args = { nid = 110015, respond = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1101, }, },
 		},
 		execution = {

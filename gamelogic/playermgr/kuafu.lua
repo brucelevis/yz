@@ -45,7 +45,7 @@ playermgr = require "gamelogic.playermgr"
 playermgr.kuafuplayers = playermgr.kuafuplayers or {}
 playermgr.gokuafunum = playermgr.gokuafunum or 0
 
-function playermgr.gosrv(player,go_srvname,home_srvname)
+function playermgr.gosrv(player,go_srvname,home_srvname,kuafu_onlogin)
 	-- player是连线对象，不一定是玩家对象
 	local pid = player.pid
 	local now_srvname = cserver.getsrvname()
@@ -64,6 +64,7 @@ function playermgr.gosrv(player,go_srvname,home_srvname)
 		pid=pid,
 		home_srvname=home_srvname,
 		player_data = player_data,
+		kuafu_onlogin = kuafu_onlogin,
 	})
 	if player.ongosrv then
 		player:ongosrv(go_srvname)
@@ -75,14 +76,17 @@ function playermgr.gosrv(player,go_srvname,home_srvname)
 	playermgr.kick(pid)
 end
 
-function playermgr.gohome(player)
+function playermgr.gohome(player,kuafu_onlogin)
 	local pid = player.pid
 	local home_srvname = assert(player.home_srvname)
 	local now_srvname = cserver.getsrvname()
 	assert(home_srvname ~= now_srvname)
 	local token = uuid()
 	logger.log("info","kuafu",string.format("[gohome] pid=%d,srvname=%s->%s token=%s",pid,now_srvname,home_srvname,token))
-	rpc.call(home_srvname,"rpc","playermgr.addtoken",token,{pid=pid,})
+	rpc.call(home_srvname,"rpc","playermgr.addtoken",token,{
+		pid=pid,
+		kuafu_onlogin = kuafu_onlogin,
+	})
 	if player.ongohome then
 		player:ongohome(home_srvname)
 	end
@@ -140,7 +144,7 @@ function playermgr.keep_heartbeat(pid)
 end
 
 -- 打包与玩家相关的本服全局数据，如服务器等级，开服天数等
-function playermgr.packplayer4kuafu(pid)
+function playermgr.packplayer4kuafu(pid,callback)
 	local data = {}
 	return data
 end

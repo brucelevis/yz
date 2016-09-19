@@ -38,6 +38,10 @@ function route.getsrvname(pid)
 end
 
 function route.addroute(pids,srvname)
+	skynet.fork(route._addroute,pids,srvname)
+end
+
+function route._addroute(pids,srvname)
 	if type(pids) == "number" then
 		pids = {pids,}
 	end
@@ -59,6 +63,10 @@ function route.addroute(pids,srvname)
 end
 
 function route.delroute(pids,srvname)
+	skynet.fork(route._delroute,pids,srvname)
+end
+
+function route._delroute(pids,srvname)
 	if type(pids) == "number" then
 		pids = {pids,}
 	end
@@ -80,6 +88,10 @@ function route.delroute(pids,srvname)
 end
 
 function route.syncto(srvname)
+	skynet.fork(route._syncto,srvname)
+end
+
+function route._syncto(srvname)
 	xpcall(function ()
 		local step = 5000
 		local self_srvname = skynet.getenv("srvname")

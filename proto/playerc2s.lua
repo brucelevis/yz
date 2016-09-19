@@ -45,5 +45,13 @@ player_rename 5004 {
 		name 1 : string		#新的名字
 	}
 }
+
+# 临时一键更改职业
+player_changejob 5005 {
+	request {
+		base 0 : basetype
+		jobid 1 : integer	#新的职业ID
+	}
+}
 ]]
 }

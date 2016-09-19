@@ -337,7 +337,7 @@ data_1500_MainTaskProcess = {
 		},
 		execution = {
 			{ cmd = 'talkto', args = { textid = 2011, }, },
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100211, }, },
 			{ cmd = 'talkto', args = { textid = 2012, }, },
 		},
 		finishbyclient = 0,
@@ -370,7 +370,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'talkto', args = { textid = 2021, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100212, }, },
 			{ cmd = 'talkto', args = { textid = 2022, }, },
 		},
 		finishbyclient = 0,
@@ -402,7 +402,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 203030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100213, }, },
 			{ cmd = 'talkto', args = { textid = 2032, }, },
 		},
 		finishbyclient = 0,
@@ -434,7 +434,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 204030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100214, }, },
 			{ cmd = 'talkto', args = { textid = 2042, }, },
 		},
 		finishbyclient = 0,
@@ -466,7 +466,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 205030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100215, }, },
 			{ cmd = 'talkto', args = { textid = 2052, }, },
 		},
 		finishbyclient = 0,
@@ -498,7 +498,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 206030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100216, }, },
 			{ cmd = 'talkto', args = { textid = 2062, }, },
 		},
 		finishbyclient = 0,
@@ -530,7 +530,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 207030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100217, }, },
 			{ cmd = 'talkto', args = { textid = 2072, }, },
 		},
 		finishbyclient = 0,
@@ -562,7 +562,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 208030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100218, }, },
 			{ cmd = 'talkto', args = { textid = 2082, }, },
 		},
 		finishbyclient = 0,
@@ -594,7 +594,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 209030, respond = 1, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100219, }, },
 			{ cmd = 'talkto', args = { textid = 2092, }, },
 		},
 		finishbyclient = 0,
@@ -627,7 +627,7 @@ data_1500_MainTaskProcess = {
 			{ cmd = 'talkto', args = { textid = 2101, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = 100000, }, },
+			{ cmd = 'raisewar', args = { warid = 100220, }, },
 			{ cmd = 'talkto', args = { textid = 2102, }, },
 		},
 		finishbyclient = 0,

@@ -45,22 +45,33 @@ function cteammgr:publishteam(player,param)
 		net.msg.S2C.notify(pid,language.format("你已经发布队伍了"))
 		return
 	end
-	if self.publish_teams[teamid] then
-		net.msg.S2C.notify(pid,language.format("你已经发布队伍了"))
-		return
-	end
 	team.target = param.target
 	team.minlv = param.minlv
 	team.maxlv = param.maxlv
+	local captain = playermgr.getplayer(team.captain) or resumemgr.getresume(team.captain)
+	local pack = {
+		teamid = team.id,
+		target = team.target,
+		minlv = team.minlv,
+		maxlv = team.maxlv,
+		captain = team:packmember(captain),
+		len = team:len(TEAM_STATE_ALL),
+	}
+	self:_publishteam(pack)
+	cserver.pcall_in_samezone("rpc","teammgr:_publishteam",pack)
+end
+
+function cteammgr:_publishteam(pack)
 	local now = os.time()
-	local data = data_0301_TeamTarget[team.target]
+	local data = data_0301_TeamTarget[pack.target]
 	local lifetime = data.lifetime or 300
-	self.publish_teams[team.id] = {
+	self.publish_teams[pack.teamid] = {
 		time = now,
 		lifetime = lifetime,
+		fromsrv = pack.fromsrv,
 	}
 	local package = {
-		publishteam = self:pack_publishteam(team.id),
+		publishteam = pack,
 	}
 	playermgr.broadcast(function (obj)
 		sendpackage(obj.pid,"team","publishteam",package)
@@ -69,7 +80,17 @@ end
 
 function cteammgr:pack_publishteam(teamid)
 	local publish = self.publish_teams[teamid]
+	if not publish then
+		return
+	end
+	if publish.fromsrv then
+		-- 跨服发布的队伍
+		return rpc.call(publish.fromsrv,"rpc","teammgr:pack_publishteam",teamid)
+	end
 	local team = self:getteam(teamid)
+	if not team then
+		return
+	end
 	local captain = playermgr.getplayer(team.captain)
 	if not captain then
 		captain = resumemgr.getresume(team.captain)
@@ -133,7 +154,21 @@ function cteammgr:dismissteam(player)
 	return true
 end
 
+function cteammgr:_jointeam(pid,teamid)
+	local player = playermgr.getplayer(pid)
+	if not player then
+		return
+	end
+	self:jointeam(player,teamid)
+end
+
 function cteammgr:jointeam(player,teamid)
+	local publishteam = self.publish_teams[teamid]
+	if publishteam and publishteam.srvname then
+		local srvname = publishteam.srvname
+		playermgr.gosrv(srvname,nil,pack_function("teammgr:_jointeam",player.pid,teamid))
+		return
+	end
 	local pid = player.pid
 	if self:teamid(pid) then
 		return
@@ -243,8 +278,23 @@ function cteammgr:getteambypid(pid)
 	return team
 end
 
-function cteammgr:addteam(team)
-	self:add(team)
+-- 全服共享队伍ID
+function cteammgr:genid()
+	if not self.begin_teamid or 
+		not self.end_teamid or
+		self._id >= self.end_teamid then
+		self.begin_teamid,self.end_teamid = rpc.call(cserver.datacenter(),"rpc","globalmgr.genid")
+	end
+	if not self._id or self._id == 0 then
+		self._id = self.begin_teamid
+	end
+	self._id = self._id + 1
+	return self._id
+end
+
+function cteammgr:addteam(team,id)
+	id = id or self:genid()
+	self:add(team,id)
 	return team.id
 end
 
@@ -287,6 +337,7 @@ function cteammgr:ondel(team)
 	end
 	channel.del(team.channel)
 	self:team_unautomatch(team.id,"delteam")
+	self:delpublishteam(team.id)
 end
 
 function cteammgr:changecaptain(teamid,tid)
@@ -403,8 +454,11 @@ function cteammgr:check_match_team(player)
 		if team then
 			if team:len(TEAM_STATE_ALL) < team:maxlen() then
 				if team.target == 0 or matchdata.target == 0 or team.target == matchdata.target then
-					if team.minlv <= matchdata.minlv and matchdata.minlv <= team.maxlv or
-						team.minlv <= matchdata.maxlv and matchdata.maxlv <= team.maxlv then
+					--if team.minlv <= matchdata.minlv and matchdata.minlv <= team.maxlv or
+					--	team.minlv <= matchdata.maxlv and matchdata.maxlv <= team.maxlv then
+					--	table.insert(match_teams,teamid)
+					--end
+					if team.minlv <= player.lv and player.lv <= team.maxlv then
 						table.insert(match_teams,teamid)
 					end
 				end
@@ -418,8 +472,8 @@ function cteammgr:check_match_team(player)
 	end
 	-- 优先规则: 队伍人数 >  自动匹配时间
 	table.sort(match_teams,function (teamid1,teamid2)
-		local match1 = self.match_teams[teamid1]
-		local match2 = self.match_teams[teamid2]
+		local match1 = self.automatch_teams[teamid1]
+		local match2 = self.automatch_teams[teamid2]
 		local team1 = self:getteam(teamid1)
 		local team2 = self:getteam(teamid2)
 		local len1 = team1:len(TEAM_STATE_ALL)

@@ -72,7 +72,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10303, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -1, }, },
+			{ cmd = 'raisewar', args = { warid = -3, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -103,7 +103,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10304, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -2, }, },
+			{ cmd = 'raisewar', args = { warid = -4, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -134,7 +134,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10305, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -1, }, },
+			{ cmd = 'raisewar', args = { warid = -5, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -165,7 +165,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10306, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -2, }, },
+			{ cmd = 'raisewar', args = { warid = -6, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -196,7 +196,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10307, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -1, }, },
+			{ cmd = 'raisewar', args = { warid = -7, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -227,7 +227,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10308, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -2, }, },
+			{ cmd = 'raisewar', args = { warid = -8, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -258,7 +258,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10309, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -1, }, },
+			{ cmd = 'raisewar', args = { warid = -9, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,
@@ -289,7 +289,7 @@ data_1500_ShiMoShiLianTaskProcess = {
 			{ cmd = 'findnpc', args = { nid = 10310, respond = 0, }, },
 		},
 		execution = {
-			{ cmd = 'raisewar', args = { warid = -2, }, },
+			{ cmd = 'raisewar', args = { warid = -10, }, },
 		},
 		finishbyclient = 0,
 		autoexec = 1,

@@ -338,7 +338,7 @@ end
 function strftime(fmt,secs)
 	local startpos = 1
 	local endpos = string.len(fmt)
-	local show_fmtflags = {}
+	local has_fmt = {}
 	for pos=startpos,endpos do
 		local findit,fmtflag
 		findit,pos,fmtflag = string.find(fmt,"%%([dhmsDHMS])",pos)
@@ -346,26 +346,26 @@ function strftime(fmt,secs)
 			break
 		else
 			pos = pos + 1
-			show_fmtflags[fmtflag] = true
+			has_fmt[fmtflag] = true
 		end
 	end
-	if not next(show_fmtflags) then
+	if not next(has_fmt) then
 		return fmt
 	end
 	local day = math.floor(secs/DAY_SECS)
 	local hour = math.floor(secs/HOUR_SECS)
 	local min = math.floor(secs/60)
 	local sec = secs
-	if show_fmtflags["d"] or show_fmtflags["D"] then
+	if has_fmt["d"] or has_fmt["D"] then
 		hour = hour - 24 * day
 		min = min - 24*60 * day
 		sec = sec - 24*3600 * day
 	end
-	if show_fmtflags["h"] or show_fmtflags["H"] then
+	if has_fmt["h"] or has_fmt["H"] then
 		min = min - 60 * hour
 		sec = sec - 3600 * hour
 	end
-	if show_fmtflags["m"] or show_fmtflags["M"] then
+	if has_fmt["m"] or has_fmt["M"] then
 		sec = sec - 60 * min
 	end
 	local DAY = string.format("%02d",day)
@@ -415,7 +415,7 @@ end
 
 function sendtowarsrv(protoname,subprotoname,request)
 	-- test
-	if cserver.getsrvname() ~= "gamesrv_11" and subprotoname ~= "forward" then
+	if cserver.getsrvname() ~= "gamesrv_11" then
 		return
 	end
 	local warsrv = skynet.getenv("warsrv")

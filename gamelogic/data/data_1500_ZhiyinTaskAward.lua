@@ -5,8 +5,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 10000,
+				jobexp = 10000,
 				gold = 0,
 				silver = 100,
 				coin = 100,
@@ -23,8 +23,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 20000,
+				jobexp = 20000,
 				gold = 0,
 				silver = 200,
 				coin = 200,
@@ -41,8 +41,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 30000,
+				jobexp = 30000,
 				gold = 0,
 				silver = 300,
 				coin = 300,
@@ -59,8 +59,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 40000,
+				jobexp = 40000,
 				gold = 0,
 				silver = 400,
 				coin = 400,
@@ -77,8 +77,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 50000,
+				jobexp = 50000,
 				gold = 0,
 				silver = 500,
 				coin = 500,
@@ -95,8 +95,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 60000,
+				jobexp = 60000,
 				gold = 0,
 				silver = 600,
 				coin = 600,
@@ -113,8 +113,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 70000,
+				jobexp = 70000,
 				gold = 0,
 				silver = 700,
 				coin = 700,
@@ -131,8 +131,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 80000,
+				jobexp = 80000,
 				gold = 0,
 				silver = 800,
 				coin = 800,
@@ -149,8 +149,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 90000,
+				jobexp = 90000,
 				gold = 0,
 				silver = 900,
 				coin = 900,
@@ -167,8 +167,8 @@ data_1500_ZhiyinTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 100000,
+				jobexp = 100000,
 				gold = 0,
 				silver = 1000,
 				coin = 1000,

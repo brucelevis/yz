@@ -8,7 +8,7 @@ data_1500_MainTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[101020] = {
@@ -28,7 +28,7 @@ data_1500_MainTaskNpc = {
 		dir = 3,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[102020] = {
@@ -58,7 +58,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[103020] = {
@@ -98,7 +98,7 @@ data_1500_MainTaskNpc = {
 		dir = 2,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[104010] = {
@@ -108,7 +108,7 @@ data_1500_MainTaskNpc = {
 		dir = 3,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[104020] = {
@@ -118,7 +118,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[104030] = {
@@ -158,7 +158,7 @@ data_1500_MainTaskNpc = {
 		dir = 8,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[105020] = {
@@ -168,7 +168,7 @@ data_1500_MainTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[105030] = {
@@ -208,7 +208,7 @@ data_1500_MainTaskNpc = {
 		dir = 5,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[106020] = {
@@ -218,7 +218,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[106030] = {
@@ -238,7 +238,7 @@ data_1500_MainTaskNpc = {
 		dir = 8,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[107020] = {
@@ -248,7 +248,7 @@ data_1500_MainTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[107030] = {
@@ -258,7 +258,7 @@ data_1500_MainTaskNpc = {
 		dir = 2,
 		isclient = 1,
 		talk = "蘑菇！我要蘑菇！",
-		job = "剑士",
+		job = "骑士",
 	},
 
 	[107040] = {
@@ -278,7 +278,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[108020] = {
@@ -288,7 +288,7 @@ data_1500_MainTaskNpc = {
 		dir = 5,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[108030] = {
@@ -298,7 +298,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "蘑菇！我要蘑菇！",
-		job = "剑士",
+		job = "骑士",
 	},
 
 	[108040] = {
@@ -308,7 +308,7 @@ data_1500_MainTaskNpc = {
 		dir = 7,
 		isclient = 1,
 		talk = "蘑菇！我要蘑菇！",
-		job = "剑士",
+		job = "骑士",
 	},
 
 	[108050] = {
@@ -318,7 +318,7 @@ data_1500_MainTaskNpc = {
 		dir = 8,
 		isclient = 1,
 		talk = "来不及解释了,快跟我走！",
-		job = "剑士",
+		job = "骑士",
 	},
 
 	[109010] = {
@@ -328,7 +328,7 @@ data_1500_MainTaskNpc = {
 		dir = 1,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[109020] = {
@@ -338,7 +338,7 @@ data_1500_MainTaskNpc = {
 		dir = 2,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[109030] = {
@@ -348,7 +348,7 @@ data_1500_MainTaskNpc = {
 		dir = 3,
 		isclient = 1,
 		talk = "受死吧！",
-		job = "剑士",
+		job = "骑士",
 	},
 
 	[110010] = {
@@ -358,7 +358,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[110020] = {
@@ -368,7 +368,7 @@ data_1500_MainTaskNpc = {
 		dir = 5,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[110030] = {
@@ -378,7 +378,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "受死吧！",
-		job = "剑士",
+		job = "骑士",
 	},
 
 	[201010] = {
@@ -388,7 +388,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[201020] = {
@@ -398,7 +398,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[201030] = {
@@ -418,7 +418,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[202020] = {
@@ -428,7 +428,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[202030] = {
@@ -438,7 +438,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "外来者！这里不欢迎你！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[203010] = {
@@ -448,7 +448,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[203020] = {
@@ -458,7 +458,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[203030] = {
@@ -468,7 +468,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "外来者！这里不欢迎你！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[203040] = {
@@ -488,7 +488,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[204020] = {
@@ -498,7 +498,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[204030] = {
@@ -518,7 +518,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[205020] = {
@@ -528,7 +528,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[205030] = {
@@ -548,7 +548,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[206020] = {
@@ -558,7 +558,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[206030] = {
@@ -578,7 +578,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[207020] = {
@@ -588,7 +588,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[207030] = {
@@ -608,7 +608,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[208020] = {
@@ -618,7 +618,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[208030] = {
@@ -638,7 +638,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[209020] = {
@@ -648,7 +648,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[209030] = {
@@ -668,7 +668,7 @@ data_1500_MainTaskNpc = {
 		dir = 4,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "弓箭手",
+		job = "游侠",
 	},
 
 	[210020] = {
@@ -678,7 +678,7 @@ data_1500_MainTaskNpc = {
 		dir = 6,
 		isclient = 1,
 		talk = "一起来冒险吧！",
-		job = "魔法师",
+		job = "法师",
 	},
 
 	[210030] = {

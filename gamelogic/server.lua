@@ -155,4 +155,25 @@ function cserver.getsrvname()
 	return skynet.getenv("srvname")
 end
 
+-- 同区广播
+function cserver.call_in_samezone(protoname,cmd,...)
+	local self_srvname = cserver.getsrvname()
+	local srv = data_RoGameSrvList[self_srvname]
+	for srvname,data in pairs(data_RoGameSrvList) do
+		if srvname ~= self_srvname and data.zonename == srv.zonename and clustermgr.isconnect(srvname) then
+			rpc.call(srvname,protoname,cmd,...)
+		end
+	end
+end
+
+function cserver.pcall_in_samezone(protoname,cmd,...)
+	local self_srvname = cserver.getsrvname()
+	local srv = data_RoGameSrvList[self_srvname]
+	for srvname,data in pairs(data_RoGameSrvList) do
+		if srvname ~= self_srvname and data.zonename == srv.zonename and clustermgr.isconnect(srvname) then
+			rpc.pcall(srvname,protoname,cmd,...)
+		end
+	end
+end
+
 return cserver

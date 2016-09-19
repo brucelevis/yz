@@ -317,6 +317,7 @@ function C2S.entergame(obj,request)
 		if home_srvname then
 			player.home_srvname = home_srvname
 			player.player_data = token_cache.player_data
+			player.kuafu_onlogin = token_cache.kuafu_onlogin
 			local now_srvname = cserver.getsrvname()
 			rpc.call(home_srvname,"rpc","playermgr.addkuafuplayer",{
 				pid = roleid,
@@ -324,6 +325,8 @@ function C2S.entergame(obj,request)
 			})
 		end
 	end
+
+	player.kuafu_onlogin = pack_function("logger.log","debug","test","ok")
 	-- 时序: C2S.entergame -> 中途阻塞 -> 连线对象断开连接 -> 阻塞完毕
 	-- 此时: 对象身上无连线信息
 	if not obj.__agent then

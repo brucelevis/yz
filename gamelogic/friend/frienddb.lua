@@ -326,7 +326,7 @@ function cfrienddb:sendmsg(pid,msg)
 	end
 end
 
-function cfriedndb:syncfrdblk(pid,data)
+function cfrienddb:syncfrdblk(pid,data)
 	
 end
 

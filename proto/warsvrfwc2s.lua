@@ -8,7 +8,7 @@ return {
 	src = [[
 
 
-warsvrfw_sendPrompt 6200 { 		# 使用技能请求
+warsvrfw_reqUseSkill 6200 { 		# 使用技能请求
 	request {
 		base 0 : basetype 
 		warId  1 : integer 		  # 战斗id

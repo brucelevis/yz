@@ -306,6 +306,8 @@ end
 function scene.info()
 	local info = {}
 	info.player_num = table.count(scene.players)
+	info.task = skynet.task()
+	info.mqlen = skynet.mqlen()
 	skynet.ret(skynet.pack(info))
 end
 

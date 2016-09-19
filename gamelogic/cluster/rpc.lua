@@ -23,6 +23,8 @@ end
 
 netcluster_rpc = netcluster_rpc or {}
 
+netcluster_rpc.docmd = docmd
+
 function netcluster_rpc.dispatch(srvname,cmd,...)
 	return docmd(srvname,cmd,...)
 end
