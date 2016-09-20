@@ -50,7 +50,9 @@ function playunit_baotu.onuse(pid,packdata,bsendmail)
 		scenemgr.addnpc(npc,npc.sceneid)
 		-- todo: modify
 		net.msg.sendquickmsg(language.format("【{1}】根据在寻宝途中触动了魔法机关，唤醒了在【%{2}(%{3},%{4})】沉睡的【%{5}】",player.name,scene.mapname,npc.pos.x,npc.pos.y,npc.name))
-	else
+	end
+
+	if packdata.item then
 		local item = assert(packdata.item)
 		local reward = {items={item},}
 		if not bsendmail then
@@ -93,10 +95,20 @@ function playunit_baotu.use(player,item)
 	packdata.mapid = scene.mapid
 	packdata.posid = posid
 	packdata.pos = {x = x,y = y,dir = 1}
-	if data.etype == 1 then		-- 遇怪
+	local show_monster = false
+	if data.etype == 1 then		-- 遇怪(现在暂时没有单独刷怪事件)
+		show_monster = true
+	elseif data.etype == 2 then -- 刷出物品
+		local item = data.data
+		packdata.item = item
+		if ishit(data.monster_ratio) then
+			show_monster = true
+		end
+	end
+	if show_monster then
 		local sceneid = randlist(table.keys(data_1100_BaoTuMonsterPos))
 		local scenedata = data_1100_BaoTuMonsterPos[sceneid]
-		local monsterid = data.data
+		local monsterid = data.monsterid
 		local monsterdata = data_1100_BaoTuWar[monsterid]
 		local posid = randlist(scenedata.posids)
 		local _,x,y = scenemgr.getpos(posid)
@@ -114,13 +126,8 @@ function playunit_baotu.use(player,item)
 			monsterid = monsterid,
 		}
 		packdata.npc = npc
-	else
-		assert(data.etype == 2)		-- 刷出物品
-		local item = data.data
-		packdata.item = item
 	end
 	sendpackage(player.pid,"item","usebaotu_result",packdata)
-
 	packdata.timer_name = "usebaotu"
 	packdata.timer_id = timer.timeout(packdata.timer_name,10,functor(playunit_baotu.onuse,player.pid,packdata))
 	player.baotu_cache = packdata

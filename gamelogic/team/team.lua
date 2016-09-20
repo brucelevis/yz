@@ -3,7 +3,7 @@ cteam = class("cteam")
 function cteam:init(param)
 	self.target = param.target or 0
 	self.minlv = param.minlv or 1
-	self.maxlv = param.maxlv or MAX_LV
+	self.maxlv = param.maxlv or playeraux.getmaxlv()
 	self.captain = assert(param.captain)
 	self.createtime = os.time()
 	self.follow = {}

@@ -94,7 +94,7 @@ data_1601_Switch = {
 		flag = "zhanwei.default",
 		default = 1,
 		setbyclient = 1,
-		mutex = {1151,1152},
+		mutex = {1150,1151,1152},
 	},
 
 	[1151] = {
@@ -102,7 +102,7 @@ data_1601_Switch = {
 		flag = "zhanwei.front",
 		default = 0,
 		setbyclient = 1,
-		mutex = {1150,1152},
+		mutex = {1150,1151,1152},
 	},
 
 	[1152] = {
@@ -110,7 +110,7 @@ data_1601_Switch = {
 		flag = "zhanwei.back",
 		default = 0,
 		setbyclient = 1,
-		mutex = {1150,1151},
+		mutex = {1150,1151,1152},
 	},
 
 	[1201] = {

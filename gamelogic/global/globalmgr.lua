@@ -7,6 +7,9 @@ function globalmgr.init()
 	local server = cserver.new()
 	server:loadfromdatabase()
 	server:add("runno",1)
+	if server:query("runno") == 1 then
+		server:create()
+	end
 	globalmgr.server = server
 
 	local votemgr = cvotemgr.new()

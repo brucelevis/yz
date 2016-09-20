@@ -132,15 +132,6 @@ data_1500_ZhiyinTaskText = {
 			{ npc1 = 103015, type = 1, emoji1 = 0, name = "艾格娅", talk = 103015, npc2 = 0, emoji2 = 0, content = "作为迦南王国的吉祥物,【吉祥物】们拥有可爱形态的同时,也具有强大的灵力哟。", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 
-			{ npc1 = 103015, type = 1, emoji1 = 0, name = "艾格娅", talk = 103015, npc2 = 0, emoji2 = 0, content = "别小瞧了这些小家伙,虽然是刚刚加入的勇者,输给这群小家伙也是很难看的。所以,组队进行挑战吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
-
-
-			{ npc1 = 103015, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "组队挑战？", option1 = "", option2 = "", option3 = "", option4 = "", },
-
-
-			{ npc1 = 103015, type = 1, emoji1 = 0, name = "艾格娅", talk = 103015, npc2 = 0, emoji2 = 0, content = "是的。在遇到强大的敌人时,向可以信赖的人寻求帮助不失为一种聪明的做法。一意孤行逞匹夫之勇,只会使人陷入危险之中。因此,结识朋友也是勇者们的必修课之一。", option1 = "", option2 = "", option3 = "", option4 = "", },
-
-
 			{ npc1 = 103015, type = 1, emoji1 = 0, name = "艾格娅", talk = 103015, npc2 = 0, emoji2 = 0, content = "准备好了吗？挑战马上开始了噢！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
@@ -161,6 +152,18 @@ data_1500_ZhiyinTaskText = {
 
 
 			{ npc1 = 104015, type = 1, emoji1 = 0, name = "艾格娅", talk = 104015, npc2 = 0, emoji2 = 0, content = "已经掌握了这一诀窍的话,就请迎接新的挑战吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 104015, type = 0, emoji1 = 0, name = "艾格娅", talk = 104015, npc2 = 0, emoji2 = 0, content = "不过,虽然是刚刚加入的勇者,在比试中失败也是很难看的。所以,组队进行挑战吧。", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 104015, type = 0, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "组队挑战？", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 104015, type = 0, emoji1 = 0, name = "艾格娅", talk = 104015, npc2 = 0, emoji2 = 0, content = "是的。在遇到强大的敌人时,向可以信赖的人寻求帮助不失为一种聪明的做法。一意孤行逞匹夫之勇,只会使人陷入危险之中。因此,结识朋友也是勇者们的必修课之一。", option1 = "", option2 = "", option3 = "", option4 = "", },
+
+
+			{ npc1 = 104015, type = 0, emoji1 = 0, name = "艾格娅", talk = 104015, npc2 = 0, emoji2 = 0, content = "准备好了吗？挑战马上开始了噢！", option1 = "", option2 = "", option3 = "", option4 = "", },
 
 		},
 	},

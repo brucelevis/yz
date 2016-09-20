@@ -40,7 +40,7 @@ data_0201_SkillEffect = {
 		castCondition = 0,
 		castParam = {},
 		powerPer = 1,
-		powerValue = 300,
+		powerValue = 30,
 		targetEffId = 10001,
 	},
 
@@ -55,7 +55,7 @@ data_0201_SkillEffect = {
 		castCondition = 0,
 		castParam = {},
 		powerPer = 1,
-		powerValue = 300,
+		powerValue = 30,
 		targetEffId = 10001,
 	},
 
@@ -70,7 +70,7 @@ data_0201_SkillEffect = {
 		castCondition = 0,
 		castParam = {},
 		powerPer = 1,
-		powerValue = 300,
+		powerValue = 100,
 		targetEffId = 10002,
 	},
 

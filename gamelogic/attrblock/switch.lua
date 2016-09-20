@@ -39,45 +39,40 @@ function cswitch:setswitch(switchs)
 		end
 	end
 	local changelst = {}
-	for idx,switch in ipairs(valid_switchs) do
-		self:domutex(switch,changelst)
+	for _,switch in ipairs(valid_switchs) do
+		if self:domutex(switch,changelst) then
+			table.insert(changelst,switch)
+		end
 	end
-	table.extend(valid_switchs,changelst)
-	net.player.S2C.switch(self.pid,valid_switchs)
+	net.player.S2C.switch(self.pid,changelst)
 end
 
 --互斥开关
 function cswitch:domutex(switch,changelst)
 	local data = data_1601_Switch[switch.id]
 	if table.isempty(data.mutex) then
-		return
+		return true
 	end
 	--关闭其他互斥开关
 	if switch.state then
 		for _,id in ipairs(data.mutex) do
-			local flag = data_1601_Switch[id].flag
-			if self:isopen(flag) == true then
-				self:set(flag,false)
-				table.insert(changelst,{ id = id, state = false })
+			if id ~= switch.id then
+				local flag = data_1601_Switch[id].flag
+				if self:isopen(flag) == true then
+					self:set(flag,false)
+					table.insert(changelst,{ id = id, state = false })
+				end
 			end
 		end
-		return
+		return true
 	end
-	--检查全部关闭，则恢复默认
-	local default = true
+	--关闭唯一开启的，则恢复默认
 	for _,id in ipairs(data.mutex) do
-		if self:isopen(data_1601_Switch[id].flag) then
-			default = false
-			break
-		end
+		local flag = data_1601_Switch[id].flag
+		self:delete(flag)
+		table.insert(changelst,{ id = id, state = self:isopen(flag) })
 	end
-	if default then
-		for _,id in ipairs(data.mutex) do
-			local flag = data_1601_Switch[id].flag
-			self:delete(flag)
-			table.insert(changelst,{ id = id, state = self:isopen(flag) })
-		end
-	end
+	return false
 end
 
 function cswitch:allswitch()

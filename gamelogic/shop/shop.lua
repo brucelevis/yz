@@ -91,8 +91,7 @@ function cshop._buy(pid,goods_id,buynum,shopname,iscallback)
 			leftnum = goods.leftnum - buynum,
 		})
 	end
-	player:additembytype(goods.itemtype,buynum,goods.bind,reason)
-	net.msg.S2C.notify(pid,language.format("获得#<II{1}>#{2}+{3}",goods.itemtype,itemaux.itemlink(goods.itemtype),buynum))
+	player:additembytype(goods.itemtype,buynum,goods.bind,reason,true)
 	if self.onbuy then
 		self:onbuy(pid,goods_id,buynum)
 	end

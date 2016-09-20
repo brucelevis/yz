@@ -624,7 +624,7 @@ end
 function cplayer:addjobzs(val,reason)
 	local oldval = self.jobzs
 	local newval = oldval + val
-	assert(newval <= MAX_JOBZS)
+	assert(newval <= playeraux.getmaxjobzs())
 	logger.log("info","lv",string.format("[addjobzs] pid=%s jobzs=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
 	self.jobzs = newval
 	sendpackage(self.pid,"player","update",{jobzs=self.jobzs})
@@ -844,7 +844,7 @@ function cplayer:additembytype(itemtype,num,bind,reason,tip)
 	local num1,num2 = itemdb:additembytype(itemtype,num,bind,reason)
 	if tip then
 		local itemdata = itemaux.getitemdata(itemtype)
-		net.msg.S2C.notify(self.pid,language.format("获得 #<II{1}># #<O>【{2}】+{3}#",itemtype,itemdata.name,num1))
+		net.msg.S2C.notify(self.pid,language.format("获得 #<II{1}># #<O>【{2}】+{3}#",itemtype,itemaux.itemlink(itemtype),num1))
 	end
 	return num1,num2
 end
@@ -1452,7 +1452,7 @@ function cplayer:chongzhi(buy_product)
 	self:addres("gold",product.gold,reason,true)
 	self:addres("gold",product.give_gold,reason,true)
 	if product.itemtype and product.itemtype ~= 0 and product.itemnum > 0 then
-		self:additembytype(product.itemtype,product.itemnum,nil,reason)
+		self:additembytype(product.itemtype,product.itemnum,nil,reason,true)
 	end
 	if product.pettype and product.pettype > 0 then
 
@@ -1616,13 +1616,17 @@ function cplayer:oncostres(needres,reason,btip,callback)
 end
 
 function cplayer:setname(name)
-	local db = dbmgr.getdb()
 	local oldname = self.name
 	self.name = name
+	local db = dbmgr.getdb(cserver.datacenter())
+	local srvname = cserver.getsrvname()
+	local zonename = data_RoGameSrvList[srvname].zonename
+	local key = db:key("allname",zonename)
+
 	if oldname then
-		db:hdel("names",oldname)
+		db:hdel(key,oldname)
 	end
-	db:hset("names",name,self.pid)
+	db:hset(key,name,self.pid)
 end
 
 return cplayer

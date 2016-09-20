@@ -11,13 +11,13 @@ function netteam.uniform_target(player,request)
 	request.target = request.target or 0
 	if request.target == 0 then
 		request.minlv = 1
-		request.maxlv = MAX_LV
+		request.maxlv = playeraux.getmaxlv()
 	else
 		local data = data_0301_TeamTarget[request.target]
 		request.minlv = request.minlv or player.lv - data.down_float
 		request.minlv = math.max(1,request.minlv)
 		request.maxlv = request.maxlv or player.lv + data.up_float
-		request.maxlv = math.min(MAX_LV,request.maxlv)
+		request.maxlv = math.min(playeraux.getmaxlv(),request.maxlv)
 	end
 end
 
@@ -299,7 +299,10 @@ function C2S.openui_team(player,request)
 	if not teamid then
 		local publish_teams = {}
 		for teamid,v in pairs(teammgr.publish_teams) do
-			table.insert(publish_teams,teammgr:pack_publishteam(teamid))
+			local publishteam = teammgr:pack_publishteam(teamid)
+			if publishteam then
+				table.insert(publish_teams,publishteam)
+			end
 		end
 		local package = {
 			publishteams = publish_teams,
@@ -451,7 +454,10 @@ end
 function C2S.look_publishteams(player,request)
 	local publish_teams = {}
 	for teamid,v in pairs(teammgr.publish_teams) do
-		table.insert(publish_teams,teammgr:pack_publishteam(teamid))
+		local publishteam = teammgr:pack_publishteam(teamid)
+		if publishteam then
+			table.insert(publish_teams,publishteam)
+		end
 	end
 	sendpackage(player.pid,"team","publishteams",{
 		publishteams = publish_teams,

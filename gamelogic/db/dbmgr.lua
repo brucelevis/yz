@@ -22,7 +22,7 @@ function dbmgr.getdb(srvname)
 			}
 		else
 			-- 只支持游戏服之间跨服存数据
-			local srv = assert(data_RoGameSrvList[srvname])
+			local srv = data_RoGameSrvList[srvname] or data_RoCenterSrvList[srvname]
 			conf = deepcopy(srv.db)
 			conf.auth = conf.auth or "nomogadbpwd"
 			conf.host = srv.inner_ip

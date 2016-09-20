@@ -31,13 +31,26 @@ function C2S.sendmsg(player,request)
 	return player.frienddb:sendmsg(pid,msg)
 end
 
-
--- s2c
-function S2C.sync(pid,request)
-	sendpackage(pid,"friend","sync",request)
+function C2S.search(player,request)
+	local pid = request.pid
+	local name = request.name
+	if pid then
+		player.frienddb:search_bypid(pid)
+	else
+		player.frienddb:search_byname(name)
+	end
 end
 
-local typs = {applyer = 0,friend = 1,toapply = 2,}
+function C2S.change_recommend(player,request)
+	player.friedndb:change_recommand()
+end
+
+-- s2c
+function S2C.sync(pid,data)
+	sendpackage(pid,"friend","sync",data)
+end
+
+local typs = {applyer = 0,friend = 1,toapply = 2,recommend = 3,}
 function S2C.dellist(pid,typ,pids)
 	typ = assert(typs[typ],"Invalid friend type:" .. tostring(typ))
 	if type(pids) == "number" then
@@ -61,13 +74,20 @@ function S2C.addlist(pid,typ,pids,newflag)
 	})
 end
 
-function S2C.addmsgs(pid,srcpid,msgs)
-	if type(msgs) == "string" then
-		msgs = {msgs,}
+function S2C.addmsgs(pid,msgs)
+	if not table.isarray(msgs) then
+		local array = {}
+		table.insert(array,msgs)
+		msgs = array
 	end
 	sendpackage(pid,"friend","addmsgs",{
-		pid = srcpid,
 		msgs = msgs,
+	})
+end
+
+function S2C.search_result(pid,resumes)
+	sendpackage(pid,"friend","search_result",{
+		resumes = resumes,
 	})
 end
 

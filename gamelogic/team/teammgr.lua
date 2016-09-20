@@ -41,37 +41,42 @@ function cteammgr:publishteam(player,param)
 	if not team or team.captain ~= pid then
 		return
 	end
-	if self.publish_teams[team.id] then
-		net.msg.S2C.notify(pid,language.format("你已经发布队伍了"))
+	local publish = self.publish_teams[team.id]
+	if publish then
+		local lefttime = publish.time + publish.lifetime - os.time()
+		net.msg.S2C.notify(pid,language.format("还有#<R>{1}秒#才能再次发布",lefttime))
 		return
+	else
+		net.msg.S2C.notify(pid,language.format("成功发布队伍招募信息"))
 	end
 	team.target = param.target
 	team.minlv = param.minlv
 	team.maxlv = param.maxlv
 	local captain = playermgr.getplayer(team.captain) or resumemgr.getresume(team.captain)
-	local pack = {
+	local publish = {
 		teamid = team.id,
 		target = team.target,
 		minlv = team.minlv,
 		maxlv = team.maxlv,
 		captain = team:packmember(captain),
 		len = team:len(TEAM_STATE_ALL),
+		fromsrv = cserver.getsrvname(),
 	}
-	self:_publishteam(pack)
-	cserver.pcall_in_samezone("rpc","teammgr:_publishteam",pack)
+	self:_publishteam(publish)
+	cserver.pcall_in_samezone("rpc","teammgr:_publishteam",publish)
 end
 
-function cteammgr:_publishteam(pack)
+function cteammgr:_publishteam(publish)
 	local now = os.time()
-	local data = data_0301_TeamTarget[pack.target]
-	local lifetime = data.lifetime or 300
-	self.publish_teams[pack.teamid] = {
+	local data = data_0301_TeamTarget[publish.target]
+	local lifetime = data.lifetime or 120
+	self.publish_teams[publish.teamid] = {
 		time = now,
 		lifetime = lifetime,
-		fromsrv = pack.fromsrv,
+		fromsrv = publish.fromsrv,
 	}
 	local package = {
-		publishteam = pack,
+		publishteam = publish,
 	}
 	playermgr.broadcast(function (obj)
 		sendpackage(obj.pid,"team","publishteam",package)
@@ -83,7 +88,7 @@ function cteammgr:pack_publishteam(teamid)
 	if not publish then
 		return
 	end
-	if publish.fromsrv then
+	if publish.fromsrv and publish.fromsrv ~= cserver.getsrvname() then
 		-- 跨服发布的队伍
 		return rpc.call(publish.fromsrv,"rpc","teammgr:pack_publishteam",teamid)
 	end
@@ -112,6 +117,14 @@ function cteammgr:delpublishteam(teamid)
 	if publish then
 		logger.log("info","team",string.format("[delpublishteam] teamid=%d",teamid))
 		self.publish_teams[teamid] = nil
+		playermgr.broadcast(function (obj)
+			sendpackage(obj.pid,"team","delpublishteam",{
+				teamid = teamid,
+			})
+		end)
+		if publish.fromsrv and publish.fromsrv == cserver.getsrvname() then
+			cserver.pcall_in_samezone("rpc","teammgr:delpublishteam",teamid)
+		end
 	end
 end
 
@@ -164,9 +177,8 @@ end
 
 function cteammgr:jointeam(player,teamid)
 	local publishteam = self.publish_teams[teamid]
-	if publishteam and publishteam.srvname then
-		local srvname = publishteam.srvname
-		playermgr.gosrv(srvname,nil,pack_function("teammgr:_jointeam",player.pid,teamid))
+	if publishteam and publishteam.fromsrv and publishteam.fromsrv ~= cserver.getsrvname() then
+		playermgr.gosrv(publishteam.fromsrv,nil,pack_function("teammgr:_jointeam",player.pid,teamid))
 		return
 	end
 	local pid = player.pid
@@ -175,6 +187,11 @@ function cteammgr:jointeam(player,teamid)
 	end
 	local team = self:getteam(teamid)
 	if not team then
+		net.msg.S2C.notify(pid,language.format("队伍已失效"))
+		return
+	end
+	if team:len(TEAM_STATE_ALL) >= team:maxlen() then
+		net.msg.S2C.notify(pid,language.format("队伍人数已满"))
 		return
 	end
 	logger.log("info","team",string.format("[jointeam] pid=%d teamid=%d",pid,team.id))
@@ -280,13 +297,10 @@ end
 
 -- 全服共享队伍ID
 function cteammgr:genid()
-	if not self.begin_teamid or 
-		not self.end_teamid or
-		self._id >= self.end_teamid then
-		self.begin_teamid,self.end_teamid = rpc.call(cserver.datacenter(),"rpc","globalmgr.genid")
-	end
-	if not self._id or self._id == 0 then
-		self._id = self.begin_teamid
+	if not self._endid or
+		not self._id or
+		self._id >= self._endid then
+		self._id,self._endid = rpc.call(cserver.datacenter(),"rpc","globalmgr.genid")
 	end
 	self._id = self._id + 1
 	return self._id

@@ -17,9 +17,7 @@ end
 
 function cserver:create()
 	logger.log("info","server","[create]")
-	self.data = {
-		createday = getdayno(),
-	}
+	self:set("createday",getdayno())
 end
 
 function cserver:save()
@@ -63,12 +61,24 @@ end
 
 -- getter
 function cserver:getopenday()
-	return getdayno() - self:query("createday") + self:query("openday")
+	if not self:query("createday") then
+		self:set("createday",getdayno())
+	end
+	return getdayno() - self:query("createday") + self:query("openday",0)
 end
 
 function cserver:addopenday(val,reason)
 	logger.log("info","server",string.format("[addopenday] val=%d reason=%s",val,reason))
 	self:add("openday",val)
+end
+
+function cserver:getsrvlv(openday)
+	openday = openday or self:getopenday()
+	local srvinfo = data_SrvLv[openday]
+	if not srvinfo then
+		return data_GlobalVar.MaxSrvLv
+	end
+	return srvinfo.srvlv
 end
 
 

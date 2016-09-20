@@ -82,6 +82,29 @@ function gm.resetqualitypoint(args)
 	player:reset_qualitypoint()
 end
 
+--- 指令: wudi
+--- 用法: wudi <=> 将所有属性调整为999999
+function gm.wudi(args)
+	if not cserver.isinnersrv() then
+		return
+	end
+	local player = master
+	local tbl = {
+		liliang = 999999,
+		minjie = 999999,
+		tili = 999999,
+		lingqiao = 999999,
+		zhili = 999999,
+		xingyun = 999999,
+	}
+	for typ,val in pairs(tbl) do
+		player:set("qualitypoint." .. typ,val)
+	end
+	sendpackage(player.pid,"player","update",{
+		qualitypoint = player:query("qualitypoint"),
+	})
+end
+
 --- 指令: addexp
 --- 用法: addexp 经验值 [玩家ID]
 --- 举例: addexp 100 <=> 不指定玩家ID，将自身经验值增加100点

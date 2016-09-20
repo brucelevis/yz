@@ -15,8 +15,10 @@ function isvalid_name(name)
 		end
 	end
 	-- 策划要求只做本服重名检查
-	local db = dbmgr.getdb()
-	local isok = db:hget("names",name)
+	local db = dbmgr.getdb(cserver.datacenter())
+	local srvname = cserver.getsrvname()
+	local zonename = data_RoGameSrvList[srvname].zonename
+	local isok = db:hget(db:key("allname",zonename),name)
 	if isok then
 		return false,language.format("名字重名")
 	end

@@ -3,16 +3,21 @@ playeraux = playeraux or {}
 
 
 function playeraux.getmaxlv()
-	if not playeraux.maxlv then
-		--playeraux.maxlv = table.count(data_1001_LvExp)
-		playeraux.maxlv = 100
+	local openday = globalmgr.server:getopenday()
+	local srvinfo = data_SrvLv[openday]
+	if not srvinfo then
+		return data_GlobalVar.MaxLv
 	end
-	return playeraux.maxlv
+	return srvinfo.maxlv
 end
 
 function playeraux.getmaxexp(lv)
 	local data = data_1001_LvExp[lv]
 	return data.sumexp
+end
+
+function playeraux.getmaxjobzs()
+	return data_GlobalVar.MaxJobZs
 end
 
 function playeraux.getmaxjoblv(zs)

@@ -219,7 +219,7 @@ function C2S.pickitem(player,request)
 		return
 	end
 	scenemgr.delitem(itemid,sceneid)
-	player:additembytype(item.type,item.num,item.bind,"pickitem")
+	player:additembytype(item.type,item.num,item.bind,"pickitem",true)
 end
 
 -- 顶替附魔属性：丢弃一件低级装备，将一条"高附魔"属性顶替另一件同类型的高级装备

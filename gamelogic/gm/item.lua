@@ -18,7 +18,7 @@ function gm.additem(args)
 		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
 		return
 	end
-	player:additembytype(itemtype,num,nil,"gm")
+	player:additembytype(itemtype,num,nil,"gm",true)
 end
 
 --- 指令: itemset

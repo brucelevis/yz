@@ -17,7 +17,7 @@ function gm.addgold(args)
 		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
 		return
 	end
-	player:addgold(val,"gm")
+	player:addres("gold",val,"gm",true)
 end
 
 ---指令: addsilver
@@ -37,7 +37,7 @@ function gm.addsilver(args)
 		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
 		return
 	end
-	player:addsilver(val,"gm")
+	player:addres("silver",val,"gm",true)
 end
 
 ---指令: addcoin
@@ -57,7 +57,7 @@ function gm.addcoin(args)
 		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
 		return
 	end
-	player:addcoin(val,"gm")
+	player:addres("coin",val,"gm",true)
 end
 
 ---指令: addres

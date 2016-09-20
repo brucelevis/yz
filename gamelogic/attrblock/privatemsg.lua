@@ -52,4 +52,10 @@ function cprivatemsg:pop(pos)
 	return table.remove(self.msgs,pos)
 end
 
+function cprivatemsg:popall()
+	local msgs = self.msgs
+	self.msgs = {}
+	return msgs
+end
+
 return cprivatemsg

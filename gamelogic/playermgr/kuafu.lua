@@ -56,7 +56,9 @@ function playermgr.gosrv(player,go_srvname,home_srvname,kuafu_onlogin)
 			home_srvname = now_srvname
 		end
 	end
-	assert(go_srvname ~= home_srvname)
+	if go_srvname == home_srvname then
+		return
+	end
 	local token = uuid()
 	logger.log("info","kuafu",string.format("[gosrv] pid=%d home_srvname=%s srvname=%s->%s token=%s",pid,home_srvname,now_srvname,go_srvname,token))
 	local player_data = playermgr.packplayer4kuafu(pid)

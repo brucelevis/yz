@@ -259,7 +259,7 @@ function C2S.respondanswer(player,request)
 	local session = reqresp.sessions[id]
 	if session and session.pid == player.pid then
 		local fromsrv = session.request.fromsrv
-		if fromsrv then
+		if fromsrv and fromsrv ~= cserver.getsrvname() then
 			-- forward to fromsrv
 			playermgr.gosrv(player,fromsrv,nil,pack_function(reqresp.resp,player.pid,id,{answer = answer}))
 		else
