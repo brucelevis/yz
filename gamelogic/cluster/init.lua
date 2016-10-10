@@ -1,4 +1,4 @@
-require "gamelogic.cluster.route"
+--require "gamelogic.cluster.route"
 require "gamelogic.cluster.forward"
 require "gamelogic.cluster.modmethod"
 require "gamelogic.cluster.playermethod"

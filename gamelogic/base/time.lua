@@ -44,16 +44,17 @@ function ctoday:load(data)
 end
 
 function ctoday:register(callback)
-	if callback.onclear then
-		self.onclear = callback.onclear
+	if type(callback) == "function" then
+		self.onclear = callback
 	end
 end
 
 function ctoday:clear()
-	if self.onclear then
-		self:onclear()
-	end
+	local data = self.data
 	self.data = {}
+	if self.onclear then
+		self.onclear(data)
+	end
 	--对象的清空操作放到getobject中执行，否则对象会被连续清空两次，无意义
 --	for key,obj in pairs(self.objs) do
 --		obj:clear()
@@ -83,8 +84,8 @@ function ctoday:checkvalid()
 	if self.dayno == nowday then
 		return
 	end
-	self:clear()
 	self.dayno = nowday
+	self:clear()
 	-- 每日5点看成凌晨0点
 	--local hour = getdayhour()
 	--if self.dayno + 1 == nowday then
@@ -125,8 +126,8 @@ function cthisweek:checkvalid()
 	if self.dayno == nowweek then
 		return
 	end
-	self:clear()
 	self.dayno = nowweek
+	self:clear()
 	---- 下周一5点时才重置
 	--local weekday = getweekday()
 	--local hour = getdayhour()
@@ -143,16 +144,16 @@ end
 cthisweek2 = class("cthisweek2",ctoday)
 function cthisweek2:init(conf)
 	ctoday.init(self,conf)
-	self.dayno = getweekno(2)
+	self.dayno = getweekno2()
 end
 
 function cthisweek2:checkvalid()
-	local nowweek2 = getweekno(2)
+	local nowweek2 = getweekno2()
 	if self.dayno == nowweek2 then
 		return
 	end
-	self.data = {}
 	self.dayno = nowweek2
+	self.data = {}
 	---- 下周天5点时才重置
 	--local weekday = getweekday()
 	--local hour = getdayhour()

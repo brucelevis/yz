@@ -9,6 +9,8 @@ function cteam:init(param)
 	self.follow = {}
 	self.leave = {}
 	self.applyers = {}
+	self.list = {}     -- 所有成员，根据入队时间顺序排列
+	table.insert(self.list,self.captain)
 	-- self.id,self.channel在队伍纳入管理后生成
 end
 
@@ -59,6 +61,7 @@ function cteam:join(player)
 	teammgr.pid_teamid[pid] = self.id
 	channel.subscribe(self.channel,pid)
 	self:delapplyer(pid)
+	table.insert(self.list,pid)
 	self.leave[pid] = true
 	self:broadcast(function (uid)
 		if uid ~= pid then
@@ -68,7 +71,10 @@ function cteam:join(player)
 			})
 		end
 	end)
-	
+	resumemgr.push(pid,{
+		teamstate = TEAM_STATE_LEAVE,
+		teamid = self.id,
+	})
 end
 
 function cteam:back(player)
@@ -93,6 +99,10 @@ function cteam:back(player)
 			}
 		})
 	end)
+	resumemgr.push(pid,{
+		teamstate = TEAM_STATE_FOLLOW,
+		teamid = self.id,
+	})
 	return true
 end
 
@@ -116,6 +126,10 @@ function cteam:leaveteam(player)
 			}
 		})
 	end)
+	resumemgr.push(pid,{
+		teamstate = TEAM_STATE_LEAVE,
+		teamid = self.id,
+	})
 	return true
 end
 
@@ -157,6 +171,10 @@ function cteam:quit(pid)
 			self.captain = nil
 		end
 	end
+	local pos = table.find(self.list,pid)
+	if pos then
+		table.remove(self.list,pos)
+	end
 	self.follow[pid] = nil
 	self.leave[pid] = nil
 	sendpackage(pid,"team","selfteam",{})
@@ -186,6 +204,10 @@ function cteam:quit(pid)
 	if self:len(TEAM_STATE_ALL) == 0 or self:isall_logoff() then
 		teammgr:delteam(self.id)
 	end
+	resumemgr.push(pid,{
+		teamstate = NO_TEAM,
+		teamid = 0,
+	})
 end
 
 function cteam:changecaptain(pid)
@@ -249,21 +271,12 @@ function cteam:getapplyer(pid,ispos)
 	end
 end
 
-function cteam:addapplyer(player)
-	local pid = player.pid
-	local applyer = self:getapplyer(pid)
-	if applyer then
-		net.msg.S2C.notify(player.pid,language.format("你已经申请过该队伍了"))
-		return
+function cteam:addapplyer(applyer)
+	local pid = applyer.pid
+	if self:getapplyer(pid) then
+		return false,language.format("你已经申请过该队伍了")
 	end
-	applyer = {
-		pid = pid,
-		name = player.name,
-		lv = player.lv,
-		joblv = player.joblv,
-		roletype = player.roletype,
-		time = os.time(),
-	}
+	applyer.time = os.time()
 	logger.log("info","team",format("[addapplyer] teamid=%d applyer=%s",self.id,applyer))
 	if #self.applyers >= 10 then
 		self:delapplyer(1,true)
@@ -272,6 +285,7 @@ function cteam:addapplyer(player)
 	self:broadcast(function (uid)
 		sendpackage(uid,"team","addapplyer",{applyers = {applyer,}})
 	end)
+	return true
 end
 
 function cteam:delapplyer(pid,ispos)
@@ -297,7 +311,17 @@ function cteam:teamstate(pid)
 	elseif self.follow[pid] then
 		return TEAM_STATE_FOLLOW
 	elseif self.leave[pid] then
-		return TEAM_STATE_LEAVE
+		local player = playermgr.getplayer(pid)
+		if player then
+			-- onlogoff引起的队伍状态变化
+			if player:isdisconnect() and player:query("logofftime") == os.time() then
+				return TEAM_STATE_OFFLINE
+			else
+				return TEAM_STATE_LEAVE
+			end
+		else
+			return TEAM_STATE_OFFLINE
+		end
 	end
 	return NO_TEAM
 end
@@ -318,7 +342,7 @@ function cteam:packmember(player)
 		return {
 			pid = player.pid,
 			teamstate = self:teamstate(player.pid),
-			name = player:get("lv"),
+			name = player:get("name"),
 			lv = player:get("lv"),
 			roletype = player:get("roletype"),
 			jobzs = player:get("jobzs"),
@@ -328,20 +352,9 @@ function cteam:packmember(player)
 end
 
 function cteam:packmembers()
-	local captain = playermgr.getplayer(self.captain)
-	if not captain then
-		captain = resumemgr.getresume(self.captain)
-	end
 	local members = {}
-	table.insert(members,self:packmember(captain))
-	for pid,_ in pairs(self.follow) do
-		local member = playermgr.getplayer(pid)
-		if not member then
-			member = resumemgr.getresume(pid)
-		end
-		table.insert(members,self:packmember(member))
-	end
-	for pid,_ in pairs(self.leave) do
+	local pids = self:members(TEAM_STATE_ALL)
+	for i,pid in ipairs(pids) do
 		local member = playermgr.getplayer(pid)
 		if not member then
 			member = resumemgr.getresume(pid)
@@ -359,6 +372,7 @@ function cteam:pack()
 		maxlv = self.maxlv,
 		members = self:packmembers(),
 		automatch = teammgr.automatch_teams[self.id] and true or false,
+		createtime = self.createtime,
 	}
 end
 
@@ -390,19 +404,35 @@ function cteam:members(teamstate)
 	if teamstate == TEAM_STATE_CAPTAIN then
 		pids = {self.captain,}
 	elseif teamstate == TEAM_STATE_FOLLOW then
-		pids = table.keys(self.follow)
+		for i,pid in ipairs(self.list) do
+			if self.follow[pid] then
+				table.insert(pids,pid)
+			end
+		end
 	elseif teamstate == TEAM_STATE_LEAVE then
-		pids = table.keys(self.leave)
+		for i,pid in ipairs(self.list) do
+			if self.leave[pid] then
+				table.insert(pids,pid)
+			end
+		end
 	elseif teamstate == TEAM_STATE_CAPTAIN_FOLLOW then
 		pids = {self.captain}
-		table.extend(pids,table.keys(self.follow))
+		for i,pid in ipairs(self.list) do
+			if self.follow[pid] then
+				table.insert(pids,pid)
+			end
+		end
 	elseif teamstate == TEAM_STATE_ALL then
 		pids = {self.captain}
-		for uid,_ in pairs(self.follow) do
-			table.insert(pids,uid)
+		for i,pid in ipairs(self.list) do
+			if self.follow[pid] then
+				table.insert(pids,pid)
+			end
 		end
-		for uid,_ in pairs(self.leave) do
-			table.insert(pids,uid)
+		for i,pid in ipairs(self.list) do
+			if self.leave[pid] then
+				table.insert(pids,pid)
+			end
 		end
 	else
 		assert("invalid team state:" .. tostring(teamstate))

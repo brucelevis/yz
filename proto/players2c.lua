@@ -43,6 +43,7 @@ player_sync 5003 {
 		qualitypoint 10 : QualityPointType  #素质点信
 		huoli 11 : integer	 #活力
 		storehp 12 : integer #储备生命
+		usehorncnt 13 : integer # 今日使用喇叭次数
 	}
 }
 
@@ -62,6 +63,7 @@ player_update 5004 {
 		qualitypoint 10 : QualityPointType  #素质点信息
 		huoli 11 : integer	 #活力
 		storehp 12 : integer #储备生命
+		usehorncnt 13 : integer # 今日使用喇叭次数
 	}
 }
 
@@ -73,5 +75,12 @@ player_chongzhilist 5005 {
 	}
 }
 
+# 显示玩家简介
+player_showresume 5006 {
+	request {
+		base 0 : basetype
+		resume 1 : ResumeType
+	}
+}
 ]]
 }

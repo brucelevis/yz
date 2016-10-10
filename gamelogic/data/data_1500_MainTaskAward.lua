@@ -361,6 +361,186 @@ data_1500_MainTaskAward = {
 		ratiotype = 2,
 	},
 
+	[10000301] = {
+		awardtable = {
+			
+			{
+				exp = 1100,
+				jobexp = 1100,
+				gold = 0,
+				silver = 1100,
+				coin = 1100,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000302] = {
+		awardtable = {
+			
+			{
+				exp = 1200,
+				jobexp = 1200,
+				gold = 0,
+				silver = 1200,
+				coin = 1200,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000303] = {
+		awardtable = {
+			
+			{
+				exp = 1300,
+				jobexp = 1300,
+				gold = 0,
+				silver = 1300,
+				coin = 1300,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000304] = {
+		awardtable = {
+			
+			{
+				exp = 1400,
+				jobexp = 1400,
+				gold = 0,
+				silver = 1400,
+				coin = 1400,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000305] = {
+		awardtable = {
+			
+			{
+				exp = 1500,
+				jobexp = 1500,
+				gold = 0,
+				silver = 1500,
+				coin = 1500,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000306] = {
+		awardtable = {
+			
+			{
+				exp = 1600,
+				jobexp = 1600,
+				gold = 0,
+				silver = 1600,
+				coin = 1600,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000307] = {
+		awardtable = {
+			
+			{
+				exp = 1700,
+				jobexp = 1700,
+				gold = 0,
+				silver = 1700,
+				coin = 1700,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000308] = {
+		awardtable = {
+			
+			{
+				exp = 1800,
+				jobexp = 1800,
+				gold = 0,
+				silver = 1800,
+				coin = 1800,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000309] = {
+		awardtable = {
+			
+			{
+				exp = 1900,
+				jobexp = 1900,
+				gold = 0,
+				silver = 1900,
+				coin = 1900,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
+	[10000310] = {
+		awardtable = {
+			
+			{
+				exp = 2000,
+				jobexp = 2000,
+				gold = 0,
+				silver = 2000,
+				coin = 2000,
+				items = {nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+		},
+		ratiotype = 2,
+	},
+
 }
 return data_1500_MainTaskAward
 --<<data_1500_MainTaskAward 导表结束>>

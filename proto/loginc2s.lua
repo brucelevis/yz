@@ -60,6 +60,7 @@ login_tokenlogin 1006 {
 		token 1 : string	#token认证
 		acct 2 : string  #对于渠道，即渠道返回的uid
 		channel 3 : string  #渠道名
+		version 4 : string #版本:如:1.0.0
 	}
 }
 ]]

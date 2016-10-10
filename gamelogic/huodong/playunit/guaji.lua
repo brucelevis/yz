@@ -125,7 +125,12 @@ function playunit_guaji.getstate(player)
 	return player:query("guaji.state") or playunit_guaji.UNGUAJI_STATE
 end
 
-function playunit_guaji.onmove(player)
+function playunit_guaji.onmove(player,oldpos,newpos)
+	local teamstate = player:teamstate()
+	if not (teamstate == NO_TEAM or
+		teamstate == TEAM_STATE_CAPTAIN) then
+		return
+	end
 	if playunit_guaji.getstate(player) ~= playunit_guaji.GUAJI_STATE then
 		return
 	end
@@ -134,7 +139,8 @@ function playunit_guaji.onmove(player)
 		ratio = math.min(100,ratio+data_1100_GuaJiVar.AddRatioPerSec)
 	end
 	if ishit(ratio,100) then
-		ratio = 0
+		-- 战斗结束后至少5步移动后才遇怪
+		ratio = -(data_1100_GuaJiVar.AddRatioPerSec*5)
 		playunit_guaji.raisewar(player)
 	end
 	player:set("guaji.ratio",ratio)
@@ -142,22 +148,26 @@ end
 
 function playunit_guaji.raisewar(player)
 	local sceneid = player.sceneid
-	local wargroup = data_1100_GuaJiWarGroup[sceneid]
+	local map = data_1100_GuaJiMap[sceneid]
+	local wargroup = data_1100_GuaJiWarGroup[map.war_group]
 	local warid = choosekey(wargroup,function (key,val)
 		return val.ratio
 	end)
 	local fighters = assert(player:getfighters())
 	local reward = wargroup[warid]
 	local war = {
+		attackers = fighters,
+		defensers = nil,
 		wardataid = warid,
 		wartype = WARTYPE.PVE_GUAJI,
 		-- ext
 		reward = {
 			exp = reward.exp,
+			jobexp = reward.jobexp,
 			items = {reward.item,},
 		},
 	}
-	warmgr.startwar(fighters,nil,war)
+	warmgr.startwar(war)
 end
 
 function playunit_guaji.onwarend(war,result)
@@ -174,6 +184,13 @@ function playunit_guaji.onwarend(war,result)
 				doaward("player",player.pid,reward,reason,true)
 			end
 			navigation.addprogress(player.pid,"guaji")
+		end
+	elseif warmgr.islose(result) then
+		for i,uid in ipairs(war.attackers) do
+			local player = playermgr.getplayer(uid)
+			if player then
+				playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
+			end
 		end
 	end
 end
@@ -200,6 +217,16 @@ end
 
 function playunit_guaji.onquitteam(player,teamid)
 	if playunit_guaji.getstate(player) == playunit_guaji.GUAJI_STATE then
+		playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
+	end
+end
+
+function playunit_guaji.onquitwar(pid,warid)
+	local player = playermgr.getplayer(pid)
+	if not player then
+		return
+	end
+	if playunit.getstate(player) == playunit_guaji.GUAJI_STATE then
 		playunit_guaji.setstate(player,playunit_guaji.UNGUAJI_STATE)
 	end
 end

@@ -164,4 +164,22 @@ function task.setdone(player,args)
 	navigation.addprogress(player.pid,taskcontainer.name,cnt-oldcnt)
 end
 
+--- 指令: task timeout
+--- 用法: task timeout 10000101 60 <=> 设置10000101任务在60s后过期
+function task.timeout(player,args)
+	local isok,args = checkargs(args,"int","int")
+	if not isok then
+		return false
+	end
+	local taskid = args[1]
+	local second = args[2]
+	local task = player.taskdb:gettask(taskid)
+	if not task then
+		return false
+	end
+	task.exceedtime = os.time() + second
+	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
+	taskcontainer:refreshtask(taskid)
+end
+
 task.onwarend = task.endwar

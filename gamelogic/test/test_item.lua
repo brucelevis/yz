@@ -66,7 +66,7 @@ end
 data_test_equip = {
 	[100001] = {
 		name = "手里箭",
-		equippos = 1
+		equippos = 1,
 		atk = 100,
 		maxnum = 1,
 	},

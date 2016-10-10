@@ -13,7 +13,7 @@ data_1500_BranchTaskNpc = {
 
 	[100021] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -23,7 +23,7 @@ data_1500_BranchTaskNpc = {
 
 	[100031] = {
 		name = "思莉嘉",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -53,7 +53,7 @@ data_1500_BranchTaskNpc = {
 
 	[101021] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -63,7 +63,7 @@ data_1500_BranchTaskNpc = {
 
 	[101031] = {
 		name = "思莉嘉",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -83,7 +83,7 @@ data_1500_BranchTaskNpc = {
 
 	[102011] = {
 		name = "伊菲",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -93,7 +93,7 @@ data_1500_BranchTaskNpc = {
 
 	[102021] = {
 		name = "爱拉忒",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -113,7 +113,7 @@ data_1500_BranchTaskNpc = {
 
 	[103011] = {
 		name = "伊菲",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -123,7 +123,7 @@ data_1500_BranchTaskNpc = {
 
 	[103021] = {
 		name = "爱拉忒",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -143,7 +143,7 @@ data_1500_BranchTaskNpc = {
 
 	[104011] = {
 		name = "伊菲",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -153,7 +153,7 @@ data_1500_BranchTaskNpc = {
 
 	[104021] = {
 		name = "爱拉忒",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -173,7 +173,7 @@ data_1500_BranchTaskNpc = {
 
 	[105011] = {
 		name = "伊菲",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -183,7 +183,7 @@ data_1500_BranchTaskNpc = {
 
 	[105021] = {
 		name = "爱拉忒",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -203,7 +203,7 @@ data_1500_BranchTaskNpc = {
 
 	[105041] = {
 		name = "嘉卡",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -213,7 +213,7 @@ data_1500_BranchTaskNpc = {
 
 	[105051] = {
 		name = "打手",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -233,7 +233,7 @@ data_1500_BranchTaskNpc = {
 
 	[106021] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 4,
 		isclient = 1,
@@ -243,7 +243,7 @@ data_1500_BranchTaskNpc = {
 
 	[106031] = {
 		name = "思莉嘉",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 6,
 		isclient = 1,
@@ -283,7 +283,7 @@ data_1500_BranchTaskNpc = {
 
 	[201021] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -293,7 +293,7 @@ data_1500_BranchTaskNpc = {
 
 	[201031] = {
 		name = "纯色吉祥物首领",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -313,7 +313,7 @@ data_1500_BranchTaskNpc = {
 
 	[201051] = {
 		name = "纯色吉祥物平民",
-		shape = 10002,
+		shape = 10001,
 		posid = "21001002",
 		dir = 5,
 		isclient = 1,
@@ -323,7 +323,7 @@ data_1500_BranchTaskNpc = {
 
 	[202011] = {
 		name = "混色吉祥物首领",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -333,7 +333,7 @@ data_1500_BranchTaskNpc = {
 
 	[202021] = {
 		name = "混色吉祥物喽啰",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -353,7 +353,7 @@ data_1500_BranchTaskNpc = {
 
 	[203011] = {
 		name = "混色吉祥物首领",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -363,7 +363,7 @@ data_1500_BranchTaskNpc = {
 
 	[203021] = {
 		name = "混色吉祥物喽啰",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -383,7 +383,7 @@ data_1500_BranchTaskNpc = {
 
 	[204011] = {
 		name = "纯色吉祥物首领",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -393,7 +393,7 @@ data_1500_BranchTaskNpc = {
 
 	[204021] = {
 		name = "纯色吉祥物平民",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -413,7 +413,7 @@ data_1500_BranchTaskNpc = {
 
 	[205011] = {
 		name = "伊菲",
-		shape = 10005,
+		shape = 10001,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -423,7 +423,7 @@ data_1500_BranchTaskNpc = {
 
 	[205021] = {
 		name = "爱拉忒",
-		shape = 10010,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,

@@ -43,16 +43,21 @@ end
 -- 支持跨服邮件
 function mailmgr.sendmail(pid,amail)
 	local self_srvname = cserver.getsrvname()
-	local srvname = route.getsrvname(pid)
-	if not srvname then -- non-exist pid
+	local home_srvname = globalmgr.home_srvname(pid)
+	if not home_srvname then -- non-exist pid
 		return nil
 	end
-	local kuafuplayer = playermgr.getkuafuplayer(pid)
-	if kuafuplayer then
-		srvname = kuafuplayer.go_srvname
+	local now_srvname,isonline = globalmgr.now_srvname(pid)
+	local to_srvname
+	if now_srvname ~= self_srvname then
+		if isonline then
+			to_srvname = now_srvname
+		else
+			to_srvname = home_srvname
+		end
 	end
-	if srvname ~= self_srvname then
-		return rpc.call(srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)
+	if to_srvname ~= self_srvname then
+		return rpc.call(to_srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)
 	end
 	amail = deepcopy(amail) -- 防止多个玩家修改同一份邮件
 	if amail.attach then	-- 防止传入导表的概率字段

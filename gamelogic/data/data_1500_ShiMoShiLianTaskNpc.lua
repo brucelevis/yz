@@ -13,7 +13,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10302] = {
 		name = "剧毒使魔",
-		shape = 10002,
+		shape = 10001,
 		posid = "35001002",
 		dir = 1,
 		isclient = 1,
@@ -23,7 +23,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10303] = {
 		name = "寒冰使魔",
-		shape = 10003,
+		shape = 10001,
 		posid = "35001003",
 		dir = 1,
 		isclient = 1,
@@ -33,7 +33,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10304] = {
 		name = "暗影使魔",
-		shape = 10004,
+		shape = 10001,
 		posid = "35001004",
 		dir = 1,
 		isclient = 1,
@@ -43,7 +43,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10305] = {
 		name = "飓风使魔",
-		shape = 10005,
+		shape = 10001,
 		posid = "35001005",
 		dir = 1,
 		isclient = 1,
@@ -53,7 +53,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10306] = {
 		name = "裂地使魔",
-		shape = 10006,
+		shape = 10001,
 		posid = "35002001",
 		dir = 1,
 		isclient = 1,
@@ -63,7 +63,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10307] = {
 		name = "磐石使魔",
-		shape = 10007,
+		shape = 10001,
 		posid = "35002002",
 		dir = 1,
 		isclient = 1,
@@ -73,7 +73,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10308] = {
 		name = "磨砂使魔",
-		shape = 10008,
+		shape = 10001,
 		posid = "35002003",
 		dir = 1,
 		isclient = 1,
@@ -83,7 +83,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10309] = {
 		name = "闪电使魔",
-		shape = 10009,
+		shape = 10001,
 		posid = "35002004",
 		dir = 1,
 		isclient = 1,
@@ -93,7 +93,7 @@ data_1500_ShiMoShiLianTaskNpc = {
 
 	[10310] = {
 		name = "噬光使魔",
-		shape = 10010,
+		shape = 10001,
 		posid = "35002005",
 		dir = 1,
 		isclient = 1,

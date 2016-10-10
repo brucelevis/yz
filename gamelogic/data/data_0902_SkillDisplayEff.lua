@@ -131,6 +131,19 @@ data_0902_SkillDisplayEff = {
 		loopspace = 0.000000,
 	},
 
+	[20001] = {
+		path = "eff_wugongtarget.png",
+		anitime = 0.000000,
+		delaytime = 0.000000,
+		sound = 0,
+		offx = 0,
+		offy = 0,
+		posType = 4,
+		scale = 1.000000,
+		keeptimes = -1.000000,
+		loopspace = 0.000000,
+	},
+
 }
 return data_0902_SkillDisplayEff
 --<<data_0902_SkillDisplayEff 导表结束>>

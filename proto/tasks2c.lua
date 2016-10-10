@@ -65,5 +65,14 @@ task_update_canaccept 3506 {
 	}
 }
 
+#打开界面
+task_openui 3507 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+		buttonid 2 : integer
+	}
+}
+
 ]]
 }

@@ -23,6 +23,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "初入迦南王国的勇者，似乎具有非常强大的潜力呢。",
+		ZZ_CANUSE = {701001,},
 	},
 
 	[10002] = {
@@ -49,6 +51,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "骑士，令人血脉贲张的名字！长驱利剑，勇往直前。我们是国家的壁垒，主君的神兵，朋友的盾牌，沙场上最勇敢的战士！",
+		ZZ_CANUSE = {701001,701002,701003,701006,701007,701011,},
 	},
 
 	[10003] = {
@@ -75,6 +79,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "牧师不以勇武著称，仁爱、坚定的心却不输任何豪迈之气。我们拥有治愈之力，是战场上最值得信赖的安全保障。",
+		ZZ_CANUSE = {701001,701004,701005,701008,701011,},
 	},
 
 	[10004] = {
@@ -101,6 +107,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "狂风、暴雨、烈火、走石，一切元素皆为我所用，力量是唯一的追求。",
+		ZZ_CANUSE = {701001,701004,701008,},
 	},
 
 	[10005] = {
@@ -127,6 +135,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "刺客，是天底下最潇洒不羁的职业，自由率性，无关正邪。如果有人得罪了我们，可是要小心身后咯~",
+		ZZ_CANUSE = {701001,701009,701010,},
 	},
 
 	[10006] = {
@@ -153,6 +163,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10007] = {
@@ -179,6 +191,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "穿林越险，驰骋战场，我的箭可不止瞄准那些肥美的野鹿，还有敌人的首级。",
+		ZZ_CANUSE = {701001,701010},
 	},
 
 	[10008] = {
@@ -205,6 +219,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10009] = {
@@ -231,6 +247,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10010] = {
@@ -257,6 +275,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10011] = {
@@ -283,6 +303,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10012] = {
@@ -309,6 +331,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10013] = {
@@ -335,6 +359,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10014] = {
@@ -361,6 +387,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10015] = {
@@ -387,6 +415,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10016] = {
@@ -413,6 +443,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.08,
 		ZZGROW_WLBJ = 0.08,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10017] = {
@@ -439,6 +471,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.1,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10018] = {
@@ -465,6 +499,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10019] = {
@@ -491,6 +527,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0.09,
 		ZZGROW_WLBJ = 0.1,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10020] = {
@@ -517,6 +555,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10021] = {
@@ -543,6 +583,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10022] = {
@@ -569,6 +611,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10023] = {
@@ -595,6 +639,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10024] = {
@@ -621,6 +667,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10025] = {
@@ -647,6 +695,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10026] = {
@@ -673,6 +723,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10027] = {
@@ -699,6 +751,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10028] = {
@@ -725,6 +779,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10029] = {
@@ -751,6 +807,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10030] = {
@@ -777,6 +835,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 	[10031] = {
@@ -803,6 +863,8 @@ data_0101_Hero = {
 		ZZGROW_WLDS = 0,
 		ZZGROW_WLBJ = 0,
 		ZZGROW_RENXING = 0,
+		ZZ_DESC = "古老帝都传说职业，拥有强大的体术和输出",
+		ZZ_CANUSE = {102012,106001},
 	},
 
 }

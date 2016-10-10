@@ -212,9 +212,15 @@ function choosekey(dct,func)
 end
 
 -- time
-function gethourno(flag)
-	local start = flag and STARTTIME2 or STARTTIME1
-	local tm = os.time() - start
+function gethourno(now,start)
+	now = now or os.time()
+	start = start or STARTTIME1
+	local tm = now - start
+	return math.floor(tm/HOUR_SECS) + (tm % HOUR_SECS == 0 and 0 or 1)
+end
+
+function gethourno2()
+	local tm = os.time() - STARTTIME1
 	return math.floor(tm/HOUR_SECS) + (tm % HOUR_SECS == 0 and 0 or 1)
 end
 
@@ -224,9 +230,19 @@ function getdayno(flag)
 	return math.floor(tm/DAY_SECS) + (tm % DAY_SECS == 0 and 0 or 1)
 end
 
+function getdayno2()
+	local tm = os.time() - STARTTIME1
+	return math.floor(tm/DAY_SECS) + (tm % DAY_SECS == 0 and 0 or 1)
+end
+
 function getweekno(flag)
 	local start = flag and STARTTIME2 or STARTTIME1
 	local tm = os.time() - start
+	return math.floor(tm/WEEK_SECS) + (tm % WEEK_SECS == 0 and 0 or 1)
+end
+
+function getweekno2()
+	local tm = os.time() - STARTTIME1
 	return math.floor(tm/WEEK_SECS) + (tm % WEEK_SECS == 0 and 0 or 1)
 end
 
@@ -414,10 +430,6 @@ function currentdir()
 end
 
 function sendtowarsrv(protoname,subprotoname,request)
-	-- test
-	if cserver.getsrvname() ~= "gamesrv_11" then
-		return
-	end
 	local warsrv = skynet.getenv("warsrv")
 	return rpc.pcall(warsrv,protoname,subprotoname,request)
 end
@@ -433,6 +445,10 @@ function sendpackage(pid,protoname,subprotoname,request)
 	else
 		local obj = playermgr.getobject(pid)
 		if obj then
+			if obj.delaypackage.isopen then
+				obj.delaypackage:push(protoname,subprotoname,request)
+				return
+			end
 			agent = obj.__agent
 			uid = pid
 		end
@@ -515,7 +531,7 @@ function checkargs(args,...)
 	return true,ret
 end
 
-local COLLECT_ATTRS  = {"pid","id","name","sid","warid","flag","state","inarea","targetid","tid","taskid","type","srvname","objid","__fd","__status","m_ID","sceneid","mapid","posid",}
+local COLLECT_ATTRS  = {"pid","id","name","sid","warid","flag","state","inarea","targetid","tid","taskid","type","srvname","objid","__fd","__status","m_ID","sceneid","mapid","posid","srvno",}
 
 local function collect_localvar(level)
 	level = level + 1 -- skip self function 'collect_localval'
@@ -561,6 +577,13 @@ function onerror(msg)
 		for _,s in ipairs(vars2) do
 			table.insert(vars,s)
 		end
+		-- rpc.call时搜集不到srvname,因此多加一层
+		table.insert(vars,"================")
+		local vars2 = collect_localvar(level+3)
+		for _,s in ipairs(vars2) do
+			table.insert(vars,s)
+		end
+
 		table.insert(vars,1,string.format("[ERROR] [%s] %s",os.date("%Y-%m-%d %H:%M:%S"),msg))
 		local msg = debug.traceback(table.concat(vars,"\n"),level)
 		print(msg)
@@ -663,4 +686,21 @@ end
 function execformula(formula,params)
 	local chunk = load(formula,"=(load)","bt",params)
 	return chunk()
+end
+
+function frozen(obj,timeout)
+	obj.bfrozen = true
+	if timeout then
+		timer.timeout2("timer.frozen",timeout,function ()
+			unfrozen(obj)
+		end)
+	end
+end
+
+function unfrozen(obj)
+	obj.bfrozen = nil
+end
+
+function isfrozen(obj)
+	return obj.bfrozen
 end

@@ -173,5 +173,12 @@ team_kickmember 8020 {
 		pid 1 : integer
 	}
 }
+
+# 关闭组队界面
+team_closeui_team 8021 {
+	request {
+		base 0 : basetype
+	}
+}
 ]]
 }

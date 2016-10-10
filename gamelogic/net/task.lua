@@ -112,6 +112,12 @@ function C2S.looktasknpc(player,request)
 	end
 end
 
+function C2S.tasktimeout(player,request)
+	local taskid = assert(request.taskid)
+	player.taskdb:gettask(taskid)
+	player.taskdb:update_canaccept()
+end
+
 -- s2c
 function S2C.addtask(pid,task)
 	sendpackage(pid,"task","addtask",{
@@ -158,6 +164,13 @@ end
 
 function S2C.update_canaccept(pid,canaccept)
 	sendpackage(pid,"task","update_canaccept",{ canaccept = canaccept })
+end
+
+function S2C.openui(pid,taskid,buttonid)
+	sendpackage(pid,"task","openui",{
+		taskid = taskid,
+		buttonid = buttonid,
+	})
 end
 
 return nettask

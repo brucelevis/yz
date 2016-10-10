@@ -53,5 +53,14 @@ player_changejob 5005 {
 		jobid 1 : integer	#新的职业ID
 	}
 }
+
+# 根据pid查看玩家简介
+player_lookresume 5006 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
 ]]
 }

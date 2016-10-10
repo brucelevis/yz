@@ -51,6 +51,13 @@ function channel.get(name,...)
 end
 
 function channel.publish(name,...)
+	if channel.delay_publish(name,...) then
+		return
+	end
+	return channel._publish(name,...)
+end
+
+function channel._publish(name,...)
 	local chan = channel.get(name)
 	if chan then
 		logger.log("debug","channel",format("[publish] name=%s channel=%s pack=%s",name,chan.channel,{...}))
@@ -84,6 +91,67 @@ function channel.unsubscribe(name,pid)
 	local agent = player.__agent
 	logger.log("info","channel",string.format("[unsubscribe] name=%s channel=%s pid=%s",name,chan.channel,pid))
 	skynet.send(agent,"lua","unsubscribe",chan.channel)
+end
+
+-- 广播频率,消息优先级控制
+channel.WORLDMSG_PRIORITY = {
+	hornmsg = 1,
+	worldmsg = 2,
+}
+function channel.delay_publish(name,...)
+	-- 只对世界频道消息进行:延迟发送
+	if name ~= "world" then
+		return false
+	else
+		channel.init_delay_publish(name)
+	end
+	local pack = ...
+	local type = pack.s
+	local priority = channel.WORLDMSG_PRIORITY[type]
+	if priority == 1 then
+		table.insert(channel.hornmsgs,pack)
+	elseif priority == 2 then
+		table.insert(channel.worldmsgs,pack)
+	end
+	return true
+end
+
+function channel.init_delay_publish(name)
+	if not channel.binit then
+		channel.binit = true
+		channel.hornmsgs = {}
+		channel.worldmsgs = {}
+		-- 0.5s
+		timer.timeout2("timer.delay_publish",50,channel.starttimer_publish)
+	end
+end
+
+function channel.starttimer_publish()
+	local name = "world"
+	timer.timeout2("timer.delay_publish",50,channel.starttimer_publish)
+	local limit = 50
+	local msgs = {}
+	for i=1,limit do
+		local pack = table.remove(channel.hornmsgs,1)
+		if not pack then
+			break
+		end
+		table.insert(msgs,pack)
+	end
+	for i,pack in ipairs(msgs) do
+		channel._publish(name,pack)
+	end
+	msgs = {}
+	for i=1,limit do
+		local pack = table.remove(channel.worldmsgs,1)
+		if not pack then
+			break
+		end
+		table.insert(msgs,pack)
+	end
+	for i,pack in ipairs(msgs) do
+		channel._publish(name,pack)
+	end
 end
 
 return channel

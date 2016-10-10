@@ -31,26 +31,25 @@ cequipposdb = class("cequipposdb",ccontainer)
 
 function cequipposdb:init(conf)
 	ccontainer.init(self,conf)
+	for i = 1,ITEMPOS_BEGIN-1 do
+		self:add({
+			refine = {},
+			cardid = 0,
+		},i)
+	end
 end
 
 function cequipposdb:clear()
 	ccontainer.clear(self)
-	self.objid = 0		-- 保证id在[1,ITEMPOS_BEGIN)范围内
 	for i = 1,ITEMPOS_BEGIN-1 do
 		self:add({
 			refine = {},
-		})
+			cardid = 0,
+		},i)
 	end
 end
 
 function cequipposdb:onlogin(player)
-	if self.len == 0 then
-		for i = 1,ITEMPOS_BEGIN-1 do
-			self:add({
-				refine = {},
-			})
-		end
-	end
 	sendpackage(player.pid,"item","all_equippos",{
 		equipposes = table.values(self.objs),
 	})
@@ -103,6 +102,7 @@ function cequipposdb:refine(pos)
 		})
 		return
 	end
+	net.msg.S2C.notify(player.pid,language.format("精炼成功"))
 	obj.refine.succ_ratio = nil
 	obj.refine.cnt = cnt + 1
 	self:update(obj.id,{

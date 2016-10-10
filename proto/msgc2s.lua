@@ -4,19 +4,12 @@ return {
 	p = "msg",
 	si = 4500, -- [4500,5000)
 	src = [[
-#msg_onmessagebox 4500 { # 回复messagebox
-#	request {
-#		base 0 : basetype
-#		id 1 : integer
-#		buttonid 2 : integer
-#	}
-#}
-
 # 世界消息
 msg_worldmsg 4501 {
 	request {
 		base 0 : basetype
 		msg 1 : string
+		id 2 : integer		# 客户端生成的消息唯一ID
 	}
 }
 
@@ -25,6 +18,7 @@ msg_scenemsg 4502 {
 	request {
 		base 0 : basetype
 		msg 1 : string
+		id 2 : integer		# 客户端生成的消息唯一ID
 	}
 }
 
@@ -33,14 +27,16 @@ msg_teammsg 4503 {
 	request {
 		base 0 : basetype
 		msg 1 : string
+		id 2 : integer		# 客户端生成的消息唯一ID
 	}
 }
 
-# 帮派消息
-msg_orgmsg 4504 {
+# 工会消息
+msg_unionmsg 4504 {
 	request {
 		base 0 : basetype
 		msg 1 : string
+		id 2 : integer		# 客户端生成的消息唯一ID
 	}
 }
 
@@ -49,6 +45,7 @@ msg_hornmsg 4505 {
 	request {
 		base 0 : basetype
 		msg 1 : string
+		id 2 : integer		# 客户端生成的消息唯一ID
 	}
 }
 
@@ -58,6 +55,7 @@ msg_sendmsgto 4506 {
 		base 0 : basetype
 		msg 1 : string
 		targetid 2 : integer  #发给谁
+		id 3 : integer		# 客户端生成的消息唯一ID
 	}
 }
 

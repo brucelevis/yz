@@ -5,28 +5,20 @@ function dbmgr.init()
 	dbmgr.wait_coroutine = {}
 end
 
+function dbmgr.getsrvname(pid)
+	return globalmgr.home_srvname(pid)
+end
+
 function dbmgr.getdb(srvname)
 	if srvname and tonumber(srvname) then -- pid
-		srvname = route.getsrvname(srvname)
+		srvname = dbmgr.getsrvname(tonumber(srvname))
 	end
 	srvname = srvname or cserver.getsrvname()
 	local conn = dbmgr.conns[srvname]
 	if not conn then
-		local conf
-		if srvname == cserver.getsrvname() then
-			conf = {
-				host = skynet.getenv("dbip") or "127.0.0.1",
-				port = tonumber(skynet.getenv("dbport")) or 6379,
-				db = tonumber(skynet.getenv("dbno")) or 0,
-				auth = skynet.getenv("dbauth") or "nomogadbpwd",
-			}
-		else
-			-- 只支持游戏服之间跨服存数据
-			local srv = data_RoGameSrvList[srvname] or data_RoCenterSrvList[srvname]
-			conf = deepcopy(srv.db)
-			conf.auth = conf.auth or "nomogadbpwd"
-			conf.host = srv.inner_ip
-		end
+		local srv = data_RoGameSrvList[srvname] or data_RoCenterSrvList[srvname]
+		local conf = deepcopy(srv.db)
+		conf.auth = conf.auth or "nomogadbpwd"
 		-- 防止同一个服多次初始化redis
 		dbmgr.conns[srvname] = "initing"
 		conn = cdb.new(conf)  -- 调用了阻塞API

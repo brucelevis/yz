@@ -8,7 +8,6 @@ function CMD.echo(srvname,request)
 end
 
 function CMD.forward(srvname,request)
-	logger.log("debug","war",format("[CMD.forward] srvname=%s request=%s",srvname,request))
 	local pids = assert(request.pids,"no pid")
 	local cmd = assert(request.cmd)
 	local protoname,subprotoname = string.match(cmd,"([^_]-)%_(.+)")

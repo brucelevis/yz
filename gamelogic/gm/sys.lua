@@ -85,7 +85,7 @@ function gm.clearplayerdb(args)
 		playermgr.kick(pid,"gmclear")
 	end
 	local savekey = args[2]
-	local db = dbmgr.getdb(cserver.getsrvname(pid))
+	local db = dbmgr.getdb(pid)
 	local key = db:key("role",pid,savekey)
 	local data = db:get(key)
 	if not data then
@@ -165,18 +165,30 @@ function gm.daobiao(args)
 		return
 	end
 	local warsrv = skynet.getenv("warsrv")
+	-- 忽略导表报错,导表报错将错误信息记录到文件中，开发服老是报:IOError
 	local cmds = {
-		["逻辑服"] = "cd ../logicshell/ && sh exportxls.sh 2>&1",
-		["战斗服"] = string.format("cd ../../%s/logicshell/ && sh exportxls.sh 2>&1",warsrv),
+		{"逻辑服","cd ../logicshell/ && sh exportxls.sh",},
+		{"战斗服",string.format("cd ../../%s/logicshell/ && sh exportxls.sh",warsrv),}
 	}
-	for srvname,cmd in pairs(cmds) do
-		local fd = io.popen(cmd,"r")
-		local output = fd:read("*a")
-		fd:close()
+	for i,list in ipairs(cmds) do
+		local srvname = list[1]
+		local cmd = list[2]
 		gm.say(string.format("%s开始导表...",srvname))
-		gm.say(output)
+		os.execute(cmd)
 	end
+	gm.say("导表执行完毕")
 	net.msg.S2C.notify(master_pid,"导表执行完毕")
 end
+
+function gm.update(args)
+	if not cserver.isinnersrv() then
+		return
+	end
+	local isok,args = checkargs(args,"string")
+	local path = string.format("gamelogic.%s",args[1])
+	hotfix.hotfix(path)
+end
+
+gm.reload = gm.update
 
 return gm

@@ -40,6 +40,9 @@ function gm.endwar(args)
 		net.msg.S2C.notify(master_pid,"请指定一个战斗ID")
 		return
 	end
+	sendtowarsrv("war","endwar",{
+		warid = warid,
+	})
 	warmgr.onwarend(warid,result)
 end
 
@@ -58,7 +61,7 @@ function gm.force_endwar(args)
 		if not master then
 			return
 		end
-		warid = master.warid
+		warid = master:warid()
 	end
 	if not warid or warid == 0 then
 		net.msg.S2C.notify(master_pid,"请指定一个战斗ID")

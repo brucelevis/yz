@@ -30,6 +30,9 @@ function cglobalshopdb:loadfromdatabase()
 end
 
 function cglobalshopdb:savetodatabase()
+	if not cserver.isgamesrv() then
+		return
+	end
 	if self.loadstate ~= "loaded" then
 		return
 	end

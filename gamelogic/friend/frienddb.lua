@@ -1,5 +1,10 @@
 
-cfrienddb = class("cfrienddb",cdatabaseable)
+cfrienddb = class("cfrienddb",cdatabaseable,{
+	applyerlimit = 20,
+	frdlimit = 5,
+	recommendlimit = 15,
+	blacklimit = 5,
+})
 
 function cfrienddb:init(pid)
 	self.flag = "cfrienddb"
@@ -8,12 +13,10 @@ function cfrienddb:init(pid)
 		flag = self.flag,
 	})
 	self.frdlist = {}
-	self.frdshiplist = {} -- 好友度表
+	self.frddata = {} -- 好友关系数据
 	self.applyerlist = {}
 	self.recommendlist = {}
-	self.applyerlimit = 20
-	self.frdlimit = 60
-	self.recommendlimit = 15
+	self.blacklist = {} --黑名单
 	self.data = {}
 	self.thistemp = cthistemp.new{
 		pid = pid,
@@ -27,9 +30,10 @@ end
 function cfrienddb:save()
 	local data = {}
 	data.frdlist = self.frdlist
-	data.frdshiplist = self.frdshiplist
+	data.frddata = self.frddata
 	data.applyerlist = self.applyerlist
 	data.recommendlist = self.recommendlist
+	data.blacklist = self.blacklist
 	data.data = self.data
 	data.timeattr = self.timeattr:save()
 	return data
@@ -40,13 +44,14 @@ function cfrienddb:load(data)
 		return
 	end
 	self.frdlist = data.frdlist
-	local frdshiplist = data.frdshiplist or {}
-	for pid,frdship in pairs(frdshiplist) do
+	local frddata = data.frddata or {}
+	for pid,value in pairs(frddata) do
 		pid = tonumber(pid)
-		self.frdshiplist[pid] = frdship
+		self.frddata[pid] = value
 	end
 	self.applyerlist = data.applyerlist
 	self.recommendlist = data.recommendlist or {}
+	self.blacklist = data.blacklist or {}
 	self.data = data.data
 	self.timeattr:load(data.timeattr)
 	self:onload()
@@ -54,9 +59,10 @@ end
 
 function cfrienddb:clear()
 	self.frdlist = {}
-	self.frdshiplist = {}
+	self.frddata = {}
 	self.applyerlist = {}
 	self.recommendlist = {}
+	self.blacklist = {}
 	self.data = {}
 	self.timeattr:clear()
 end
@@ -98,8 +104,17 @@ function cfrienddb:onload()
 		end
 	end
 	self.recommendlist = tmplist
+	tmplist = {}
+	for pos,pid in ipairs(self.blacklist) do
+		local frdblk = self:getfrdblk(pid)
+		if frdblk then
+			table.insert(tmplist,pid)
+		else
+			logger.log("error","friend",format("[delblacklist onload] pid=%d",pid))
+		end
+	end
+	self.blacklist = tmplist
 end
-
 
 function cfrienddb:onlogin(player)
 	if not globalmgr.server:isopen("friend") then
@@ -107,42 +122,53 @@ function cfrienddb:onlogin(player)
 	end
 	resumemgr.onlogin(player) -- keep before
 	local frdblk = self:getfrdblk(self.pid)
-	frdblk:addref(self.pid)
+	self:addblkref(self.pid)
 
-	-- 发送好友列表
-	local frdcnt = self:query("frdcnt",0)
-	local frdlist = table.slice(self.frdlist,1,frdcnt)
-	net.friend.S2C.addlist(self.pid,"friend",frdlist)
-	if #self.frdlist > frdcnt then
-		local new_frdlist = table.slice(self.frdlist,frdcnt+1,#self.frdlist)
-		net.friend.S2C.addlist(self.pid,"friend",new_frdlist,true)
-	end
-	for _,pid in ipairs(self.frdlist) do
-		frdblk = self:getfrdblk(pid)
-		frdblk:addref(self.pid)
-		net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
+	-- 发送好友列表，客户端需要先拿到数据，才收列表
+	if not table.isempty(self.frdlist) then
+		for _,pid in ipairs(self.frdlist) do
+			self:addblkref(pid)
+			net.friend.S2C.sync_frddata(self.pid,self:pack_frddata(pid,self.frddata[pid]))
+		end
+		local frdcnt = self:query("frdcnt",0)
+		local frdlist = table.slice(self.frdlist,1,frdcnt)
+		net.friend.S2C.addlist(self.pid,"friend",frdlist)
+		if #self.frdlist > frdcnt then
+			local new_frdlist = table.slice(self.frdlist,frdcnt+1,#self.frdlist)
+			net.friend.S2C.addlist(self.pid,"friend",new_frdlist,true)
+		end
 	end
 
 	-- 发送申请者列表
-	local applyercnt = self:query("applyercnt",0)
-	local applyerlist = table.slice(self.applyerlist,1,applyercnt)
-	net.friend.S2C.addlist(self.pid,"applyer",applyerlist)
-	if #self.applyerlist > applyercnt then
-		local new_applyerlist = table.slice(self.applyerlist,applyercnt+1,#self.applyerlist)
-		net.friend.S2C.sync(self.pid,"applyer",new_applyerlist,true)
-	end
-	for _,pid in ipairs(self.applyerlist) do
-		frdblk = self:getfrdblk(pid)
-		frdblk:addref(self.pid)
-		net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
+	if not table.isempty(self.applyerlist) then
+		for _,pid in ipairs(self.applyerlist) do
+			self:addblkref(pid)
+		end
+		local applyercnt = self:query("applyercnt",0)
+		local applyerlist = table.slice(self.applyerlist,1,applyercnt)
+		net.friend.S2C.addlist(self.pid,"applyer",applyerlist)
+		if #self.applyerlist > applyercnt then
+			local new_applyerlist = table.slice(self.applyerlist,applyercnt+1,#self.applyerlist)
+			net.friend.S2C.addlist(self.pid,"applyer",new_applyerlist,true)
+		end
 	end
 
 	-- 发送推荐列表
-	net.friend.S2C.addlist(self.pid,"recommend",self.recommendlist)
-	for _,pid in ipairs(self.recommendlist) do
-		frdblk = self:getfrdblk(pid)
-		frdblk:addref(self.pid)
-		net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
+	if table.isempty(self.recommendlist) then
+		self:change_recommend()
+	else
+		for _,pid in ipairs(self.recommendlist) do
+			self:addblkref(pid)
+		end
+		net.friend.S2C.addlist(self.pid,"recommend",self.recommendlist)
+	end
+
+	-- 发送黑名单列表
+	if not table.isempty(self.blacklist) then
+		for _,pid in ipairs(self.blacklist) do
+			self:addblkref(pid)
+		end
+		net.friend.S2C.addlist(self.pid,"black",self.blacklist)
 	end
 
 	local toapplylist = self.thistemp:query("toapplylist")
@@ -152,7 +178,9 @@ function cfrienddb:onlogin(player)
 
 	--发送离线收到的私聊
 	local msgs = player.privatemsg:popall()
-	net.friend.S2C.addmsgs(self.pid,msgs)
+	if not table.isempty(msgs) then
+		net.friend.S2C.addmsgs(self.pid,msgs)
+	end
 end
 
 function cfrienddb:onlogoff(player,reason)
@@ -179,33 +207,43 @@ function cfrienddb:onlogoff(player,reason)
 end
 
 function cfrienddb:getfrdblk(pid)
-	if not route.getsrvname(pid) then
+	local blk = resumemgr.getresume(pid)
+	if not blk or blk.loadstate == "loadnull" then
 		return
 	end
-	return resumemgr.getresume(pid)
+	return blk
 end
 
-function cfrienddb:delfrdblk(pid)
-	return resumemgr.delresume(pid)
-end
-
-function cfrienddb:pack_frdblk(frdblk)
-	local data = {}
-	data.resume = {
-		pid = frdblk.pid,
-		name = frdblk:query("name"),
-		lv = frdblk:query("lv"),
-		roletype = frdblk:query("roletype"),
-		srvname = frdblk:query("srvname"),
-		online = frdblk:query("online"),
-		fightpoint = frdblk:query("fightpoint"),
-	}
-	if table.find(self.frdlist,frdblk.pid) then
-		data.frdship = self.frdshiplist[pid] or 0
+function cfrienddb:addblkref(pid)
+	local frdblk = self:getfrdblk(pid)
+	if not frdblk then
+		return
 	end
-	return data
+	frdblk:addref(self.pid)
+	net.friend.S2C.sync_resume(self.pid,frdblk:pack())
 end
 
+function cfrienddb:pack_frddata(pid,data)
+	local packdata = {}
+	packdata.frdship = data.frdship
+	packdata.addfrdtime = data.addfrdtime
+	if table.isempty(packdata) then
+		return
+	end
+	packdata.pid = pid
+	return packdata
+end
+
+function cfrienddb:update_frddata(pid,attr,value)
+	if not self.frddata[pid] or not self.frddata[pid][attr] then
+		return
+	end
+	self.frddata[pid][attr] = value
+	local change = self:pack_frddata({ attr = value, })
+	if change then
+		net.friend.S2C.sync_frddata(self.pid,change)
+	end
+end
 
 function cfrienddb:addapplyer(pid)
 	if #self.applyerlist >= self:getapplyerlimit() then
@@ -219,11 +257,13 @@ function cfrienddb:addapplyer(pid)
 	if pos then
 		return
 	end
+	pos = table.find(self.blacklist,pid)
+	if pos then
+		return
+	end
 	logger.log("info","friend",string.format("[addapplyer] owner=%s pid=%d",self.pid,pid))
 	table.insert(self.applyerlist,pid)
-	local frdblk = self:getfrdblk(pid)
-	frdblk:addref(self.pid)
-	net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
+	self:addblkref(pid)
 	net.friend.S2C.addlist(self.pid,"applyer",pid,true)
 end
 
@@ -246,11 +286,17 @@ function cfrienddb:addfriend(pid)
 	end
 	logger.log("info","friend",string.format("[addfriend] owner=%s pid=%d",self.pid,pid))
 	table.insert(self.frdlist,pid)
-	self.frdshiplist[pid] = 0
-	local frdblk = self:getfrdblk(pid)
-	frdblk:addref(self.pid)
-	net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
+	self.frddata[pid] = self:newfrddata()
+	self:addblkref(pid)
+	net.friend.S2C.sync_frddata(self.pid,self:pack_frddata(pid,self.frddata[pid]))
 	net.friend.S2C.addlist(self.pid,"friend",pid,true)
+end
+
+function cfrienddb:newfrddata()
+	return {
+		frdship = 0,
+		addfrdtime = os.time(),
+	}
 end
 
 function cfrienddb:delfriend(pid)
@@ -261,12 +307,12 @@ function cfrienddb:delfriend(pid)
 	else
 		logger.log("info","friend",string.format("[delfriend] owner=%s pid=%d",self.pid,pid))
 		table.remove(self.frdlist,pos)
-		self.frdshiplist[pid] = nil
+		self.frddata[pid] = nil
 		local frdblk = self:getfrdblk(pid)
 		frdblk:delref(self.pid)
 		ret = true
 	end
-	net.friend.S2C.dellist(self.pid,"friend",pid)	
+	net.friend.S2C.dellist(self.pid,"friend",pid)
 	return ret
 end
 
@@ -275,80 +321,79 @@ function cfrienddb:req_delfriend(pid)
 	if not self:delfriend(pid) then
 		return
 	end
-	local srvname = route.getsrvname(pid)
-	if srvname == cserver.getsrvname() then
-		local target = playermgr.getplayer(pid)
-		if not target then
-			target = playermgr.loadofflineplayer(pid)
-		end
-		if target then
-			target.frienddb:delfriend(self.pid)
-		end
-	else
-		rpc.call(srvname,"playermethod",self.pid,"frienddb:delfriend",pid)
-	end
+	rpc.callplayer(pid,"playermethod",pid,"frienddb:delfriend",self.pid)
 end
 
 function cfrienddb:apply_addfriend(pid)
 	local toapplylist,exceedtime = self.thistemp:query("toapplylist",{})
 	local pos = table.find(toapplylist,pid)
 	if pos then
-		net.msg.S2C.notify(self.pid,"您的申请已经发出")
-		return
+		return false,language.format("您的申请已经发出")
+	end
+	if table.find(self.blacklist,pid) then
+		return false,language,format("对方在你的黑名单中，无法申请")
 	end
 	logger.log("info","friend",string.format("[apply_addfriend] owner=%s pid=%d",self.pid,pid))
+	self:delrecommend(pid)
 	table.insert(toapplylist,pid)
-	self.thistemp:set("toapplylist",toapplylist,300)
+	self.thistemp:set("toapplylist",toapplylist,10)
 	net.friend.S2C.addlist(self.pid,"toapply",pid,true)
-	local srvname = route.getsrvname(pid)
-	if srvname == cserver.getsrvname() then
-		local target = playermgr.getplayer(pid)
-		if not target then
-			target = playermgr.loadofflineplayer(pid)
-		end
-		if target then
-			target.frienddb:addapplyer(self.pid)
-		end
-	else
-		rpc.call(srvname,"playermethod",pid,"frienddb:addapplyer",self.pid)
-	end
+	rpc.callplayer(pid,"playermethod",pid,"frienddb:addapplyer",self.pid)
+	return true,language.format("申请成功")
 end
 
 function cfrienddb:agree_addfriend(pid)
 	local pos = table.find(self.frdlist,pid)
 	if pos then
-		net.msg.S2C.notify(self.pid,"该玩家已经是你好友了")
-		return
-	end
-	if #self.frdlist >= self:getfriendlimit() then
-		net.msg.S2C.notify(self.pid,"好友个数已达上限")
-		return
+		return false,language.format("该玩家已经是你好友了")
 	end
 	pos = table.find(self.applyerlist,pid)
 	if not pos then
-		net.msg.S2C.notify(self.pid,"该玩家未向你发起过申请")
-		return
+		return false,language.format("该玩家未向你发起过申请")
+	end
+	local srvname = globalmgr.home_srvname(pid)
+	if not srvname then
+		return false,language.format("该玩家不存在")
+	end
+	local isok,msg = self:can_addfriend(pid)
+	if not isok then
+		return false,msg
+	end
+	self.lock_addfriend = os.time() + 1
+	isok = false
+	isok = rpc.callplayer(pid,"playermethod",pid,"frienddb:tryaddfriend",self.pid)
+	self.lock_addfriend = nil
+	if not isok then
+		return false
 	end
 	logger.log("info","friend",string.format("[agree_addfriend] owner=%s pid=%d",self.pid,pid))
 	self:delapplyer(pid)
+	self:delrecommend(pid)
 	self:addfriend(pid)
-	local srvname = route.getsrvname(pid)
-	if not srvname then
-		net.msg.S2C.notify(self.pid,"该玩家不存在")
-		return
-	end
-	if srvname == cserver.getsrvname() then
-		local target = playermgr.getplayer(pid)
-		if not target then
-			target = playermgr.loadofflineplayer(pid)
-		end
-		if target then
-			target.frienddb:addfriend(self.pid)
-		end
-	else
-		rpc.call(srvname,"playermethod",pid,"frienddb:addfriend",self.pid)
-	end
+	return true,language.format("添加成功")
+end
 
+function cfrienddb:tryaddfriend(pid)
+	if not self:can_addfriend(pid) then
+		return false
+	end
+	self:delapplyer(pid)
+	self:delrecommend(pid)
+	self:addfriend(pid)
+	return true
+end
+
+function cfrienddb:can_addfriend(pid)
+	if self.lock_addfriend and self.lock_addfriend > os.time() then
+		return false
+	end
+	if #self.frdlist >= self:getfriendlimit() then
+		return false,language.format("好友个数已达上限")
+	end
+	if table.find(self.blacklist,pid) then
+		return false,language.format("对方在你的黑名单中，无法添加")
+	end
+	return true
 end
 
 function cfrienddb:reject_addfriend(pid)
@@ -358,60 +403,32 @@ end
 
 function cfrienddb:sendmsg(pid,msg)
 	if not table.find(self.frdlist,pid) then
-		net.msg.S2C.notify(self.pid,"不能与陌生人发送聊天信息")
-		return
+		net.msg.S2C.notify(self.pid,language.format("不能与陌生人发送聊天信息"))
+		return false
+	end
+	if table.find(self.blacklist,pid) then
+		return false
 	end
 	local frdblk = self:getfrdblk(pid)
 	if not frdblk then
-		return
+		return false
 	end
 	logger.log("debug","friend",string.format("[sendmsg] owner=%s pid=%d msg=%s",self.pid,pid,msg))
-	local packmsg = { msg = msg, sender = self.pid, sendtime = os.time(), }
+	local packmsg = { msg = msg, sender = self.pid, sendtime = os.time(), receiver = pid, }
 	if frdblk:query("online") then
-		local srvname = route.getsrvname(pid)
-		if srvname == cserver.getsrvname() then
-			net.friend.S2C.addmsgs(pid,packmsg)
-		else
-			rpc.call(srvname,"modmethod","net.friend",".addmsgs",pid,packmsg)
-		end
+		rpc.callplayer(pid,"modmethod","net.friend","S2C.addmsgs",pid,packmsg)
 	else
-		local srvname = route.getsrvname(pid)
-		if srvname == cserver.getsrvname() then
-			target = playermgr.loadofflineplayer(pid)
-			target.privatemsg:push(packmsg)
-		else
-			rpc.call(srvname,"playermethod",pid,"privatemsg:push",packmsg)
-		end
+		rpc.callplayer(pid,"playermethod",pid,"privatemsg:push",packmsg)
 	end
-end
-
-function cfrienddb:syncfrdblk(pid,frddata)
-	local data = {}
-	data.resume = {
-		srvname = frddata.srvname,
-		pid = pid,
-		name = frddata.name,
-		roletype = frddata.roletype,
-		lv = frddata.lv,
-		online = frddata.online,
-		fightpoint = frddata.fightpoint,
-	}
-	data.frdship = frddata.frdship
-	if table.isempty(data) then
-		return
-	end
-	net.friend.S2C.sync(self.pid,data)
+	return true,packmsg
 end
 
 function cfrienddb:search_bypid(pid)
 	local frdblk = self:getfrdblk(pid)
 	if not frdblk then
-		net.msg.S2C.notify(pid,language.format("找不到该玩家"))
 		return
 	end
-	local tbl = {}
-	table.insert(tbl,self:pack_frdblk(frdblk))
-	net.friend.S2C.search_result(self.pid,tbl)
+	return frdblk:pack()
 end
 
 function cfrienddb:search_byname(name)
@@ -420,34 +437,62 @@ function cfrienddb:search_byname(name)
 	local zonename = data_RoGameSrvList[srvname].zonename
 	local pid = db:hget(db:key("allname",zonename),name)
 	if not pid then
-		net.msg.S2C.notify(pid,language.format("找不到该玩家"))
+		return
 	end
-	self:search_bypid(pid)
+	return self:search_bypid(tonumber(pid))
 end
 
 function cfrienddb:change_recommend()
 	local oldrecommend = self.recommendlist
+	local ignorelist = self:update_oldrecommend(oldrecommend)
+	-- TODO 根据规则生成推荐列表
+	local plist = {}
+	for _,pid in ipairs(playermgr.allobject()) do
+		if self:can_recommend(pid,ignorelist) then
+			table.insert(plist,pid)
+		end
+	end
+	if table.isempty(plist) then
+		return false
+	end
 	self.recommendlist = {}
 	for _,pid in ipairs(oldrecommend) do
 		local frdblk = self:getfrdblk(pid)
 		frdblk:delref(self.pid)
 	end
 	net.friend.S2C.dellist(self.pid,"recommend",oldrecommend)
-	local ignorelist = self:update_oldrecommend(oldrecommend)
-	-- TODO 根据规则生成推荐列表
-	local plist = {}
-	for _,pid in ipairs(playermgr.allobject()) do
-		if not table.find(self.frdlist,pid) and not table.find(ignorelist,pid) then
-			table.insert(plist,pid)
+	self.recommendlist = shuffle(plist,nil,self.recommendlimit)
+	logger.log("info","friend",format("[changerecommend] owner=%s oldplist=%s newplist=%s",self.pid,oldrecommend,self.recommendlist))
+	for _,pid in ipairs(self.recommendlist) do
+		self:addblkref(pid)
+	end
+	net.friend.S2C.addlist(self.pid,"recommend",self.recommendlist)
+	return true
+end
+
+function cfrienddb:can_recommend(pid,ignorelist)
+	if pid == self.pid then
+		return false
+	end
+	if table.find(self.frdlist,pid) then
+		return false
+	end
+	if table.find(ignorelist,pid) then
+		return false
+	end
+	if table.find(self.blacklist,pid) then
+		return false
+	end
+	local player = playermgr.getplayer(pid)
+	if player then
+		if #player.frienddb.frdlist >= player.frienddb:getfriendlimit() then
+			return false
+		end
+		if table.find(player.frienddb.blacklist,self.pid) then
+			return false
 		end
 	end
-	self.recommendlist = shuffle(plist,nil,self.recommendlimit)
-	net.friend.S2C.addlist(self.pid,"recommend",self.recommendlist)
-	for _,pid in ipairs(self.recommendlist) do
-		local frdblk = self:getfrdblk(pid)
-		frdblk:addref(self.pid)
-		net.friend.S2C.sync(self.pid,self:pack_frdblk(frdblk))
-	end
+	return true
 end
 
 function cfrienddb:update_oldrecommend(oldrecommend)
@@ -464,7 +509,53 @@ function cfrienddb:update_oldrecommend(oldrecommend)
 	return ignorelist
 end
 
--- getter
+function cfrienddb:delrecommend(pid)
+	local pos = table.find(self.recommendlist,pid)
+	if pos then
+		logger.log("info","friend",format("[delrecommend] owner=%s pid=%d",self.pid,pid))
+		table.remove(self.recommendlist,pos)
+		local frdblk = self:getfrdblk(pid)
+		frdblk:delref(self.pid)
+		net.friend.S2C.dellist(self.pid,"recommend",pid)
+	end
+end
+
+--添加到黑名单
+function cfrienddb:addblack(pid)
+	if table.find(self.blacklist,pid) then
+		return
+	end
+	local frdblk = self:getfrdblk(pid)
+	if not frdblk then
+		return
+	end
+	logger.log("info","friend",format("[addblack] owner=%d pid=%d",self.pid,pid))
+	if table.find(self.frdlist,pid) then
+		self:req_delfriend(pid)
+	end
+	if table.find(self.applyerlist,pid) then
+		self:delapplyer(pid)
+	end
+	if table.find(self.recommendlist,pid) then
+		self:delrecommend(pid)
+	end
+	table.insert(self.blacklist,pid)
+	self:addblkref(pid)
+	net.friend.S2C.addlist(self.pid,"black",pid,true)
+end
+
+function cfrienddb:delblack(pid)
+	local pos = table.find(self.blacklist,pid)
+	if not pos then
+		return
+	end
+	logger.log("info","friend",format("[delblack] owner=%d pid=%d",self.pid,pid))
+	table.remove(self.blacklist,pos)
+	local frdblk = self:getfrdblk(pid)
+	frdblk:delref(self.pid)
+	net.friend.S2C.dellist(self.pid,"black",pid)
+end
+
 function cfrienddb:getfriendlimit()
 	return self.frdlimit + self:query("extfrdlimit",0)
 end

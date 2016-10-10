@@ -41,16 +41,18 @@ return {
 	maxlv 3 : integer
 	members 4 : *MemberType
 	automatch 5 : boolean		# 是否处于自动匹配中,true--是，false/空--否
+	createtime 6 : integer		# 创建时间
 }
 
 .PublishTeamType {
 	teamid 0 : integer
-	target 1 : integer		# 0--无目标，此时minlv/maxlv无用
+	target 26 : integer		# 0--无目标，此时minlv/maxlv无用
 	minlv 2 : integer
 	maxlv 3 : integer
 	captain 4 : MemberType  # 队长信息
 	time 5 : integer		# 发布时间
 	len 6 : integer 		# 成员数
+	fromsrv 7 : string		# 来自的服务器(空/本服名--来自本服)
 }
 
 .SceneItemType {
@@ -111,15 +113,23 @@ return {
 	createtime 4 : integer #创建时间，空表示无此属性
 	pos 5 : integer #背包位置
 	fumo 6 : ItemFumoAttrType #附魔增加的属性
-	cardid 7 : integer    #插入的卡片物品ID
-	isopen 8 : boolean		#仅对于卡片物品有用，true--开启，其他--未开启
+	lv 7 : integer			# 卡片等级（仅对卡片有效，其他物品的等级读导表),空--0级
 }
 
 .PetType {
-	id 0 : integer		#宠物ID，对于邮件附件中的物品，ID为空
-	type 1 : integer	#宠物类型
-	createtime 2 : integer  #创建时间，空表示无此属性
+	id 0 : integer		# 宠物ID
+	type 1 : integer	# 类型
+	name 2 : string		# 名字
+	pos 3 : integer		# 位置
+	createtime 4 : integer	# 创建时间
+	lv 5 : integer		# 等级
+	exp 6 : integer		# 经验
+	relationship 7 : integer	# 关系,见data_1700_PetRelationShip
+	close 8 : integer	# 亲密度
+	status 9 : integer	# 状态，见data_1700_PetStatus
+	readywar 10 : boolean # true--出战状态,false/nil--休息状态
 }
+
 
 .AttachType {
 	items 0 : *ItemType
@@ -145,7 +155,7 @@ return {
 	state 1 : integer		#1--接受状态，2--完成状态
 	exceedtime 2 : integer	#任务过期时间
 	type 3 : integer		#任务玩法类型
-	findnpc 4 : integer
+	findnpc 4 : *integer
 	respondtype 5 : integer #被找npc的应答模式
 	patrol 6 : string		#巡逻目标坐标id
 	collect 7 : string		#采集点坐标id
@@ -154,6 +164,8 @@ return {
 	npcs 10 : *SceneNpcType	#客户端npc,即任务中可见
 	submitnpc 11 : integer	#任务完成状态下，提交npcid
 	ringnum 12 : integer	#当前环数
+	donecnt 13 : integer	#当前次数（完成次数或者通过任务获得某道具的次数）
+	donelimit 14 : integer	#上限次数（完成次数或者通过任务获得某道具的次数）
 }
 
 .QualityPointType {
@@ -176,6 +188,22 @@ return {
 .ButtonType {
 	content 0 : string		#按钮内容
 	timeout 1 : integer		#超时时间,如:10表示倒计时10s
+}
+
+# 简介类型
+.ResumeType {
+	srvname 0 : string
+	pid 1 : integer
+	name 2 : string
+	roletype 3 : integer
+	lv 4 : integer
+	online 5 : boolean		#是否在线
+	fightpoint 6 : integer 	#战力
+	joblv 7 : integer #职业等级
+	jobzs 8 : integer
+	# 1--队长;2--跟随队员;3--暂离队员;4--离线队员
+	teamstate 9 : integer
+	teamid 10 : integer
 }
 
 ]]

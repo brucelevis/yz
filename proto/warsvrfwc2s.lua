@@ -19,5 +19,15 @@ warsvrfw_reqUseSkill 6200 { 		# 使用技能请求
 }
 
 
+warsvrfw_changeWuGongTar 6201 { 		# 请求切换物理攻击目标
+	request {
+		base 0 : basetype 
+		warId  1 : integer 		  # 战斗id
+		roleId 2 : integer 			# 角色id
+		targetId 3 : integer 		# 目标id
+	}
+}
+
+
 ]]
 }

@@ -42,6 +42,11 @@ function C2S.forward(player,request)
 	sendtowarsrv("war","forward",pack)
 end
 
+function C2S.closewar(player,request)
+	local warid = assert(request.warid)
+	player.delaypackage:sendall()
+end
+
 -- s2c
 
 return netwar

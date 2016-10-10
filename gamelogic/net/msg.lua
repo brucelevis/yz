@@ -60,9 +60,18 @@ function C2S.worldmsg(player,request)
 	local rawmsg = msg
 	if string.sub(msg,1,1) == "$" then
 		if player:isgm() then
-			net.player.C2S.gm(player,request)
+			gm.say(msg,player.pid)
+			net.player.C2S.gm(player,{
+				cmd = string.sub(msg,2),
+			})
 			return
 		end
+	end
+	local incd,exceedtime = player.thistemp:query("incd.world")
+	if incd then
+		local lefttime = exceedtime - os.time()
+		net.msg.S2C.notify(player.pid,language.format("#<R>{1}#后才能发言",lefttime))
+		return
 	end
 	-- check can send worldmsg
 	local banspeak,detail = globalmgr.ban.speak({
@@ -95,6 +104,7 @@ function C2S.worldmsg(player,request)
 			return
 		end
 	end
+	player.thistemp:set("incd.world",60)
 	local sender = netmsg.packsender(player)
 	local packmsg = {
 		sender = sender,
@@ -105,6 +115,11 @@ function C2S.worldmsg(player,request)
 		s = "worldmsg",
 		a = packmsg,
 	})
+	if request.id then
+		sendpackage(player.pid,"msg","sendmsg_succ",{
+			id = request.id,
+		})
+	end
 	if len >= 3 then
 		table.remove(player.privatemsg.worldmsgs,1)
 	end
@@ -135,6 +150,11 @@ function C2S.scenemsg(player,request)
 		s = "scenemsg",
 		a = packmsg,
 	})
+	if request.id then
+		sendpackage(player.pid,"msg","sendmsg_succ",{
+			id = request.id,
+		})
+	end
 end
 
 function C2S.teammsg(player,request)
@@ -160,27 +180,27 @@ function C2S.teammsg(player,request)
 		s = "teammsg",
 		a = packmsg,
 	})
-
+	if request.id then
+		sendpackage(player.pid,"msg","sendmsg_succ",{
+			id = request.id,
+		})
+	end
 end
 
-function C2S.orgmsg(player,request)
+function C2S.unionmsg(player,request)
 	local msg = assert(request.msg)
-	-- check can send orgmsg
+	-- check can send unionmsg
 	local isok,msg = netmsg.filter(msg)
 	if not isok then
 		net.msg.S2C.notify(player.pid,msg)
 		return
 	end
-
+	if request.id then
+		sendpackage(player.pid,"msg","sendmsg_succ",{
+			id = request.id,
+		})
+	end
 end
-
-local COST_HORNNUM = {
-	[0] = 1,
-	[21] = 2,
-	[31] = 3,
-	[41] = 4,
-	[51] = 5,
-}
 
 function C2S.hornmsg(player,request)
 	local msg = assert(request.msg)
@@ -190,12 +210,13 @@ function C2S.hornmsg(player,request)
 		net.msg.S2C.notify(player.pid,msg)
 		return
 	end
-	local itemdb = player:getitemdb(501001)
-	local hasnum = itemdb:getnumbytype(501001)
-	local usehornkey = string.format("itemusecnt.%s",501001)
+	local itemtype = 601003
+	local itemdb = player:getitemdb(itemtype)
+	local hasnum = itemdb:getnumbytype(itemtype)
+	local usehornkey = string.format("usehorncnt")
 	local costhornnum
 	local usehornnum = player.today:query(usehornkey,0)
-	for key,val in pairs(COST_HORNNUM) do
+	for key,val in pairs(data_GlobalVar.CostHornNum) do
 		if usehornnum >= key then
 			if not costhornnum or costhornnum < val then
 				costhornnum = val
@@ -203,19 +224,23 @@ function C2S.hornmsg(player,request)
 		end
 	end
 	if hasnum < costhornnum then
-		net.msg.S2C.notify(player.pid,language.format("{1}不足{2}个",itemaux.itemlink(501001),costhornnum))
+		net.msg.S2C.notify(player.pid,language.format("{1}不足{2}个",itemaux.itemlink(itemtype),costhornnum))
 		return
 	end
+	local cd = 3
 	local now = os.time()
-	local usehorntime = player.thistemp:query("usehorntime")
-	if usehorntime then
-		net.msg.S2C.notify(player.pid,language.format("道具{1}秒后完成冷却",3 - (now - usehorntime)))
+	local incd,exceedtime = player.thistemp:query("usehorntime")
+	if incd then
+		net.msg.S2C.notify(player.pid,language.format("道具{1}秒后完成冷却",exceedtime-now))
 		return
 	end
 	local reason = "usehorn"
-	itemdb:costitembytype(501001,costhornnum,reason)
-	player.thistemp:set("usehorntime",now,3)
+	itemdb:costitembytype(itemtype,costhornnum,reason)
+	player.thistemp:set("usehorntime",now,cd)
 	player.today:add(usehornkey,1)
+	sendpackage(player.pid,"player","update",{
+		usehorncnt = player.today:query(usehornkey) or 0,
+	})
 	local sender = netmsg.packsender(player)
 	local packmsg = {
 		sender = sender,
@@ -226,6 +251,11 @@ function C2S.hornmsg(player,request)
 		s = "hornmsg",
 		a = packmsg,
 	})
+	if request.id then
+		sendpackage(player.pid,"msg","sendmsg_succ",{
+			id = request.id,
+		})
+	end
 end
 
 function C2S.sendmsgto(player,request)
@@ -251,20 +281,37 @@ function C2S.sendmsgto(player,request)
 	}
 	target.privatemsg:add(packmsg)
 	sendpackage(targetid,"msg","privatemsg",packmsg)
+	if request.id then
+		sendpackage(player.pid,"msg","sendmsg_succ",{
+			id = request.id,
+		})
+	end
 end
 
 function C2S.respondanswer(player,request)
+	local pid = player.pid
+	net.msg.C2S._respondanswer(player.pid,request)
+end
+
+function C2S._respondanswer(pid,request)
+	local player = playermgr.getplayer(pid)
+	if not player then
+		return
+	end
 	local id = assert(request.id)
-	local answer = request.answer or -1		-- -1: 客户端关闭了窗口
+	if id == 0 then
+		return
+	end
+	local answer = request.answer or -1 -- -1 -- close window
+	local srvname = globalmgr.srvname(id)
+	if srvname ~= cserver.getsrvname() then
+		local kuafu_onlogin = pack_function("net.msg.C2S._respondanswer",pid,request)
+		playermgr.gosrv(player,srvname,nil,kuafu_onlogin)
+		return
+	end
 	local session = reqresp.sessions[id]
-	if session and session.pid == player.pid then
-		local fromsrv = session.request.fromsrv
-		if fromsrv and fromsrv ~= cserver.getsrvname() then
-			-- forward to fromsrv
-			playermgr.gosrv(player,fromsrv,nil,pack_function(reqresp.resp,player.pid,id,{answer = answer}))
-		else
-			reqresp.resp(player.pid,id,{ answer = answer })
-		end
+	if session then
+		reqresp.resp(pid,id,{ answer = answer })
 	end
 end
 
@@ -275,6 +322,14 @@ function S2C.notify(pid,msg)
 		player = pid
 	else
 		player = playermgr.getplayer(pid)
+		if not player then
+			local resume = resumemgr.getresume(pid)
+			local now_srvname = resume:get("now_srvname")
+			if now_srvname ~= cserver.getsrvname() then
+				rpc.call(now_srvname,"rpc","net.msg.S2C.notify",pid,msg)
+			end
+			return
+		end
 	end
 	if type(msg) == "table" then  -- 打包的消息
 		local lang

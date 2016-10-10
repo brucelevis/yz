@@ -93,14 +93,13 @@ end
 
 function gm.onlogin(player)
 	if player:isgm() then
-		local msg = [[Hi,看到此消息表明你已经是GM了
-为了快速入门，系统提供以下帮助指令:
-1. help 关键字 <=> 查找包含'关键字'的指令用法
-如: help gold <=> 会显示所有金币相关的指令用法。
-如果你是在公司内网操作，也可以用buildgmdoc来生
-成最新的指令用法文档，具体存放路径在(策划文档/GM/GM指令文档.txt)
-GM指令可以在世界频道输入'$指令 参数'来操作，
-如: $addgold 100 <=> 给自身增加100金币]]
+		local msg = [[Hi GM,参考以下引导:
+1. help 关键字 <=> 查找包含'关键字'的指令
+2. buildgmdoc  <=> 构建最新GM文档,文档路径:
+[策划文档/GM/GM指令文档.txt]
+试着输入:$help 金币。没错,通过$help我们可以
+获取所有指令的用法。
+]]	
 		local sender = net.msg.packsender(player)
 		local packmsg = {
 			sender = sender,

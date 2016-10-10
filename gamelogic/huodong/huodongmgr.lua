@@ -149,7 +149,18 @@ function huodongmgr.onfiveminuteupdate()
 	end
 end
 
-function huodongmgr.onhalfhourupdate()
+-- just adpater for autosave
+-- function huodongmgr:savetodatabase() is ok
+function huodongmgr.savetodatabase()
+	if not cserver.isgamesrv() then
+		return
+	end
+	if huodongmgr.loadstate ~= "loaded" then
+		return
+	end
+	local data = huodongmgr.save()
+	local db = dbmgr.getdb()
+	db:set(db:key("global","huodong"),data)
 end
 
 function huodongmgr.onhourupdate()
@@ -234,6 +245,32 @@ function huodongmgr.onquitteam(player,teamid)
 	for name,playunit in pairs(huodongmgr.playunit) do
 		if playunit.onquitteam then
 			playunit.onquitteam(player,teamid)
+		end
+	end
+end
+
+function huodongmgr.onmove(player,oldpos,newpos)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onmove then
+			huodong:onmove(player,oldpos,newpos)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onmove then
+			playunit.onmove(player,oldpos,newpos)
+		end
+	end
+end
+
+function huodongmgr.onquitwar(pid,warid)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onquitwar then
+			huodong:onquitwar(pid,warid)
+		end
+	end
+	for name,playunit in pairs(huodongmgr.playunit) do
+		if playunit.onquitwar then
+			playunit.onquitwar(pid,warid)
 		end
 	end
 end

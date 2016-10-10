@@ -11,6 +11,10 @@ local srvname = skynet.getenv("srvname")
 hotfix = hotfix or {}
 
 function hotfix.hotfix(modname)
+	local start = modname:sub(1,4)
+	if start == "src/" or start == "src." then
+		modname = modname:sub(5)
+	end
 	local is_gamelogic = modname:sub(1,9) == "gamelogic"
 	local is_proto = modname:sub(1,5) == "proto"
 	-- 只允许游戏逻辑+协议更新

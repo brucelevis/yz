@@ -105,6 +105,10 @@ return {
 .warActionParam_121{
 	state 	0 : integer 	# 状态 RoleSkillState_XXXXXX 系列
 }
+#-- 动作参数: 130 		-- 设置目标
+.warActionParam_130{
+	targetId 	0 : integer 	#目标id
+}
 #-- 动作参数: 201		-- 设置咏唱
 .warActionParam_201{
 	startRoundTime 	0 : integer 	# 开始时间
@@ -153,6 +157,7 @@ return {
 	param_110 		110 : warActionParam_110
 	param_120		120 : warActionParam_120
 	param_121		121 : warActionParam_121
+	param_130		130 : warActionParam_130
 	param_201		201 : warActionParam_201
 	param_202		202 : warActionParam_202
 	param_301		301 : warActionParam_301
@@ -226,6 +231,15 @@ warsvrfw_forceEndWar 6204 { 		# 强制结束战斗
 	request {
 		base 0 : basetype 
 		warId  1 : integer 		  # 战斗id
+	}
+}
+
+warsvrfw_setRoundTime 6205 { 		# 设置指定回合的最大时间，目前只设置0回合(准备回合)
+	request {
+		base 0 : basetype 
+		warId  1 : integer 		  # 战斗id
+		round  2 : integer 		  # 回合数
+		time  3 : integer 		  # 时间
 	}
 }
 

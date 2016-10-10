@@ -89,7 +89,13 @@ function gm.help(args)
 			end
 		end
 	end
-	return table.concat(findlines,"\n")
+	local help = table.concat(findlines,"\n")
+	if help and help ~= "" then
+		gm.say(help)
+	else
+		gm.say("很抱歉，没有找到相关指令")
+	end
+	return help
 end
 
 function gm.getdoc()

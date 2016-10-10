@@ -18,7 +18,7 @@ function cprivatemsg:load(data)
 	local msgs = {}
 	for i,packmsg in ipairs(data.msgs) do
 		local sendtime = packmsg.sendtime
-		if not sendtime and sendtime + lifetime > now then
+		if not sendtime or sendtime + lifetime > now then
 			table.insert(msgs,packmsg)
 		end
 	end
@@ -56,6 +56,21 @@ function cprivatemsg:popall()
 	local msgs = self.msgs
 	self.msgs = {}
 	return msgs
+end
+
+function cprivatemsg:onlogin(player)
+	local cds = {}
+	for name,channel in pairs(data_MsgChannel) do
+		if type(name) == "string" then
+			table.insert(cds,{
+				type = name,
+				cd = player:isgm() and 0 or channel.cd,
+			})
+		end
+	end
+	sendpackage(player.pid,"msg","channel_cd",{
+		cds = cds,
+	})
 end
 
 return cprivatemsg

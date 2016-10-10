@@ -1,30 +1,6 @@
 --<<data_1500_GlobalTask 导表开始>>
 data_1500_GlobalTask = {
 
-	test = {
-		task = "data_1500_TestTaskProcess",
-		npc = "data_1500_TestTaskNpc",
-		award = "data_1500_TestTaskAward",
-		text = "data_1500_TestTaskText",
-		fake = "nil",
-		var = "nil",
-		tasktype = 900,
-		ringlimit = 0,
-		donelimit = 0,
-		interval = nil,
-		isoverlay = 0,
-		harddonelimit = 0,
-		starttime = nil,
-		endtime = nil,
-		name = "测试",
-		comment = "测试任务",
-		desc = "这是测试任务的描述哦",
-		awarddesc = "#<IR1>#数量可观,#<IR3>#数量可观",
-		missiontype = 100,
-		missionname = "测试任务",
-		orderid = 1,
-	},
-
 	main = {
 		task = "data_1500_MainTaskProcess",
 		npc = "data_1500_MainTaskNpc",
@@ -167,6 +143,30 @@ data_1500_GlobalTask = {
 		missiontype = 103,
 		missionname = "指引任务",
 		orderid = 7,
+	},
+
+	babatuosi = {
+		task = "data_1500_BabatuosiTaskProcess",
+		npc = "data_1500_BabatuosiTaskNpc",
+		award = "data_1500_BabatuosiTaskAward",
+		text = "data_1500_BabatuosiTaskText",
+		fake = "data_1500_BabatuosiTaskFake",
+		var = "data_1500_BabatuosiTaskVar",
+		tasktype = 106,
+		ringlimit = 0,
+		donelimit = 5,
+		interval = "today",
+		isoverlay = 1,
+		harddonelimit = 10,
+		starttime = nil,
+		endtime = nil,
+		name = "日常",
+		comment = "巴巴托斯之赏",
+		desc = "这是巴巴托斯之赏的描述哦",
+		awarddesc = "消灭#<Y>护宝精怪#有几率获得#<Y>藏宝图#",
+		missiontype = 102,
+		missionname = "日常任务",
+		orderid = 8,
 	},
 
 }

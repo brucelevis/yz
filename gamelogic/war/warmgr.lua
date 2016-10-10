@@ -54,6 +54,12 @@ function warmgr.packplayer(player)
 		qualitypoint = player:query("qualitypoint"),
 		huoli = player:query("huoli"),
 	}
+	local all_equippos = {}
+	for id,equippos in pairs(player.equipposdb.objs) do
+		-- equippos是一个数据集对象
+		table.insert(all_equippos,equippos)
+	end
+	warplayer.all_equippos = all_equippos
 	local items = {}
 	for i,item in pairs(player.itemdb.objs) do
 		local maintype = itemaux.getmaintype(item.type)
@@ -93,6 +99,8 @@ end
 function warmgr.addwar(warid,war)
 	assert(warmgr.getwar(warid)==nil, "Repeat warid:" .. tostring(warid))
 	war.warid = warid
+	war.attackers = war.attackers or {}
+	war.defensers = war.defensers or {}
 	war.attack_helpers = war.attack_helpers or {}
 	war.defense_helpers = war.defense_helpers or {}
 	war.attack_escapers = {}
@@ -170,7 +178,24 @@ function warmgr.getwarbypid(pid)
 end
 
 function warmgr.can_startwar(war)
-	local set = table.intersect_set(table.toset(war.attackers),table.toset(war.defensers))
+	if not clustermgr.isconnect(skynet.getenv("warsrv")) then
+		return false
+	end
+	local set_attackers = table.toset(war.attackers)
+	local set_defensers = table.toset(war.defensers)
+	local set_attack_helpers = table.toset(war.attack_helpers)
+	local set_defense_helpers = table.toset(war.defense_helpers)
+	local set = table.intersect_set(set_attackers,set_attack_helpers)
+	if not table.isempty(set) then
+		return false
+	end
+	local set = table.intersect_set(set_defensers,set_defense_helpers)
+	if not table.isempty(set) then
+		return false
+	end
+	set_attackers = table.union_set(set_attackers,set_attack_helpers)
+	set_defensers = table.union_set(set_defensers,set_defense_helpers)
+	local set = table.intersect_set(set_attackers,set_defensers)
 	if not table.isempty(set) then
 		return false
 	end
@@ -203,6 +228,11 @@ function warmgr.can_startwar(war)
 			end
 		end
 	end
+	if war.wardataid and not warmgr.isvalid_wardataid(war.wardataid) then
+		logger.log("warning","war",string.format("[invalid_wardataid] wardataid=%s",war.wardataid))
+		return false
+	end
+
 	return true
 end
 
@@ -232,6 +262,7 @@ function warmgr.startwar(attackers,defensers,war)
 	if not isok then
 		return false
 	end
+
 	local warid = warmgr.genwarid()
 	war.warid = warid
 	sendtowarsrv("war","startwar",warmgr.packwar(war))
@@ -301,6 +332,10 @@ function warmgr.startwar(attackers,defensers,war)
 	logger.log("info","war",format("[startwar] warid=%s war=%s",warid,war))
 	warmgr.addwar(warid,war)
 	return true
+end
+
+function warmgr.isvalid_wardataid(wardataid)
+	return data_1301_WarRole[wardataid] and true or false
 end
 
 -- 打包一个玩家简介数据
@@ -400,12 +435,7 @@ function warmgr.force_endwar(warid,reason)
 	sendtowarsrv("war","endwar",{
 		warid = warid,
 	})
-	warmgr.broadcast_inwar(warid,function (pid)
-		sendpackage(pid,"war","warresult",{
-			warid = warid,
-		})
-	end)
-	warmgr.delwar(warid,reason)
+	warmgr.onwarend(warid,0)
 end
 
 function warmgr.quitwar(pid)
@@ -466,10 +496,22 @@ function warmgr.quitwar(pid)
 		sendpackage(pid,"war","quitwar",{
 			warid = warid,
 		})
+		warmgr.onquitwar(pid,warid)
+		local team = teammgr:getteambypid(pid)
+		if team and team:teamstate(pid) ~= TEAM_STATE_LEAVE then
+			local player = playermgr.getplayer(pid)
+			if player then
+				teammgr:leaveteam(player)
+			end
+		end
 		return true
 	else
 		return false
 	end
+end
+
+function warmgr.onquitwar(pid,warid)
+	huodongmgr.onquitwar(pid,warid)
 end
 
 function warmgr.onwarend(warid,result)
@@ -494,7 +536,22 @@ function warmgr.onwarend(warid,result)
 	local wartype = assert(war.wartype)
 	local callback = warmgr.onwarend_callback[wartype]
 	if callback then
+		local plist = {}
+		table.extend(plist,war.attackers)
+		table.extend(plits,war.defensers)
+		for _,pid in ipairs(plist) do
+			local player = playermgr.getplayer(pid)
+			if player then
+				player.delaypackage:open()
+			end
+		end
 		xpcall(callback,onerror,warid,result)
+		for _,pid in ipairs(plist) do
+			local player = playermgr.getplayer(pid)
+			if player then
+				player.delaypackage:close()
+			end
+		end
 	end
 	-- dosomething
 	warmgr.delwar(warid)

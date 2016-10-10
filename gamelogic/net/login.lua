@@ -31,7 +31,7 @@ function C2S.register(obj,request)
 		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then -- register success
 			logger.log("info","register",string.format("[register] account=%s passwd=%s channel=%s ip=%s:%s",account,passwd,channel,obj.__ip,obj.__port))
-			-- 统一流程:注册完后不标记“认证通过”，已定要登录完后才标记
+			-- 统一流程:注册完后不标记“认证通过”一定要登录完后才标记
 			--obj.passlogin = true
 		end
 		netlogin.S2C.register_result(obj,{errcode = errcode})
@@ -185,39 +185,36 @@ function C2S.createrole(obj,request)
 			return
 		end
 	end
-
-	local pid = playermgr.genpid()
-    if not pid then
-		netlogin.S2C.createrole_result(obj,{errcode = STATUS_OVERLIMIT,})
-		return
-    end
+	
 	local newrole = {
-		roleid = pid,
 		roletype = roletype,
 		sex = sex,
 		name = name,
 		lv = 1,
 		gold = 0,
 	}
-
 	local data = cjson.encode(newrole)
 	local url = string.format("/createrole")
 	local request = make_request({
 		gameflag = cserver.gameflag(),
 		srvname = cserver.getsrvname(),
 		acct = account,
-		roleid = pid,
-		role = data
+		role = data,
+		genroleid = 1,		-- 帐号中心统一生成角色ID
 	})
 	local status,response = httpc.postx(cserver.accountcenter(),url,request)
 	if status == 200 then
-		local errcode = unpack_response(response)
+		local errcode,result = unpack_response(response)
 		if errcode == STATUS_OK then	
-			local player = playermgr.createplayer(pid,{
+			local roleid = assert(result.roleid)
+			newrole.roleid = roleid
+			local player = playermgr.createplayer(roleid,{
 				account = account,
 				roletype = roletype,
 				sex = sex,
 				name = name,
+				lv = 1,
+				gold = 0,
 				__ip = obj.__ip,
 				__port = obj.__port,
 			})
@@ -273,23 +270,48 @@ function C2S.entergame(obj,request)
 		netlogin.S2C.entergame_result(obj,{errcode = STATUS_REPEAT_LOGIN,})
 		return
 	end
-	local kuafuplayer = playermgr.getkuafuplayer(roleid)
-	if kuafuplayer then		-- 进入原服时自动跳转到跨服
-		local go_srvname = assert(kuafuplayer.go_srvname)
-		obj.pid = roleid
-		local home_srvname = kuafuplayer.home_srvname or cserver.getsrvname()
-		playermgr.gosrv(obj,go_srvname,home_srvname)
-		netlogin.S2C.entergame_result(obj,{errcode = STATUS_REDIRECT_SERVER,})
+
+	if oldplayer and not oldplayer:isloaded() then
+		net.msg.S2C.notify(obj,language.format("进入游戏过于频繁，请稍候再试"))
+		netlogin.S2C.entergame_result(obj,{errcode = STATUS_REPEAT_LOGIN,})
 		return
 	end
+	-- 获取玩家当前所在服有两种方式：1. 从玩家原服获取，2. 从数据中心获取（这样登录依赖于数据中心)
+	local self_srvname = cserver.getsrvname()
+	local home_srvname = globalmgr.home_srvname(roleid)
+	if not home_srvname then	-- invalid roleid
+		netlogin.S2C.entergame_result(obj,{errcode = STATUS_ROLE_NOEXIST})
+		return
+	end
+
+	local now_srvname,isonline = globalmgr.now_srvname(roleid)
+	if now_srvname ~= self_srvname then
+		if isonline and clustermgr.nodown(now_srvname) then
+			obj.pid = roleid
+			playermgr.gosrv(obj,now_srvname,home_srvname)
+			netlogin.S2C.entergame_result(obj,{errcode = STATUS_REDIRECT_SERVER,})
+			return
+		end
+	end
 	if not token then -- token认证进入游戏不排队
-		local server = globalmgr.server
-		if playermgr.onlinenum >= server.onlinelimit then
+		if playermgr.onlinenum >= globalmgr.server.onlinelimit then
 			loginqueue.push({fd=obj.__fd,roleid=roleid})
-			netlogin.S2C.queue(obj,{waitnum=loginqueue.len()})
+			local waitnum = loginqueue.len()
+			local waittime = waitnum * (2 + math.floor(skynet.mqlen()/100))
+			netlogin.S2C.queue(obj,{
+				waitnum = waitnum,
+				waittime = waittime,
+			})
 			netlogin.S2C.entergame_result(obj,{errcode = STATUS_OVERLIMIT,})
 			return
 		end
+	end
+	-- 恢复数据前就让原服标记跨服，保证玩家跨服载入数据的同时，发给原服的rpc操作能转发到当前服
+	if home_srvname ~= self_srvname then
+		rpc.pcall(home_srvname,"rpc","playermgr.addkuafuplayer",{
+			pid = roleid,
+			go_srvname = self_srvname,
+		})
 	end
 
 	local player
@@ -299,8 +321,7 @@ function C2S.entergame(obj,request)
 			net.msg.S2C.notify(obj,string.format("%s的帐号已被你替换下线",gethideip(oldplayer.__ip)))
 		end
 		playermgr.kick(oldplayer,"replace")
-		-- 只有顶替“在线”玩家才忽略走“重新载入玩家”逻辑，因为非在线玩家(如玩家在原服对应的离线玩家
-		-- 其维持的数据可能是过时的副本数据
+		-- 只有顶替“在线”玩家才忽略走“重新载入玩家”逻辑，因为非在线可能是只读对象
 		if oldplayer.__state == "online" then
 			player = oldplayer
 		else
@@ -309,30 +330,23 @@ function C2S.entergame(obj,request)
 	else
 		player = playermgr.recoverplayer(roleid)
 	end
-	-- token认证登录成功后，通知原服将玩家标记成跨服
-	if token_cache then
-		playermgr.deltoken(token)
-		local home_srvname = token_cache.home_srvname
-		-- 去跨服认证通过，通知原服，将玩家标记成跨服
-		if home_srvname then
-			player.home_srvname = home_srvname
-			player.player_data = token_cache.player_data
-			player.kuafu_onlogin = token_cache.kuafu_onlogin
-			local now_srvname = cserver.getsrvname()
-			rpc.call(home_srvname,"rpc","playermgr.addkuafuplayer",{
-				pid = roleid,
-				go_srvname = now_srvname,
-			})
-		end
-	end
-
-	player.kuafu_onlogin = pack_function("logger.log","debug","test","ok")
+	assert(player)
+	
 	-- 时序: C2S.entergame -> 中途阻塞 -> 连线对象断开连接 -> 阻塞完毕
 	-- 此时: 对象身上无连线信息
 	if not obj.__agent then
 		logger.log("warning","playermgr",string.format("[no agent when C2S.entergame,may be block in C2S.entergame] id=%s",obj.pid))
 		return
 	end
+
+	-- token认证登录成功后，通知原服将玩家标记成跨服
+	if token_cache then
+		playermgr.deltoken(token)
+		player.player_data = token_cache.player_data
+		player.kuafu_onlogin = token_cache.kuafu_onlogin
+		player.home_srvname = home_srvname
+	end
+
 	playermgr.transfer_mark(obj,player)
 	playermgr.nettransfer(obj,player)
 	player:entergame()
@@ -370,10 +384,37 @@ function C2S.delrole(obj,request)
 	end
 end
 
+function netlogin.checkversion(version)
+	if not netlogin.version then
+		netlogin.version = "0.1.0"
+	end
+	local list1 = string.split(netlogin.version)
+	local list2 = string.split(version)
+	local len = #list1
+	for i=1,len do
+		local ver1 = list1[i]
+		local ver2 = list[i]
+		if not ver2 then
+			return false
+		end
+		if ver2 < ver1 then
+			return false
+		elseif ver2 > ver1 then
+			return true
+		end
+	end
+	return true
+end
+
 function C2S.tokenlogin(obj,request)
 	local token = assert(request.token)
 	local account = assert(request.acct)
 	local channel = assert(request.channel)
+	local version = request.version
+	if version and netlogin.checkversion(version) then
+		netlogin.S2C.tokenlogin_result(obj,{errcode = STATUS_LOW_VERSION,})
+		return
+	end
 	local url = string.format("/tokenlogin")
 	local request = make_request({
 		token = token,

@@ -24,10 +24,10 @@ data_1100_Navigation = {
 		starttime = {},
 		endtime = {},
 		weekday = {},
-		grade = 0,
-		timedesc = "每日8:00-9:00",
-		awarddesc="荣誉、高级藏宝图碎片",
-		teamdesc="单人任务",
+		grade = 15,
+		timedesc = "全天",
+		awarddesc="大量经验、魔力结晶",
+		teamdesc="至少3人组队",
 	},
 
 	[10002] = {
@@ -42,8 +42,8 @@ data_1100_Navigation = {
 		posid = "0",
 		ui = "",
 		coin = 0,
-		silver = 1000,
-		item = 0,
+		silver = 0,
+		item = 401001,
 		num = 1,
 		liveness = 100,
 		huoli = 100,
@@ -54,9 +54,9 @@ data_1100_Navigation = {
 		endtime = {},
 		weekday = {},
 		grade = 10,
-		timedesc = "每日8:00-9:01",
-		awarddesc="荣誉、高级藏宝图碎片",
-		teamdesc="至少3人组队",
+		timedesc = "全天",
+		awarddesc="大量经验、铜币、魔力结晶",
+		teamdesc="无要求",
 	},
 
 	[10003] = {
@@ -71,7 +71,7 @@ data_1100_Navigation = {
 		posid = "0",
 		ui = "guaji",
 		coin = 0,
-		silver = 750,
+		silver = 1000,
 		item = 0,
 		num = 1,
 		liveness = 150,
@@ -83,13 +83,42 @@ data_1100_Navigation = {
 		endtime = {},
 		weekday = {},
 		grade = 20,
-		timedesc = "每日8:00-9:02",
-		awarddesc="荣誉、高级藏宝图碎片",
-		teamdesc="至少3人组队",
+		timedesc = "全天",
+		awarddesc="经验、生活材料",
+		teamdesc="无要求",
 	},
 
 	[10004] = {
 		hid = 10004,
+		order = 4,
+		name = "巴巴托斯之赏",
+		picture = 95211,
+		desc = "消灭护宝精怪获得藏宝图",
+		frequence_type = 1,
+		progress = 5,
+		target = 20001006,
+		posid = "0",
+		ui = "",
+		coin = 10000,
+		silver = 0,
+		item = 0,
+		num = 1,
+		liveness = 100,
+		huoli = 100,
+		isopen = 1,
+		startdate = {},
+		enddate = {},
+		starttime = {},
+		endtime = {},
+		weekday = {},
+		grade = 15,
+		timedesc = "全天",
+		awarddesc="藏宝图",
+		teamdesc="无要求",
+	},
+
+	[10005] = {
+		hid = 10005,
 		order = 11,
 		name = "使魔试炼1",
 		picture = 95210,
@@ -117,8 +146,8 @@ data_1100_Navigation = {
 		teamdesc="至少3人组队",
 	},
 
-	[10005] = {
-		hid = 10005,
+	[10006] = {
+		hid = 10006,
 		order = 10,
 		name = "协会请援2",
 		picture = 95211,
@@ -146,8 +175,8 @@ data_1100_Navigation = {
 		teamdesc="至少3人组队",
 	},
 
-	[10006] = {
-		hid = 10006,
+	[10007] = {
+		hid = 10007,
 		order = 9,
 		name = "巡逻挂机3",
 		picture = 95211,
@@ -175,8 +204,8 @@ data_1100_Navigation = {
 		teamdesc="至少5人组队",
 	},
 
-	[10007] = {
-		hid = 10007,
+	[10008] = {
+		hid = 10008,
 		order = 8,
 		name = "使魔试炼4",
 		picture = 95210,
@@ -204,8 +233,8 @@ data_1100_Navigation = {
 		teamdesc="至少5人组队",
 	},
 
-	[10008] = {
-		hid = 10008,
+	[10009] = {
+		hid = 10009,
 		order = 7,
 		name = "协会请援5",
 		picture = 95211,
@@ -233,8 +262,8 @@ data_1100_Navigation = {
 		teamdesc="至少5人组队",
 	},
 
-	[10009] = {
-		hid = 10009,
+	[10010] = {
+		hid = 10010,
 		order = 6,
 		name = "巡逻挂机6",
 		picture = 95211,
@@ -264,7 +293,7 @@ data_1100_Navigation = {
 
 	[99998] = {
 		hid = 99998,
-		order = 4,
+		order = 12,
 		name = "测试前往地图",
 		picture = 95211,
 		desc = "前往迦南圣殿测试7：30-8：20",

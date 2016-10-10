@@ -22,6 +22,10 @@ function netteam.uniform_target(player,request)
 end
 
 function C2S.createteam(player,request)
+	if not playeraux.isopen(player.lv,"队伍") then
+		net.msg.S2C.notify(player.pid,language.format("等级不足"))
+		return
+	end
 	netteam.uniform_target(player,request)
 	local data = data_0301_TeamTarget[request.target]
 	local minlv = data and data.minlv or 10
@@ -38,7 +42,10 @@ end
 
 function C2S.jointeam(player,request)
 	local teamid = request.teamid
-	teammgr:jointeam(player,teamid)
+	local isok,errmsg = teammgr:jointeam(player,teamid)
+	if not isok and errmsg then
+		net.msg.S2C.notify(player.pid,errmsg)
+	end
 end
 
 function C2S.quitteam(player,request)
@@ -86,7 +93,7 @@ function C2S.recallmember(player,request)
 						return
 					end
 					local answer = response.answer
-					if not (answer == 2 or answer == 0) then
+					if not (answer == 2 or openui.istimeout(answer)) then
 						return
 					end
 					if obj:teamid() ~= teamid then
@@ -127,13 +134,13 @@ function C2S.apply_become_captain(player,request)
 		local buttons
 		if captain.switch:isopen("team.agreetocaptain") then
 			buttons = {
-				openui.button(language.format("同意"),lifetime),
 				openui.button(language.format("拒绝")),
+				openui.button(language.format("同意"),lifetime),
 			}
 		else
 			buttons = {
+				openui.button(language.format("拒绝"),lifetime),
 				openui.button(language.format("同意")),
-				openui.button(language.format("拒绝"),lifetime)
 			}
 		end
 		openui.messagebox(team.captain,{
@@ -146,8 +153,8 @@ function C2S.apply_become_captain(player,request)
 			function (uid,request,response)
 				local obj = playermgr.getplayer(uid)
 				local answer = response.answer
-				if not ((request.buttons[1].timeout and request.buttons[1].timeout > 0 and answer == 0) or
-					(answer == 1)) then
+				if not ((request.buttons[2].timeout and request.buttons[2].timeout > 0 and openui.istimeout(answer)) or
+					(answer == 2)) then
 					return
 				end
 				if obj:teamid() ~= teamid then
@@ -155,6 +162,10 @@ function C2S.apply_become_captain(player,request)
 				end
 				local team = teammgr:getteam(teamid)
 				if not team then
+					return
+				end
+				if team.captain ~= uid then
+					net.msg.S2C.notify(uid,language.format("不能进行此项操作"))
 					return
 				end
 				if team.captain == pid then
@@ -194,7 +205,7 @@ function C2S.changecaptain(player,request)
 		lifetime = 20,
 		attach = {},},
 		function (uid,request,response)
-			if not (response.answer == 2 or response.answer == 0) then
+			if not (response.answer == 2 or openui.istimeout(response.answer)) then
 				net.msg.S2C.notify(captain_pid,language.format("该队员拒绝了你的提升队长邀请"))
 				return
 			end
@@ -217,6 +228,10 @@ function C2S.kickmember(player,request)
 end
 
 function C2S.invite_jointeam(player,request)
+	if not playeraux.isopen(player.lv,"队伍") then
+		net.msg.S2C.notify(player.pid,language.format("等级不足"))
+		return
+	end
 	local pid = player.pid
 	local tid = request.pid
 	local teamid = player:teamid()
@@ -231,23 +246,46 @@ function C2S.invite_jointeam(player,request)
 	if team:ismember(tid) then
 		return
 	end
-	local target = playermgr.getplayer(tid)
-	if not target then
-		net.msg.S2C.notify(player.pid,language.format("对方不在线"))
-		return
-	end
-	if target:teamid() then
-		net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
-		return
-	end
+	local self_srvname = cserver.getsrvname()
+	local now_srvname,isonline = globalmgr.now_srvname(tid)
+	if now_srvname == self_srvname then
+		local target = playermgr.getplayer(tid)
+		if not target then
+			net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+			return
+		end
+		if not playeraux.isopen(target.lv,"队伍") then
+			net.msg.S2C.notify(player.pid,language.format("对方等级不足"))
+			return
+		end
 
+		if target:teamid() then
+			net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
+			return
+		end
+	else
+		if not isonline then
+			net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+			return
+		end
+		local target = cproxyplayer.new(tid,now_srvname)
+		if target:teamid() then
+			net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
+			return
+		end
+		local lv = target:getlv()
+		if not playeraux.isopen(lv,"队伍") then
+			net.msg.S2C.notify(player.pid,language.format("对方等级不足"))
+			return
+		end
+	end
 	openui.messagebox(tid,{
 		type = MB_INVITE_JOINTEAM,
 		title = language.format("邀请入队"),
 		content = language.format("#<G>{1}#(等级:{2}级)邀请你加入他的队伍。\n队伍目标:{3} {4}-{5}级队伍",player.name,player.lv,team:targetname(),team.minlv,team.maxlv),
 		buttons = {
-			openui.button(language.format("同意")),
 			openui.button(language.format("拒绝"),10),
+			openui.button(language.format("同意")),
 		},
 		lifetime = 10,
 		attach = {},},
@@ -257,7 +295,7 @@ function C2S.invite_jointeam(player,request)
 				return
 			end
 			local answer = response.answer
-			if answer ~= 1 then
+			if answer ~= 2 then
 				return
 			end
 			local team = teammgr:getteam(teamid)
@@ -315,6 +353,7 @@ function C2S.openui_team(player,request)
 			package.minlv = automatch.minlv
 			package.maxlv = automatch.maxlv
 		end
+		teammgr.openui_pids[pid] = true
 		sendpackage(pid,"team","openui_team",package)
 	else
 		local team = teammgr:getteam(teamid)
@@ -325,6 +364,10 @@ function C2S.openui_team(player,request)
 			})
 		end
 	end
+end
+
+function C2S.closeui_team(player,request)
+	teammgr.openui_pids[player.pid] = nil
 end
 
 function C2S.automatch(player,request)
@@ -378,11 +421,14 @@ function C2S.apply_jointeam(player,request)
 		return
 	end
 	teamid = request.teamid
-	local team = teammgr:getteam(teamid)
-	if not team then
-		return
+	local isok,errmsg = teammgr:addapplyer(teamid,teammgr:pack_applyer(player))
+	if not isok then
+		if errmsg then
+			net.msg.S2C.notify(player.pid,errmsg)
+		end
+	else
+		net.msg.S2C.notify(player.pid,language.format("已申请加入对方队伍"))
 	end
-	team:addapplyer(player)
 end
 
 function C2S.delapplyers(player,request)
@@ -404,28 +450,37 @@ function C2S.delapplyers(player,request)
 end
 
 function C2S.agree_jointeam(player,request)
-	local pid = request.pid
+	local pid = player.pid
+	local tid = request.pid
 	local team = player:getteam()
 	if not team then
 		return
 	end
-	if team.captain ~= player.pid then
+	if team.captain ~= pid then
 		return
 	end
-	local applyer = team:getapplyer(pid)
+	local applyer = team:getapplyer(tid)
 	if not applyer then
 		return
 	end
-	local target = playermgr.getplayer(pid)
+	if applyer.fromsrv ~= cserver.getsrvname() then
+		rpc.call(applyer.fromsrv,"rpc","net.team.agree_jointeam",pid,tid,team.id)
+	else
+		net.team.agree_jointeam(pid,tid,team.id)
+	end
+end
+
+function netteam.agree_jointeam(pid,tid,teamid)
+	local target = playermgr.getplayer(tid)
 	if not target then
-		net.msg.S2C.notify(player,"对方已离线")
+		net.msg.S2C.notify(pid,"对方已离线")
 		return
 	end
 	if target:teamid() then
-		net.msg.S2C.notify(player,"对方已经有队伍了")
+		net.msg.S2C.notify(pid,"对方已经有队伍了")
 		return
 	end
-	teammgr:jointeam(target,team.id)
+	teammgr:jointeam(target,teamid)
 	local teamstate = target:teamstate()
 	if teamstate == TEAM_STATE_LEAVE then
 		openui.messagebox(target.pid,{
@@ -443,7 +498,7 @@ function C2S.agree_jointeam(player,request)
 				if not player then
 					return
 				end
-				if not (response.answer == 2 or response.answer == 0) then
+				if not (response.answer == 2 or openui.istimeout(response.answer)) then
 					return
 				end
 				teammgr:backteam(player)

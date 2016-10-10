@@ -56,5 +56,12 @@ task_looktasknpc 3506 {
 	}
 }
 
+task_tasktimeout 3507 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+	}
+}
+
 ]]
 }

@@ -7,8 +7,10 @@ function cshimoshiliantask:init(conf)
 end
 
 function cshimoshiliantask:onfivehourupdate()
-	ctaskcontainer.onfivehourupdate(self)
+	self.ringnum = 1
 	self.lasttaskid = nil
+	self:refreshtask(self.nowtaskid)
+	ctaskcontainer.onfivehourupdate(self)
 end
 
 function cshimoshiliantask:can_accept(taskid)
@@ -36,7 +38,53 @@ function cshimoshiliantask:can_accept(taskid)
 	return true
 end
 
-function cshimoshiliantask:can_raisewar()
+function cshimoshiliantask:accepttask(taskid)
+	ctaskcontainer.accepttask(self,taskid)
+	local player = playermgr.getplayer(self.pid)
+	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
+		return
+	end
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			if not member.taskdb:gettask(taskid) then
+				self:synctask(member,taskid)
+			end
+		end
+	end
+end
+
+function cshimoshiliantask:executetask(taskid,ext)
+	local player = playermgr.getplayer(self.pid)
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			if not member.taskdb:gettask(taskid) then
+				self:synctask(member,taskid)
+			end
+		end
+	end
+	ctaskcontainer.executetask(self,taskid,ext)
+end
+
+function cshimoshiliantask:finishtask(task,reason)
+	local player = playermgr.getplayer(self.pid)
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			local task2 = member.taskdb:gettask(task.taskid)
+			if task2 then
+				ctaskcontainer.finishtask(member.taskdb.shimoshilian,task2,reason)
+			end
+		end
+	end
+	ctaskcontainer.finishtask(self,task,reason)
+end
+
+function cshimoshiliantask:can_execute(task)
 	local player = playermgr.getplayer(self.pid)
 	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
 		return false,language.format("本任务需要组队后才能进行")
@@ -74,6 +122,13 @@ function cshimoshiliantask:transwar(task,warid,pid)
 	return war
 end
 
+function cshimoshiliantask:doaward(task,awardid,pid)
+	if self:getdonecnt() >= self:getdonelimit() then
+		return
+	end
+	ctaskcontainer.doaward(self,task,awardid,pid)
+end
+
 function cshimoshiliantask:_transaward(awardid,lv)
 	if awardid < 0 then
 		local fakedata = self:getformdata("fake")
@@ -86,7 +141,6 @@ function cshimoshiliantask:_transaward(awardid,lv)
 	end)
 	local ringlimit = self:getformdata("ringlimit")
 	bonus = award.mergebonus(bonus)
-	bonus = deepcopy(bonus)
 	return bonus
 end
 
@@ -116,31 +170,36 @@ function cshimoshiliantask:transaward(task,awardid,pid)
 end
 
 function cshimoshiliantask:nexttask(taskid,reason)
-	local chinesename = self:getformdata("name")
-	local donelimit = self:getformdata("donelimit")
+	local donelimit = self:getdonelimit()
 	local donecnt = self:getdonecnt()
-	local ringnum = self.ringnum or 0
 	local ringlimit = self:getformdata("ringlimit")
 	local look_npctype = self:getformdata("var").LookNpcType
-	local leftcnt = math.min(0,donelimit-donecnt)
-	if donecnt >= donelimit then
+	local leftcnt = math.max(0,donelimit-donecnt)
+	if donecnt >= donelimit and not self.requested then
 		openui.messagebox(self.pid,{
 			type = MB_SHIMOSHILIAN_REACHLIMIT,
 			title = language.format("次数耗尽"),
-			content = language.format("【{1}】次数耗尽，继续任务将不会获得奖励。\n剩余次数：{2}/{3}",chinesename,leftcnt,donelimit),
+			content = language.format("【使魔试炼】次数耗尽，继续任务将不会获得奖励。\n剩余次数:0次"),
 			buttons = {
 				openui.button(language.format("确认")),
 			}
-		})
+		},function(pid,request,respond)
+			local player = playermgr.getplayer(pid)
+			if respond.answer ~= 1 then
+				return
+			end
+			player.taskdb.shimoshilian.requested = 1
+			player.taskdb.shimoshilian:opentask()
+		end)
 		return
 	end
-	if reason ~= "opentask" and ringnum >= ringlimit then
+	if reason ~= "opentask" and self.ringnum == 1 then
 		local player = playermgr.getplayer(self.pid)
 		if player and player:teamstate() == TEAM_STATE_CAPTAIN then
 			openui.messagebox(self.pid,{
 				type = MB_SHIMOSHILIAN_10_RING,
 				title = language.format("任务完成"),
-				content = language.format("已完成{1}环【{2}】。\n剩余次数：{3}/{4}",ringlimit,chinesename,leftcnt,donelimit),
+				content = language.format("已完成{1}环【使魔试炼】。\n剩余次数：{2}次",ringlimit,leftcnt),
 				buttons = {
 					openui.button(language.format("取消")),
 					openui.button(language.format("继续")),
@@ -150,6 +209,7 @@ function cshimoshiliantask:nexttask(taskid,reason)
 		end
 		return
 	end
+	self.requested = nil
 	local next_taskid,errmsg
 	if self._next_taskid then
 		next_taskid = self._next_taskid
@@ -157,13 +217,16 @@ function cshimoshiliantask:nexttask(taskid,reason)
 	else
 		next_taskid,errmsg = ctaskcontainer.nexttask(self,taskid,reason)
 	end
-	if next_taskid then
-		self.ringnum = (ringnum + 1) % ringlimit
-		if self.ringnum == 0 then
-			self.ringnum = ringlimit
-		end
-	end
 	return next_taskid,errmsg
+end
+
+function cshimoshiliantask:onsubmittask(taskid)
+	local ringlimit = self:getformdata("ringlimit")
+	self.ringnum = (self.ringnum + 1) % ringlimit
+	if self.ringnum == 0 then
+		self.ringnum = ringlimit
+	end
+	navigation.addprogress(self.pid,self.name)
 end
 
 function cshimoshiliantask:quick_finish()

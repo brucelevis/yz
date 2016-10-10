@@ -57,6 +57,34 @@ data_1202_ChapterAward = {
 		num = 2,
 	},
 
+	[109] = {
+		section = 100003,
+		needstar = 3,
+		item = 409001,
+		num = 1,
+	},
+
+	[110] = {
+		section = 100003,
+		needstar = 12,
+		item = 409002,
+		num = 2,
+	},
+
+	[111] = {
+		section = 100003,
+		needstar = 21,
+		item = 409003,
+		num = 1,
+	},
+
+	[112] = {
+		section = 100003,
+		needstar = 30,
+		item = 409004,
+		num = 2,
+	},
+
 }
 return data_1202_ChapterAward
 --<<data_1202_ChapterAward 导表结束>>

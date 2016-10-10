@@ -1,9 +1,6 @@
 -- 跨服玩家代理
 -- 如: 
 -- local pid = 1000001
--- if not playermgr.getkuafuplayer(pid) then
---		return
--- end
 -- local player = cproxyplayer.new(pid)
 -- player.itemdb:additembytype(105001,10,nil,"test:rpc")
 -- local addgold = player:addgold(10,"test:rpc")
@@ -39,29 +36,20 @@ function cproxyplayer_meta.__call(self,first,...)
 		root = root.parent
 	end
 	local cmd = table.concat(cmds)
-	--local resume = resumemgr.getresume(pid)
-	--if not resume or not resume:get("now_srvname") then
-	--	logger.log("warning","cluster","[ignore cproxyplayer:call]",pid,cmd,...)
-	--	error("cproxyplayer:call")
-	--end
-	--local now_srvname = resume:get("now_srvname")
-	local kuafuplayer = playermgr.getkuafuplayer(pid)
-	if not kuafuplayer or not kuafuplayer.go_srvname then
-		logger.log("warning","cluster","[ignore cproxyplayer:call]",pid,cmd,...)
-		error("cproxyplayer:call")
-	end
-	local now_srvname = kuafuplayer.go_srvname
+	local now_srvname = root.now_srvname
 	--print("rpc.call",now_srvname,"playermethod",pid,cmd,...)
 	return rpc.call(now_srvname,"playermethod",pid,cmd,...)
 end
 
 
 
-function cproxyplayer.new(pid)
+function cproxyplayer.new(pid,now_srvname)
+	now_srvname = now_srvname or globalmgr.now_srvname(pid)
 	local self = {
 		pid = pid,
 		cmd = false,
 		parent = false,
+		now_srvname = now_srvname,
 	}
 	setmetatable(self,cproxyplayer_meta)
 	return self

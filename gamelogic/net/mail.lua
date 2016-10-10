@@ -55,7 +55,7 @@ function C2S.sendmail(player,request)
 	if pid == targetid then
 		return
 	end
-	if not route.getsrvname(targetid) then
+	if not globalmgr.home_srvname(targetid) then
 		net.msg.S2C.notify(pid,string.format("找不到id为%d的玩家",targetid))
 		return
 	end

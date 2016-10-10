@@ -36,17 +36,4 @@ end
 function ccarddb:delitem(itemid,reason)
 end
 
--- 开启一个卡片(开启后就永久开启，无法取消开启）
-function ccarddb:opencard(cardid)
-	local card = self:getcard(cardid)
-	if not card then
-		return
-	end
-	logger.log("info","item",string.format("[opencard] pid=%s itemid=%s",self.pid,card.id))
-	self:update(card.id,{
-		isopen = true,
-	})
-	self.opencards[card.id] = true
-end
-
 return ccarddb

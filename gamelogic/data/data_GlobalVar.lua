@@ -9,6 +9,8 @@ data_GlobalVar = {
 
 	MaxJobZs = 3, 		-- 最大职业转数
 
+	CostHornNum = {[0]=1,[21]=2,[31]=3,[41]=4,[51]=5}, 		-- 消耗喇叭数量,格式{[使用次数]=消耗数量,}
+
 }
 return data_GlobalVar
 --<<data_GlobalVar 导表结束>>

@@ -14,6 +14,7 @@ login_queue 1001 {
 	request {
 		base 0 : basetype
 		waitnum 1 : integer
+		waittime 2 : integer	#秒为单位
 	}
 }
 

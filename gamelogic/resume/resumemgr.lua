@@ -34,6 +34,11 @@ function resumemgr.onlogoff(player,reason)
 	resume:set(data)
 end
 
+function resumemgr.push(pid,data)
+	local resume = resumemgr.getresume(pid)
+	resume:set(data)
+end
+
 function resumemgr.loadresume(pid)
 	local resume = cresume.new(pid)
 	resume:loadfromdatabase()
@@ -42,12 +47,35 @@ end
 
 function resumemgr.getresume(pid)
 	if not resumemgr.objs[pid] then
-		local resume = resumemgr.loadresume(pid)
+		local resume = cresume.new(pid)
+		resume.waitloaded = {}
+		resumemgr.objs[pid] = resume
+		-- may block
+		pcall(resume.loadfromdatabase,resume)
+		local waitloaded = resume.waitloaded
+		resume.waitloaded = nil
+		resumemgr.objs[pid] = nil
 		if resume.loadstate == "loaded" then
 			resumemgr.addresume(pid,resume)
 		end
+		if waitloaded and next(waitloaded) then
+			for i,co in ipairs(waitloaded) do
+				skynet.wakeup(co)
+			end
+		end
 	end
-	return resumemgr.objs[pid]
+	local resume = resumemgr.objs[pid]
+	if resume and resume.waitloaded then
+		local co = coroutine.running()
+		table.insert(resume.waitloaded,co)
+		skynet.wait(co)
+	end
+	if resume and resume.loadstate == "loaded" then
+		return resume
+	else
+		-- resume non exist
+		return
+	end
 end
 
 function resumemgr.addresume(pid,resume)
@@ -58,10 +86,10 @@ function resumemgr.addresume(pid,resume)
 end
 
 function resumemgr.delresume(pid)
-	local resume = resumemgr.objs[pid]
-	resumemgr.objs[pid] = nil
+	local resume = resumemgr.getresume(pid)
 	if resume then
 		logger.log("info","resume",format("[delresume] pid=%d",pid))
+		resumemgr.objs[pid] = nil
 		closesave(resume)
 		resume:savetodatabase()
 		local srvname = cserver.getsrvname()
@@ -118,7 +146,7 @@ function CMD.sync(srvname,pid,data)
 	if not resume then
 		return
 	end
-	resume:set(data,nil,true)
+	resume:set(data,true)
 	if cserver.isdatacenter() then
 		-- syncto gamesrv
 		for srvname2,_ in pairs(resume.srvname_ref) do
@@ -149,3 +177,4 @@ function resumemgr.dispatch(srvname,cmd,...)
 end
 
 return resumemgr
+

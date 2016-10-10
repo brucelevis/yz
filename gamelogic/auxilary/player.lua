@@ -45,4 +45,15 @@ function playeraux.getmaxjobexp(zs,joblv)
 	return data[attr]
 end
 
+function playeraux.isopen(lv,name)
+	local data = data_FunctionOpen[name]
+	if not data then
+		return false
+	end
+	if lv < data.open_level then
+		return false
+	end
+	return true
+end
+
 return playeraux

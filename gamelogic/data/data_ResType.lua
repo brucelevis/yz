@@ -60,7 +60,7 @@ data_ResType = {
 	[9] = {
 		type = "huoli",
 		name = "活力",
-		flag = "nil",
+		flag = "huoli",
 		goldbuyhowmuch = 0,
 	},
 

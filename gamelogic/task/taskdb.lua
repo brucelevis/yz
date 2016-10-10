@@ -68,6 +68,9 @@ function ctaskdb:update_canaccept()
 		if not table.isempty(canaccept) then
 			table.extend(self.canaccepttask,canaccept)
 		end
+		if taskcontainer.autoaccept then
+			taskcontainer:autoaccept() 
+		end
 	end
 	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)
 end
@@ -124,6 +127,16 @@ function ctaskdb:onchangelv()
 	self:update_canaccept()
 end
 
+function ctaskdb:onchangejoblv()
+	for name,_ in pairs(self.taskcontainers) do
+		local taskcontainer = self[name]
+		if taskcontainer.onchangjoblv then
+			taskcontainer:onchangejoblv()
+		end
+	end
+	self:update_canaccept()
+end
+
 -- 物品(itemtype)增加数量(num)
 function ctaskdb:onadditem(itemtype,num)
 end
@@ -147,6 +160,15 @@ function ctaskdb:onfivehourupdate()
 		end
 	end
 	self:update_canaccept()
+end
+
+function ctaskdb:oncleartoday(dataunit)
+	for name,_ in pairs(self.taskcontainers) do
+		local taskcontainer = self[name]
+		if taskcontainer.oncleartoday then
+			taskcontainer:oncleartoday(dataunit)
+		end
+	end
 end
 
 function ctaskdb:isfinishtask(taskid)

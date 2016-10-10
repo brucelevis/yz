@@ -25,6 +25,7 @@ function C2S.move(player,request)
 		request.dstpos = scene:fixpos(request.dstpos)
 	end
 	if not player:canmove() then
+		sendpackage(player.pid,"scene","fixpos",{pos=player.pos})
 		return
 	end
 	if not netscene.isvalid_move(player.pos,request.srcpos) then
@@ -68,7 +69,6 @@ function C2S.fucknpc(player,request)
 		net.msg.S2C.notify(player.pid,language.format("怪物不存在"))
 		return
 	end
-	print(table.dump(npc))
 	if npc.purpose == "baotu" then
 		huodongmgr.playunit.baotu.startwar(player,npc)
 	end

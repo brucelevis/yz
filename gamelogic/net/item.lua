@@ -52,8 +52,8 @@ function C2S.sellitem(player,request)
 	local maintype = itemaux.getmaintype(item.type)
 	if maintype == ItemMainType.CARD then  -- 卡片卖银币，而且跟卡片等级有关
 		local lv = item.lv or 1
-		local data = itemdata.lv_attr[lv]
-		local addsilver = itemdata.silver_price * num
+		local lv_attr = itemdata.lv_attr[lv]
+		local addsilver = lv_attr.silver_price * num
 		player:addsilver(addsilver,reason)
 	else
 		local addcoin = itemdata.coin_price * num
@@ -222,6 +222,37 @@ function C2S.pickitem(player,request)
 	player:additembytype(item.type,item.num,item.bind,"pickitem",true)
 end
 
+local function can_replacefumo(from_item,to_item,player,attrtype)
+	if not from_item or not to_item then
+		return false,language.format("物品不存在")
+	end
+	local from_maintype = itemaux.getmaintype(from_item.type)
+	local to_maintype = itemaux.getmaintype(to_item.type)
+	if from_maintype ~= to_maintype then
+		return false,language.format("同类型装备才能顶替附魔属性")
+	end
+	if from_maintype ~= ItemMainType.EQUIP then
+		return false,language.format("非装备无法顶替附魔属性")
+	end
+	local from_equiplv = from_item:get("lv")
+	local to_equiplv = to_item:get("lv")
+	if from_equiplv > to_equiplv then
+		return false,language.format("高级装备无法顶替低级装备的附魔属性")
+	end
+	local from_attr = from_item.fumo[attrtype]
+	if not from_attr then
+		return false,language.format("该属性不存在")
+	end
+	local to_attr = to_item.fumo[attrtype]
+	if not to_attr then
+		return false,language.format("目标装备没有该附魔属性")
+	end
+	if to_attr >= from_attr then
+		return false,language.format("无法顶替优质属性")
+	end
+	return true
+end
+
 -- 顶替附魔属性：丢弃一件低级装备，将一条"高附魔"属性顶替另一件同类型的高级装备
 function C2S.replacefumo(player,request)
 	local from_itemid = assert(request.from_itemid)
@@ -229,46 +260,22 @@ function C2S.replacefumo(player,request)
 	local attrtype = assert(request.attrtype)
 	local from_item = player:getitem(from_itemid)
 	local to_item,itemdb = player:getitem(to_itemid)
-	if not from_item or not to_item then
-		net.msg.S2C.notify(player.pid,language.format("物品不存在"))
-		return
-	end
-	local from_maintype = itemaux.getmaintype(from_item.type)
-	local to_maintype = itemaux.getmaintype(to_item.type)
-	if from_maintype ~= to_maintype then
-		net.msg.S2C.notify(player.pid,language.format("同类型装备才能顶替附魔属性"))
-		return
-	end
-	if from_maintype ~= ItemMainType.EQUIP then
-		net.msg.S2C.notify(player.pid,language.format("非装备无法顶替附魔属性"))
-		return
-	end
-	local from_equiplv = from_item:get("lv")
-	local to_equiplv = to_item:get("lv")
-	if from_equiplv > to_equiplv then
-		net.msg.S2C.notify(player.pid,language.format("高级装备无法顶替低级装备的附魔属性"))
+	local isok,msg  = can_replacefumo(from_item,to_item,player,attrtype)
+	sendpackage(player.pid,"item","replacefumo_res",{ result = isok, })
+	if not isok then
+		if msg then
+			net.msg.S2C.notify(player.pid,msg)
+		end
 		return
 	end
 	local from_attr = from_item.fumo[attrtype]
-	if not from_attr then
-		net.msg.S2C.notify(player.pid,language.format("该属性不存在"))
-		return
-	end
-	local to_attr = to_item.fumo[attrtype]
-	if not to_attr then
-		net.msg.S2C.notify(player.pid,language.format("目标装备没有该附魔属性"))
-		return
-	end
-	if to_attr >= from_attr then
-		net.msg.S2C.notify(player.pid,language.format("无法顶替优质属性"))
-		return
-	end
 	local reason = string.format("replacefumo:%s->%s@%s",from_itemid,to_itemid,attrtype)
 	itemdb:delitem(from_itemid,reason)
 	to_item.fumo[attrtype] = from_attr
 	itemdb:update(to_itemid,{
 		fumo = to_item.fumo,
 	})
+	net.msg.S2C.notify(player.pid,language.format("顶替附魔成功"))
 end
 
 -- 精炼：现在已经跟格子，但策划要求精炼必须通过佩戴的装备进行
@@ -290,9 +297,13 @@ function C2S.refineequip(player,request)
 		net.msg.S2C.notify(player.pid,language.format("装备等级不足#<R>{1}#级",need_equiplv))
 		return
 	end
+	if item.pos ~= item:get("equippos") then
+		net.msg.S2C.notify(player.pid,language.format("只能精炼已佩戴的装备"))
+		return
+	end
 	local equippos = player.equipposdb:get(item:get("equippos"))
 	if not equippos then
-		net.msg.S2C.notify(player.pid,language.format("只能精炼已佩戴的装备"))
+		net.msg.S2C.notify(player.pid,language.format("非法装备格"))
 		return
 	end
 	local cnt = equippos.refine.cnt or 0
@@ -316,11 +327,6 @@ function C2S.insertcard(player,request)
 		net.msg.S2C.notify(player.pid,language.format("该物品不存在"))
 		return
 	end
-	if item.cardid then
-		net.msg.S2C.notify(player.pid,language.format("无法重复插入卡片"))
-		return
-	end
-
 	local card,carddb = player:getitem(cardid)
 	if not card then
 		net.msg.S2C.notify(player.pid,language.format("卡片不存在"))
@@ -331,13 +337,18 @@ function C2S.insertcard(player,request)
 		net.msg.S2C.notify(player.pid,language.format("非装备无法插入卡片"))
 		return
 	end
+	if item.pos ~= item:get("equippos") then
+		net.msg.S2C.notify(player.pid,language.format("只能插入卡片到已佩戴的装备"))
+		return
+	end
+	local equippos = player.equipposdb:get(item:get("equippos"))
+	if not equippos then
+		net.msg.S2C.notify(player.pid,language.format("非法装备格"))
+		return
+	end
 	local maintype2 = itemaux.getmaintype(card.type)
 	if maintype2 ~= ItemMainType.CARD then
 		net.msg.S2C.notify(player.pid,language.format("插入的物品非卡片类型"))
-		return
-	end
-	if not card.isopen then
-		net.msg.S2C.notify(player.pid,language.format("该卡片尚未开启"))
 		return
 	end
 	local itemdata1 = itemaux.getitemdata(item.type)
@@ -347,8 +358,8 @@ function C2S.insertcard(player,request)
 		return
 	end
 	local reason = string.format("insertcard#%d",card.id)
-	logger.log("info","item",string.format("[insertcard] pid=%s itemid=%s cardid=%s",player.pid,itemid,cardid))
-	itemdb:update(item.id,{
+	logger.log("info","item",string.format("[insertcard] pid=%s itemid=%s cardid=%s pos=%s",player.pid,itemid,cardid,item.pos))
+	player.equipposdb:update(equippos.id,{
 		cardid = card.id,
 	})
 end
@@ -366,34 +377,24 @@ function C2S.upgradecard(player,request)
 		return
 	end
 	local itemdata = itemaux.getitemdata(card.type)
-
-	-- 同类型卡片只有一张
-	if card.num < itemdata.upgrade_neednum then
-		net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(card.type),itemdata.upgrade_neednum))
+	local nextlv = (card.lv or 0) + 1
+	local lv_attr = itemdata.lv_attr[nextlv]
+	if not lv_attr then
+		net.msg.S2C.notify(player.pid,language.format("无法继续升级了"))
 		return
 	end
-	local leftnum = card.num - itemdata.upgrade_neednum + 1
-	local nextlv = (card.lv or 1) + 1
+
+	-- 同类型卡片只有一张
+	if card.num < lv_attr.upgrade_neednum then
+		net.msg.S2C.notify(player.pid,language.format("{1}数量不足#<R>{2}#个",itemaux.itemlink(card.type),lv_attr.upgrade_neednum))
+		return
+	end
+	local leftnum = card.num - lv_attr.upgrade_neednum
 	logger.log("info","item",string.format("[upgradecard] pid=%s itemid=%s nextlv=%s leftnum=%s",player.pid,card.id,nextlv,leftnum))
 	carddb:update(card.id,{
 		num = leftnum,
 		lv = nextlv,
 	})	
-end
-
-function C2S.opencard(player,request)
-	local cardid = assert(request.cardid)
-	local card,carddb = player:getitem(cardid)
-	if not card then
-		net.msg.S2C.notify(player.pid,language.format("该卡片不存在"))
-		return
-	end
-	local maintype = itemaux.getmaintype(card.type)
-	if maintype ~= ItemMainType.CARD then
-		net.msg.S2C.notify(player.pid,language.format("该物品不是卡片"))
-		return
-	end
-	carddb:opencard(cardid)
 end
 
 -- 排序背包(不是整理，现在已经废除服务端整理，服务端只记录排序方式，排序由客户端做)
@@ -427,10 +428,30 @@ function C2S.expandspace(player,request)
 	itemdb:expand(addspace)
 end
 
+function C2S.cancel_baotu(player,request)
+	huodongmgr.playunit.baotu.cancel(player)
+end
+
+function C2S.takeout_card(player,request)
+	local pos = assert(request.pos)
+	local equippos = player.equipposdb:get(pos)
+	if not equippos then
+		net.msg.S2C.notify(player.pid,language.format("非法装备格"))
+		return
+	end
+	if not equippos.cardid then
+		return
+	end
+	player.equipposdb:update(equippos.id,{
+		cardid = 0,
+	})
+end
+
 -- s2c
-function S2C.additem(pid,item)
+function S2C.additem(pid,item,typ)
 	sendpackage(pid,"item","additem",{
 		item = item:pack(),
+		type = typ,
 	})
 end
 
@@ -457,16 +478,18 @@ function S2C.allitem(pid,type,items)
 	sendpackage(pid,"item","allitem_end",{type=type})
 end
 
-function S2C.delitem(pid,itemid)
+function S2C.delitem(pid,itemid,typ)
 	sendpackage(pid,"item","delitem",{
 		id = itemid,
+		type = typ,
 	})
 end
 
-function S2C.updateitem(pid,item)
+function S2C.updateitem(pid,item,typ)
 	assert(item.id)
 	sendpackage(pid,"item","updateitem",{
 		item = item,
+		type = typ,
 	})
 end
 

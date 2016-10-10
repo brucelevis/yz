@@ -20,6 +20,7 @@ function ctaskcontainer:init(conf)
 	self.script_handle.handinitem = true
 	self.script_handle.taskdati = true
 	self.script_handle.optiontalkto = true
+	self.script_handle.openui = true
 end
 
 function ctaskcontainer:load(data)
@@ -27,22 +28,7 @@ function ctaskcontainer:load(data)
 		return
 	end
 	ccontainer.load(self,data,function(objdata)
-		local taskid = objdata.taskid
-		local task = self:__newtask({taskid = taskid})
-		if not task then
-			self:log("info","task",string.format("[load unknow task] pid=%s taskid=%s",self.pid,taskid))
-			return nil
-		end
-		task:load(objdata)
-		if cserver.isinnersrv() then
-			local isok = xpcall(self.loadres,onerror,self,task,objdata.resource)
-			if not isok then
-				return nil
-			end
-		else
-			self:loadres(task,objdata.resource)
-		end
-		return task
+		return self:loadtask(objdata)
 	end)
 	local finishtasks = data.finishtasks or {}
 	for i,taskid in ipairs(finishtasks) do
@@ -53,16 +39,40 @@ function ctaskcontainer:load(data)
 	self.ringnum = data.ringnum or 0
 end
 
+function ctaskcontainer:loadtask(objdata)
+	local taskid = objdata.taskid
+	local task = self:__newtask({taskid = taskid})
+	if not task then
+		self:log("info","task",string.format("[load unknow task] pid=%s taskid=%s",self.pid,taskid))
+		return nil
+	end
+	task:load(objdata)
+	if cserver.isinnersrv() then
+		local isok = xpcall(self.loadres,onerror,self,task,objdata.resource)
+		if not isok then
+			return nil
+		end
+	else
+		self:loadres(task,objdata.resource)
+	end
+	task = self:try_timeouttask(task)
+	return task
+end
+
 function ctaskcontainer:save()
 	local data = ccontainer.save(self,function(task)
-		local data = task:save()
-		data.resource = self:saveres(task)
-		return data
+		return self:savetask(task)
 	end)
 	data.nowtaskid = self.nowtaskid
 	data.lasttaskid = self.lasttaskid
 	data.finishtasks = table.keys(self.finishtasks)
 	data.ringnum = self.ringnum
+	return data
+end
+
+function ctaskcontainer:savetask(task)
+	local data = task:save()
+	data.resource = self:saveres(task)
 	return data
 end
 
@@ -81,6 +91,11 @@ function ctaskcontainer:onlogin(player)
 end
 
 function ctaskcontainer:onlogoff(player,reason)
+	if not warmgr.warid(player.pid) then
+		for _,task in pairs(self.objs) do
+			task.execute_result = TASK_SCRIPT_NONE
+		end
+	end
 end
 
 function ctaskcontainer:onclear(tasks)
@@ -124,18 +139,16 @@ function ctaskcontainer:raisewar(task,args,pid)
 			net.msg.S2C.notify(pid,msg)
 		end
 		task.execute_result = TASK_SCRIPT_FAIL
-		return
+		return false
 	end
-	ctemplate.raisewar(self,task,args,pid)
+	local isok = ctemplate.raisewar(self,task,args,pid)
+	if not isok then
+		task.execute_result = TASK_SCRIPT_FAIL
+		return false
+	end
 	task.inwar = true
 	task.execute_result = TASK_SCRIPT_SUSPEND
-
-	-- 临时处理，战斗系统做好后删除
-	if cserver.isinnersrv() and cserver.getsrvname() ~= "gamesrv_11" then
-		timer.timeout2(format("taskwar%d",pid),1,function()
-			warmgr.onwarend(warmgr.warid(pid),1)
-		end)
-	end
+	return true
 end
 
 function ctaskcontainer:can_raisewar(task)
@@ -165,6 +178,9 @@ function ctaskcontainer:transtext(task,texts,pid)
 	for _,text in pairs(texts) do
 		if string.find(text.name,"$playername") or string.find(text.content,"$playername") then
 			transstr.playername = player.name
+		end
+		if string.find(text.content,"$playerjob") then
+			transstr.playerjob = data_0101_Hero[player.roletype].name
 		end
 	end
 	return transstr
@@ -285,9 +301,22 @@ function ctaskcontainer:pack(task)
 	data.ringnum = self.ringnum
 	local findnpc = task.resourcemgr:get("findnpc")
 	if findnpc then
-		local npc = self:getnpc_bynid(task,findnpc)
-		if npc then
-			data.findnpc = npc.id or findnpc
+		data.findnpc = {}
+		if type(findnpc) == "table" then
+			for i,nid in pairs(findnpc) do 
+				local npc = self:getnpc_bynid(task,nid)
+				if npc then
+					local nid = npc.id or nid
+					table.insert(data.findnpc,nid)
+				end
+			end
+			data.respondtype = task.resourcemgr:get("respondtype")
+		else
+			local npc = self:getnpc_bynid(task,findnpc)
+			if npc then
+				local nid = npc.id or findnpc
+				table.insert(data.findnpc,nid)
+			end
 			data.respondtype = task.resourcemgr:get("respondtype")
 		end
 	end
@@ -325,6 +354,8 @@ function ctaskcontainer:pack(task)
 	if npc then
 		data.submitnpc = npc.id or taskdata.submitnpc
 	end
+	data.donecnt = self:getdonecnt()
+	data.donelimit = self:getdonelimit()
 	return data
 end
 
@@ -339,7 +370,7 @@ function ctaskcontainer:nexttask(taskid,reason)
 		end
 		return self:choosetask(newtaskid,taskid)
 	else
-		-- 提交任务后，无下一环任务，需要停止接下一环任务
+		-- 提交任务后，无下一环任务，需要停止接
 		local newtaskid = self:getformdata("task")[taskid].nexttask
 		if not newtaskid or newtaskid == "nil" or newtaskid == 0 then
 			return
@@ -351,7 +382,13 @@ end
 function ctaskcontainer:choosetask(newtaskid,taskid)
 	local newtaskid2 = tonumber(newtaskid)
 	if newtaskid2 then
-		local can_accept,errmsg = self:can_accept(newtaskid2)
+		--支持下一环接不同容器内任务
+		local player = playermgr.getplayer(self.pid)
+		local taskcontainer = player.taskdb:gettaskcontainer(newtaskid2)
+		if not taskcontainer then
+			return
+		end
+		local can_accept,errmsg = taskcontainer:can_accept(newtaskid2)
 		if can_accept then
 			return newtaskid2
 		else
@@ -412,6 +449,19 @@ function ctaskcontainer:accepttask(taskid)
 	end
 end
 
+function ctaskcontainer:synctask(player,taskid)
+	local task = self:gettask(taskid)
+	if task then
+		local taskcontainer = player.taskdb[self.name]
+		taskcontainer:deltask(taskcontainer.nowtaskid,"synctask")
+		local task2 = taskcontainer:loadtask(self:savetask(task))
+		taskcontainer:addtask(task2)
+		if player.taskdb:incanaccept(self.name) then
+			player.taskdb:update_canaccept()
+		end
+	end
+end
+
 function ctaskcontainer:can_accept(taskid)
 	local player = playermgr.getplayer(self.pid)
 	if not player then
@@ -420,11 +470,11 @@ function ctaskcontainer:can_accept(taskid)
 	if self.canacceptnum and self.canacceptnum <= self.len then
 		return false
 	end
-	if self:gettask(taskid) then
-		return false
-	end
 	local taskdata = self:getformdata("task")[taskid]
 	if not taskdata then
+		return false
+	end
+	if self:gettask(taskid) then
 		return false
 	end
 	if taskdata.needlv and taskdata.needlv > player.lv then
@@ -553,14 +603,26 @@ function ctaskcontainer:adddonecnt(cnt)
 end
 
 function ctaskcontainer:onfivehourupdate()
+	if not (self:getformdata("interval") == "today") then
+		return
+	end
+	if not self.nowtaskid then
+		return
+	end
+	self:deltask(self.nowtaskid,"timeout")
+end
+
+function ctaskcontainer:oncleartoday(dataunit)
 	if not istrue(self:getformdata("isoverlay")) then
 		return
 	end
-	local restcnt = math.max(self:getdonelimit(true) - self:getdonecnt(true),0)
+	local lastlimit = dataunit:query(self:getflag("donelimit"),self:getformdata("donelimit"))
+	local lastdonecnt = dataunit:query(self:getflag("donecnt"),0)
+	local restcnt = math.max(lastlimit-lastdonecnt,0)
 	local donelimit = self:getformdata("donelimit")
 	local harddonelimit = self:getformdata("harddonelimit")
-	local donelimit = math.min(donelimit + restcnt,harddonelimit)
-	self:setdonelimit(donelimit,"onfivehourupdate")
+	donelimit = math.min(donelimit + restcnt,harddonelimit)
+	self:setdonelimit(donelimit,"oncleartoday")
 end
 
 function ctaskcontainer:getflag(flag)
@@ -570,7 +632,7 @@ end
 
 --<<  脚本接口  >>
 function ctaskcontainer:findnpc(task,args)
-	local nid = self:formdata_values(args,"nid")[1]
+	local nid = self:formdata_values(args,"nid")
 	local respond = args.respond
 	task.resourcemgr:set("findnpc",nid)
 	task.resourcemgr:set("respondtype",respond)
@@ -579,7 +641,7 @@ end
 function ctaskcontainer:needitem(task,args)
 	local itemtype = args.type
 	local itemnum = args.num
-	local nid = args.nid
+	local nid = self:formdata_values(args,"nid")
 	local itemneed = task.resourcemgr:get("itemneed",{})
 	local exist = false
 	for _,item in ipairs(itemneed) do
@@ -607,7 +669,7 @@ function ctaskcontainer:getitemtype(itemtype)
 end
 
 function ctaskcontainer:handinitem(task,args,pid,itemlst)
-	local nid = task.resourcemgr:get("findnpc")
+	local nid = task.resourcemgr:get("findnpc")[1]
 	local npc = self:getnpc_bynid(task,nid)
 	local player = playermgr.getplayer(self.pid)
 	local taskdata = self:getformdata("task")[task.taskid]
@@ -775,7 +837,7 @@ function ctaskcontainer:talkto(task,args,pid)
 			local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 			taskcontainer:check_result(task)
 		end
-		local respondid = reqresp.req(pid,{ taskid = task.taskid, lifetime = 20, },callback)
+		local respondid = reqresp.req(pid,{ taskid = task.taskid, },callback)
 		task.execute_result = TASK_SCRIPT_SUSPEND
 		net.task.S2C.tasktalk(pid,task.taskid,textid,transstr,respondid)
 	end
@@ -893,6 +955,12 @@ function ctaskcontainer:getquestionbank()
 	return "data_1100_QuestionBank01"
 end
 
+function ctaskcontainer:openui(task,args)
+	local buttonid = args.buttonid
+	net.task.S2C.openui(self.pid,task.taskid,buttonid)
+	task.execute_result = TASK_SCRIPT_NONE
+end
+
 
 --<<  外部接口  >>
 function ctaskcontainer:opentask()
@@ -966,6 +1034,7 @@ function ctaskcontainer:executetask(taskid,ext)
 	if not isok then
 		return false,msg
 	end
+	self:log("info","task",format("[execute] pid=%d taskid=%d",self.pid,taskid))
 	self:executetask2(task,ext)
 	return true
 end
@@ -980,9 +1049,22 @@ function ctaskcontainer:can_execute(task)
 	local player = playermgr.getplayer(self.pid)
 	local nid = task.resourcemgr:get("findnpc")
 	if nid then
-		local npc = self:getnpc_bynid(task,nid)
-		if not self:isnearby(player,npc) then
-			return false,language.format("太远了")
+		if type(nid) == "table" then
+			isok = false
+			for i,id in pairs(nid) do
+				local npc = self:getnpc_bynid(task,id)
+				if self:isnearby(player,npc) then
+					isok = true
+				end
+			end
+			if not isok then
+				return false,language.format("太远了")
+			end
+		else
+			local npc = self:getnpc_bynid(task,nid)
+			if not self:isnearby(player,npc) then
+				return false,language.format("太远了")
+			end
 		end
 	end
 	local collectpos = task.resourcemgr:get("collectpos")
@@ -1036,7 +1118,6 @@ function ctaskcontainer:submittask(taskid)
 	end
 	net.msg.S2C.notify(self.pid,language.format("完成任务"))
 	self:addfinishtask(taskid)
-	self:adddonecnt(1)
 	self.nowtaskid = nil
 	self:deltask(taskid,"taskdone")
 	local awardid = self:getformdata("task")[taskid].award
@@ -1044,12 +1125,16 @@ function ctaskcontainer:submittask(taskid)
 		awardid = task.resourcemgr:get("optionaward")
 	end
 	self:doaward(task,awardid,self.pid)
+	if self:getdonecnt() + 1 <= self:getdonelimit() then
+		self:adddonecnt(1)
+	end
 	self:onsubmittask(taskid)
-	navigation.addprogress(self.pid,self.name)
 	local newtaskid = self:nexttask(taskid,"submittask")
 	if newtaskid then
 		--self:log("info","task",string.format("[nexttask] pid=%d taskid=%d",self.pid,newtaskid))
-		self:accepttask(newtaskid)
+		local player = playermgr.getplayer(self.pid)
+		local taskcontainer = player.taskdb:gettaskcontainer(newtaskid)
+		taskcontainer:accepttask(newtaskid)
 	end
 end
 

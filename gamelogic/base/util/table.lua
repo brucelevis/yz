@@ -105,6 +105,9 @@ function table.values(t)
 end
 
 function table.dump(t,space,name)
+	if type(t) ~= "table" then
+		return tostring(t)
+	end
 	space = space or ""
 	name = name or ""
 	local cache = { [t] = "."}
@@ -301,6 +304,7 @@ end
 -- set
 
 function table.toset(tbl)
+	tbl = tbl or {}
 	local set = {}
 	for i,v in ipairs(tbl) do
 		set[v] = true

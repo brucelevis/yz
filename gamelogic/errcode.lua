@@ -25,6 +25,7 @@ STATUS_SEX_INVALID = -23			-- 性别非法
 STATUS_TOKEN_TIMEOUT = -24			-- TOKEN超时
 STATUS_BAN_ROLE		= -25			-- 禁止登录角色
 STATUS_FAIL			= -26			-- 执行失败
+STATUS_LOW_VERSION	= -27			-- 版本过低
 
 
 ErrorStringForCode = {
@@ -54,4 +55,5 @@ ErrorStringForCode = {
 	[STATUS_TOKEN_TIMEOUT]				= "TOKEN超时",
 	[STATUS_BAN_ROLE]					= "禁止登录角色",
 	[STATUS_FAIL]						= "执行失败",
+	[STATUS_LOW_VERSION]				= "版本过低",
 }

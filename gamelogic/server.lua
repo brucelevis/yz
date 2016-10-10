@@ -17,7 +17,7 @@ end
 
 function cserver:create()
 	logger.log("info","server","[create]")
-	self:set("createday",getdayno())
+	self:set("createtime",os.time())
 end
 
 function cserver:save()
@@ -61,10 +61,10 @@ end
 
 -- getter
 function cserver:getopenday()
-	if not self:query("createday") then
-		self:set("createday",getdayno())
+	if not self:query("createtime") then
+		self:set("createtime",os.time())
 	end
-	return getdayno() - self:query("createday") + self:query("openday",0)
+	return getdayno() - getdayno(self:query("createtime")) + self:query("openday",0)
 end
 
 function cserver:addopenday(val,reason)
@@ -97,7 +97,20 @@ end
 function cserver.starttimer_logstatus()
 	local interval = skynet.getenv("servermode") == "DEBUG" and 5 or 60
 	timer.timeout("timer.logstatus",interval,cserver.starttimer_logstatus)
-	logger.log("info","status",string.format("onlinenum=%s linknum=%s offlinenum=%s kuafunum=%s gokuafunum=%s num=%s task=%s mqlen=%s",playermgr.onlinenum,playermgr.linknum,playermgr.offlinenum,playermgr.kuafunum,playermgr.gokuafunum,playermgr.num,skynet.task(),skynet.mqlen()))
+	local mqlen = skynet.mqlen()
+	logger.log("info","status",string.format("onlinenum=%s linknum=%s offlinenum=%s kuafunum=%s gokuafunum=%s num=%s task=%s mqlen=%s",playermgr.onlinenum,playermgr.linknum,playermgr.offlinenum,playermgr.kuafunum,playermgr.gokuafunum,playermgr.num,skynet.task(),mqlen))
+	if cserver.isgamesrv() then
+		local url = string.format("/serverstatus")
+		local request = make_request({
+			gameflag = cserver.gameflag(),
+			srvname = cserver.getsrvname(),
+			createtime = globalmgr.server:query("createtime"),
+			onlinenum = playermgr.onlinenum,
+			onlinelimit = globalmgr.server.onlinelimit,
+			loadlv = mqlen / 1000,  -- >=1--高负载
+		})
+		httpc.postx(cserver.accountcenter(),url,request)
+	end
 end
 
 -- class method
@@ -129,23 +142,14 @@ end
 
 function cserver.iswarsrv(srvname)
 	srvname = srvname or cserver.getsrvname()
-	if srvname == "warsrvmgr" then
-		return false
-	end
 	return string.find(srvname,"warsrv") ~= nil
 end
-
-function cserver.iswarsrvmgr(srvname)
-	srvname = srvname or cserver.getsrvname()
-	return string.find(srvname,"warsrvmgr") ~= nil
-end
-
 
 -- 仅对游戏服有效
 function cserver.isinnersrv(srvname)
 	srvname = srvname or cserver.getsrvname()
 	local data = data_RoGameSrvList[srvname]
-	if data.zonename == "inner" then
+	if string.find(data.zonename,"inner") then
 		return true
 	end
 	return false

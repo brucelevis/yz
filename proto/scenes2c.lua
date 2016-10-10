@@ -30,6 +30,8 @@ scene_addplayer 2501 {
 		sex 11 : integer			#1--男，2--女
 		jobzs 12 : integer			#职业转数
 		joblv 13 : integer			#职业等级
+		weapontype 14 : integer		#武器类型(0/空--无)
+		shieldtype 15 : integer		#盾牌类型(0/空--无)
 	}
 }
 
@@ -55,6 +57,8 @@ scene_update 2503 {
 		sex 8 : integer			#1--男，2--女
 		jobzs 9 : integer			#职业转数
 		joblv 10 : integer			#职业等级
+		weapontype 11 : integer		#武器类型(0/空--无)
+		shieldtype 12 : integer		#盾牌类型(0/空--无)
 	}
 }
 

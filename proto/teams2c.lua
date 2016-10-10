@@ -9,6 +9,7 @@ return {
 	lv 2 : integer
 	roletype 3 : integer
 	joblv 4 : integer
+	fromsrv 5 : string		# 来自的服务器(空/本服名--来自本服)
 }
 
 
@@ -106,6 +107,21 @@ team_updateteam 4010 {
 	request {
 		base 0 : basetype
 		team 1 : TeamType
+	}
+}
+
+team_delpublishteam 4011 {
+	request {
+		base 0 : basetype
+		teamid 1 : integer	# 队伍ID
+	}
+}
+
+#同步匹配中的人数
+team_sync_automatch 4012 {
+	request {
+		base 0 : basetype
+		waiting_num 1 : integer		# 等待匹配的人数
 	}
 }
 ]]

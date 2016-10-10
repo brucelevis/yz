@@ -3,49 +3,66 @@ return {
 	si = 3000, -- [3000,3500)
 	src = [[
 
-# 全量更新简介数据(简介数据可以用于好友列表，申请列表等)
-friend_sync 3000 {
+#同步简介数据(简介数据可以用于好友列表，申请列表等)
+friend_sync_resume 3000 {
 	request {
 		base 0 : basetype
-		srvname 1 : string
-		pid 2 : integer
-		name 3 : string
-		roletype 4 : integer
-		lv 5 : integer
-		online 6 : boolean	#是否在线
-		fightpoint 7 : integer #战力
-		frdship 8 : integer #好友度(仅好友列表中的玩家有)
+		resume 1 : ResumeType
 	}
 }
 
-# 新增部分关系:好友/申请者/关注列表
-friend_addlist 3001 {
+#同步好友关系数据
+friend_sync_frddata 3001 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+		frdship 2 : integer #好友度
+		addfrdtime 3 : integer #加好友时间
+	}
+}
+
+# 新增部分关系:好友/申请者/关注列表/推荐列表/黑名单
+friend_addlist 3002 {
 	request {
 		base 0 : basetype
 		pids 1 : *integer
-		# 0--applayer; 1--friend; 2--toapply; 3--recommend
+		# 0--applayer; 1--friend; 2--toapply; 3--recommend; 4--black
 		type 2 : integer
 		# true--新增的列表，false--原有列表；上线时会发送原有列表，新增列表，后续增加关系都是发新增列表
 		newflag 3 : boolean
 	}
 }
 
-#删除部分关系:好友/申请者/关注列表
-friend_dellist 3002 {
+# 删除部分关系:好友/申请者/关注列表
+friend_dellist 3003 {
 	request {
 		base 0 : basetype
 		pids 1 : *integer
-		# 0--applayer; 1--friend; 2--toapply; 3--recommend
+		# 0--applayer; 1--friend; 2--toapply; 3--recommend; 4--black
 		type 2 : integer
 	}
 }
 
+.MessageType {
+	sender 0 : integer
+	msg 1 : string
+	sendtime 2 : integer
+	receiver 3 : integer
+}
+
 # 好友间私聊消息
-friend_addmsgs 3003 {
+friend_addmsgs 3004 {
 	request {
 		base 0 : basetype
-		pid 1 : integer
-		msgs 2 : *string
+		msgs 1 : *MessageType
+	}
+}
+
+# 搜索结果
+friend_search_result 3005 {
+	request {
+		base 0 : basetype
+		resumes 1 : *ResumeType
 	}
 }
 

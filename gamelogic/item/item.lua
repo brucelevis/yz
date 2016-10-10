@@ -41,9 +41,7 @@ function citem:init(param)
 		xx = nil,				-- 吸血
 		fsxx = nil,				-- 法术吸血
 	}
-	self.cardid = nil  -- 插入的卡片物品ID
-	self.isopen = nil    -- 卡片是否开启
-	self.lv = nil		 -- 卡片等级(仅对卡片有效)
+	self.lv = 0		 -- 卡片等级(仅对卡片有效)
 end
 
 function citem:load(data)
@@ -58,9 +56,7 @@ function citem:load(data)
 	self.pos = data.pos
 
 	self.fumo = data.fumo or {}
-	self.cardid = data.cardid
-	self.isopen = data.isopen
-	self.lv = data.lv
+	self.lv = data.lv or 0
 end
 
 function citem:save()
@@ -73,8 +69,6 @@ function citem:save()
 	data.pos = self.pos
 
 	data.fumo = self.fumo
-	data.cardid = self.cardid
-	data.isopen = self.isopen
 	data.lv = self.lv
 	return data
 end

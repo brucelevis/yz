@@ -116,7 +116,7 @@ data_1601_Switch = {
 	[1201] = {
 		name = "频道选择#队伍频道",
 		flag = "channel.listen.team",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -124,7 +124,7 @@ data_1601_Switch = {
 	[1202] = {
 		name = "频道选择#世界频道",
 		flag = "channel.listen.world",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -132,7 +132,7 @@ data_1601_Switch = {
 	[1203] = {
 		name = "频道选择#公会频道",
 		flag = "channel.listen.union",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -140,7 +140,7 @@ data_1601_Switch = {
 	[1204] = {
 		name = "频道选择#当前频道",
 		flag = "channel.listen.scene",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -148,7 +148,7 @@ data_1601_Switch = {
 	[1205] = {
 		name = "频道选择#系统信息",
 		flag = "channel.listen.sys",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -156,7 +156,7 @@ data_1601_Switch = {
 	[1206] = {
 		name = "自动播放语音#队伍频道",
 		flag = "channel.playchat.team",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -164,7 +164,7 @@ data_1601_Switch = {
 	[1207] = {
 		name = "自动播放语音#世界频道",
 		flag = "channel.playchat.world",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -172,7 +172,7 @@ data_1601_Switch = {
 	[1208] = {
 		name = "自动播放语音#公会频道",
 		flag = "channel.playchat.union",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},
@@ -180,7 +180,7 @@ data_1601_Switch = {
 	[1209] = {
 		name = "自动播放语音#当前频道",
 		flag = "channel.playchat.scene",
-		default = 0,
+		default = 1,
 		setbyclient = 1,
 		mutex = {},
 	},

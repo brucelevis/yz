@@ -16,4 +16,38 @@ function gm.test(args)
 	func(table.unpack(tbl))
 	print(string.format("test %s ok",test_filename))
 end
+
+function gm.testfunc(args)
+	local pid = tonumber(args[1]) or master_pid
+	print(pid)
+	local function tfunc1()
+		print("before tfunc1",pid)
+		local resume = resumemgr.getresume(pid)
+		print("after tfunc1",pid,resume)
+	end
+	local function tfunc2()
+		print("before tfunc2",pid)
+		local resume = resumemgr.getresume(pid)
+		print("after tfunc2",pid,resume)
+	end
+	local function tfunc3()
+		print("before tfunc3",pid)
+		local resume = resumemgr.getresume(pid)
+		print("after tfunc3",pid,resume)
+		resumemgr.delresume(pid)
+		print("after delresume",pid)
+	end
+	local function tfunc4()
+		print("before tfunc4",pid)
+		local resume = resumemgr.getresume(pid)
+		print("after tfunc4",pid,resume)
+	end
+
+
+	skynet.fork(tfunc1)
+	skynet.fork(tfunc2)
+	skynet.fork(tfunc3)
+	skynet.fork(tfunc4)
+end
+
 return gm

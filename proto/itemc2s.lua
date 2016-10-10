@@ -123,14 +123,6 @@ item_upgradecard 5515 {
 	}
 }
 
-# 开启卡片
-item_opencard 5516 {
-	request {
-		base 0 : basetype
-		cardid 1 : integer
-	}
-}
-
 # 设置背包排序方式
 item_sortbag 5517 {
 	request {
@@ -146,6 +138,21 @@ item_expandspace 5518 {
 	request {
 		base 0 : basetype
 		bagtype 1 : integer			#背包类型:1-- 普通背包，2--时装背包，3--卡片背包
+	}
+}
+
+# 取消挖宝
+item_cancel_baotu 5519 {
+	request {
+		base 0 : basetype
+	}
+}
+
+# 卸下卡片
+item_takeout_card 5520 {
+	request {
+		base 0 : basetype
+		pos 1 : integer			# 装备格位置
 	}
 }
 ]]

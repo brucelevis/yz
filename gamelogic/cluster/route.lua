@@ -12,6 +12,14 @@ function route.init()
 	for i,v in ipairs(pidlist) do
 		pids[tonumber(v)] = true
 	end
+
+	-- 启服后：主动让其他服同步路由信息过来（防止其他服没检测到断开连接，而导致路由同步不全)
+	for srvname,srv in pairs(data_RoGameSrvList) do
+		if clustermgr.needconnect(srvname,self_srvname) then
+			skynet.fork(pcall,rpc.call,srvname,"rpc","route.syncto",self_srvname)
+			route.syncto(srvname)
+		end
+	end
 end
 
 function route.onlogin(player)
@@ -92,7 +100,7 @@ function route.syncto(srvname)
 end
 
 function route._syncto(srvname)
-	xpcall(function ()
+	pcall(function ()
 		local step = 5000
 		local self_srvname = skynet.getenv("srvname")
 		if not cserver.isgamesrv(self_srvname) or not cserver.isgamesrv(srvname) then
@@ -105,7 +113,7 @@ function route._syncto(srvname)
 			rpc.call(srvname,"route","addroute",table.slice(pidlist,i,i+step-1))
 		end
 		rpc.call(srvname,"route","sync_finish")
-	end,onerror)
+	end)
 end
 
 local CMD = {}

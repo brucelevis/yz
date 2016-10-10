@@ -5,11 +5,11 @@ data_1500_ZhuanzhiTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 10000,
+				jobexp = 10000,
 				gold = 0,
 				silver = 100,
-				coin = 100,
+				coin = 1000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -23,11 +23,11 @@ data_1500_ZhuanzhiTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 20000,
+				jobexp = 20000,
 				gold = 0,
 				silver = 200,
-				coin = 200,
+				coin = 2000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -41,11 +41,11 @@ data_1500_ZhuanzhiTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 30000,
+				jobexp = 30000,
 				gold = 0,
 				silver = 300,
-				coin = 300,
+				coin = 3000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -59,11 +59,11 @@ data_1500_ZhuanzhiTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 40000,
+				jobexp = 40000,
 				gold = 0,
 				silver = 400,
-				coin = 400,
+				coin = 4000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -77,11 +77,11 @@ data_1500_ZhuanzhiTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 50000,
+				jobexp = 50000,
 				gold = 0,
 				silver = 500,
-				coin = 500,
+				coin = 5000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -91,357 +91,15 @@ data_1500_ZhuanzhiTaskAward = {
 		ratiotype = 2,
 	},
 
-	[10400201] = {
+	[10400106] = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 10000,
+				jobexp = 10000,
 				gold = 0,
 				silver = 100,
-				coin = 100,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400202] = {
-		awardtable = {
-			
-			{
-				exp = 200,
-				jobexp = 200,
-				gold = 0,
-				silver = 200,
-				coin = 200,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400203] = {
-		awardtable = {
-			
-			{
-				exp = 300,
-				jobexp = 300,
-				gold = 0,
-				silver = 300,
-				coin = 300,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400204] = {
-		awardtable = {
-			
-			{
-				exp = 400,
-				jobexp = 400,
-				gold = 0,
-				silver = 400,
-				coin = 400,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400205] = {
-		awardtable = {
-			
-			{
-				exp = 500,
-				jobexp = 500,
-				gold = 0,
-				silver = 500,
-				coin = 500,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400301] = {
-		awardtable = {
-			
-			{
-				exp = 100,
-				jobexp = 100,
-				gold = 0,
-				silver = 100,
-				coin = 100,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400302] = {
-		awardtable = {
-			
-			{
-				exp = 200,
-				jobexp = 200,
-				gold = 0,
-				silver = 200,
-				coin = 200,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400303] = {
-		awardtable = {
-			
-			{
-				exp = 300,
-				jobexp = 300,
-				gold = 0,
-				silver = 300,
-				coin = 300,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400304] = {
-		awardtable = {
-			
-			{
-				exp = 400,
-				jobexp = 400,
-				gold = 0,
-				silver = 400,
-				coin = 400,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400305] = {
-		awardtable = {
-			
-			{
-				exp = 500,
-				jobexp = 500,
-				gold = 0,
-				silver = 500,
-				coin = 500,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400401] = {
-		awardtable = {
-			
-			{
-				exp = 100,
-				jobexp = 100,
-				gold = 0,
-				silver = 100,
-				coin = 100,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400402] = {
-		awardtable = {
-			
-			{
-				exp = 200,
-				jobexp = 200,
-				gold = 0,
-				silver = 200,
-				coin = 200,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400403] = {
-		awardtable = {
-			
-			{
-				exp = 300,
-				jobexp = 300,
-				gold = 0,
-				silver = 300,
-				coin = 300,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400404] = {
-		awardtable = {
-			
-			{
-				exp = 400,
-				jobexp = 400,
-				gold = 0,
-				silver = 400,
-				coin = 400,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400405] = {
-		awardtable = {
-			
-			{
-				exp = 500,
-				jobexp = 500,
-				gold = 0,
-				silver = 500,
-				coin = 500,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400501] = {
-		awardtable = {
-			
-			{
-				exp = 100,
-				jobexp = 100,
-				gold = 0,
-				silver = 100,
-				coin = 100,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400502] = {
-		awardtable = {
-			
-			{
-				exp = 200,
-				jobexp = 200,
-				gold = 0,
-				silver = 200,
-				coin = 200,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400503] = {
-		awardtable = {
-			
-			{
-				exp = 300,
-				jobexp = 300,
-				gold = 0,
-				silver = 300,
-				coin = 300,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400504] = {
-		awardtable = {
-			
-			{
-				exp = 400,
-				jobexp = 400,
-				gold = 0,
-				silver = 400,
-				coin = 400,
-				items = {nil,nil,nil,},
-				pets = {nil,nil,},
-				ratio = 1,
-			},
-
-		},
-		ratiotype = 2,
-	},
-
-	[10400505] = {
-		awardtable = {
-			
-			{
-				exp = 500,
-				jobexp = 500,
-				gold = 0,
-				silver = 500,
-				coin = 500,
+				coin = 1000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,

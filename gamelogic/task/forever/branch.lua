@@ -6,20 +6,15 @@ function cbranchtask:init(conf)
 	self.canacceptnum = nil
 end
 
-function cbranchtask:addtask(task)
-	ctaskcontainer.addtask(self,task)
-	local player = playermgr.getplayer(self.pid)
-	local chapterid = self:getformdata("task")[task.taskid].chapterid
-	if chapterid then
-		player.chapterdb:unlockchapter(chapterid)
-	end
-end
-
 function cbranchtask:onwarend(war,result)
 	ctaskcontainer.onwarend(self,war,result)
+	if not warmgr.iswin(result) then
+		return
+	end
 	local player = playermgr.getplayer(self.pid)
 	local chapterid = self:getformdata("task")[war.taskid].chapterid
 	if chapterid then
+		player.chapterdb:unlockchapter(chapterid)
 		war.chapterid = chapterid
 		player.chapterdb:onwarend(war,result)
 	end
@@ -63,6 +58,21 @@ function cbranchtask:directaccept(taskid)
 		net.msg.S2C.notify(self.pid,language.format("接受【{1}】",taskname))
 	end
 	return isaccept
+end
+
+function cbranchtask:finishtask(task,reason)
+	ctaskcontainer.finishtask(self,task,reasosn)
+	local player = playermgr.getplayer(self.pid)
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			local task2 = member.taskdb:gettask(task.taskid)
+			if task2 then
+				ctaskcontainer.finishtask(member.taskdb.branch,task2,reason)
+			end
+		end
+	end
 end
 
 return cbranchtask

@@ -162,15 +162,6 @@ function cchapterdb:raisewar(chapterid)
 		attackers = attackers,
 	}
 	warmgr.startwar(attackers,{},war)
-
-	-- 临时处理，战斗系统做好后删除
-	if not cserver.isinnersrv() and not cserver.getsrvname() ~= "gamesrv_11" then
-		return
-	end
-	local pid = self.pid
-	timer.timeout2(format("chapter%d",pid),1,function()
-		warmgr.onwarend(warmgr.warid(pid),3)
-	end)
 end
 
 function cchapterdb:onwarend(war,result)

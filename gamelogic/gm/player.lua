@@ -159,7 +159,7 @@ function gm.newplayerday(args)
 end
 
 --- 用法: clear 容器类别
---- 举例: clear item		<=> 清空背包
+--- 举例: clear itemdb		<=> 清空背包
 function gm.clear(args)
 	local isok,args = checkargs(args,"string")
 	if not isok then
@@ -168,7 +168,7 @@ function gm.clear(args)
 	end
 	local typ = args[1]
 	local container = master[typ]
-	if not container.clear then
+	if not container or not container.clear then
 		net.msg.S2C.notify(master_pid,string.format("容器(%s)不存在",typ))
 		return
 	end

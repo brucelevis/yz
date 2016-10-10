@@ -14,7 +14,7 @@ end
 function timer.timeout2(name,delay,callback)
 	local id = timer.addtimer(name,callback)
 
-	logger.log("debug","timer",string.format("[timeout] id=%s name=%s,delay=%s callback=%s",id,name,delay,callback))
+	--logger.log("debug","timer",string.format("[timeout] id=%s name=%s,delay=%s callback=%s",id,name,delay,callback))
 	skynet.timeout(delay,function ()
 		timer.ontimeout(name,id)
 	end)
@@ -23,7 +23,7 @@ end
 
 function timer.untimeout(name,id)
 	if timer.gettimer(name,id) then
-		logger.log("debug","timer",string.format("[untimeout] name=%s,id=%s",name,id))
+		--logger.log("debug","timer",string.format("[untimeout] name=%s,id=%s",name,id))
 		return timer.deltimer(name,id)
 	end
 end
@@ -31,7 +31,7 @@ end
 function timer.deltimerbyid(id)
 	for name,callbacks in pairs(timer.timers) do
 		if callbacks[id] then
-			logger.log("debug","timer",string.format("[deltimerbyid] name=%s,id=%s",name,id))
+			--logger.log("debug","timer",string.format("[deltimerbyid] name=%s,id=%s",name,id))
 			local callback = callbacks[id]
 			callbacks[id] = nil
 			return callback,name
@@ -102,7 +102,7 @@ function timer.ontimeout(name,id)
 	local callback = timer.gettimer(name,id)
 	if callback then
 		timer.deltimer(name,id)
-		logger.log("debug","timer",string.format("[ontimeout] name=%s id=%s",name,id))
+		--logger.log("debug","timer",string.format("[ontimeout] name=%s id=%s",name,id))
 		xpcall(callback,onerror)
 	end
 end

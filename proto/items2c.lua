@@ -16,6 +16,7 @@ item_additem 5501 {
 	request {
 		base 0 : basetype
 		item 1 : ItemType
+		type 2 : integer			#背包类型
 	}
 }
 
@@ -24,6 +25,7 @@ item_delitem 5502 {
 	request {
 		base 0 : basetype
 		id 1 : integer
+		type 2 : integer			#背包类型
 	}
 }
 
@@ -32,6 +34,7 @@ item_updateitem 5503 {
 	request {
 		base 0 : basetype
 		item 1 : ItemType
+		type 2 : integer			#背包类型
 	}
 }
 
@@ -41,11 +44,13 @@ item_usebaotu_result 5504 {
 		base 0 : basetype
 		itemid 3 : integer				# 使用的宝图物品ID
 		item  4 : ItemType				# 奖励的物品
-		npc 5 : SceneNpcType			# 生成的场景NPC（该字段和item字段互斥，同时只会有一个字段存在)
+		npc 5 : SceneNpcType			# 生成的场景NPC（该字段可能和item字段同时出现)
 		posid 6 : integer
 		sceneid 7 : integer				# 藏宝图出现的场景ID
 		mapid 8 : integer	# 藏宝图所在地图ID
 		pos 9 : PosType			#优先使用坐标ID,没有坐标ID再使用mapid和pos
+		stop 10 : boolean   # 停止表现
+		baotuid 11 : integer	# 宝图ID：见data_1100_BaoTu
 	}
 }
 
@@ -100,6 +105,7 @@ item_allitem_end 5506 {
 .EquipPosType {
 	id 0 :	integer			#格子ID/格子位置
 	refine 1 : RefineAttrType
+	cardid 2 : integer		# 插入的卡片ID,0/空--未插入卡片
 }
 
 # 所有装备栏格子
@@ -124,6 +130,15 @@ item_produceequip_succ 5509 {
 		itemid 1 : integer	#打造生成的物品ID，服务端保证先发additem协议
 	}
 }
+
+# 顶替附魔结果
+item_replacefumo_res 5510 {
+	request {
+		base 0 : basetype
+		result 1 : boolean
+	}
+}
+
 ]]
 }
 

@@ -1,6 +1,5 @@
 -- 应答模式
 reqresp = reqresp or {
-	id = 0,
 	sessions = {},
 }
 
@@ -9,14 +8,8 @@ function reqresp.init()
 end
 
 function reqresp.genid()
-	if not reqresp.id then
-		reqresp.id = 0
-	end
-	if reqresp.id > MAX_NUMBER then
-		reqresp.id = 0
-	end
-	reqresp.id = reqresp.id + 1
-	return reqresp.id
+	return globalmgr.genid("reqresp")
+	-- or self genid
 end
 
 function reqresp.req(pid,request,callback)
@@ -41,7 +34,8 @@ end
 
 function reqresp.resp(pid,id,response)
 	local session = reqresp.sessions[id]
-	if session and session.pid == pid then
+	if session and 
+		(not session.pid or session.pid == 0 or session.pid == pid) then
 		reqresp.sessions[id] = nil
 		if session.callback then
 			session.callback(pid,session.request,response)

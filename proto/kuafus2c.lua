@@ -17,6 +17,8 @@ kuafu_srvlist 1500 {
 	request {
 		base 0 : basetype
 		srvlist 1 : *SrvType
+		now_srvname 2 : string		# 当前服务器
+		home_srvname 3 : string		# 原服
 	}
 }
 ]]

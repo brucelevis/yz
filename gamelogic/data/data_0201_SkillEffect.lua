@@ -625,7 +625,7 @@ data_0201_SkillEffect = {
 		castCondition = 0,
 		castParam = {},
 		powerPer = 100,
-		powerValue = 300,
+		powerValue = 30,
 		targetEffId = 10001,
 	},
 

@@ -138,7 +138,7 @@ function scenemgr.addnpc(npc,sceneid)
 	end
 	npc.mapid = scene.mapid
 	npc.createtime = os.time()
-	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npcid,npc))
+	logger.log("info","scene",format("[addnpc] npcid=%s npc=%s",npc.id,npc))
 	scene.npcs[npc.id] = npc
 	if npc.onadd then
 		npc:onadd()

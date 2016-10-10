@@ -4,6 +4,7 @@ g_activityname2hid = {
 	shimoshilian = 10001,
 	shimen = 10002,
 	guaji = 10003,
+	babatuosi = 10004,
 }
 
 function navigation.isintime(hid,now)
@@ -152,16 +153,20 @@ function navigation.do_activityaward(player,hid)
 	logger.log("info","navigation",format("[actaward] pid=%d,hid=%d",player.pid,hid))
 	activity.awarded = true
 	if istrue(data.liveness) then
+		net.msg.S2C.notify(player.pid,language.format("获得#<O>{1}# #<IR13>#",data.liveness))
 		navigatedata.liveness = navigatedata.liveness + data.liveness
 	end
 	if istrue(data.item) and istrue(data.num) then
 		player:additembytype(data.item,data.num,nil,"actaward",true)
 	end
 	if istrue(data.coin) then
-		player:addres("coin",data.coin,"actaward")
+		player:addres("coin",data.coin,"actaward",true)
 	end
 	if istrue(data.sliver) then
-		player:addres("silver",data.sliver,"actaward")
+		player:addres("silver",data.sliver,"actaward",true)
+	end
+	if istrue(data.huoli) then
+		player:addres("huoli",data.huoli,"actaward",true)
 	end
 	net.navigation.S2C.sendactivitydata(player,navigatedata)
 end

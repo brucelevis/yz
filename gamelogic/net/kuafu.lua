@@ -18,10 +18,6 @@ function C2S.gosrv(player,request)
 	if not cserver.isgamesrv(go_srvname) then
 		return
 	end
-	if go_srvname == player.home_srvname then
-		net.kuafu.C2S.gohome(player,{})
-		return
-	end
 	playermgr.gosrv(player,go_srvname)
 end
 
@@ -48,10 +44,10 @@ end
 function C2S.srvlist(player,request)
 	local srvlist = {}
 	local self_srvname = cserver.getsrvname()
-	local self_srv = data_RoGameSrvList[self_srvname]
 	for srvname,srv in pairs(data_RoGameSrvList) do
-		if istrue(srv.isopen) and srv.zonename == self_srv.zonename  and 
-			(self_srvname == srvname or clustermgr.isconnect(srvname)) then
+		if clustermgr.needconnect(srvname,self_srvname) and
+			clustermgr.isconnect(srvname) then
+			-- and route.sync_state[srvname] then		-- route同步完毕才允许跨服
 			table.insert(srvlist,netkuafu.packsrv(srv))
 		end
 	end

@@ -62,5 +62,14 @@ war_forward 6007 {
 		request 2 : string		#json编码后的字符串
 	}
 }
+
+# 客户端退出战斗界面,通知服务端发延时包
+war_closewar 6008 {
+	request {
+		base 0 : basetype
+		warid 1 : integer
+	}
+}
+
 ]]
 }

@@ -98,17 +98,28 @@ function cshimentask:onsubmittask(taskid)
 	if self.ringnum == 0 then
 		self.ringnum = ringlimit
 	end
+	navigation.addprogress(self.pid,self.name)
 end
 
 function cshimentask:transaward(task,awardid,pid)
 	if awardid < 0 then
 		local player = playermgr.getplayer(pid)
-		local lv = player.lv
+		local lv = math.min(player.lv,200)
 		local fakedata = self:getformdata("fake")[lv]
 		awardid =  fakedata.awardid[-awardid]
 	end
 	local bonus = ctaskcontainer.transaward(self,task,awardid,pid)
 	return bonus
+end
+
+function cshimentask:transwar(task,warid,pid)
+	if warid < 0 then
+		local player = playermgr.getplayer(pid)
+		local lv = math.min(player.lv,200)
+		local fakedata = self:getformdata("fake")[lv]
+		warid = fakedata.warids[-warid]
+	end
+	return ctaskcontainer.transwar(self,task,warid,pid)
 end
 
 function cshimentask:revisebonus(task,bonus)
@@ -123,11 +134,8 @@ function cshimentask:revisebonus(task,bonus)
 end
 
 function cshimentask:onfivehourupdate()
-	self:resettask()
-end
-
-function cshimentask:resettask()
 	self.ringnum = 1
+	ctaskcontainer.onfivehourupdate(self)
 end
 
 function cshimentask:giveuptask(taskid)
@@ -160,6 +168,21 @@ end
 
 function cshimentask:getquestionbank()
 	return "data_1100_QuestionBank02"
+end
+
+function cshimentask:finishtask(task,reason)
+	ctaskcontainer.finishtask(self,task,reasosn)
+	local player = playermgr.getplayer(self.pid)
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			local task2 = member.taskdb:gettask(task.taskid)
+			if task2 then
+				ctaskcontainer.finishtask(member.taskdb.shimen,task,reason)
+			end
+		end
+	end
 end
 
 return cshimentask

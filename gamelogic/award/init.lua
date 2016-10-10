@@ -69,7 +69,6 @@ function award.__player(pid,bonus,reason,btip)
 	else
 		return deepcopy(bonus)
 	end
-
 end
 
 function award.player(pid,bonus,reason,btip)
@@ -152,7 +151,7 @@ end
 
 function getsrvname(typ,id)
 	if typ == "player" then
-		return route.getsrvname(id)
+		return globalmgr.home_srvname(id)
 	elseif typ == "org" then
 		-- TODO:
 	end

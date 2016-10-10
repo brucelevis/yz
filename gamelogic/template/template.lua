@@ -265,7 +265,7 @@ end
 function ctemplate:raisewar(playunit,args,pid)
 	local warid = assert(args.warid)
 	local war = self:transwar(playunit,warid,pid)
-	warmgr.startwar(war.attackers,war.defensers,war)
+	return warmgr.startwar(war.attackers,war.defensers,war)
 end
 
 return ctemplate

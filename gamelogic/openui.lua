@@ -4,10 +4,12 @@ openui = openui or {}
 function onbuysomething(pid,request,response)
 	local player = playermgr.getplayer(pid)
 	local answer = response.answer
-	if answer == -1 then	-- close window
-	elseif answer == 0 then -- timeout
-	elseif answer == 1 then -- button 1
-	elseif answer == 2 then -- button 2
+	--if not answer or answer == 0 then	-- timeout
+	--elseif answer == -1 then			-- close window
+	if openui.istimeout(answer) then
+	elseif openui.isclose(answer) then
+	elseif answer == 1 then				-- button 1
+	elseif answer == 2 then				-- button 2
 	end
 end
 
@@ -34,12 +36,27 @@ openui.messagebox(10001,{
 						},
 					},
 					costgold = 100,
-					}}
+				}}
 				,onbuysomething)
 --]]
 
 
 function openui.messagebox(pid,request,callback)
+	local now_srvname,isonline = globalmgr.now_srvname(pid)
+	local self_srvname = cserver.getsrvname()
+	if not isonline then
+		return
+	end
+	local id = reqresp.req(pid,request,callback)
+	if now_srvname == self_srvname then
+		openui._messagebox(pid,request,id)
+	else
+		rpc.call(now_srvname,"rpc","openui._messagebox",pid,request,id)
+	end
+	return id
+end
+
+function openui._messagebox(pid,request,id)
 	local player = playermgr.getplayer(pid)
 	if not player then
 		return
@@ -68,10 +85,8 @@ function openui.messagebox(pid,request,callback)
 			timeout = button.timeout,
 		}
 	end
-	local id = reqresp.req(pid,request,callback)
 	pack_request.id = id
 	sendpackage(pid,"msg","messagebox",pack_request)
-	return id
 end
 
 
@@ -80,6 +95,14 @@ function openui.button(content,timeout)
 		content = content,
 		timeout = timeout,
 	}
+end
+
+function openui.istimeout(answer)
+	return (not answer or answer == 0)
+end
+
+function openui.isclose(answer)
+	return answer == -1
 end
 
 -- 一些其他弹框杂项

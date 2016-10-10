@@ -9,6 +9,7 @@ function cteammgr:init()
 	self.automatch_pids = {}
 	self.automatch_teams = {}
 	self.publish_teams = {}
+	self.openui_pids = {}
 end
 
 function cteammgr:clear()
@@ -35,6 +36,10 @@ function cteammgr:onlogoff(player,reason)
 	end
 end
 
+function cteammgr:fromsrv(teamid)
+	return globalmgr.srvname(teamid)
+end
+
 function cteammgr:publishteam(player,param)
 	local pid = player.pid
 	local team = self:getteambypid(pid)
@@ -43,9 +48,14 @@ function cteammgr:publishteam(player,param)
 	end
 	local publish = self.publish_teams[team.id]
 	if publish then
+		-- 发布队伍过期检查粒度为30s，因此发布的队伍失效最大可能有30s延迟
 		local lefttime = publish.time + publish.lifetime - os.time()
-		net.msg.S2C.notify(pid,language.format("还有#<R>{1}秒#才能再次发布",lefttime))
-		return
+		if lefttime <= 0 then
+			self:delpublishteam(team.id)
+		else
+			net.msg.S2C.notify(pid,language.format("还有#<R>{1}秒#才能再次发布",lefttime))
+			return
+		end
 	else
 		net.msg.S2C.notify(pid,language.format("成功发布队伍招募信息"))
 	end
@@ -84,13 +94,14 @@ function cteammgr:_publishteam(publish)
 end
 
 function cteammgr:pack_publishteam(teamid)
+	local fromsrv = self:fromsrv(teamid)
+	if fromsrv ~= cserver.getsrvname() then
+		-- 跨服发布的队伍
+		return rpc.call(fromsrv,"rpc","teammgr:pack_publishteam",teamid)
+	end
 	local publish = self.publish_teams[teamid]
 	if not publish then
 		return
-	end
-	if publish.fromsrv and publish.fromsrv ~= cserver.getsrvname() then
-		-- 跨服发布的队伍
-		return rpc.call(publish.fromsrv,"rpc","teammgr:pack_publishteam",teamid)
 	end
 	local team = self:getteam(teamid)
 	if not team then
@@ -108,6 +119,7 @@ function cteammgr:pack_publishteam(teamid)
 		maxlv = team.maxlv,
 		captain = team:packmember(captain),
 		len = team:len(TEAM_STATE_ALL),
+		fromsrv = fromsrv,
 	}
 	return package
 end
@@ -122,14 +134,38 @@ function cteammgr:delpublishteam(teamid)
 				teamid = teamid,
 			})
 		end)
-		if publish.fromsrv and publish.fromsrv == cserver.getsrvname() then
+		local fromsrv = self:fromsrv(teamid)
+		if fromsrv == cserver.getsrvname() then
 			cserver.pcall_in_samezone("rpc","teammgr:delpublishteam",teamid)
 		end
 	end
 end
 
+function cteammgr:addapplyer(teamid,applyer)
+	local team = self:getteam(teamid)
+	if not team then
+		local fromsrv = self:fromsrv(teamid)
+		if fromsrv ~= cserver.getsrvname() then
+			return rpc.call(fromsrv,"rpc","teammgr:addapplyer",teamid,applyer)
+		end
+		return
+	end
+	return team:addapplyer(applyer)
+end
+
+function cteammgr:pack_applyer(player)
+	return {
+		pid = player.pid,
+		name = player.name,
+		lv = player.lv,
+		joblv = player.joblv,
+		roletype = player.roletype,
+		fromsrv = cserver.getsrvname(),
+	}
+end
+
 function cteammgr:starttimer_check_publishteam()
-	timer.timeout("timer.check_publishteam",60,functor(self.starttimer_check_publishteam,self))
+	timer.timeout("timer.check_publishteam",30,functor(self.starttimer_check_publishteam,self))
 	local now = os.time()
 	for teamid,publish in pairs(self.publish_teams) do
 		if publish.lifetime and publish.lifetime + publish.time <= now then
@@ -148,6 +184,10 @@ function cteammgr:createteam(player,param)
 	local team = cteam.new(param)
 	self:addteam(team)
 	logger.log("info","team",format("[createteam] pid=%d teamid=%d param=%s",pid,team.id,param))
+	resumemgr.push(pid,{
+		teamstate = TEAM_STATE_CAPTAIN,
+		teamid = team.id,
+	})
 	return team
 end
 
@@ -172,27 +212,29 @@ function cteammgr:_jointeam(pid,teamid)
 	if not player then
 		return
 	end
-	self:jointeam(player,teamid)
+	local isok,errmsg = self:jointeam(player,teamid)
+	if not isok and errmsg then
+		net.msg.S2C.notify(player.pid,errmsg)
+	end
 end
 
 function cteammgr:jointeam(player,teamid)
-	local publishteam = self.publish_teams[teamid]
-	if publishteam and publishteam.fromsrv and publishteam.fromsrv ~= cserver.getsrvname() then
-		playermgr.gosrv(publishteam.fromsrv,nil,pack_function("teammgr:_jointeam",player.pid,teamid))
-		return
-	end
 	local pid = player.pid
 	if self:teamid(pid) then
 		return
 	end
-	local team = self:getteam(teamid)
-	if not team then
-		net.msg.S2C.notify(pid,language.format("队伍已失效"))
+	local fromsrv = self:fromsrv(teamid)
+	if fromsrv ~= cserver.getsrvname() then
+		playermgr.gosrv(player,fromsrv,nil,pack_function("teammgr:_jointeam",player.pid,teamid))
 		return
 	end
+
+	local team = self:getteam(teamid)
+	if not team then
+		return false,language.format("队伍已失效")
+	end
 	if team:len(TEAM_STATE_ALL) >= team:maxlen() then
-		net.msg.S2C.notify(pid,language.format("队伍人数已满"))
-		return
+		return false,language.format("队伍人数已满")
 	end
 	logger.log("info","team",string.format("[jointeam] pid=%d teamid=%d",pid,team.id))
 	team:join(player)
@@ -297,13 +339,7 @@ end
 
 -- 全服共享队伍ID
 function cteammgr:genid()
-	if not self._endid or
-		not self._id or
-		self._id >= self._endid then
-		self._id,self._endid = rpc.call(cserver.datacenter(),"rpc","globalmgr.genid")
-	end
-	self._id = self._id + 1
-	return self._id
+	return globalmgr.genid("team")
 end
 
 function cteammgr:addteam(team,id)
@@ -315,6 +351,7 @@ end
 function cteammgr:onadd(team)
 	team.channel = string.format("team#%d",team.id)
 	channel.add(team.channel)
+	channel.subscribe(team.channel,team.captain)
 	self.pid_teamid[team.captain] = team.id
 	local captain = playermgr.getplayer(team.captain)
 	local scene = scenemgr.getscene(captain.sceneid)
@@ -418,6 +455,14 @@ function cteammgr:automatch(player,target,minlv,maxlv)
 		target = target,
 	}
 	self.automatch_pids[pid] = automatch
+	for pid,_ in pairs(self.openui_pids) do
+		local player = playermgr.getplayer(pid)
+		if player then
+			sendpackage(player.pid,"team","sync_automatch",{
+				waiting_num = table.count(teammgr.automatch_pids),
+			})
+		end
+	end
 end
 
 function cteammgr:unautomatch(pid,reason)
@@ -425,6 +470,21 @@ function cteammgr:unautomatch(pid,reason)
 	if matchdata then
 		logger.log("info","team",string.format("[unautomatch] pid=%d reason=%s",pid,reason))
 		self.automatch_pids[pid] = nil
+	end
+	local waiting_num = table.count(teammgr.automatch_pids)
+	for pid,_ in pairs(self.openui_pids) do
+		local player = playermgr.getplayer(pid)
+		if player then
+			sendpackage(player.pid,"team","sync_automatch",{
+				waiting_num = waiting_num,
+			})
+		end
+	end
+	local player = playermgr.getplayer(pid)
+	if player then
+		sendpackage(player.pid,"team","sync_automatch",{
+			waiting_num = waiting_num,
+		})
 	end
 end
 
@@ -467,7 +527,8 @@ function cteammgr:check_match_team(player)
 		local team = self:getteam(teamid)
 		if team then
 			if team:len(TEAM_STATE_ALL) < team:maxlen() then
-				if team.target == 0 or matchdata.target == 0 or team.target == matchdata.target then
+				-- 目标: 0 -- 无目标；1001 -- 不限
+				if team.target == 1001 or matchdata.target == 1001 or team.target == matchdata.target then
 					--if team.minlv <= matchdata.minlv and matchdata.minlv <= team.maxlv or
 					--	team.minlv <= matchdata.maxlv and matchdata.maxlv <= team.maxlv then
 					--	table.insert(match_teams,teamid)

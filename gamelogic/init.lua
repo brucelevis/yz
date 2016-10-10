@@ -28,3 +28,6 @@ require "gamelogic.shop.init"
 require "gamelogic.resume.init"
 require "gamelogic.rank.init"
 require "gamelogic.navigation"
+require "gamelogic.pet.init"
+require "gamelogic.delaypackage"
+

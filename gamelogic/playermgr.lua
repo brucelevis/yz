@@ -50,11 +50,15 @@ function playermgr.loadofflineplayer(pid)
 	if player then
 		return player
 	end
-	player = cplayer.new(pid)
-	player:loadfromdatabase()
-	if player:isloaded() then
+	local player = playermgr.recoverplayer(pid)
+	if player then
+		assert(player:isloaded())
 		player.__state = "offline"
-		if playermgr.getkuafuplayer(pid) then
+		local self_srvname = cserver.getsrvname()
+		local home_srvname = globalmgr.home_srvname(pid)
+		if home_srvname ~= self_srvname then
+			player.nosavetodatabase = true
+		elseif playermgr.getkuafuplayer(pid) then
 			player.nosavetodatabase = true
 		end
 		playermgr.addobject(player,"loadofflineplayer")
@@ -174,7 +178,7 @@ function playermgr.checkonline(pid)
 end
 
 -- 服务端主动踢下线
-function playermgr.kick(pid,reason)
+function playermgr.kick(pid,reason,callback)
 	local obj
 	if type(pid) == "table" then
 		obj = pid
@@ -189,6 +193,10 @@ function playermgr.kick(pid,reason)
 			obj:disconnect(reason)
 		else
 			playermgr.delobject(obj.pid,reason)
+		end
+		-- 踢下线并且存盘完毕后执行的回调逻辑
+		if callback then
+			callback(obj)
 		end
 		-- 这个协议必须放到disconnect之后!
 		net.login.S2C.kick(obj)
@@ -212,23 +220,6 @@ function playermgr.newplayer(pid)
 	return cplayer.new(pid)
 end
 
-function playermgr.genpid()
-	local srvname = skynet.getenv("srvname")
-	local minroleid = math.floor(tonumber(skynet.getenv("minroleid")))
-	local maxroleid = math.floor(tonumber(skynet.getenv("maxroleid")))
-	local db = dbmgr.getdb()
-	local pid = db:get(db:key("role","maxroleid")) or minroleid
-	pid = tonumber(pid)
-	pid = pid + 1
-	if pid >= maxroleid then
-		return nil
-	end
-
-	assert(not playermgr.isroleexist(pid),"roleid repeat:" .. tostring(pid))
-	db:set(db:key("role","maxroleid"),pid)
-	return pid
-end
-
 -- 仅在注册时创建临时玩家
 function playermgr.createplayer(pid,conf)
 	logger.log("info","playermgr",format("[createplayer] pid=%d player=%s",pid,conf))
@@ -250,14 +241,43 @@ function playermgr.isroleexist(pid)
 	return db:hget(db:key("role","list"),pid)
 end
 
--- 逻辑服如果删了角色未通知帐号中心同步删角色，则会出现：下次登录帐号恢复角色数据时载入为空
--- 一般而言调用该函数前需要判定角色是否存在,角色存在则假定其一定能载入成功（不成功说明上层逻辑可能有问题)
+-- 返回空的情况可能由:1. 非法角色ID
 function playermgr.recoverplayer(pid)
 	assert(tonumber(pid),"invalid pid:" .. tostring(pid))
-	local player = playermgr.newplayer(pid)
-	player:loadfromdatabase()
-	if player:isloaded() then
+	if not playermgr.id_obj[pid] then
+		local player = playermgr.newplayer(pid)
+		player.waitloaded = {}
+		playermgr.id_obj[pid] = player
+		-- may block
+		pcall(player.loadfromdatabase,player)
+		local waitloaded = player.waitloaded
+		player.waitloaded = nil
+		playermgr.id_obj[pid] = nil
+		if player:isloaded() then
+			playermgr.id_obj[pid] = player
+		end
+		if waitloaded and next(waitloaded) then
+			--print("recoverplayer#wakeup",pid,table.dump(waitloaded))
+			for i,co in ipairs(waitloaded) do
+				skynet.wakeup(co)
+			end
+		end
+	end
+	local player = playermgr.id_obj[pid]
+	if player and player.waitloaded then
+		local co = coroutine.running()
+		table.insert(player.waitloaded,co)
+
+		--print("recoverplayer#wait",pid,co,player.loadstate)
+		skynet.wait(co)
+	end
+	-- 返回的player由上层决定是否加入玩家管理器
+	playermgr.id_obj[pid] = nil
+	if player and player.loadstate == "loaded" then
 		return player
+	else
+		-- player non exist
+		return
 	end
 end
 
@@ -314,7 +334,7 @@ function playermgr.addtoken(token,ext)
 	if ext.exceedtime then
 		ext.exceedtime = os.time() + ext.exceedtime
 	else
-		ext.exceedtime = os.time() + 300
+		ext.exceedtime = os.time() + 60
 	end
 	logger.log("debug","kuafu",format("[addtoken] token=%s ext=%s",token,ext))
 	playermgr.tokens[token] = ext

@@ -4,7 +4,7 @@ data_1500_MainTaskNpc = {
 	[101010] = {
 		name = "伊菲",
 		shape = 10001,
-		posid = "21002001",
+		posid = "21001001",
 		dir = 1,
 		isclient = 1,
 		talk = "一起来冒险吧！",
@@ -13,7 +13,7 @@ data_1500_MainTaskNpc = {
 
 	[101020] = {
 		name = "吉祥物",
-		shape = 10002,
+		shape = 10001,
 		posid = "21001002",
 		dir = 2,
 		isclient = 1,
@@ -33,7 +33,7 @@ data_1500_MainTaskNpc = {
 
 	[102020] = {
 		name = "熊孩子",
-		shape = 10003,
+		shape = 10001,
 		posid = "21002002",
 		dir = 4,
 		isclient = 1,
@@ -43,7 +43,7 @@ data_1500_MainTaskNpc = {
 
 	[102030] = {
 		name = "吉祥物",
-		shape = 10002,
+		shape = 10001,
 		posid = "21002003",
 		dir = 5,
 		isclient = 1,
@@ -63,7 +63,7 @@ data_1500_MainTaskNpc = {
 
 	[103020] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21001002",
 		dir = 7,
 		isclient = 1,
@@ -73,7 +73,7 @@ data_1500_MainTaskNpc = {
 
 	[103030] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21001003",
 		dir = 8,
 		isclient = 1,
@@ -83,7 +83,7 @@ data_1500_MainTaskNpc = {
 
 	[103040] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21001004",
 		dir = 1,
 		isclient = 1,
@@ -93,7 +93,7 @@ data_1500_MainTaskNpc = {
 
 	[103050] = {
 		name = "女勇者",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001005",
 		dir = 2,
 		isclient = 1,
@@ -113,7 +113,7 @@ data_1500_MainTaskNpc = {
 
 	[104020] = {
 		name = "女勇者",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 4,
 		isclient = 1,
@@ -123,7 +123,7 @@ data_1500_MainTaskNpc = {
 
 	[104030] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21002003",
 		dir = 5,
 		isclient = 1,
@@ -133,7 +133,7 @@ data_1500_MainTaskNpc = {
 
 	[104040] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21002004",
 		dir = 6,
 		isclient = 1,
@@ -143,7 +143,7 @@ data_1500_MainTaskNpc = {
 
 	[104050] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21002005",
 		dir = 7,
 		isclient = 1,
@@ -163,7 +163,7 @@ data_1500_MainTaskNpc = {
 
 	[105020] = {
 		name = "女勇者",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 1,
 		isclient = 1,
@@ -173,7 +173,7 @@ data_1500_MainTaskNpc = {
 
 	[105030] = {
 		name = "村长",
-		shape = 10006,
+		shape = 10001,
 		posid = "21001003",
 		dir = 2,
 		isclient = 1,
@@ -183,7 +183,7 @@ data_1500_MainTaskNpc = {
 
 	[105040] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21001004",
 		dir = 3,
 		isclient = 1,
@@ -193,7 +193,7 @@ data_1500_MainTaskNpc = {
 
 	[105050] = {
 		name = "村民",
-		shape = 10004,
+		shape = 10001,
 		posid = "21001005",
 		dir = 4,
 		isclient = 1,
@@ -213,7 +213,7 @@ data_1500_MainTaskNpc = {
 
 	[106020] = {
 		name = "女勇者",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 6,
 		isclient = 1,
@@ -223,7 +223,7 @@ data_1500_MainTaskNpc = {
 
 	[106030] = {
 		name = "怪叫的蘑菇",
-		shape = 10007,
+		shape = 10001,
 		posid = "21002003",
 		dir = 7,
 		isclient = 1,
@@ -243,7 +243,7 @@ data_1500_MainTaskNpc = {
 
 	[107020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 1,
 		isclient = 1,
@@ -253,7 +253,7 @@ data_1500_MainTaskNpc = {
 
 	[107030] = {
 		name = "混乱的士兵",
-		shape = 10008,
+		shape = 10001,
 		posid = "21001003",
 		dir = 2,
 		isclient = 1,
@@ -263,7 +263,7 @@ data_1500_MainTaskNpc = {
 
 	[107040] = {
 		name = "蘑菇怪",
-		shape = 10007,
+		shape = 10001,
 		posid = "21001004",
 		dir = 3,
 		isclient = 1,
@@ -283,7 +283,7 @@ data_1500_MainTaskNpc = {
 
 	[108020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 5,
 		isclient = 1,
@@ -293,7 +293,7 @@ data_1500_MainTaskNpc = {
 
 	[108030] = {
 		name = "混乱的士兵",
-		shape = 10008,
+		shape = 10001,
 		posid = "21002003",
 		dir = 6,
 		isclient = 1,
@@ -303,7 +303,7 @@ data_1500_MainTaskNpc = {
 
 	[108040] = {
 		name = "混乱的士兵",
-		shape = 10008,
+		shape = 10001,
 		posid = "21002004",
 		dir = 7,
 		isclient = 1,
@@ -313,7 +313,7 @@ data_1500_MainTaskNpc = {
 
 	[108050] = {
 		name = "剑士",
-		shape = 10009,
+		shape = 10001,
 		posid = "21002005",
 		dir = 8,
 		isclient = 1,
@@ -333,7 +333,7 @@ data_1500_MainTaskNpc = {
 
 	[109020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 2,
 		isclient = 1,
@@ -343,7 +343,7 @@ data_1500_MainTaskNpc = {
 
 	[109030] = {
 		name = "剑士",
-		shape = 10009,
+		shape = 10001,
 		posid = "21001003",
 		dir = 3,
 		isclient = 1,
@@ -363,7 +363,7 @@ data_1500_MainTaskNpc = {
 
 	[110020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 5,
 		isclient = 1,
@@ -373,7 +373,7 @@ data_1500_MainTaskNpc = {
 
 	[110030] = {
 		name = "剑士",
-		shape = 10009,
+		shape = 10001,
 		posid = "21002003",
 		dir = 6,
 		isclient = 1,
@@ -393,7 +393,7 @@ data_1500_MainTaskNpc = {
 
 	[201020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -403,7 +403,7 @@ data_1500_MainTaskNpc = {
 
 	[201030] = {
 		name = "村长",
-		shape = 10006,
+		shape = 10001,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -423,7 +423,7 @@ data_1500_MainTaskNpc = {
 
 	[202020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 6,
 		isclient = 1,
@@ -453,7 +453,7 @@ data_1500_MainTaskNpc = {
 
 	[203020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -463,7 +463,7 @@ data_1500_MainTaskNpc = {
 
 	[203030] = {
 		name = "镜像爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -473,7 +473,7 @@ data_1500_MainTaskNpc = {
 
 	[203040] = {
 		name = "但他林",
-		shape = 10006,
+		shape = 10002,
 		posid = "",
 		dir = 0,
 		isclient = 0,
@@ -493,7 +493,7 @@ data_1500_MainTaskNpc = {
 
 	[204020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 6,
 		isclient = 1,
@@ -503,7 +503,7 @@ data_1500_MainTaskNpc = {
 
 	[204030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21002003",
 		dir = 4,
 		isclient = 1,
@@ -523,7 +523,7 @@ data_1500_MainTaskNpc = {
 
 	[205020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -533,7 +533,7 @@ data_1500_MainTaskNpc = {
 
 	[205030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -553,7 +553,7 @@ data_1500_MainTaskNpc = {
 
 	[206020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 6,
 		isclient = 1,
@@ -563,7 +563,7 @@ data_1500_MainTaskNpc = {
 
 	[206030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21002003",
 		dir = 4,
 		isclient = 1,
@@ -583,7 +583,7 @@ data_1500_MainTaskNpc = {
 
 	[207020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -593,7 +593,7 @@ data_1500_MainTaskNpc = {
 
 	[207030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -613,7 +613,7 @@ data_1500_MainTaskNpc = {
 
 	[208020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 6,
 		isclient = 1,
@@ -623,7 +623,7 @@ data_1500_MainTaskNpc = {
 
 	[208030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21002003",
 		dir = 4,
 		isclient = 1,
@@ -643,7 +643,7 @@ data_1500_MainTaskNpc = {
 
 	[209020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21001002",
 		dir = 6,
 		isclient = 1,
@@ -653,7 +653,7 @@ data_1500_MainTaskNpc = {
 
 	[209030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21001003",
 		dir = 4,
 		isclient = 1,
@@ -673,7 +673,7 @@ data_1500_MainTaskNpc = {
 
 	[210020] = {
 		name = "爱拉忒",
-		shape = 10005,
+		shape = 10002,
 		posid = "21002002",
 		dir = 6,
 		isclient = 1,
@@ -683,11 +683,261 @@ data_1500_MainTaskNpc = {
 
 	[210030] = {
 		name = "但他林",
-		shape = 10010,
+		shape = 10002,
 		posid = "21002003",
 		dir = 4,
 		isclient = 1,
 		talk = "外来者！这里不欢迎你！",
+		job = "魔神",
+	},
+
+	[301010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "没想到出来冒险的第一晚就要餐风露宿……",
+		job = "游侠",
+	},
+
+	[301020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001002",
+		dir = 2,
+		isclient = 1,
+		talk = "这里与我的家乡很相似呢。",
+		job = "法师",
+	},
+
+	[302010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002001",
+		dir = 3,
+		isclient = 1,
+		talk = "可恶,一定要拔掉那只蠢鸟所有的毛不可！",
+		job = "游侠",
+	},
+
+	[302020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002002",
+		dir = 4,
+		isclient = 1,
+		talk = "居然在这山林中遇到了狮鹫！",
+		job = "法师",
+	},
+
+	[303010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002003",
+		dir = 5,
+		isclient = 1,
+		talk = "这是什么鬼地方啊喂！",
+		job = "游侠",
+	},
+
+	[303020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001001",
+		dir = 6,
+		isclient = 1,
+		talk = "大家警惕,千万不要大意。",
+		job = "法师",
+	},
+
+	[304010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001002",
+		dir = 7,
+		isclient = 1,
+		talk = "我们掉进怪物的老巢了！",
+		job = "游侠",
+	},
+
+	[304020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001003",
+		dir = 8,
+		isclient = 1,
+		talk = "此时应以克敌为要。",
+		job = "法师",
+	},
+
+	[305010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001004",
+		dir = 1,
+		isclient = 1,
+		talk = "哼！区区狮鹫也想制服迦南王国的勇者大人吗？",
+		job = "游侠",
+	},
+
+	[305020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21001005",
+		dir = 2,
+		isclient = 1,
+		talk = "不论是谁,都别想令我退缩！",
+		job = "法师",
+	},
+
+	[306010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002001",
+		dir = 3,
+		isclient = 1,
+		talk = "单卡拉比……",
+		job = "游侠",
+	},
+
+	[306020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21002002",
+		dir = 4,
+		isclient = 1,
+		talk = "可恶！这片森林里到底聚集了多少魔神？！",
+		job = "法师",
+	},
+
+	[306030] = {
+		name = "单卡拉比",
+		shape = 10001,
+		posid = "21002003",
+		dir = 5,
+		isclient = 1,
+		talk = "不妨告诉你们,我就是魔神单卡拉比！",
+		job = "魔神",
+	},
+
+	[307010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002004",
+		dir = 6,
+		isclient = 1,
+		talk = "居然靠魔神之力变得强大,作弊,作弊！！",
+		job = "游侠",
+	},
+
+	[307020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002005",
+		dir = 7,
+		isclient = 1,
+		talk = "单卡拉比支配这些精怪作乱,一定有它的阴谋。",
+		job = "法师",
+	},
+
+	[307030] = {
+		name = "单卡拉比",
+		shape = 10001,
+		posid = "21001001",
+		dir = 8,
+		isclient = 1,
+		talk = "连这些小家伙都对付不了还妄想与本魔神为敌吗？",
+		job = "魔神",
+	},
+
+	[308010] = {
+		name = "伊菲",
+		shape = 10002,
+		posid = "21001002",
+		dir = 1,
+		isclient = 1,
+		talk = "看是你躲的快,还是我的箭快！",
+		job = "游侠",
+	},
+
+	[308020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "这个狡猾的家伙！",
+		job = "法师",
+	},
+
+	[308030] = {
+		name = "单卡拉比",
+		shape = 10001,
+		posid = "21001004",
+		dir = 3,
+		isclient = 1,
+		talk = "废物！愚蠢之极！",
+		job = "魔神",
+	},
+
+	[309010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001005",
+		dir = 4,
+		isclient = 1,
+		talk = "看是你躲的快,还是我的箭快！",
+		job = "游侠",
+	},
+
+	[309020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002001",
+		dir = 5,
+		isclient = 1,
+		talk = "这个狡猾的家伙！",
+		job = "法师",
+	},
+
+	[309030] = {
+		name = "单卡拉比",
+		shape = 10002,
+		posid = "21002002",
+		dir = 6,
+		isclient = 1,
+		talk = "废物！愚蠢之极！",
+		job = "魔神",
+	},
+
+	[310010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002003",
+		dir = 7,
+		isclient = 1,
+		talk = "魔神大人,让我们来一较高下吧。",
+		job = "游侠",
+	},
+
+	[310020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001001",
+		dir = 8,
+		isclient = 1,
+		talk = "就算对手是魔神,迦南的勇者也是无所畏惧的！",
+		job = "法师",
+	},
+
+	[310030] = {
+		name = "单卡拉比",
+		shape = 10002,
+		posid = "21001002",
+		dir = 1,
+		isclient = 1,
+		talk = "可恶,可恶！不知天高地厚的凡人啊！",
 		job = "魔神",
 	},
 

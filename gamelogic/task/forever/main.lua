@@ -5,20 +5,15 @@ function cmaintask:init(conf)
 	ctaskcontainer.init(self,conf)
 end
 
-function cmaintask:addtask(task)
-	ctaskcontainer.addtask(self,task)
-	local player = playermgr.getplayer(self.pid)
-	local chapterid = self:getformdata("task")[task.taskid].chapterid
-	if chapterid then
-		player.chapterdb:unlockchapter(chapterid)
-	end
-end
-
 function cmaintask:onwarend(war,result)
 	ctaskcontainer.onwarend(self,war,result)
+	if not warmgr.iswin(result) then
+		return
+	end
 	local player = playermgr.getplayer(self.pid)
 	local chapterid = self:getformdata("task")[war.taskid].chapterid
 	if chapterid then
+		player.chapterdb:unlockchapter(chapterid)
 		war.chapterid = chapterid
 		player.chapterdb:onwarend(war,result)
 	end
@@ -48,6 +43,35 @@ function cmaintask:onchangelv()
 			if self:can_accept(taskid) then
 				self:accepttask(taskid)
 				return
+			end
+		end
+	end
+end
+
+function cmaintask:finishtask(task,reason)
+	ctaskcontainer.finishtask(self,task,reasosn)
+	local player = playermgr.getplayer(self.pid)
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			local task2 = member.taskdb:gettask(task.taskid)
+			if task2 then
+				ctaskcontainer.finishtask(member.taskdb.main,task2,reason)
+			end
+		end
+	end
+end
+
+function cmaintask:submittask(taskid)
+	ctaskcontainer.submittask(self,taskid)
+	local player = playermgr.getplayer(self.pid)
+	local members = player:getfighters()
+	for _,pid in ipairs(members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			if member.taskdb:gettask(taskid) then
+				ctaskcontainer.submittask(member.taskdb.main,taskid)
 			end
 		end
 	end

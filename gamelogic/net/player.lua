@@ -55,12 +55,17 @@ function C2S.rename(player,request)
 end
 
 function C2S.changejob(player,request)
-	if player.joblv < 10 then
-		net.msg.S2C.notify(player.pid,"职业等级不足10级")
-		return
-	end
 	local jobid = assert(request.jobid)
 	player:changejob(jobid)
+end
+
+function C2S.lookresume(player,request)
+	local pid = assert(request.pid)
+	local resume = resumemgr.getresume(pid)
+	if not resume or resume.loadstate ~= "loaded" then
+		return
+	end
+	net.player.S2C.showresume(player.pid,resume)
 end
 
 -- s2c
@@ -71,5 +76,10 @@ function S2C.switch(pid,switchs)
 	end
 	sendpackage(pid,"player","switch",{ switchs = switchs, })
 end
+
+function S2C.showresume(pid,resume)
+	sendpackage(pid,"player","showresume",{ resume = resume:pack(), })
+end
+
 
 return netplayer

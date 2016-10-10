@@ -382,8 +382,6 @@ function citemdb:fumoequip(itemid)
 	end
 end
 
-
-
 function citemdb:_onadd(item)
 	local itemid = item.id
 	local pos = item.pos
@@ -401,8 +399,7 @@ function citemdb:onadd(item)
 	if itemaux.getmaintype(item.type) == ItemMainType.EQUIP then
 		self:fumoequip(item.id)
 	end
-	-- 背包类型暂时不发给客户端，有客户断根据物品分类确定背包
-	net.item.S2C.additem(self.pid,item)
+	net.item.S2C.additem(self.pid,item,self.type)
 end
 
 function citemdb:ondel(item)
@@ -419,7 +416,7 @@ function citemdb:ondel(item)
 			end
 		end
 	end
-	net.item.S2C.delitem(self.pid,itemid)
+	net.item.S2C.delitem(self.pid,itemid,self.type)
 end
 
 function citemdb:onclear(objs)
@@ -430,7 +427,7 @@ end
 
 function citemdb:onupdate(itemid,attr)
 	attr.id = itemid
-	net.item.S2C.updateitem(self.pid,attr)
+	net.item.S2C.updateitem(self.pid,attr,self.type)
 end
 
 return citemdb

@@ -21,6 +21,11 @@ function net.init()
 	net.playunit = require "gamelogic.net.playunit"
 	net.navigation = require "gamelogic.net.navigation"
 	net.warsvrfw = require "gamelogic.net.warsvrfw"
+	net.pet = require "gamelogic.net.pet"
+
+	if cserver.isgamesrv() and cserver.isinnersrv() then
+		net.isinnersrv = true
+	end
 end
 
 -- 框架初始化完毕后调用
@@ -62,7 +67,15 @@ function reqnet:netcommad(obj,request)
         logger.log("warning","netclient",format("[unknow cmd] link_pid=%s pid=%s agent=%s protoname=%s subprotoname=%s request=%s",link_pid,pid,obj.__agent,protoname,subprotoname,request))
         return
     end
-	local r = func(player,request)
+	local r
+	if not net.isinnersrv then
+		r = func(player,request)
+	else
+		r = xpcall(func,function(msg)
+			onerror(msg)
+			net.msg.S2C.notify(obj,language.format("你的操作引起服务端报错，请告知相关程序"))
+		end,player,request)
+	end
 	return r
 end
 

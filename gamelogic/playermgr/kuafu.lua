@@ -57,6 +57,7 @@ function playermgr.gosrv(player,go_srvname,home_srvname,kuafu_onlogin)
 		end
 	end
 	if go_srvname == home_srvname then
+		playermgr.gohome(player,home_srvname,kuafu_onlogin)
 		return
 	end
 	local token = uuid()
@@ -71,16 +72,19 @@ function playermgr.gosrv(player,go_srvname,home_srvname,kuafu_onlogin)
 	if player.ongosrv then
 		player:ongosrv(go_srvname)
 	end
-	net.login.S2C.reentergame(player,{
-		go_srvname = go_srvname,
-		token = token,
-	})
-	playermgr.kick(pid)
+	playermgr.kick(player,string.format("gosrv:%s",go_srvname),function (player)
+		-- 保证踢下线玩家数据落地成功后再让玩家跨服
+		net.login.S2C.reentergame(player,{
+			go_srvname = go_srvname,
+			token = token,
+		})
+	end)
 end
 
-function playermgr.gohome(player,kuafu_onlogin)
+function playermgr.gohome(player,home_srvname,kuafu_onlogin)
 	local pid = player.pid
-	local home_srvname = assert(player.home_srvname)
+	local home_srvname = home_srvname or player.home_srvname
+	assert(home_srvname)
 	local now_srvname = cserver.getsrvname()
 	assert(home_srvname ~= now_srvname)
 	local token = uuid()
@@ -92,11 +96,12 @@ function playermgr.gohome(player,kuafu_onlogin)
 	if player.ongohome then
 		player:ongohome(home_srvname)
 	end
-	net.login.S2C.reentergame(player,{
-		go_srvname = home_srvname,
-		token = token,
-	})
-	playermgr.kick(pid)
+	playermgr.kick(player,string.format("gohome:%s",home_srvname),function (player)
+		net.login.S2C.reentergame(player,{
+			go_srvname = home_srvname,
+			token = token,
+		})
+	end)
 	rpc.call(home_srvname,"rpc","playermgr.delkuafuplayer",pid)
 end
 
@@ -105,8 +110,23 @@ end
 -- kuafuplayer: {go_srvname=去往的服务器,}
 function playermgr.addkuafuplayer(kuafuplayer)
 	local pid = kuafuplayer.pid
-	if not playermgr.getkuafuplayer(pid) then
+	local player = playermgr.getplayer(pid)
+	if player then
+		assert(player.__state == "offline")
+		-- 跨服后，保证原服离线对象先存盘,存盘后将其标记成只读
+		if not player.nosavetodatabase then
+			player:savetodatabase()
+			player.nosavetodatabase = true
+		end
+	end
+	local old_kuafuplayer = playermgr.getkuafuplayer(pid)
+	if not old_kuafuplayer then
 		playermgr.gokuafunum = playermgr.gokuafunum + 1
+	else
+		-- 防止异常情况:跨服顶号(正常情况应该走不到这里)
+		logger.log("warning","kuafu",string.format("[addkuafuplayer] pid=%s go_srvname=%s->%s",pid,old_kuafuplayer.go_srvname,kuafuplayer.go_srvname))
+		local reason = string.format("regosrv:%s",kuafuplayer.go_srvname)
+		rpc.pcall(old_kuafuplayer.go_srvname,"rpc","playermgr.kick",pid,reason)
 	end
 	kuafuplayer.gotime = kuafuplayer.gotime or os.time()
 	kuafuplayer.home_srvname = kuafuplayer.home_srvname or cserver.getsrvname()
@@ -128,6 +148,7 @@ function playermgr.getkuafuplayer(pid)
 	return playermgr.kuafuplayers[pid]
 end
 
+-- 暂时每太大用了
 function playermgr.keep_heartbeat(pid)
 	local kuafuplayer = playermgr.getkuafuplayer(pid)
 	if kuafuplayer then
@@ -140,7 +161,7 @@ function playermgr.keep_heartbeat(pid)
 		if kuafuplayer.diecnt > 3 then
 			playermgr.delkuafuplayer(pid)
 		else
-			timer.timeout("kuafu.keep_heartbeat",60,functor(playermgr.keep_heartbeat,pid))
+			timer.timeout("kuafu.keep_heartbeat",20,functor(playermgr.keep_heartbeat,pid))
 		end
 	end
 end

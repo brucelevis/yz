@@ -36,6 +36,9 @@ function carenarank:loadfromdatabase()
 end
 
 function carenarank:savetodatabase()
+	if not cserver.isgamesrv() then
+		return
+	end
 	if self.loadstate ~= "loaded" then
 		return
 	end

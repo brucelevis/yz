@@ -15,6 +15,10 @@ function cplayer:init(pid)
 		pid = self.pid,
 		flag = self.flag,
 	}
+	self.today:register(function(data)
+		local player = playermgr.getplayer(pid)
+		player:oncleartoday(data)
+	end)
 	self.thistemp = cthistemp.new{
 		pid = self.pid,
 		flag = self.flag,
@@ -83,6 +87,8 @@ function cplayer:init(pid)
 		name = "equipposdb"
 	})
 
+	--self.petdb = cpetdb.new(self.pid)
+
 	self.autosaveobj = {
 		time = self.timeattr,
 		friend = self.frienddb,
@@ -100,8 +106,11 @@ function cplayer:init(pid)
 		warskill = self.warskilldb,
 		shop = self.shopdb,
 		equippos = self.equipposdb,
+		--pet = self.petdb,
 	}
 	self.loadstate = "unload"
+
+	self.delaypackage = cdelaypackage.new(self.pid)
 end
 
 function cplayer:save()
@@ -175,6 +184,9 @@ function cplayer:packresume()
 		roletype = self.roletype,
 		jobzs = self.jobzs,
 		joblv = self.joblv,
+		fightpoint = self.fightpoint or 0,--战力待补充
+		teamstate = self:teamstate(),
+		teamid = self:teamid() or 0,
 	}
 	return resume
 end
@@ -190,7 +202,8 @@ function cplayer:savetodatabase()
 		return
 	end
 
-	local db = dbmgr.getdb(self.pid)
+	local srvname = self.home_srvname or cserver.getsrvname()
+	local db = dbmgr.getdb(srvname)
 	if self.loadstate == "loaded" then
 		local data = self:save()
 		db:set(db:key("role",self.pid,"data"),data)
@@ -294,12 +307,17 @@ function cplayer:create(conf)
 	self.createtime = getsecond()
 	local db = dbmgr.getdb()
     db:hset(db:key("role","list"),self.pid,1)
-    route.addroute(self.pid)
+    --route.addroute(self.pid)
 	self:oncreate(conf)
+	local resume = self:packresume()
+	resume.now_srvname = cserver.getsrvname()
+	resume.online = true
+	resumemgr.create(self.pid,resume)
 end
 
 function cplayer:entergame()
 	-- 确保登录第一个执行
+	playermgr.delkuafuplayer(self.pid)
 	self.delaytonextlogin:entergame()
 	self:onlogin()
 	--xpcall(self.onlogin,onerror,self)
@@ -312,10 +330,13 @@ function cplayer:exitgame(reason)
 		self:delay_exitgame()
 		return
 	end
-	self:del_delay_exitgame()
 	xpcall(self.onlogoff,onerror,self,reason)
+	self:del_delay_exitgame()
 	-- playermgr.delobject 会触发存盘
 	playermgr.delobject(self.pid,reason)
+	if self.home_srvname then
+		rpc.pcall(self.home_srvname,"rpc","playermgr.delkuafuplayer",pid)
+	end
 end
 
 
@@ -447,7 +468,7 @@ function cplayer:onlogin()
 	if not self.thistemp:query("onfivehourupdate") then
 		self:onfivehourupdate()
 	end
-	route.onlogin(self)
+	--route.onlogin(self)
 	local server = globalmgr.server
 	heartbeat(self.pid)
 	self:add("logincnt",1)
@@ -465,6 +486,7 @@ function cplayer:onlogin()
 		qualitypoint = self:query("qualitypoint"),
 		huoli = self:query("huoli") or 0,
 		storehp = self:query("storehp") or 0,
+		usehorncnt = self.today:query("usehorncnt") or 0,
 	})
 	sendpackage(self.pid,"player","resource",{
 		gold = self.gold,
@@ -635,7 +657,7 @@ function cplayer:setjoblv(val,reason)
 	assert(val <= playeraux.getmaxjoblv(self.jobzs))
 	logger.log("info","lv",string.format("[setjoblv] pid=%d joblv=%d->%d reason=%s",self.pid,oldval,val,reason))
 	self.joblv = val
-	sendpackage(self.pid,"player","update",{jobzs=self.jobzs})
+	sendpackage(self.pid,"player","update",{joblv=self.joblv})
 end
 
 function cplayer:addjoblv(val,reason)
@@ -650,6 +672,7 @@ end
 
 function cplayer:onaddjoblv(val,reason)
 	self.warskilldb:addpoint(val,"addjoblv")
+	self.taskdb:onchangejoblv()
 end
 
 function cplayer:addjobexp(val,reason)
@@ -684,15 +707,27 @@ function cplayer:changejob(tojobid)
 		net.msg.S2C.notify(self.pid,language.format("非法职业ID"))
 		return
 	end
+	local needjoblv = data_0101_Hero[self.roletype].ZZHILV
+	if self.joblv < needjoblv then
+		net.msg.S2C.notify(self.pid,language.format("职业登记不足{1}级，无法进行转职",needjoblv))
+		return
+	end
 	-- TODO: check more
 	local jobdata = data_0101_Hero[tojobid]
 	if jobdata.ZSPRE ~= self.roletype then
 		net.msg.S2C.notify(self.pid,language.format("你无法转成该职业"))
 		return
 	end
+	if jobdata.isOpen == 1 then
+		net.msg.S2C.notify(self.pid,language.format("此职业暂未开放"))
+		return
+	end
 	self.roletype = tojobid
 	self.warskilldb:openskills(self.roletype)
 	sendpackage(self.pid,"player","update",{roletype=self.roletype})
+	self:setjoblv(1,"changejob")
+	-- TODO:推送转职消息，谁注册谁处理
+	self.taskdb.zhiyin:onchangejob(jobdata.ZSPRE)
 end
 
 function cplayer:addgold(val,reason)
@@ -700,7 +735,6 @@ function cplayer:addgold(val,reason)
 	local oldval = self.gold
 	local newval = oldval + val
 	logger.log("info","resource/gold",string.format("[addgold] pid=%d gold=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
-	assert(newval >= 0,string.format("not enough gold:%d+%d=%d",oldval,val,newval))
 	self.gold = newval
 	sendpackage(self.pid,"player","resource",{gold=self.gold})
 	local addgold = newval - oldval
@@ -715,7 +749,6 @@ function cplayer:addsilver(val,reason)
 	local oldval = self.silver
 	local newval = oldval + val
 	logger.log("info","resource/silver",string.format("[addsilver] pid=%d silver=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
-	assert(newval >= 0,string.format("not enough silver:%d+%d=%d",oldval,val,newval))
 	self.silver = newval
 	sendpackage(self.pid,"player","resource",{silver=self.silver})
 	return val
@@ -726,7 +759,6 @@ function cplayer:addcoin(val,reason)
 	local oldval = self.coin
 	local newval = oldval + val
 	logger.log("info","resource/coin",string.format("[addcoin] pid=%d coin=%d+%d=%d reason=%s",self.pid,oldval,val,newval,reason))
-	assert(newval >= 0,string.format("not enough coin:%d+%d=%d",oldval,val,newval))
 	self.coin = newval
 	sendpackage(self.pid,"player","resource",{coin=self.coin})
 	return val
@@ -894,6 +926,16 @@ function cplayer:wield(equip)
 	end
 	self.itemdb:moveitem(equip.id,itemdata.equippos)
 	self:refreshequip()
+	local scene = scenemgr.getscene(self.sceneid)
+	if equip.pos == EQUIPPOS.WEAPON then
+		scene:set(self.pid,{
+			weapontype = equip.type
+		})
+	elseif equip.pos == EQUIPPOS.SHIELD then
+		scene:set(self.pid,{
+			shieldtype = equip.type
+		})
+	end
 end
 
 function cplayer:unwield(equip)
@@ -908,6 +950,18 @@ function cplayer:unwield(equip)
 	end
 	self.itemdb:moveitem(equip.id,newpos)
 	self:refreshequip()
+
+	local scene = scenemgr.getscene(self.sceneid)
+	if itemdata.equippos == EQUIPPOS.WEAPON then
+		scene:set(self.pid,{
+			weapontype = 0,
+		})
+	elseif itemdata.equippos == EQUIPPOS.SHIELD then
+		scene:set(self.pid,{
+			shieldtype = 0,
+		})
+	end
+
 end
 
 function cplayer:refreshequip()
@@ -916,6 +970,11 @@ function cplayer:refreshequip()
 		if equip then
 		end
 	end
+end
+
+function cplayer:addhuoli(num,reason)
+	self:add("huoli",num)
+	sendpackage(self.pid,"player","update",{ huoli = self:query("huoli"), })
 end
 
 function cplayer:addres(typ,num,reason,btip)
@@ -938,6 +997,9 @@ function cplayer:addres(typ,num,reason,btip)
 	elseif typ == RESTYPE.JOBEXP or string.lower(typ) == "jobexp" then
 		self:addjobexp(num,reason)
 		flag = "IR12"
+	elseif typ == RESTYPE.HUOLI or string.lower(typ) == "huoli" then
+		self:addhuoli(num,reason)
+		flag = "IR9"
 	else
 		error("Invlid restype:" .. tostring(typ))
 	end
@@ -1003,7 +1065,7 @@ function cplayer:packscene(sceneid,pos)
 	sceneid = sceneid or self.sceneid
 	pos = pos or self.pos
 	local scene = scenemgr.getscene(sceneid)
-	return {
+	local pack = {
 		pid = self.pid,
 		name = self.name,
 		lv = self.lv,
@@ -1020,6 +1082,15 @@ function cplayer:packscene(sceneid,pos)
 		sceneid = sceneid,
 		pos = pos,
 	}
+	local weapon = self.itemdb:getitembypos(EQUIPPOS.WEAPON)
+	if weapon then
+		pack.weapontype = weapon.type
+	end
+	local shield = self.itemdb:getitembypos(EQUIPPOS.SHIELD)
+	if shield then
+		pack.shieldtype = shield.type
+	end
+	return pack
 end
 
 -- setter
@@ -1047,9 +1118,15 @@ function cplayer:move(package)
 	assert(self.sceneid)
 	local scene = scenemgr.getscene(self.sceneid)
 	if scene then
+		local oldpos = self.pos
 		scene:move(self,package)
+		self:onmove(oldpos,self.pos)
 		return true
 	end
+end
+
+function cplayer:onmove(oldpos,newpos)
+	huodongmgr.onmove(self,oldpos,newpos)
 end
 
 function cplayer:leavescene(sceneid)
@@ -1155,6 +1232,12 @@ function cplayer:onfivehourupdate()
 		self:onmonthupdate_infivehour()
 	end
 	navigation.onfivehourupdate(self)
+end
+
+function cplayer:oncleartoday(data)
+	local dataunit = cbasicattr.new({pid=self.pid,flag="oncleartoday"})
+	dataunit.data = data
+	self.taskdb:oncleartoday(dataunit)
 end
 
 -- 每个月第一天的5点时更新
@@ -1627,6 +1710,11 @@ function cplayer:setname(name)
 		db:hdel(key,oldname)
 	end
 	db:hset(key,name,self.pid)
+end
+
+-- for rpc
+function cplayer:getlv()
+	return self.lv
 end
 
 return cplayer

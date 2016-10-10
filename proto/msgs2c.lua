@@ -76,8 +76,8 @@ msg_teammsg 4504 {
 	}
 }
 
-# 帮派消息
-msg_orgmsg 4505 {
+# 工会消息
+msg_unionmsg 4505 {
 	request {
 		base 0 : basetype
 		sender 1 : SendMsgPlayerType
@@ -128,6 +128,27 @@ msg_npcsay 4510 {
 		msg 3 : string
 		options 4 : *string		#按钮信息,按顺序显示选项
 		respondid 5 : integer # 应答id,无选项时为nil
+	}
+}
+
+# 频道发言CD间隔（上线时发送给客户端)
+.ChannelCDType {
+	type 0 : string  # 见data_MsgChannel
+	cd 1 : integer	 # cd
+}
+
+msg_channel_cd 4511 {
+	request {
+		base 0 : basetype
+		cds 1 : *ChannelCDType
+	}
+}
+
+# 发言成功，只有收到该协议，客户端才进入对应消息的频道CD
+msg_sendmsg_succ 4512 {
+	request {
+		base 0 : basetype
+		id 1 : integer		# 客户端生成的唯一消息ID
 	}
 }
 ]]

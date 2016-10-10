@@ -314,6 +314,37 @@ data_1500_TestTaskProcess = {
 		executed_desc = "回去提交",
 	},
 
+	[90000011] = {
+		id = 90000011,
+		type = 1,
+		name = "测试找人2",
+		accept = {
+			{ cmd = 'addnpc', args = { nid = { 102,101 }, both = 1, }, },
+			{ cmd = 'findnpc', args = { nid = 101, respond = 0, }, },
+		},
+		execution = {
+			{ cmd = 'openui', args = { buttonid = 10001, }, },
+		},
+		finishbyclient = 0,
+		autoexec = 0,
+		acceptnpc = 20001001,
+		submitnpc = 0,
+		recommendteam = 2,
+		cangiveup = 1,
+		needlv = 0,
+		needjob = {nil},
+		exceedtime = "nil",
+		pretask = {nil},
+		ratio = 10,
+		award = 101,
+		nexttask = "nil",
+		chapterid = 0,
+		icon_id = 93051,
+		desc = "长安似乎发生了些什么怪事2",
+		accepted_desc = "测试寻物",
+		executed_desc = "回去提交",
+	},
+
 }
 return data_1500_TestTaskProcess
 --<<data_1500_TestTaskProcess 导表结束>>

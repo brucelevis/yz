@@ -50,9 +50,6 @@ function cresume:savetodatabase()
 	if self.nosavetodatabase then
 		return
 	end
-	if self.loadnull then
-		return
-	end
 	if self.loadstate == "loaded" then
 		if self:isdirty() then
 			local data = self:save()
@@ -64,7 +61,6 @@ end
 
 function cresume:deletefromdatabase()
 	if cserver.isdatacenter() then
-		print("delresume",self.pid)
 		local db = dbmgr.getdb()
 		db:del(db:key("resume",self.pid))
 	end
@@ -72,9 +68,10 @@ end
 
 function cresume:onloadnull()
 	if cserver.isgamesrv() then
-		--print("resume:create",route.getsrvname(self.pid),cserver.getsrvname(),self.pid)
-		if route.getsrvname(self.pid) ~= cserver.getsrvname() then
-			logger.log("error","error",string.format("[from datacenter loadnull] srvname=%s pid=%s",route.getsrvname(self.pid),self.pid))
+		local home_srvname = globalmgr.home_srvname(self.pid)
+		local self_srvname = cserver.getsrvname()
+		if home_srvname ~= self_srvname then
+			logger.log("error","error",string.format("[from datacenter loadnull] home_srvname=%s pid=%s",home_srvname,self.pid))
 			return
 		end
 		local player = playermgr.getplayer(self.pid)
@@ -83,8 +80,8 @@ function cresume:onloadnull()
 			player = playermgr.loadofflineplayer(self.pid)
 		end
 		local data = player:packresume()
-		data.home_srvname = cserver.getsrvname()
-		data.now_srvname = cserver.getsrvname()
+		data.home_srvname = home_srvname
+		data.now_srvname = self_srvname
 		self:create(data)
 	elseif cserver.isdatacenter() then
 	end
@@ -127,20 +124,11 @@ function cresume:delref(pid)
 	end
 end
 
-
--- resume:set(key,val,nosync_todc)
--- resume:set({[key]=val},nil,nosync_todc)
-function cresume:set(key,val,nosync_todc)
-	local attrs
-	if type(key) ~= "table" then
-		attrs = {[key] = val}
-	else
-		attrs = key
-	end
+function cresume:set(attrs,nosync_todc)
 	for k,v in pairs(attrs) do
 		cdatabaseable.set(self,k,v)
 	end
-	self:sync(attrs,notsync_todc)
+	self:sync(attrs,nosync_todc)
 end
 
 function cresume:sync(data,nosync_todc)
@@ -148,7 +136,8 @@ function cresume:sync(data,nosync_todc)
 		if pid ~= self.pid then
 			player = playermgr.getplayer(pid)
 			if player then
-				player.frienddb:syncfrdblk(self.pid,data)
+				data.pid = self.pid
+				net.friend.S2C.sync_resume(pid,data)
 			end
 		end
 	end
@@ -156,6 +145,22 @@ function cresume:sync(data,nosync_todc)
 		return
 	end
 	rpc.pcall(cserver.datacenter(),"resumemgr","sync",self.pid,data)
+end
+
+function cresume:pack()
+	return {
+		pid = self.pid,
+		name = self:query("name"),
+		lv = self:query("lv"),
+		roletype = self:query("roletype"),
+		srvname = self:query("srvname"),
+		online = self:query("online"),
+		fightpoint = self:query("fightpoint"),
+		joblv = self:query("joblv"),
+		jobzs = self:query("jobzs"),
+		teamstate = self:query("teamstate"),
+		teamid = self:query("teamid"),
+	}
 end
 
 return cresume

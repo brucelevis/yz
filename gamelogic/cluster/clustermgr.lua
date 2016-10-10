@@ -1,13 +1,13 @@
 clustermgr = clustermgr or {}
 
 function clustermgr.checkserver()
-	timer.timeout("clustermgr.checkserver",30,clustermgr.checkserver)
+	timer.timeout("clustermgr.checkserver",20,clustermgr.checkserver)
 	local self_srvname = cserver.getsrvname()
 	-- 游戏服之间集群
 	local srvlist = data_RoGameSrvList
-	for srvname,_ in pairs(srvlist) do
-		if srvname ~= self_srvname then
-			local ok,result = pcall(rpc.call,srvname,"heartbeat")
+	for srvname,srv in pairs(srvlist) do
+		if clustermgr.needconnect(srvname,self_srvname) then
+			local ok = clustermgr.nodown(srvname)
 			if not ok then
 				clustermgr.disconnect(srvname)
 			else
@@ -20,7 +20,7 @@ function clustermgr.checkserver()
 		local srvlist = {cserver.datacenter(),cserver.warsrv(),}
 		for _,srvname in pairs(srvlist) do
 			assert(self_srvname ~= srvname)
-			local ok,result = pcall(rpc.call,srvname,"heartbeat")
+			local ok = clustermgr.nodown(srvname)
 			if not ok then
 				clustermgr.disconnect(srvname)
 			else
@@ -30,14 +30,32 @@ function clustermgr.checkserver()
 	end
 end
 
+--
+function clustermgr.needconnect(srvname,self_srvname)
+	local srv = data_RoGameSrvList[srvname] or data_RoCenterSrvList[srvname]
+	self_srvname = self_srvname or cserver.getsrvname()
+	local self_srv = data_RoGameSrvList[self_srvname] or data_RoCenterSrvList[self_srvname]
+	if self_srvname ~= srvname and
+		istrue(srv.isopen) and
+		self_srv.cluster_zone == srv.cluster_zone then
+		return true
+	end
+	return false
+end
+
 function clustermgr.isconnect(srvname)
 	return clustermgr.connection[srvname]
 end
 
+function clustermgr.nodown(srvname)
+	local ok,result = pcall(rpc.call,srvname,"heartbeat")
+	return ok
+end
+
 function clustermgr.onconnect(srvname)
 	local oldstate = clustermgr.connection[srvname]
-	clustermgr.connection[srvname] = 1
 	if not oldstate then
+		clustermgr.connection[srvname] = 1
 		local self_srvname = cserver.getsrvname()
 		logger.log("info","cluster",string.format("%s connected %s",self_srvname,srvname))
 		if cserver.isdatacenter(srvname) then
@@ -49,7 +67,7 @@ function clustermgr.onconnect(srvname)
 		end
 
 		if cserver.isgamesrv(self_srvname) and cserver.isgamesrv(srvname) then
-			route.syncto(srvname)
+			--route.syncto(srvname)
 		end
 	end
 end
@@ -84,7 +102,7 @@ function clustermgr.init()
 	local srvname = skynet.getenv("srvname")
 	skynet_cluster.open(srvname)
 
-	-- 启服60s后再连接其他服，防止所有服同时启动服务器那一刻call阻塞导致启服失败
+	-- 启服60s后再连接其他服，防止所有服同时启动,那一刻call阻塞导致启服失败
 	timer.timeout("clustermgr.checkserver",60,clustermgr.checkserver)
 	--clustermgr.checkserver()
 end
