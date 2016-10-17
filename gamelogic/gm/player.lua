@@ -8,7 +8,7 @@ gm = require "gamelogic.gm.init"
 function gm.playerset(args)
 	local isok,args = checkargs(args,"string","string","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: playerset 属性名 属性值 [玩家ID]")
+		gm.notify("用法: playerset 属性名 属性值 [玩家ID]")
 		return
 	end
 	local key = args[1]
@@ -17,12 +17,12 @@ function gm.playerset(args)
 	local val = chunk()
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	local oldval = table.getattr(player,key)
 	if type(oldval) == "function" then
-		net.msg.S2C.notify(master_pid,"非法属性")
+		gm.notify("非法属性")
 		return
 	end
 	if key == "lv" then
@@ -39,7 +39,7 @@ function gm.playerset(args)
 		player:addcoin(addval,"gm")
 	else
 		table.setattr(player,key,val)
-		net.msg.S2C.notify(master_pid,string.format("重新登录生效"))
+		gm.notify(string.format("重新登录生效"))
 	end
 end
 
@@ -50,14 +50,14 @@ end
 function gm.addqualitypoint(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addqualitypoint 增加的素质点 [玩家ID]")
+		gm.notify("用法: addqualitypoint 增加的素质点 [玩家ID]")
 		return
 	end
 	local val = args[1]
 	local pid = tonumber(args[2]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:add_qualitypoint(val,"gm")
@@ -70,13 +70,13 @@ end
 function gm.resetqualitypoint(args)
 	local isok,args = checkargs(args,"*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: resetqualitypoint [玩家ID]")
+		gm.notify("用法: resetqualitypoint [玩家ID]")
 		return
 	end
 	local pid = tonumber(args[1]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:reset_qualitypoint()
@@ -112,14 +112,14 @@ end
 function gm.addexp(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addexp 经验值 [玩家ID]")
+		gm.notify("用法: addexp 经验值 [玩家ID]")
 		return
 	end
 	local val = args[1]
 	local pid = tonumber(args[2]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:addexp(val,"gm")
@@ -132,14 +132,14 @@ end
 function gm.addjobexp(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addjobexp 经验值 [玩家ID]")
+		gm.notify("用法: addjobexp 经验值 [玩家ID]")
 		return
 	end
 	local val = args[1]
 	local pid = tonumber(args[2]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:addjobexp(val,"gm")
@@ -151,7 +151,7 @@ function gm.newplayerday(args)
 	local pid = tonumber(args[1]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player.today.dayno = 1
@@ -163,13 +163,13 @@ end
 function gm.clear(args)
 	local isok,args = checkargs(args,"string")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: clear 容器类别")
+		gm.notify("用法: clear 容器类别")
 		return
 	end
 	local typ = args[1]
 	local container = master[typ]
 	if not container or not container.clear then
-		net.msg.S2C.notify(master_pid,string.format("容器(%s)不存在",typ))
+		gm.notify(string.format("容器(%s)不存在",typ))
 		return
 	end
 	container:clear()
@@ -185,7 +185,7 @@ end
 function gm.banspeak(args)
 	local isok,args = checkargs(args,"string","string","int","string")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: banspeak acct|ip|role 帐号|IP|角色ID 禁言多长时间 原因")
+		gm.notify("用法: banspeak acct|ip|role 帐号|IP|角色ID 禁言多长时间 原因")
 		return
 	end
 	local what = args[1]
@@ -266,13 +266,13 @@ end
 function gm.changejob(args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(master.pid,"用法: changejob 职业id")
+		gm.notify("用法: changejob 职业id")
 		return
 	end
 	local jobid = args[1]
 	local jobdata = data_0101_Hero[jobid]
 	if not jobdata then
-		net.msg.S2C.notify(master.pid,"职业id不正确")
+		gm.notify("职业id不正确")
 		return
 	end
 	local player = master
@@ -285,20 +285,49 @@ function gm.changejob(args)
 		player.warskilldb:openskills(jobid)
 		jobdata = data_0101_Hero[jobid]
 	end
-	net.msg.S2C.notify(player.pid,"重新登录后，显示新职业技能")
+	gm.notify("重新登录后，显示新职业技能")
 	sendpackage(player.pid,"player","update",{roletype = player.roletype})
 end
 
 function gm.setliveness(args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(master.pid,"用法: setliveness 100 <-->设置活跃度为100")
+		gm.notify("用法: setliveness 100 <-->设置活跃度为100")
 		return
 	end
 	local liveness = args[1]
 	local navigatedata = navigation.getnavigation(master)
 	navigatedata.liveness = liveness
 	net.navigation.S2C.sendactivitydata(master,navigatedata)
+end
+
+--- 指令: 清空相关玩法
+--- 用法: clear item|card|fashionshow|pet|equippos
+--- 举例: clear item <=> 清空背包
+--- 举例: clear card <=> 清空卡片
+--- 举例: clear fashionshow <=> 清空时装秀
+--- 举例: clear pet <=> 清空宠物
+--- 举例: clear equippos <=> 清空装备栏的属性
+function gm.clear(args)
+	local isok,args = checkargs("string")
+	if not isok then
+		gm.notify("用法: clear item|card|fashionshow|pet|equippos")
+		return
+	end
+	local player = master
+	local typ = args[1]
+	if typ == "item" then
+		player.itemdb:clear()	
+	elseif typ == "card" then
+		player.carddb:clear()
+	elseif typ == "fashionshow" then
+		player.fashionshowdb:clear()
+	elseif typ == "pet" then
+		player.petdb:clear()
+	elseif typ == "equippos" then
+		player.equipposdb:clear()
+	end
+	gm.notify("重登后生效")
 end
 
 return gm

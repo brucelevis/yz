@@ -137,6 +137,10 @@ function cwarskilldb:canwield(skillid)
 	if not skill or skill.level <= 0 then
 		return false
 	end
+	local skilldata = self:getskilldata(skillid)
+	if skilldata.attackType == 1 then
+		return false
+	end
 	return true
 end
 
@@ -151,11 +155,18 @@ end
 function cwarskilldb:getcurskills()
 	local skills = {}
 	if self.skillslot[self.curslot] then
-		for _,skillid in pairs(self.skillslot[self.curslot]) do
+		for pos,skillid in ipairs(self.skillslot[self.curslot]) do
 			local skill = self:get(skillid)
 			if skill then
-				table.insert(skills,{ id = skillid, lv = skill.level })
+				table.insert(skills,{ id = skillid, lv = skill.level, pos = pos, })
 			end
+		end
+	end
+	for _,skill in pairs(self.objs) do
+		local skilldata = self:getskilldata(skill.id)
+		--被动技能
+		if skill.level > 0 and skilldata.attackType == 1 then
+			table.insert(skills,{ id = skill.id, lv = skill.level, pos = 0, })
 		end
 	end
 	return skills

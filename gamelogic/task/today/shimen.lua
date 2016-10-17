@@ -11,9 +11,6 @@ function cshimentask:init(conf)
 end
 
 function cshimentask:__canaccept()
-	if self:reachlimit() then
-		return false,language.format("今天已经完成20环协会请援")
-	end
 	local player = playermgr.getplayer(self.pid)
 	if player.lv < 10 then
 		return false,language.format("等级不足，无法接受")
@@ -168,21 +165,6 @@ end
 
 function cshimentask:getquestionbank()
 	return "data_1100_QuestionBank02"
-end
-
-function cshimentask:finishtask(task,reason)
-	ctaskcontainer.finishtask(self,task,reasosn)
-	local player = playermgr.getplayer(self.pid)
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			local task2 = member.taskdb:gettask(task.taskid)
-			if task2 then
-				ctaskcontainer.finishtask(member.taskdb.shimen,task,reason)
-			end
-		end
-	end
 end
 
 return cshimentask

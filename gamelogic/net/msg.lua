@@ -215,7 +215,7 @@ function C2S.hornmsg(player,request)
 	local hasnum = itemdb:getnumbytype(itemtype)
 	local usehornkey = string.format("usehorncnt")
 	local costhornnum
-	local usehornnum = player.today:query(usehornkey,0)
+	local usehornnum = player.today:query(usehornkey,0) + 1
 	for key,val in pairs(data_GlobalVar.CostHornNum) do
 		if usehornnum >= key then
 			if not costhornnum or costhornnum < val then

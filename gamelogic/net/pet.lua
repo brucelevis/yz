@@ -54,10 +54,9 @@ function C2S.feed(player,request)
 	else
 		addclose = data_1700_PetVar.FeedAddClose
 	end
-	local costnum = 1
-	player.itemdb:costitembyid(item.id,costnum,string.format("feed#%s",pet.id))
+	player.itemdb:costitembyid(item.id,1,string.format("feed#%s",pet.id))
 	player.today:add(key,1)
-	player.petdb:addclose(pet.id,addclose)
+	player.petdb:addclose(pet.id,addclose,"feed")
 	if optimal_feed then
 		net.msg.S2C.notify(player.pid,language.format("今天已喂食【{1}】{2}/{3},每天前{4}次喂食获得亲密度翻倍",pet.name,cnt,optimal_feed_cnt,optimal_feed_cnt))
 	else
@@ -68,7 +67,12 @@ end
 
 function C2S.changestatus(player,request)
 	local id = assert(request.id)
+	local pet = player.petdb:getpet(id)
+	if not pet then
+		return
+	end
 	local status = request.status
+	local reason
 	if status then
 		local itemtype = data_1700_PetStatus[status]
 		if not itemtype then
@@ -80,17 +84,52 @@ function C2S.changestatus(player,request)
 			return
 		end
 		player.itemdb:costitembytype(itemtype,1,"change_petstatus")
-		
+		reason = "useitem"
 	else
+		local costclose = data_1700_PetChangeStatusCost[pet.lv].costclose
+		if pet.close < costclose then
+			net.msg.S2C.notify(player.pid,language.format("亲密度不足"))
+			return
+		end
+		player.petdb:addclose(id,-costclose,"changestatus")
+		status = randlist(table.keys(data_1700_PetStatus))
+		reason = "useclose"
 	end
+	player.petdb:change_petstatus(id,status,reason)
 end
 
 function C2S.train(player,request)
 	local id = assert(request.id)
-	if not player.petdb:getpet(id) then
+	local pet = player.petdb:getpet(id)
+	if not pet then
 		return
 	end
+	local quality = pet:get("quality")
+	local needitem
+	if quality == 1 then
+		needitem = data_1700_PetVar.NormalTrainItem
+	elseif quality == 2 then
+		needitem = data_1700_PetVar.RareTrainItem
+	else
+		needitem = data_1700_PetVar.HolyTrainItem
+	end
+	if player.itemdb:getnumbytype(needitem.item) < needitem.num then
+		net.msg.S2C.notify(player.pid,language.format("所需训练物品不足"))
+		return
+	end
+	player.itemdb:costitembytype(needitem.item,needitem.num,"trainpet")
 	player.petdb:trainpet(id)
+end
+
+function C2S.learnskill(player,request)
+	local skillid = assert(request.skillid)
+	local id = assert(request.id)
+end
+
+function C2S.forgetskill(player,request)
+	local skillid = assert(request.skillid)
+	local id = assert(request.id)
+	
 end
 
 function C2S.catch(player,request)

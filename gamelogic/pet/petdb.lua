@@ -38,6 +38,7 @@ end
 
 function cpetdb:newpet()
 	local pet = cpet.new({ pid = self.pid, })
+	pet:config()
 	return pet
 end
 
@@ -101,6 +102,7 @@ function cpetdb:readywar(petid)
 	if not pet then
 		return
 	end
+	self.readywar_petid = petid
 	self:update(pet.id,{
 		readywar = true,
 	})
@@ -112,17 +114,19 @@ function cpetdb:unreadywar(petid)
 	if not pet then
 		return
 	end
+	self.readywar_petid = nil
 	self:update(pet.id,{
 		readywar = false,
 	})
 	return pet
 end
 
-function cpetdb:addclose(petid,addclose)
+function cpetdb:addclose(petid,addclose,reason)
 	local pet = self:getpet(petid)
 	if not pet then
 		return 0
 	end
+	logger.log("info","pet",string.format("[addclose] pid=%d petid=%s close=%d reason=%s",self.pid,petid,addclose,reason))
 	local newval = pet.close + addclose
 	local addlv = 0
 	local maxlv = #data_1700_PetRelationShip
@@ -136,21 +140,88 @@ function cpetdb:addclose(petid,addclose)
 		end
 	end
 	self:update(petid,{
-		lv = self.lv + addlv,
+		relationship = self.relationship + addlv,
 		close = newval,
 	})
 	return addclose
 end
 
-function cpetdb:change_petstatus(petid,status)
+function cpetdb:change_petstatus(petid,status,reason)
 	local pet = self:getpet(petid)
 	if not pet then
 		return
 	end
+	logger.log("info","pet",string.format("[changestatus] pid=%d petid=%s status=%s reason=%s",self.pid,petid,status,reason))
 	self:update(petid,{
 		status = status,
 	})
 	return status
+end
+
+function cpetdb:traindpet(petid)
+	local pet = self:getpet(petid)
+	if not pet then
+		return
+	end
+	local data = petaux.getpetdata(self.type)
+	-- 处理技能
+	local oldskills = pet:getallskills()
+	pet.skills = {}
+	for _,skillid in pairs(data.study_skills) do
+		if ishit(50) then
+			pet:addskill(skillid)
+		end
+	end
+	-- 处理资质
+	local fullzizhi = pet:query("fullzizhi",{})
+	local basic_downratio = 5
+	local oldzizhi = pet.zizhi
+	pet.zizhi = {}
+	for name,value in pairs(oldzizhi) do
+		-- 洗出满资质后，下一次训练不变
+		if not fullzizhi[name] then
+			local fullzizhi = data[name] * pet.zizhi_maxratio / 100
+			local addition_downratio = math.floor(10 * value / fullzizhi)
+			local newvalue
+			if ishit(basic_downratio + addition_downratio) then
+				local add = math.random(1,9)
+				newvalue = pet:setzizhi(name,value + add)
+			else
+				local reduce = math.random(1,9)
+				newvalue = pet:setzizhi(name,value - reduce)
+			end
+			if newvalue < fullzizhi then
+				fullzizhi[name] = nil
+			else
+				fullzizhi[name] = true
+			end
+		end
+	end
+	pet:set("fullzizhi",fullzizhi)
+	pet:onchangezizhi()
+	local newskills = pet:getallskills()
+	logger.log("info","pet",format("[trainpet] pid=%d petid=%d oldzz=%s newzz=%s oldsk=%s newsk=%s",self.pid,petid,oldzizhi,pet.zizhi,oldskills,newskills))
+	sendpackage("pet","update",{
+		id = petid,
+		skills = newskills,
+		zizhi = pet.zizhi,
+	})
+end
+
+function cpetdb:comprehendskill(petid)
+	local pet = self:getpet(petid)
+	if not pet then
+		return
+	end
+	if pet:getskillslen() >= pet.skillslimit then
+		return
+	end
+end
+
+function cpetdb:learnskill(petid,skillid)
+end
+
+function cpetdb:forgetskill(petid,skillid)
 end
 
 function cpetdb:getpetsbytype(pettype)
@@ -211,6 +282,13 @@ function cpetdb:onupdate(id,attrs)
 	sendpackage(self.pid,"pet","updatepet",{
 		pet = attrs,
 	})
+end
+
+function cpetdb:onfivehourupdate(player)
+	for id,pet in pairs(self.objs) do
+		local status = randlist(table.keys(data_1700_PetStatus))
+		self:change_petstatus(id,status,"onfivehourupdate")
+	end
 end
 
 return cpetdb

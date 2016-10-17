@@ -941,6 +941,646 @@ data_1500_MainTaskNpc = {
 		job = "魔神",
 	},
 
+	[401010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "如此明媚的阳光,真是叫人舒服啊——",
+		job = "游侠",
+	},
+
+	[401020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001004",
+		dir = 3,
+		isclient = 1,
+		talk = "伊菲君这个幼稚鬼！",
+		job = "法师",
+	},
+
+	[401030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "哥哥姐姐……请相信我吧！",
+		job = "小女孩",
+	},
+
+	[401040] = {
+		name = "犬妖",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "嗷呜——",
+		job = "野兽",
+	},
+
+	[402010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "这是在是太古怪了。",
+		job = "游侠",
+	},
+
+	[402020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002004",
+		dir = 7,
+		isclient = 1,
+		talk = "难道又是一件与魔神有关的事？",
+		job = "法师",
+	},
+
+	[402030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21002005",
+		dir = 8,
+		isclient = 1,
+		talk = "爷爷从王都回来后就完全变了样子……",
+		job = "小女孩",
+	},
+
+	[403010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "游侠",
+	},
+
+	[403020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21001002",
+		dir = 2,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "法师",
+	},
+
+	[403030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21001003",
+		dir = 3,
+		isclient = 1,
+		talk = "谢谢你们肯帮助我,谢谢……",
+		job = "小女孩",
+	},
+
+	[404010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "游侠",
+	},
+
+	[404020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "法师",
+	},
+
+	[404030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "谢谢你们肯帮助我,谢谢……",
+		job = "小女孩",
+	},
+
+	[405010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "游侠",
+	},
+
+	[405020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001004",
+		dir = 3,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "法师",
+	},
+
+	[405030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "谢谢你们肯帮助我,谢谢……",
+		job = "小女孩",
+	},
+
+	[406010] = {
+		name = "伊菲",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "游侠",
+	},
+
+	[406020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "这些可恶的妖怪！",
+		job = "法师",
+	},
+
+	[406030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21002004",
+		dir = 7,
+		isclient = 1,
+		talk = "谢谢你们肯帮助我,谢谢……",
+		job = "小女孩",
+	},
+
+	[407010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002005",
+		dir = 8,
+		isclient = 1,
+		talk = "这到底是怎么回事？",
+		job = "游侠",
+	},
+
+	[407020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "这到底是怎么回事？",
+		job = "法师",
+	},
+
+	[407030] = {
+		name = "思莉嘉",
+		shape = 10002,
+		posid = "21001002",
+		dir = 2,
+		isclient = 1,
+		talk = "爷爷……爷爷他……",
+		job = "小女孩",
+	},
+
+	[407040] = {
+		name = "老人",
+		shape = 10001,
+		posid = "21001003",
+		dir = 3,
+		isclient = 1,
+		talk = "带了重要的客人来吗,我的孩子？",
+		job = "猎户",
+	},
+
+	[408010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "究竟是谁在暗中捣鬼？",
+		job = "游侠",
+	},
+
+	[408020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "究竟是谁在暗中捣鬼？",
+		job = "法师",
+	},
+
+	[408030] = {
+		name = "思莉嘉",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "…………",
+		job = "小女孩",
+	},
+
+	[408040] = {
+		name = "老人",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "…………",
+		job = "猎户",
+	},
+
+	[409010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001004",
+		dir = 3,
+		isclient = 1,
+		talk = "究竟是谁在暗中捣鬼？",
+		job = "游侠",
+	},
+
+	[409020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "究竟是谁在暗中捣鬼？",
+		job = "法师",
+	},
+
+	[409030] = {
+		name = "思莉嘉",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "…………",
+		job = "小女孩",
+	},
+
+	[409040] = {
+		name = "老人",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "…………",
+		job = "猎户",
+	},
+
+	[409050] = {
+		name = "黑雾",
+		shape = 10001,
+		posid = "21002004",
+		dir = 7,
+		isclient = 1,
+		talk = "居然能察觉我的存在,不错嘛。",
+		job = "精怪",
+	},
+
+	[410010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002005",
+		dir = 8,
+		isclient = 1,
+		talk = "哎……好想回到王都啊……",
+		job = "游侠",
+	},
+
+	[410020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "信仰罪恶,终将被罪恶吞噬。",
+		job = "法师",
+	},
+
+	[410030] = {
+		name = "思莉嘉",
+		shape = 10002,
+		posid = "21001002",
+		dir = 2,
+		isclient = 1,
+		talk = "…………",
+		job = "小女孩",
+	},
+
+	[410040] = {
+		name = "老人",
+		shape = 10001,
+		posid = "21001003",
+		dir = 3,
+		isclient = 1,
+		talk = "是我连累了思莉嘉……",
+		job = "猎户",
+	},
+
+	[410050] = {
+		name = "黑雾",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "后会有期了。",
+		job = "精怪",
+	},
+
+	[501010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "爱拉忒酱,不要自作主张好不好？！",
+		job = "游侠",
+	},
+
+	[501020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001004",
+		dir = 3,
+		isclient = 1,
+		talk = "赛共大人和其他魔神可是完全不同的！",
+		job = "法师",
+	},
+
+	[502010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "早知道就回王都了……",
+		job = "游侠",
+	},
+
+	[502020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "冒险的路上哪有一帆风顺的啦~",
+		job = "法师",
+	},
+
+	[503010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "究竟还有多远嘛！",
+		job = "游侠",
+	},
+
+	[503020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002004",
+		dir = 7,
+		isclient = 1,
+		talk = "应该就在这附近才对啊。",
+		job = "法师",
+	},
+
+	[504010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002005",
+		dir = 8,
+		isclient = 1,
+		talk = "爱拉忒酱不会找错了方向吧……",
+		job = "游侠",
+	},
+
+	[504020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "相信我,准没错！",
+		job = "法师",
+	},
+
+	[504030] = {
+		name = "赛共",
+		shape = 10002,
+		posid = "21001002",
+		dir = 2,
+		isclient = 1,
+		talk = "你们是谁？",
+		job = "魔神",
+	},
+
+	[505010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21001003",
+		dir = 3,
+		isclient = 1,
+		talk = "早就劝过爱拉忒酱不要自讨无趣啦。",
+		job = "游侠",
+	},
+
+	[505020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "赛共大人,请您救救我的朋友！",
+		job = "法师",
+	},
+
+	[505030] = {
+		name = "赛共",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "不知道赫麦村是我最大的禁忌吗？",
+		job = "魔神",
+	},
+
+	[506010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "早就劝过爱拉忒酱不要自讨无趣啦。",
+		job = "游侠",
+	},
+
+	[506020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "赛共大人,请您救救我的朋友！",
+		job = "法师",
+	},
+
+	[506030] = {
+		name = "赛共",
+		shape = 10001,
+		posid = "21001004",
+		dir = 3,
+		isclient = 1,
+		talk = "再纠缠下去也不会有结果的。",
+		job = "魔神",
+	},
+
+	[507010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "早就劝过爱拉忒酱不要自讨无趣啦。",
+		job = "游侠",
+	},
+
+	[507020] = {
+		name = "爱拉忒",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "难道赛共大人只是一个缩头乌龟吗？",
+		job = "法师",
+	},
+
+	[507030] = {
+		name = "赛共",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "年幼无知的你,又能明白什么？",
+		job = "魔神",
+	},
+
+	[508010] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "21002004",
+		dir = 7,
+		isclient = 1,
+		talk = "这到底是怎么回事啊？",
+		job = "游侠",
+	},
+
+	[508020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002005",
+		dir = 8,
+		isclient = 1,
+		talk = "赛共大人……怎么会这样……？",
+		job = "法师",
+	},
+
+	[508030] = {
+		name = "赛共",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "…………",
+		job = "魔神",
+	},
+
+	[509010] = {
+		name = "伊菲",
+		shape = 10002,
+		posid = "21001002",
+		dir = 2,
+		isclient = 1,
+		talk = "这到底是怎么回事啊？",
+		job = "游侠",
+	},
+
+	[509020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21001003",
+		dir = 3,
+		isclient = 1,
+		talk = "赛共大人……怎么会这样……？",
+		job = "法师",
+	},
+
+	[509030] = {
+		name = "赛共",
+		shape = 10001,
+		posid = "21002001",
+		dir = 4,
+		isclient = 1,
+		talk = "…………",
+		job = "魔神",
+	},
+
+	[510010] = {
+		name = "伊菲",
+		shape = 10002,
+		posid = "21002002",
+		dir = 5,
+		isclient = 1,
+		talk = "这到底是怎么回事啊？",
+		job = "游侠",
+	},
+
+	[510020] = {
+		name = "爱拉忒",
+		shape = 10001,
+		posid = "21002003",
+		dir = 6,
+		isclient = 1,
+		talk = "赛共大人……怎么会这样……？",
+		job = "法师",
+	},
+
+	[510030] = {
+		name = "赛共",
+		shape = 10001,
+		posid = "21001003",
+		dir = 2,
+		isclient = 1,
+		talk = "…………",
+		job = "魔神",
+	},
+
 }
 return data_1500_MainTaskNpc
 --<<data_1500_MainTaskNpc 导表结束>>

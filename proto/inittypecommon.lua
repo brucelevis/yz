@@ -128,6 +128,8 @@ return {
 	close 8 : integer	# 亲密度
 	status 9 : integer	# 状态，见data_1700_PetStatus
 	readywar 10 : boolean # true--出战状态,false/nil--休息状态
+	zizhi 11 : QualityPointType # 宠物没有素质点和扩展素质点
+	skills 12 : *integer # 技能编号列表
 }
 
 

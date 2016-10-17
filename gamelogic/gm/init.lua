@@ -69,7 +69,7 @@ function gm.docmd(pid,cmdline)
 	end
 	logger.log("info","gm",format("[gm.docmd] pid=%s cmd='%s' issuccess=%s result=%s",pid,cmdline,issuccess,result))
 	if pid ~= 0 then
-		net.msg.S2C.notify(pid,string.format("执行%s",issuccess and "成功" or "报错了！"))
+		gm.notify(string.format("执行%s",issuccess and "成功" or "报错了！"),pid)
 	end
 	return issuccess,result
 end
@@ -89,6 +89,7 @@ function gm.init()
 	require "gamelogic.gm.war"
 	require "gamelogic.gm.shop"
 	require "gamelogic.gm.chapter"
+	require "gamelogic.gm.friend"
 end
 
 function gm.onlogin(player)
@@ -119,6 +120,11 @@ function gm.say(msg,pid)
 		sender = sender,
 		msg = msg
 	})
+end
+
+function gm.notify(msg,pid)
+	pid = pid or master_pid
+	net.msg.S2C.notify(pid,msg)
 end
 
 

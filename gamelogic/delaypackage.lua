@@ -25,7 +25,7 @@ function cdelaypackage:push(protoname,subprotoname,request)
 	table.insert(self.packagelist,data)
 	if #self.packagelist >= self.limit then
 		logger.log("error","error",string.format("[delaypkglimit] pid=%d proto=%s",self.pid,protoname))
-		table.remove(1)
+		table.remove(self.packagelist,1)
 	end
 end
 

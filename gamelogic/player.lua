@@ -43,18 +43,22 @@ function cplayer:init(pid)
 		pid = self.pid,
 		name = "itemdb",
 		type = BAGTYPE.NORMAL,
+		initspace = 30,
+		beginpos = ITEMPOS_BEGIN,
 	})
 	-- 时装背包
 	self.fashionshowdb = citemdb.new({
 		pid = self.pid,
 		name = "fashinoshowdb",
 		type = BAGTYPE.FASHION_SHOW,
+		initspace = 30,
 	})
 	-- 怪物卡片
 	self.carddb = ccarddb.new({
 		pid = self.pid,
 		name = "carddb",
 		type = BAGTYPE.CARD,
+		initspace = 30,
 	})
 	self.delaytonextlogin = cdelaytonextlogin.new(self.pid)
 	self.switch = cswitch.new{
@@ -612,7 +616,11 @@ function cplayer:onaddlv(val,reason)
 	if add_qualitypoint ~= 0 then
 		self:add_qualitypoint(add_qualitypoint,"onaddlv")
 	end
-	self.taskdb:onchangelv()
+	for _,obj in pairs(self.autosaveobj) do
+		if obj.onchangelv then
+			obj:onchangelv()
+		end
+	end
 end
 
 
@@ -1341,7 +1349,7 @@ function cplayer:has_exp_addn(playname,exp)
 		detail.dexp_addn = dexp_addn
 	end
 	if data.captain_addn ~= 0 then
-		if self:teamstate() == TEAM_STATE_CAPTAIN or true then
+		if self:teamstate() == TEAM_STATE_CAPTAIN then
 			detail.captain_addn = math.floor(exp * data.captain_addn)
 		end
 	end

@@ -4,7 +4,7 @@
 function gm.jumpto(args)
 	local isok,args = checkargs(args,"int","int","int")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: jumpto 场景ID 坐标")
+		gm.notify("用法: jumpto 场景ID 坐标")
 		return
 	end
 	local sceneid = args[1]
@@ -20,7 +20,7 @@ end
 function gm.addnpc(args)
 	local isok,args = checkargs(args,"int","int","int","int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addnpc 怪物造型 场景 x y [持续时间]")
+		gm.notify("用法: addnpc 怪物造型 场景 x y [持续时间]")
 		return
 	end
 	local npcshape = args[1]
@@ -37,7 +37,7 @@ function gm.addnpc(args)
 		purpose = "test",
 		exceedtime = exceedtime,
 	})
-	net.msg.S2C.notify(master_pid,string.format("NPC生成%s",isok and "成功" or "失败"))
+	gm.notify(string.format("NPC生成%s",isok and "成功" or "失败"))
 end
 
 --- 用法: addnpcbypos 怪物造型 坐标ID [持续时间]
@@ -45,7 +45,7 @@ end
 function gm.addnpcbypos(args)
 	local isok,args = checkargs(args,"int","string","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addnpc 怪物造型 坐标ID [持续时间]")
+		gm.notify("用法: addnpc 怪物造型 坐标ID [持续时间]")
 		return
 	end
 	local npcshape = args[1]
@@ -59,7 +59,7 @@ function gm.addnpcbypos(args)
 		purpose = "test",
 		exceedtime = exceedtime,
 	})
-	net.msg.S2C.notify(master_pid,string.format("NPC生成%s",isok and "成功" or "失败"))
+	gm.notify(string.format("NPC生成%s",isok and "成功" or "失败"))
 end
 
 return gm

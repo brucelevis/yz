@@ -19,7 +19,7 @@ end
 function chapter.rmaward(player,args)
 	local isok,args = checkargs(args,"*")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"chapter rmaward 奖励id(不填则全部清空)")
+		gm.notify("chapter rmaward 奖励id(不填则全部清空)",player.pid)
 		return
 	end
 	local awardid = args[1] and int(args[1]) or 0 

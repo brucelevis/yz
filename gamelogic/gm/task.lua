@@ -10,7 +10,7 @@ function gm.task(args)
 	end
 	local func = task[funcname]
 	if not func then
-		net.msg.S2C.notify(master_pid,"指令未找到，查看帮助:help task")
+		gm.notify("指令未找到，查看帮助:help task")
 		return
 	end
 	table.remove(args,1)
@@ -22,7 +22,7 @@ end
 function task.open(player,args)
 	local isok,args = checkargs(args,"string","*")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"task open test <=> 接受test类型任务")
+		gm.notify("task open test <=> 接受test类型任务")
 		return
 	end
 	local taskkey = args[1]
@@ -35,17 +35,17 @@ end
 function task.add(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"task add 90000001 <=> 接受90000001任务")
+		gm.notify("task add 90000001 <=> 接受90000001任务")
 		return
 	end
 	local taskid = args[1]
 	local taskcontainer = player.taskdb:gettaskcontainer(taskid)
 	if not taskcontainer then
-		net.msg.S2C.notify(player.pid,"任务id有误")
+		gm.notify("任务id有误")
 		return
 	end
 	if taskcontainer:gettask(taskid) then
-		net.msg.S2C.notify(player.pid,"已有相同任务，请勿重复添加")
+		gm.notify("已有相同任务，请勿重复添加")
 		return
 	end
 	taskcontainer:accepttask(taskid)
@@ -56,7 +56,7 @@ end
 function task.execute(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"task execute 90000001 <=> 执行90000001任务")
+		gm.notify("task execute 90000001 <=> 执行90000001任务")
 		return
 	end
 	local taskid = args[1]
@@ -68,7 +68,7 @@ end
 function task.delete(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"task delete 90000001 <=> 删除90000001任务")
+		gm.notify("task delete 90000001 <=> 删除90000001任务")
 		return
 	end
 	local taskid = args[1]
@@ -81,23 +81,23 @@ end
 function task.endwar(player,args)
 	local isok,args = checkargs(args,"int","int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"用法: task endwar 90000003 1 <=> 结束任务90000003中的战斗,>0:胜利,0--平局,<0:失败")
+		gm.notify("用法: task endwar 90000003 1 <=> 结束任务90000003中的战斗,>0:胜利,0--平局,<0:失败")
 		return
 	end
 	local taskid = args[1]
 	local iswin = args[2]
 	local task = player.taskdb:gettask(taskid)
 	if not task or not task.inwar then
-		net.msg.S2C.notify(player.pid,"任务编号错误")
+		gm.notify("任务编号错误")
 		return
 	end
 	local warid = warmgr.warid(player.pid)
 	if not warid then
-		net.msg.S2C.notify(player.pid,"玩家不在战斗中")
+		gm.notify("玩家不在战斗中")
 		return
 	end
 	warmgr.onwarend(warid,iswin)
-	net.msg.S2C.notify(player.pid,"任务战斗结束")
+	gm.notify("任务战斗结束")
 end
 
 --- 指令: task submit
@@ -105,7 +105,7 @@ end
 function task.submit(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"用法: task submit 90000001 <=> 提交任务90000001")
+		gm.notify("用法: task submit 90000001 <=> 提交任务90000001")
 		return
 	end
 	local taskid = args[1]
@@ -117,7 +117,7 @@ end
 function task.finish(player,args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"用法: task finish 90000001 <=> 立即完成任务")
+		gm.notify("用法: task finish 90000001 <=> 立即完成任务")
 		return
 	end
 	local taskid = args[1]

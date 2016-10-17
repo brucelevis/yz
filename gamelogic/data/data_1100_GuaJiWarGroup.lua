@@ -7,7 +7,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -15,7 +14,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -23,7 +21,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -31,7 +28,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -39,7 +35,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -47,7 +42,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -55,7 +49,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -63,7 +56,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -71,7 +63,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -79,7 +70,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 100,
 				jobexp = 100,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -90,7 +80,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -98,7 +87,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -106,7 +94,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -114,7 +101,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -122,7 +108,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -130,7 +115,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -138,7 +122,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -146,7 +129,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -154,7 +136,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -162,7 +143,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 200,
 				jobexp = 200,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -173,7 +153,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -181,7 +160,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -189,7 +167,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -197,7 +174,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -205,7 +181,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -213,7 +188,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -221,7 +195,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -229,7 +202,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -237,7 +209,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -245,7 +216,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 300,
 				jobexp = 300,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -256,7 +226,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -264,7 +233,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -272,7 +240,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -280,7 +247,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -288,7 +254,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -296,7 +261,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -304,7 +268,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -312,7 +275,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -320,7 +282,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -328,7 +289,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 400,
 				jobexp = 400,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -339,7 +299,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -347,7 +306,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -355,7 +313,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -363,7 +320,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -371,7 +327,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -379,7 +334,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -387,7 +341,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -395,7 +348,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -403,7 +355,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -411,7 +362,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 500,
 				jobexp = 500,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -422,7 +372,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -430,7 +379,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -438,7 +386,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -446,7 +393,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -454,7 +400,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -462,7 +407,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -470,7 +414,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -478,7 +421,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -486,7 +428,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -494,7 +435,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 600,
 				jobexp = 600,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -505,7 +445,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -513,7 +452,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -521,7 +459,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -529,7 +466,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -537,7 +473,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -545,7 +480,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -553,7 +487,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -561,7 +494,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -569,7 +501,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -577,7 +508,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 700,
 				jobexp = 700,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -588,7 +518,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -596,7 +525,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -604,7 +532,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -612,7 +539,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -620,7 +546,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -628,7 +553,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -636,7 +560,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -644,7 +567,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -652,7 +574,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -660,7 +581,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 800,
 				jobexp = 800,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -671,7 +591,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -679,7 +598,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -687,7 +605,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -695,7 +612,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -703,7 +619,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -711,7 +626,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -719,7 +633,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -727,7 +640,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -735,7 +647,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -743,7 +654,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 900,
 				jobexp = 900,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -754,7 +664,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -762,7 +671,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -770,7 +678,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -778,7 +685,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -786,7 +692,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -794,7 +699,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -802,7 +706,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -810,7 +713,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -818,7 +720,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -826,7 +727,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1000,
 				jobexp = 1000,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -837,7 +737,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -845,7 +744,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -853,7 +751,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -861,7 +758,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -869,7 +765,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -877,7 +772,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -885,7 +779,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -893,7 +786,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -901,7 +793,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -909,7 +800,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1100,
 				jobexp = 1100,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -920,7 +810,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -928,7 +817,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -936,7 +824,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -944,7 +831,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -952,7 +838,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -960,7 +845,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -968,7 +852,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -976,7 +859,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -984,7 +866,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -992,7 +873,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1200,
 				jobexp = 1200,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -1003,7 +883,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1011,7 +890,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1019,7 +897,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1027,7 +904,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1035,7 +911,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1043,7 +918,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1051,7 +925,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1059,7 +932,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1067,7 +939,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1075,7 +946,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1300,
 				jobexp = 1300,
-				item = {type=401001,num=1,},
 			},
 
 	},
@@ -1086,7 +956,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1094,7 +963,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1102,7 +970,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1110,7 +977,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1118,7 +984,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1126,7 +991,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1134,7 +998,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1142,7 +1005,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1150,7 +1012,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 
@@ -1158,7 +1019,6 @@ data_1100_GuaJiWarGroup = {
 				ratio = 1000,
 				exp = 1400,
 				jobexp = 1400,
-				item = {type=401001,num=1,},
 			},
 
 	},

@@ -440,6 +440,28 @@ function cteammgr:automatch_changetarget(player,target,minlv,maxlv)
 	automatch.maxlv = maxlv
 end
 
+function cteammgr:sync_automatch()
+	local nowtime = os.time()
+	local lasttime = self.lasttime or 0
+	if nowtime == lasttime then
+		if not self.isdelay then
+			timer.timeout("timer.sync_automatch",1,functor(self.sync_automatch,self))
+			self.isdelay = true
+		end
+		return
+	end
+	local waiting_num = table.count(teammgr.automatch_pids)
+	for pid,_ in pairs(self.openui_pids) do
+		local player = playermgr.getplayer(pid)
+		if player then
+			sendpackage(pid,"team","sync_automatch",{
+				waiting_num = waiting_num
+			})
+		end
+	end
+	self.lasttime = nowtime
+	self.isdelay = nil
+end
 
 function cteammgr:automatch(player,target,minlv,maxlv)
 	local pid = player.pid
@@ -455,14 +477,7 @@ function cteammgr:automatch(player,target,minlv,maxlv)
 		target = target,
 	}
 	self.automatch_pids[pid] = automatch
-	for pid,_ in pairs(self.openui_pids) do
-		local player = playermgr.getplayer(pid)
-		if player then
-			sendpackage(player.pid,"team","sync_automatch",{
-				waiting_num = table.count(teammgr.automatch_pids),
-			})
-		end
-	end
+	self:sync_automatch()
 end
 
 function cteammgr:unautomatch(pid,reason)
@@ -471,21 +486,7 @@ function cteammgr:unautomatch(pid,reason)
 		logger.log("info","team",string.format("[unautomatch] pid=%d reason=%s",pid,reason))
 		self.automatch_pids[pid] = nil
 	end
-	local waiting_num = table.count(teammgr.automatch_pids)
-	for pid,_ in pairs(self.openui_pids) do
-		local player = playermgr.getplayer(pid)
-		if player then
-			sendpackage(player.pid,"team","sync_automatch",{
-				waiting_num = waiting_num,
-			})
-		end
-	end
-	local player = playermgr.getplayer(pid)
-	if player then
-		sendpackage(player.pid,"team","sync_automatch",{
-			waiting_num = waiting_num,
-		})
-	end
+	self:sync_automatch()
 end
 
 function cteammgr:team_automatch(teamid)

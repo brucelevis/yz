@@ -61,6 +61,12 @@ function ctaskdb:gettask(taskid)
 end
 
 function ctaskdb:update_canaccept()
+	for name,_ in pairs(self.taskcontainers) do
+		local taskcontainer = self[name]
+		if taskcontainer.autoaccept then
+			taskcontainer:autoaccept()
+		end
+	end
 	self.canaccepttask = {}
 	for name,_ in pairs(self.taskcontainers) do 
 		local taskcontainer = self[name]
@@ -69,7 +75,7 @@ function ctaskdb:update_canaccept()
 			table.extend(self.canaccepttask,canaccept)
 		end
 		if taskcontainer.autoaccept then
-			taskcontainer:autoaccept() 
+			taskcontainer:autoaccept()
 		end
 	end
 	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)

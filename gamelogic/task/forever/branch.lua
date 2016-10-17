@@ -4,6 +4,7 @@ cbranchtask = class("cbranchtask",ctaskcontainer)
 function cbranchtask:init(conf)
 	ctaskcontainer.init(self,conf)
 	self.canacceptnum = nil
+	self.is_teamfinish = true
 end
 
 function cbranchtask:onwarend(war,result)
@@ -58,21 +59,6 @@ function cbranchtask:directaccept(taskid)
 		net.msg.S2C.notify(self.pid,language.format("接受【{1}】",taskname))
 	end
 	return isaccept
-end
-
-function cbranchtask:finishtask(task,reason)
-	ctaskcontainer.finishtask(self,task,reasosn)
-	local player = playermgr.getplayer(self.pid)
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			local task2 = member.taskdb:gettask(task.taskid)
-			if task2 then
-				ctaskcontainer.finishtask(member.taskdb.branch,task2,reason)
-			end
-		end
-	end
 end
 
 return cbranchtask

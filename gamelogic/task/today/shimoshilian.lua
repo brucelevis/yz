@@ -4,6 +4,9 @@ cshimoshiliantask = class("cshimoshiliantask",ctaskcontainer)
 function cshimoshiliantask:init(conf)
 	ctaskcontainer.init(self,conf)
 	self.ringnum = 1
+	self.is_teamsubmit = true
+	self.is_teamfinish = true
+	self.is_teamsync = true
 end
 
 function cshimoshiliantask:onfivehourupdate()
@@ -13,75 +16,23 @@ function cshimoshiliantask:onfivehourupdate()
 	ctaskcontainer.onfivehourupdate(self)
 end
 
-function cshimoshiliantask:can_accept(taskid)
+function cshimoshiliantask:opentask()
 	local player = playermgr.getplayer(self.pid)
 	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
-		return false,language.format("本任务需要组队后才能进行")
+		net.msg.S2C.notify(self.pid,language.format("本任务需要组队后才能进行"))
+		return
 	end
 	local fighters,errmsg = player:getfighters()
 	if table.isempty(fighters) then
-		return false,errmsg
+		net.msg.S2C.notify(self.pid,errmsg)
+		return
 	end
 	local neednum = self:getformdata("var").StartWarNeedNum
 	if #fighters < neednum then
-		return false,language.format("队伍人数不足#<R>#{1}人",neednum)
-	end
-	for i,uid in ipairs(fighters) do
-		local member = playermgr.getplayer(uid)
-		if member then
-			local isok,errmsg = ctaskcontainer.can_accept(member.taskdb.shimoshilian,taskid)
-			if not isok then
-				return false,errmsg
-			end
-		end
-	end
-	return true
-end
-
-function cshimoshiliantask:accepttask(taskid)
-	ctaskcontainer.accepttask(self,taskid)
-	local player = playermgr.getplayer(self.pid)
-	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
+		net.msg.S2C.notify(self.pid,language.format("队伍人数不足#<R>#{1}人",neednum))
 		return
 	end
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			if not member.taskdb:gettask(taskid) then
-				self:synctask(member,taskid)
-			end
-		end
-	end
-end
-
-function cshimoshiliantask:executetask(taskid,ext)
-	local player = playermgr.getplayer(self.pid)
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			if not member.taskdb:gettask(taskid) then
-				self:synctask(member,taskid)
-			end
-		end
-	end
-	ctaskcontainer.executetask(self,taskid,ext)
-end
-
-function cshimoshiliantask:finishtask(task,reason)
-	local player = playermgr.getplayer(self.pid)
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			local task2 = member.taskdb:gettask(task.taskid)
-			if task2 then
-				ctaskcontainer.finishtask(member.taskdb.shimoshilian,task2,reason)
-			end
-		end
-	end
-	ctaskcontainer.finishtask(self,task,reason)
+	ctaskcontainer.opentask(self)
 end
 
 function cshimoshiliantask:can_execute(task)
@@ -100,6 +51,10 @@ function cshimoshiliantask:can_execute(task)
 	end
 	for i,uid in ipairs(fighters) do
 		local member = playermgr.getplayer(uid)
+		local isok,msg = ctaskcontainer.can_execute(member.taskdb.shimoshilian,task)
+		if not isok then
+			return false,msg
+		end
 		if member.lv < needlv then
 			return false,language.format("#<G>{1}#等级不足#<R>{2}#级",member:getname(),needlv)
 		end
@@ -120,13 +75,6 @@ function cshimoshiliantask:transwar(task,warid,pid)
 	war.wardataid = warid
 	war.wartype = WARTYPE.PVE_SHARE_TASK
 	return war
-end
-
-function cshimoshiliantask:doaward(task,awardid,pid)
-	if self:getdonecnt() >= self:getdonelimit() then
-		return
-	end
-	ctaskcontainer.doaward(self,task,awardid,pid)
 end
 
 function cshimoshiliantask:_transaward(awardid,lv)
@@ -151,9 +99,20 @@ function cshimoshiliantask:transaward(task,awardid,pid)
 	local teamstate = player:teamstate()
 	local ringlimit = self:getformdata("ringlimit")
 	local bonus = self:_transaward(awardid,lv)
+	if self.ringnum == ringlimit then
+		local items = self:getformdata("var").GiveItemToMemberAt10Ring
+		local item = randlist(items)
+		table.insert(bonus.items,item)
+	end
 	-- 队长经验加成
 	if teamstate == TEAM_STATE_CAPTAIN then
-		if self.ringnum == ringlimit then
+		if self.teamid ~= player:teamid() then
+			self.captaincnt = 0
+		end
+		self.teamid = player:teamid()
+		self.captaincnt = self.captaincnt + 1
+		if self.captaincnt == ringlimit then
+			self.captaincnt = 0
 			if not bonus.items then
 				bonus.items = {}
 			end
@@ -183,14 +142,7 @@ function cshimoshiliantask:nexttask(taskid,reason)
 			buttons = {
 				openui.button(language.format("确认")),
 			}
-		},function(pid,request,respond)
-			local player = playermgr.getplayer(pid)
-			if respond.answer ~= 1 then
-				return
-			end
-			player.taskdb.shimoshilian.requested = 1
-			player.taskdb.shimoshilian:opentask()
-		end)
+		})
 		return
 	end
 	if reason ~= "opentask" and self.ringnum == 1 then

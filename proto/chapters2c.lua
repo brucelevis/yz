@@ -8,6 +8,7 @@ return {
 	chapterid 0 : integer
 	star 1 : integer # 星级，支线关卡忽略
 	pass 2 : boolean # 通关标识
+	time 3 : integer # 首次完成时间
 }
 
 #关卡解锁

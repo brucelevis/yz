@@ -12,6 +12,10 @@ function ctaskcontainer:init(conf)
 	self.ringnum = 0			-- 任务环数，部分任务启用
 	self.canacceptnum = 1		-- 该类任务可以同时接个数，nil不限
 
+	self.is_teamsubmit = false
+	self.is_teamfinish = false
+	self.is_teamsync = false
+
 	--脚本注册
 	self.script_handle.findnpc = true
 	self.script_handle.needitem = true
@@ -116,6 +120,7 @@ end
 function ctaskcontainer:onwarend(war,result)
 	local task = self:gettask(war.taskid)
 	if task then
+		task.war_members = war.attackers
 		if warmgr.iswin(result) then
 			task.execute_result = TASK_SCRIPT_PASS
 		else
@@ -424,6 +429,9 @@ function ctaskcontainer:finishtask(task,reason)
 	local taskid = task.taskid
 	self:log("info","task",string.format("[finishtask] pid=%d taskid=%d reason=%s",self.pid,task.taskid,reason))
 	task.state = TASK_STATE_FINISH
+	if self.is_teamfinish then
+		self:team_finishtask(task,reason)
+	end
 	local taskdata = self:getformdata("task")[taskid]
 	if not istrue(taskdata.submitnpc) then
 		self:submittask(taskid)
@@ -431,6 +439,23 @@ function ctaskcontainer:finishtask(task,reason)
 		local npc = self:getnpc_bynid(task,taskdata.submitnpc)
 		local submitnpc = npc.id or taskdata.submitnpc
 		net.task.S2C.finishtask(self.pid,taskid,submitnpc)
+	end
+end
+
+function ctaskcontainer:team_finishtask(task,reason)
+	local player = playermgr.getplayer(self.pid)
+	if player:teamstate() ~= TEAM_STATE_CAPTAIN or not task.war_members then
+		return
+	end
+	for _,pid in ipairs(task.war_members) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			local task2 = member.taskdb:gettask(task.taskid)
+			if task2 then
+				local taskcontainer = member.taskdb:gettaskcontainer(task.taskid)
+				ctaskcontainer.finishtask(taskcontainer,task2,reason)
+			end
+		end
 	end
 end
 
@@ -446,6 +471,24 @@ function ctaskcontainer:accepttask(taskid)
 		if player.taskdb:incanaccept(self.name) then
 			player.taskdb:update_canaccept()
 		end
+		if self.is_teamsync then
+			self:teamsynctask(taskid)
+		end
+	end
+end
+
+function ctaskcontainer:teamsynctask(taskid)
+	local player = playermgr.getplayer(self.pid)
+	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
+		return
+	end
+	for _,pid in ipairs(player:getfighters()) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			if not member.taskdb:gettask(taskid) then
+				self:synctask(member,taskid)
+			end
+		end
 	end
 end
 
@@ -454,27 +497,32 @@ function ctaskcontainer:synctask(player,taskid)
 	if task then
 		local taskcontainer = player.taskdb[self.name]
 		taskcontainer:deltask(taskcontainer.nowtaskid,"synctask")
-		local task2 = taskcontainer:loadtask(self:savetask(task))
-		taskcontainer:addtask(task2)
-		if player.taskdb:incanaccept(self.name) then
-			player.taskdb:update_canaccept()
+		if taskcontainer:can_accept(taskid) then
+			local task2 = taskcontainer:loadtask(self:savetask(task))
+			taskcontainer:addtask(task2)
+			if player.taskdb:incanaccept(self.name) then
+				player.taskdb:update_canaccept()
+			end
 		end
 	end
 end
 
 function ctaskcontainer:can_accept(taskid)
+	if self:gettask(taskid) then
+		return
+	end
 	local player = playermgr.getplayer(self.pid)
 	if not player then
 		return false
+	end
+	if self:reachlimit() then
+		return false,language.format("该任务完成次数已达到上限")
 	end
 	if self.canacceptnum and self.canacceptnum <= self.len then
 		return false
 	end
 	local taskdata = self:getformdata("task")[taskid]
 	if not taskdata then
-		return false
-	end
-	if self:gettask(taskid) then
 		return false
 	end
 	if taskdata.needlv and taskdata.needlv > player.lv then
@@ -1034,6 +1082,9 @@ function ctaskcontainer:executetask(taskid,ext)
 	if not isok then
 		return false,msg
 	end
+	if self.is_teamsync then
+		self:teamsynctask(taskid)
+	end
 	self:log("info","task",format("[execute] pid=%d taskid=%d",self.pid,taskid))
 	self:executetask2(task,ext)
 	return true
@@ -1091,6 +1142,19 @@ end
 function ctaskcontainer:check_result(task,ext)
 	if task.execute_result == TASK_SCRIPT_PASS then
 		task.execute_step = task.execute_step + 1
+		if self.is_teamfinish then
+			local player = playermgr.getplayer(self.pid)
+			if player:teamstate() == TEAM_STATE_CAPTAIN and task.war_members then
+				for _,pid in ipairs(task.war_members) do
+					if pid ~= self.pid then
+						local member = playermgr.getplayer(pid)
+						if member.taskdb:gettask(task.taskid) then
+							self:synctask(member,task.taskid)
+						end
+					end
+				end
+			end
+		end
 		return self:executetask2(task,ext)
 	end
 	if task.execute_result == TASK_SCRIPT_SUSPEND then
@@ -1129,12 +1193,31 @@ function ctaskcontainer:submittask(taskid)
 		self:adddonecnt(1)
 	end
 	self:onsubmittask(taskid)
+	if self.is_teamsubmit then
+		self:team_submittask(taskid)
+	end
 	local newtaskid = self:nexttask(taskid,"submittask")
 	if newtaskid then
 		--self:log("info","task",string.format("[nexttask] pid=%d taskid=%d",self.pid,newtaskid))
 		local player = playermgr.getplayer(self.pid)
 		local taskcontainer = player.taskdb:gettaskcontainer(newtaskid)
 		taskcontainer:accepttask(newtaskid)
+	end
+end
+
+function ctaskcontainer:team_submittask(taskid)
+	local player = playermgr.getplayer(self.pid)
+	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
+		return
+	end
+	for _,pid in ipairs(player:getfighters()) do
+		if pid ~= self.pid then
+			local member = playermgr.getplayer(pid)
+			local taskcontainer = member.taskdb:gettaskcontainer(taskid)
+			if member.taskdb:gettask(taskid) and ctaskcontainer.can_submit(taskcontainer,taskid) then
+				ctaskcontainer.submittask(taskcontainer,taskid)
+			end
+		end
 	end
 end
 
@@ -1187,6 +1270,9 @@ end
 
 function ctaskcontainer:validshow_incanaccept()
 	if self.canacceptnum and self.canacceptnum <= self.len then
+		return false
+	end
+	if self:reachlimit() then
 		return false
 	end
 	return true

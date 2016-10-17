@@ -1,9 +1,9 @@
 
 cfrienddb = class("cfrienddb",cdatabaseable,{
 	applyerlimit = 20,
-	frdlimit = 5,
+	frdlimit = 200,
 	recommendlimit = 15,
-	blacklimit = 5,
+	blacklimit = 200,
 })
 
 function cfrienddb:init(pid)
@@ -318,10 +318,10 @@ end
 
 
 function cfrienddb:req_delfriend(pid)
-	if not self:delfriend(pid) then
-		return
+	local ret = rpc.callplayer(pid,"playermethod",pid,"frienddb:delfriend",self.pid)
+	if ret then
+		self:delfriend(pid)
 	end
-	rpc.callplayer(pid,"playermethod",pid,"frienddb:delfriend",self.pid)
 end
 
 function cfrienddb:apply_addfriend(pid)
@@ -331,7 +331,7 @@ function cfrienddb:apply_addfriend(pid)
 		return false,language.format("您的申请已经发出")
 	end
 	if table.find(self.blacklist,pid) then
-		return false,language,format("对方在你的黑名单中，无法申请")
+		return false,language.format("对方在你的黑名单中，无法申请")
 	end
 	logger.log("info","friend",string.format("[apply_addfriend] owner=%s pid=%d",self.pid,pid))
 	self:delrecommend(pid)
@@ -384,6 +384,9 @@ function cfrienddb:tryaddfriend(pid)
 end
 
 function cfrienddb:can_addfriend(pid)
+	if pid == self.pid then
+		return false,language.format("不能加自己为好友")
+	end
 	if self.lock_addfriend and self.lock_addfriend > os.time() then
 		return false
 	end

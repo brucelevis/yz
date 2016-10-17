@@ -9,6 +9,7 @@ data_0201_Buff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {901061,901062},
+		attackerEffId = 0,
 		targetEffId = 10005,
 	},
 
@@ -22,6 +23,7 @@ data_0201_Buff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {901071,901072},
+		attackerEffId = 0,
 		targetEffId = 10006,
 	},
 
@@ -35,6 +37,7 @@ data_0201_Buff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {902061,902062,902063},
+		attackerEffId = 0,
 		targetEffId = 10007,
 	},
 
@@ -48,6 +51,7 @@ data_0201_Buff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {902071,902072,902062,902063},
+		attackerEffId = 0,
 		targetEffId = 10008,
 	},
 
@@ -61,6 +65,7 @@ data_0201_Buff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {902081,902062,902063},
+		attackerEffId = 0,
 		targetEffId = 10009,
 	},
 

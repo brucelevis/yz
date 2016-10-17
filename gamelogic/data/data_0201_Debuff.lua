@@ -11,6 +11,7 @@ data_0201_Debuff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {901031},
+		attackerEffId = 0,
 		targetEffId = 10003,
 	},
 
@@ -26,6 +27,7 @@ data_0201_Debuff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {901041},
+		attackerEffId = 0,
 		targetEffId = 0,
 	},
 
@@ -41,6 +43,7 @@ data_0201_Debuff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {901051},
+		attackerEffId = 0,
 		targetEffId = 10004,
 	},
 
@@ -56,7 +59,24 @@ data_0201_Debuff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {903011,903012,903013,903014,903015},
+		attackerEffId = 0,
 		targetEffId = 10010,
+	},
+
+	[304020] = {
+		name = "中毒",
+		des = "",
+		baseHitPro = 0.5,
+		baseHitProMin = 0.1,
+		existRound = 5,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 1,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {904021,904022},
+		attackerEffId = 0,
+		targetEffId = 10011,
 	},
 
 	[304030] = {
@@ -71,10 +91,11 @@ data_0201_Debuff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {904031},
+		attackerEffId = 0,
 		targetEffId = 10003,
 	},
 
-	[305030] = {
+	[304040] = {
 		name = "沉默",
 		des = "",
 		baseHitPro = 0.5,
@@ -86,6 +107,23 @@ data_0201_Debuff = {
 		immuneByRace = 0,
 		attackType = 0,
 		skilleffect = {905031},
+		attackerEffId = 0,
+		targetEffId = 10004,
+	},
+
+	[304050] = {
+		name = "偷窃",
+		des = "",
+		baseHitPro = 1,
+		baseHitProMin = 1,
+		existRound = 5,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 1,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {904051},
+		attackerEffId = 10004,
 		targetEffId = 10004,
 	},
 

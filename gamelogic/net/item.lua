@@ -408,6 +408,7 @@ function C2S.sortbag(player,request)
 		space = itemdb.space,
 		expandspace = itemdb.expandspace,
 		sorttype = itemdb.sorttype,
+		beginpos = itemdb.itempos_begin,
 	})
 end
 

@@ -5,11 +5,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 101,
+				jobexp = 101,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 101,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -23,11 +23,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 102,
+				jobexp = 102,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 102,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -41,11 +41,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 103,
+				jobexp = 103,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 103,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -59,11 +59,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 104,
+				jobexp = 104,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 104,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -77,11 +77,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 105,
+				jobexp = 105,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 105,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -95,11 +95,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 106,
+				jobexp = 106,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 106,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -113,11 +113,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 107,
+				jobexp = 107,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 107,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -131,11 +131,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 108,
+				jobexp = 108,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 108,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -149,11 +149,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 109,
+				jobexp = 109,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 109,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -167,11 +167,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 100,
-				jobexp = 100,
+				exp = 110,
+				jobexp = 110,
 				gold = 0,
 				silver = 0,
-				coin = 100,
+				coin = 110,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -185,11 +185,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 201,
+				jobexp = 201,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 201,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -203,11 +203,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 202,
+				jobexp = 202,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 202,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -221,11 +221,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 203,
+				jobexp = 203,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 203,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -239,11 +239,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 204,
+				jobexp = 204,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 204,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -257,11 +257,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 205,
+				jobexp = 205,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 205,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -275,11 +275,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 206,
+				jobexp = 206,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 206,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -293,11 +293,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 207,
+				jobexp = 207,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 207,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -311,11 +311,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 208,
+				jobexp = 208,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 208,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -329,11 +329,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 209,
+				jobexp = 209,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 209,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -347,11 +347,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 200,
-				jobexp = 200,
+				exp = 210,
+				jobexp = 210,
 				gold = 0,
 				silver = 0,
-				coin = 200,
+				coin = 210,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -365,11 +365,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 301,
+				jobexp = 301,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 301,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -383,11 +383,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 302,
+				jobexp = 302,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 302,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -401,11 +401,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 303,
+				jobexp = 303,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 303,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -419,11 +419,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 304,
+				jobexp = 304,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 304,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -437,11 +437,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 305,
+				jobexp = 305,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 305,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -455,11 +455,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 306,
+				jobexp = 306,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 306,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -473,11 +473,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 307,
+				jobexp = 307,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 307,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -491,11 +491,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 308,
+				jobexp = 308,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 308,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -509,11 +509,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 309,
+				jobexp = 309,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 309,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -527,11 +527,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 300,
-				jobexp = 300,
+				exp = 310,
+				jobexp = 310,
 				gold = 0,
 				silver = 0,
-				coin = 300,
+				coin = 310,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -545,11 +545,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 401,
+				jobexp = 401,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 401,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -563,11 +563,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 402,
+				jobexp = 402,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 402,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -581,11 +581,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 403,
+				jobexp = 403,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 403,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -599,11 +599,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 404,
+				jobexp = 404,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 404,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -617,11 +617,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 405,
+				jobexp = 405,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 405,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -635,11 +635,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 406,
+				jobexp = 406,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 406,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -653,11 +653,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 407,
+				jobexp = 407,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 407,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -671,11 +671,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 408,
+				jobexp = 408,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 408,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -689,11 +689,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 409,
+				jobexp = 409,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 409,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -707,11 +707,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 400,
-				jobexp = 400,
+				exp = 410,
+				jobexp = 410,
 				gold = 0,
 				silver = 0,
-				coin = 400,
+				coin = 410,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -725,11 +725,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 501,
+				jobexp = 501,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 501,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -743,11 +743,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 502,
+				jobexp = 502,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 502,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -761,11 +761,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 503,
+				jobexp = 503,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 503,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -779,11 +779,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 504,
+				jobexp = 504,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 504,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -797,11 +797,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 505,
+				jobexp = 505,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 505,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -815,11 +815,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 506,
+				jobexp = 506,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 506,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -833,11 +833,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 507,
+				jobexp = 507,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 507,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -851,11 +851,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 508,
+				jobexp = 508,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 508,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -869,11 +869,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 509,
+				jobexp = 509,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 509,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -887,11 +887,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 500,
-				jobexp = 500,
+				exp = 510,
+				jobexp = 510,
 				gold = 0,
 				silver = 0,
-				coin = 500,
+				coin = 510,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -905,11 +905,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 601,
+				jobexp = 601,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 601,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -923,11 +923,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 602,
+				jobexp = 602,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 602,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -941,11 +941,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 603,
+				jobexp = 603,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 603,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -959,11 +959,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 604,
+				jobexp = 604,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 604,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -977,11 +977,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 605,
+				jobexp = 605,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 605,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -995,11 +995,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 606,
+				jobexp = 606,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 606,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1013,11 +1013,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 607,
+				jobexp = 607,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 607,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1031,11 +1031,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 608,
+				jobexp = 608,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 608,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1049,11 +1049,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 609,
+				jobexp = 609,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 609,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1067,11 +1067,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 600,
-				jobexp = 600,
+				exp = 610,
+				jobexp = 610,
 				gold = 0,
 				silver = 0,
-				coin = 600,
+				coin = 610,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1085,11 +1085,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 701,
+				jobexp = 701,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 701,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1103,11 +1103,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 702,
+				jobexp = 702,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 702,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1121,11 +1121,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 703,
+				jobexp = 703,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 703,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1139,11 +1139,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 704,
+				jobexp = 704,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 704,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1157,11 +1157,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 705,
+				jobexp = 705,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 705,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1175,11 +1175,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 706,
+				jobexp = 706,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 706,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1193,11 +1193,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 707,
+				jobexp = 707,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 707,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1211,11 +1211,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 708,
+				jobexp = 708,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 708,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1229,11 +1229,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 709,
+				jobexp = 709,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 709,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1247,11 +1247,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 700,
-				jobexp = 700,
+				exp = 710,
+				jobexp = 710,
 				gold = 0,
 				silver = 0,
-				coin = 700,
+				coin = 710,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1265,11 +1265,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 801,
+				jobexp = 801,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 801,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1283,11 +1283,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 802,
+				jobexp = 802,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 802,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1301,11 +1301,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 803,
+				jobexp = 803,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 803,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1319,11 +1319,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 804,
+				jobexp = 804,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 804,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1337,11 +1337,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 805,
+				jobexp = 805,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 805,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1355,11 +1355,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 806,
+				jobexp = 806,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 806,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1373,11 +1373,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 807,
+				jobexp = 807,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 807,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1391,11 +1391,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 808,
+				jobexp = 808,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 808,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1409,11 +1409,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 809,
+				jobexp = 809,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 809,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1427,11 +1427,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 800,
-				jobexp = 800,
+				exp = 810,
+				jobexp = 810,
 				gold = 0,
 				silver = 0,
-				coin = 800,
+				coin = 810,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1445,11 +1445,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 901,
+				jobexp = 901,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 901,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1463,11 +1463,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 902,
+				jobexp = 902,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 902,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1481,11 +1481,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 903,
+				jobexp = 903,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 903,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1499,11 +1499,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 904,
+				jobexp = 904,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 904,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1517,11 +1517,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 905,
+				jobexp = 905,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 905,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1535,11 +1535,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 906,
+				jobexp = 906,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 906,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1553,11 +1553,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 907,
+				jobexp = 907,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 907,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1571,11 +1571,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 908,
+				jobexp = 908,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 908,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1589,11 +1589,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 909,
+				jobexp = 909,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 909,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1607,11 +1607,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 900,
-				jobexp = 900,
+				exp = 910,
+				jobexp = 910,
 				gold = 0,
 				silver = 0,
-				coin = 900,
+				coin = 910,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1625,11 +1625,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1001,
+				jobexp = 1001,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1001,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1643,11 +1643,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1002,
+				jobexp = 1002,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1002,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1661,11 +1661,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1003,
+				jobexp = 1003,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1003,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1679,11 +1679,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1004,
+				jobexp = 1004,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1004,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1697,11 +1697,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1005,
+				jobexp = 1005,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1005,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1715,11 +1715,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1006,
+				jobexp = 1006,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1006,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1733,11 +1733,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1007,
+				jobexp = 1007,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1007,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1751,11 +1751,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1008,
+				jobexp = 1008,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1008,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1769,11 +1769,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1009,
+				jobexp = 1009,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1009,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
@@ -1787,11 +1787,11 @@ data_1500_ShiMoShiLianTaskAward = {
 		awardtable = {
 			
 			{
-				exp = 1000,
-				jobexp = 1000,
+				exp = 1010,
+				jobexp = 1010,
 				gold = 0,
 				silver = 0,
-				coin = 1000,
+				coin = 1010,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,

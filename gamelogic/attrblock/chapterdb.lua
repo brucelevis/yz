@@ -103,6 +103,7 @@ function cchapterdb:pack(chapter)
 		chapterid = chapter.id,
 		star = chapter.star,
 		pass = chapter.pass,
+		time = chapter.time or 0,
 	}
 end
 
@@ -118,6 +119,7 @@ function cchapterdb:unlockchapter(chapterid)
 	local chapter = {
 		star = 0,
 		pass = false,
+		time = os.time(),
 	}
 	self:add(chapter,chapterid)
 end

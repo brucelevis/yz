@@ -11,7 +11,7 @@ function gm.shop(args)
 	local func = shop[funcname]
 	print(funcname,func)
 	if not func then
-		net.msg.S2C.notify(master_pid,"指令未找到，查看帮助:help shop")
+		gm.notify("指令未找到，查看帮助:help shop")
 		return
 	end
 	table.remove(args,1)
@@ -24,7 +24,7 @@ end
 function shop.refresh(player,args)
 	local isok,arrgs = checkargs(args,"string")
 	if not isok then
-		net.msg.S2C.notify(player.pid,"shop refresh grocery <=> 刷新杂货店")
+		gm.notify("shop refresh grocery <=> 刷新杂货店")
 		return
 	end
 	local shopname = args[1]

@@ -62,6 +62,7 @@ item_bag 5505 {
 		space 2 : integer			#空间大小
 		expandspace 3 : integer		#扩展的空间大小，不发默认为0
 		sorttype 4 : integer		#排序类型(0--自然排序,1--装备优先,2--材料优先，3--药物优先，4--任务优先)
+		beginpos 5 : integer		#背包内开始存放物品的位置
 	}
 }
 

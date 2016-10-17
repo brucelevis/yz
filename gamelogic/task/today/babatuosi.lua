@@ -3,12 +3,11 @@ cbabatuositask = class("cbabatuositask",ctaskcontainer)
 
 function cbabatuositask:init(conf)
 	ctaskcontainer.init(self,conf)
+	self.is_teamsubmit = true
+	self.is_teamsync = true
 end
 
 function cbabatuositask:__canaccept()
-	if self:reachlimit() then
-		return false,language.format("今天已经没有藏宝图的线索了,请明天再来")
-	end
 	local player = playermgr.getplayer(self.pid)
 	local needlv = self:getformdata("var").StartWarNeedLv
 	if player.lv < needlv then
@@ -115,12 +114,19 @@ function cbabatuositask:nexttask(taskid,reason)
 	else
 		next_taskid,errmsg = ctaskcontainer.nexttask(self,taskid,reason)
 	end
+	if next_taskid and reason == "submittask" then
+		local player = playermgr.getplayer(self.pid)
+		local flag = self:getflag("nexttask")
+		player.today:set(flag,1)
+	end
 	return next_taskid,errmsg
 end
 
 function cbabatuositask:onwarend(war,result)
 	local player = playermgr.getplayer(self.pid)
-	if warmgr.iswin(result) then
+	local donelimit = self:getdonelimit()
+	local donecnt = self:getdonecnt()
+	if warmgr.iswin(result) and donecnt < donelimit then
 		local flag = self:getflag("ratio")
 		local flag2 = self:getflag("isget")
 		local isget = player.today:query(flag2)
@@ -139,8 +145,6 @@ function cbabatuositask:onwarend(war,result)
 				player.today:set(flag,ratio)
 				net.msg.S2C.notify(self.pid,language.format("未掉落藏宝图，请继续寻找"))
 			else
-				local donelimit = self:getdonelimit()
-				local donecnt = self:getdonecnt()
 				player.today:set(flag2,1)
 				local additembytype = vardata.AddItemId or 601001
 				local additemnum = vardata.AddItemNum or 1
@@ -168,50 +172,15 @@ function cbabatuositask:onsubmittask(taskid)
 end
 
 function cbabatuositask:accepttask(taskid)
+	local player = playermgr.getplayer(self.pid)
+	local flag = self:getflag("nexttask")
+	local isnexttask = player.today:query(flag)
+	if isnexttask then
+		self.is_teamsync = false
+		player.today:delete(flag)
+	end
 	ctaskcontainer.accepttask(self,taskid)
-	local player = playermgr.getplayer(self.pid)
-	if player:teamstate() ~= TEAM_STATE_CAPTAIN then
-		return
-	end
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			if not member.taskdb:gettask(taskid) then
-				self:synctask(member,taskid)
-			end
-		end
-	end
+	self.is_teamsync = true
 end
-
-function cbabatuositask:executetask(taskid,ext)
-	local player = playermgr.getplayer(self.pid)
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			if not member.taskdb:gettask(taskid) then
-				self:synctask(member,taskid)
-			end
-		end
-	end
-	ctaskcontainer.executetask(self,taskid,ext)
-end
-
-function cbabatuositask:finishtask(task,reason)
-	local player = playermgr.getplayer(self.pid)
-	local members = player:getfighters()
-	for _,pid in ipairs(members) do
-		if pid ~= self.pid then
-			local member = playermgr.getplayer(pid)
-			local task2 = member.taskdb:gettask(task.taskid)
-			if task2 then
-				ctaskcontainer.finishtask(member.taskdb.babatuosi,task2,reason)
-			end
-		end
-	end
-	ctaskcontainer.finishtask(self,task,reason)
-end
-
 
 return cbabatuositask

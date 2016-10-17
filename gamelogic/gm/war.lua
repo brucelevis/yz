@@ -6,7 +6,7 @@ gm = require "gamelogic.gm.init"
 function gm.startwar(args)
 	local isok,args = checkargs(args,"int","int")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: startwar 战斗类型 战斗导表ID")
+		gm.notify("用法: startwar 战斗类型 战斗导表ID")
 		return
 	end
 	local wartype = args[1]
@@ -25,7 +25,7 @@ end
 function gm.endwar(args)
 	local isok,args = checkargs(args,"int","int")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: 结束战斗 战斗ID 结果(>0:进攻方胜利,0--平局,<0:进攻方失败)")
+		gm.notify("用法: 结束战斗 战斗ID 结果(>0:进攻方胜利,0--平局,<0:进攻方失败)")
 		return
 	end
 	local warid = args[1]
@@ -37,7 +37,7 @@ function gm.endwar(args)
 		warid = master:warid()
 	end
 	if not warid or warid == 0 then
-		net.msg.S2C.notify(master_pid,"请指定一个战斗ID")
+		gm.notify("请指定一个战斗ID")
 		return
 	end
 	sendtowarsrv("war","endwar",{
@@ -53,7 +53,7 @@ end
 function gm.force_endwar(args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: 强制结束战斗 战斗ID")
+		gm.notify("用法: 强制结束战斗 战斗ID")
 		return
 	end
 	local warid = args[1]
@@ -64,7 +64,7 @@ function gm.force_endwar(args)
 		warid = master:warid()
 	end
 	if not warid or warid == 0 then
-		net.msg.S2C.notify(master_pid,"请指定一个战斗ID")
+		gm.notify("请指定一个战斗ID")
 		return
 	end
 	warmgr.force_endwar(warid,"gm")

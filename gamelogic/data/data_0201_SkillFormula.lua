@@ -88,6 +88,15 @@ data_0201_SkillFormula = {
 			return -value
 		end,
 
+	[10016] = function(ins_skill, ins_logic, attacker, target, computeFixFunc)
+			local value = ins_logic.powerValue*ins_skill.m_skillLvFix
+			if computeFixFunc ~= nil then
+				value = computeFixFunc(value, 0, ins_skill, ins_logic, attacker, target)
+			end
+			if value < 0 then value = 0 end
+			return -value
+		end,
+
 	[10101] = function(ins_skill, ins_logic, attacker, target, computeFixFunc)
 			local value = ins_logic.powerValue*ins_skill.m_skillLvFix*(0.5+0.5*ins_skill.m_curLv/ins_skill.maxLv)
 			if computeFixFunc ~= nil then
@@ -121,6 +130,16 @@ data_0201_SkillFormula = {
 				value = computeFixFunc(value, 0, ins_skill, ins_logic, attacker, target)
 			end
 			if value < 0 then value = 0 end
+			return value
+		end,
+
+	[20001] = function(ins_skill, ins_logic, attacker, target, computeFixFunc)
+			local value = (ins_logic.powerPer-0.1)*(0.5+0.5*ins_skill.m_curLv/ins_skill.maxLv)
+			if computeFixFunc ~= nil then
+				value = computeFixFunc(value, 0, ins_skill, ins_logic, attacker, target)
+			end
+			if value < 0 then value = 0 end
+			if value > 1 then value = 1 end
 			return value
 		end,
 

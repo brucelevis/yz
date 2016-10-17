@@ -85,7 +85,7 @@ function navigation.addprogress(pid,name,cnt)
 	if activity.progress >= data.progress then
 		return
 	end
-	activity.progress = activity.progress + cnt
+	activity.progress = math.min(activity.progress + cnt,data.progress)
 	if activity.progress == data.progress then
 		net.navigation.S2C.showredpoint(pid)
 	end

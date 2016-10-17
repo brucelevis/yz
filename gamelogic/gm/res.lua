@@ -7,14 +7,14 @@ gm = require "gamelogic.gm.init"
 function gm.addgold(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addgold 数量 [玩家ID]")
+		gm.notify("用法: addgold 数量 [玩家ID]")
 		return
 	end
 	local val = args[1]
 	local pid = tonumber(args[2]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:addres("gold",val,"gm",true)
@@ -27,14 +27,14 @@ end
 function gm.addsilver(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addsilver 数量 [玩家ID]")
+		gm.notify("用法: addsilver 数量 [玩家ID]")
 		return
 	end
 	local val = args[1]
 	local pid = tonumber(args[2]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:addres("silver",val,"gm",true)
@@ -47,14 +47,14 @@ end
 function gm.addcoin(args)
 	local isok,args = checkargs(args,"int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addcoin 数量 [玩家ID]")
+		gm.notify("用法: addcoin 数量 [玩家ID]")
 		return
 	end
 	local val = args[1]
 	local pid = tonumber(args[2]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:addres("coin",val,"gm",true)
@@ -67,7 +67,7 @@ end
 function gm.addres(args)
 	local isok,args = checkargs(args,"string","int","*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: addres 资源类型 数量 [玩家ID]")
+		gm.notify("用法: addres 资源类型 数量 [玩家ID]")
 		return
 	end
 	local typ = args[1]
@@ -75,7 +75,7 @@ function gm.addres(args)
 	local pid = tonumber(args[3]) or master_pid
 	local player = playermgr.getplayer(pid)
 	if not player then
-		net.msg.S2C.notify(master_pid,string.format("玩家(%s)不在线",pid))
+		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
 	player:addres(typ,val,"gm",true)
@@ -86,13 +86,13 @@ end
 function gm.chongzhi(args)
 	local isok,args = checkargs(args,"int")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: chongzhi 充值项ID")
+		gm.notify("用法: chongzhi 充值项ID")
 		return
 	end
 	local id = args[1]
 	local product = master:getprodcut(id)
 	if not product then
-		net.msg.S2C.notify(master_pid,"该充值项不存在")
+		gm.notify("该充值项不存在")
 		return
 	end
 	local product = {

@@ -5,53 +5,58 @@ huodongmgr = huodongmgr or {
 
 function huodongmgr.init()
 	huodongmgr.huodongs = {}
-	for hid,data in pairs(data_Huodong) do
-		local huodong = huodongmgr.newhuodong(hid)
-		huodongmgr.addhuodong(huodong)
-	end
 	huodongmgr.loadstate = "unload"
 	huodongmgr.loadfromdatabase()
+
 	huodongmgr.savename = "huodongmgr"
 	autosave(huodongmgr)
 end
 
-function huodongmgr.loadfromdatabase()
-	if huodongmgr.loadstate ~= "unload" then
+
+function huodongmgr.load(data)
+	if not data or not next(data) then
+		for hid,huodong_data in pairs(data_Huodong) do
+			local obj = huodongmgr.newhuodong(hid)
+			huodongmgr.addhuodong(obj)
+		end
 		return
 	end
-	huodongmgr.loadstate = "loading"
-	local db = dbmgr.getdb()
-	for name,huodong in pairs(huodongmgr.huodongs) do
-		if huodong.savehuodong then
-			local data = db:get(db:key("global","huodong",name))
-			huodong.load(data)
+	for hid,huodong_data in pairs(data_Huodong) do
+		local obj = huodongmgr.newhuodong(hid)
+		local name = obj.name
+		local d = data.huodongs[name]
+		if d then
+			obj:load(d)
+		else
 		end
+		huodongmgr.addhuodong(obj)
 	end
-	huodongmgr.loadstate = "loaded"
 end
 
-function huodongmgr.savetodatabase()
-	if huodongmgr.loadstate ~= "loaded" then
-		return
+function huodongmgr.save()
+	local data = {}
+	local huodongs = {}
+	for name,obj in pairs(huodongmgr.huodongs) do
+		huodongs[name] = obj:save()
 	end
-	local db = dbmgr.getdb()
-	for name,huodong in pairs(huodongmgr.huodongs) do
-		if huodong.savehuodong then
-			local data = huodong.save()
-			db:set(db:key("global","huodong",name),data)
-		end
-	end
+	data.huodongs = huodongs
+	return data
 end
 
 function huodongmgr.clear()
 	local huodongs = huodongmgr.huodongs
 	for name,huodong in pairs(huodongs) do
-		huodong:release()
+		huodong:clear()
 	end
 	huodongmgr.huodongs = {}
 end
 
-function huodongmgr.gethuodong(name)
+function huodongmgr.onlogin(player)
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodong.onlogin then
+			huodong:onlogin(player)
+		end
+	end
 	for name,playunit in pairs(huodongmgr.playunit) do
 		if playunit.onlogin then
 			playunit.onlogin(player)
@@ -72,15 +77,23 @@ function huodongmgr.onlogoff(player,reason)
 	end
 end
 
-function huodongmgr.addhuodong(huodong)
-	local name = assert(huodong.name)
-	assert(not huodongmgr.gethuodong(name),"repeat huodong name:" .. tostring(name))
-	huodongmgr.huodongs[name] = huodong
+function huodongmgr.onfiveminuteupdate()
+	for name,huodong in pairs(huodongmgr.huodongs) do
+		if huodongmgr.isopen(huodong.id) then
+			huodong:checkhuodong()
+		end
+	end
+end
+
+function huodongmgr.onhalfhourupdate()
+end
+
+function huodongmgr.onhourupdate()
 end
 
 function huodongmgr.newhuodong(hid)
 	require "gamelogic.huodong.huodongmodule"
-	local huodong_data = assert(data_1100_GlobalHuodong[hid],"Invalid hid:" .. tostring(hid))
+	local huodong_data = assert(data_Huodong[hid],"Invalid hid:" .. tostring(hid))
 	local cls = assert(huodongmodule[hid],"Invalid hid:" .. tostring(hid))
 	local conf = huodongmgr.new_time_conf(huodong_data)
 	conf.id = hid
@@ -125,27 +138,30 @@ function huodongmgr.isopen(id)
 	return false
 end
 
-function huodongmgr.startgame()
-	huodongmgr.init()
+function huodongmgr.gethuodong(name)
+	return huodongmgr.huodongs[name]
 end
 
-function huodongmgr.onlogin(player)
-	for name,huodong in pairs(huodongmgr.huodongs) do
-		huodong:onlogin(player)
+function huodongmgr.delhuodong(name)
+	local huodong = huodongmgr:gethuodong(name)
+	if huodong then
+		huodongmgr.huodongs[name] = nil
 	end
 end
 
-function huodongmgr.onlogoff(player)
-	for name,huodong in pairs(huodongmgr.huodongs) do
-		huodong:onlogoff(player)
-	end
+function huodongmgr.addhuodong(huodong)
+	local name = assert(huodong.name)
+	assert(not huodongmgr.gethuodong(name),"repeat huodong name:" .. tostring(name))
+	huodongmgr.huodongs[name] = huodong
 end
 
-function huodongmgr.onfiveminuteupdate()
-	for name,huodong in pairs(huodongmgr.huodongs) do
-		if huodongmgr.isopen(huodong.id) then
-			huodong:checkhuodong()
-		end
+function huodongmgr.loadfromdatabase()
+	if not huodongmgr.loadstate or huodongmgr.loadstate == "unload" then
+		huodongmgr.loadstate = "loading"
+		local db = dbmgr.getdb()
+		local data = db:get(db:key("global","huodong"))
+		huodongmgr.load(data)
+		huodongmgr.loadstate = "loaded"
 	end
 end
 
@@ -163,7 +179,8 @@ function huodongmgr.savetodatabase()
 	db:set(db:key("global","huodong"),data)
 end
 
-function huodongmgr.onhourupdate()
+function huodongmgr.startgame()
+	huodongmgr.init()
 end
 
 function huodongmgr.canenterscene(player,sceneid,pos)

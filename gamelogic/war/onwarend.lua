@@ -35,6 +35,7 @@ warmgr.register_onwarend(WARTYPE.PVE_SHARE_TASK,function (warid,result)
 	local next_taskid = ctaskcontainer.nexttask(taskcontainer,war.taskid)
 	for i,pid in ipairs(war.attackers) do
 		local player = playermgr.getplayer(pid)
+		local taskcontainer = player.taskdb:gettaskcontainer(war.taskid)
 		taskcontainer._next_taskid = next_taskid
 		taskcontainer:onwarend(war,result)
 	end

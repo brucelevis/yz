@@ -124,16 +124,16 @@ end
 function gm.closetuoguan(args)
 	local isok,args = checkargs(args,"*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: closetuoguan [是否关闭全服托管]")
+		gm.notify("用法: closetuoguan [是否关闭全服托管]")
 		return
 	end
 	local closeall = args[1]
 	if closeall then
 		globalmgr.server.closetuoguan = true
-		net.msg.S2C.notify(master_pid,"全服已关闭托管")
+		gm.notify("全服已关闭托管")
 	else
 		master.closetuoguan = true
-		net.msg.S2C.notify(master_pid,"自身已关闭托管")
+		gm.notify("自身已关闭托管")
 	end
 end
 
@@ -144,16 +144,16 @@ end
 function gm.opentuoguan(args)
 	local isok,args = checkargs(args,"*")
 	if not isok then
-		net.msg.S2C.notify(master_pid,"用法: opentuoguan [是否关闭全服托管]")
+		gm.notify("用法: opentuoguan [是否关闭全服托管]")
 		return
 	end
 	local openall = args[1]
 	if openall then
 		globalmgr.server.closetuoguan = nil
-		net.msg.S2C.notify(master_pid,"全服已打开托管")
+		gm.notify("全服已打开托管")
 	else
 		master.closetuoguan = nil
-		net.msg.S2C.notify(master_pid,"自身已打开托管")
+		gm.notify("自身已打开托管")
 	end
 end
 
@@ -161,7 +161,7 @@ end
 --- 功能: 执行导表，更新服务器导表数据
 function gm.daobiao(args)
 	if not cserver.isinnersrv() then
-		net.msg.S2C.notify(master_pid,"仅开发服支持导表指令")
+		gm.notify("仅开发服支持导表指令")
 		return
 	end
 	local warsrv = skynet.getenv("warsrv")
@@ -177,7 +177,7 @@ function gm.daobiao(args)
 		os.execute(cmd)
 	end
 	gm.say("导表执行完毕")
-	net.msg.S2C.notify(master_pid,"导表执行完毕")
+	gm.notify("导表执行完毕")
 end
 
 function gm.update(args)

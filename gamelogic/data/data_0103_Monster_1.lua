@@ -380,6 +380,84 @@ local data_0103_Monster_1 = {
 	[500297] = {
 		name = "但他林", dir = 5, lvt = 0, lv = 10, kind = 3, ATTACKTYPE = 2, RACE = 2, HP = 136, WUGONG = 25.5, WUFANG = 8.5, FAGONG = 25.5, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
 
+	[500298] = {
+		name = "猎鹰", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500299] = {
+		name = "猎鹰", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500300] = {
+		name = "猎鹰", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500301] = {
+		name = "猎鹰", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500302] = {
+		name = "树精", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 2, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500303] = {
+		name = "半兽人", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500304] = {
+		name = "地精", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 2, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500305] = {
+		name = "半兽人", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500306] = {
+		name = "狮鹫", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 2, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500307] = {
+		name = "半兽人", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500308] = {
+		name = "树精", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 2, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500309] = {
+		name = "地精", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 2, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500310] = {
+		name = "半兽人", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500311] = {
+		name = "巨大的半兽人", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 1, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500312] = {
+		name = "巨大的猎鹰", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 1, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500313] = {
+		name = "巨大的半兽人", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 1, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500314] = {
+		name = "大地精", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 2, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500315] = {
+		name = "单卡拉比狮鹫体", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 2, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500316] = {
+		name = "地精", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 2, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500317] = {
+		name = "半兽人", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500318] = {
+		name = "猎鹰", dir = 5, lvt = 0, lv = 10, kind = 1, ATTACKTYPE = 1, RACE = 2, HP = 68, WUGONG = 17, WUFANG = 8.5, FAGONG = 17, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500319] = {
+		name = "单卡拉比原型", dir = 5, lvt = 0, lv = 10, kind = 3, ATTACKTYPE = 2, RACE = 2, HP = 136, WUGONG = 25.5, WUFANG = 8.5, FAGONG = 25.5, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500320] = {
+		name = "变异的树精", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 2, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500321] = {
+		name = "大地精", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 2, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500322] = {
+		name = "巨大的猎鹰", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 1, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
+	[500323] = {
+		name = "巨大的半兽人", dir = 5, lvt = 0, lv = 10, kind = 2, ATTACKTYPE = 1, RACE = 2, HP = 102, WUGONG = 20.4, WUFANG = 8.5, FAGONG = 20.4, FAFANG = 8.5, SP = 0.35, MP = 37.5, HUIFUMP = 1.75, FASHUSP = 3.5, PACC = 50.875, WLDS = 50.875, WLBJ = 0.875, HUIFUHP = 0, RENXING = 10.875, stage1_hp = 1, stage1_shape = 10001, stage1_skill = 0, stage2_hp = 0, stage2_shape = 0, stage2_skill = 0, stage3_hp = 0, stage3_shape = 0, stage3_skill = 0, 	},
+
 }
 
 if data_0103_Monster == nil then data_0103_Monster = {} end

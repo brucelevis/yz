@@ -5,12 +5,12 @@ function citemdb:init(conf)
 	ccontainer.init(self,conf)
 	self.type = assert(conf.type)	-- 背包类型
 	self.pid = conf.pid
-	self.space = ITEMBAG_SPACE
+	self.space = conf.initspace
 	self.expandspace = 0
 	self.pos_id = {}
 	self.type_ids = {}
 	self.loadstate = "unload"
-	self.itempos_begin = ITEMPOS_BEGIN
+	self.itempos_begin = conf.beginpos or 1
 
 	-- 物品排序类型(部分背包有用)
 	self.sorttype = 0
@@ -56,6 +56,7 @@ function citemdb:onlogin(player)
 		space = self.space,
 		expandspace = self.expandspace,
 		sorttype = self.sorttype,
+		beginpos = self.itempos_begin,
 	})
 	net.item.S2C.allitem(self.pid,self.type,self.objs)
 end
@@ -274,6 +275,7 @@ function citemdb:expand(addspace)
 		space = self.space,
 		expandspace = self.expandspace,
 		sorttype = self.sorttype,
+		beginpos = self.itempos_begin,
 	})
 end
 

@@ -60,7 +60,10 @@ function rpc.callplayer(pid,protoname,cmd,...)
 		local mod = assert(netcluster[protoname],string.format("[cluster] from %s,unknow protoname:%s",srvname,protoname))
 		return mod.dispatch(srvname,cmd,...)
 	end
-	return rpc.call(srvname,protoname,cmd,...)
+	local isok,result = rpc.pcall(srvname,protoname,cmd,...)
+	if isok then
+		return result
+	end
 end
 
 return rpc
