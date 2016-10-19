@@ -201,8 +201,7 @@ function cpetdb:traindpet(petid)
 	pet:onchangezizhi()
 	local newskills = pet:getallskills()
 	logger.log("info","pet",format("[trainpet] pid=%d petid=%d oldzz=%s newzz=%s oldsk=%s newsk=%s",self.pid,petid,oldzizhi,pet.zizhi,oldskills,newskills))
-	sendpackage("pet","update",{
-		id = petid,
+	self:onupdate(petid,{
 		skills = newskills,
 		zizhi = pet.zizhi,
 	})
@@ -216,12 +215,100 @@ function cpetdb:comprehendskill(petid)
 	if pet:getskillslen() >= pet.skillslimit then
 		return
 	end
+	local ratio = (pet.skillslimit - pet:getskillslen() - 3) * 5 + pet.lv
+	if ratio <= 0 or not ishit(ratio,1000000) then
+		return
+	end
+	local tmp = {}
+	for skillid,skilldata in pairs(data_1700_PetSkill) do
+		if skilldata.comprehend_ratio ~= 0 and self:can_learn(pet,skillid) then
+			tmp[skillid] = skilldata.comprehend_ratio
+		end
+	end
+	local skillid = choosekey(tmp)
+	local player = playermgr.getplayer(self.pid)
+	logger.log("info","pet",string.format("[comprehendskill] pid=%d petid=%d skillid=%d",self.pid,petid,skillid))
+	pet:addskill(skillid)
+	netmsg.sendquickmsg(language.format("恭喜{1}的{2}领悟了{3}！",player.name,pet:get("name"),data_1700_PetSkill[skillid].name))
+	self:onupdate(petid,{
+		skills = pet:getallskills(),
+	})
 end
 
 function cpetdb:learnskill(petid,skillid)
+	local pet = self:getpet(petid)
+	if not pet then
+		return
+	end
+	local replaceskill
+	if pet:getskillslen() > 5 then
+		local ratio = math.max(0,math.floor((#pet.skills - 2) / 3))
+		if ishit(ratio) then
+			local idx = math.random(1,#pet.skills)
+			replaceskill = pet:replaceskill(skillid,idx)
+		end
+	end
+	local msg
+	if not replaceskill then
+		pet:addskill(skillid)
+		msg = language.format("{1}学习成功",data_1700_PetSkill[skillid].name)
+	else
+		msg = language.format("{1}替换了{2}",data_1700_PetSkill[skillid].name,data_1700_PetSkill[replaceskill].name)
+	end
+	net.msg.S2C.notify(self.pid,msg)
+	logger.log("info","pet",string.format("[learnskill] pid=%d petid=%d skillid=%d replacesk=%d",self.pid,pet.id,skillid,replaceskill or 0))
+	self:onupdate(petid,{
+		skills = pet:getallskills(),
+	})
 end
 
-function cpetdb:forgetskill(petid,skillid)
+function cpetdb:can_learn(pet,skillid)
+	if pet:hasskill(skillid) then
+		return false,language.format("已经学习过该技能了")
+	end
+	local skilldata = data_1700_PetSkill[skillid]
+	if pet.relationship < skilldata.relation_limit then
+		return false,language.format("宠物关系达不到{1}，无法学习本技能",data_1700_PetRelationShip[skilldata.relation_limit].name)
+	end
+	if pet.lv < skilldata.lv_limit then
+		return false,language.format("宠物等级达不到{1}，无法学习本技能",skilldata.lv_limit)
+	end
+	if pet:get("quality") <= skilldata.quality_limit then
+		return false,language.format("宠物品质达不到{1}，无法学习本技能",PET_QUALITY[skilldata.quality_limit])
+	end
+	if pet:get("race") ~= skilldata.race_limit then
+		return false,language.format("宠物不是{1}种族，无法学习本技能",PET_RACE[skilldata.race_limit])
+	end
+	if pet:get("category") ~= skildata.category_limit then
+		return false,language.format("宠物不是{1}类别，无法学习本技能",PET_CATEGORY[skilldata.category_limit])
+	end
+	if pet:get("type") ~= skilldata.type_limit then
+		return false,language.format("宠物不是{1}类型，无法学习本技能",PET_TYPE[skilldata.type_limit])
+	end
+	for name,value in pairs(pet.zizhi) do
+		if skilldata[name] > value then
+			return false,language.format("{1}的{2}资质达不到{3}，无法学习本技能",pet:get("name"),PET_ZIZHI[name],skilldata[name])
+		end
+	end
+	return ture
+end
+
+function cpetdb:wieldequip(petid,itemid)
+end
+
+function cpetdb:can_wieldequip(pet,itemid)
+	local player = playermgr.getplayer(self.pid)
+	local item = player:getitem(itemid)
+	if not item then
+		return false,language.format("背包中没有找到该装备")
+	end
+	if itemaux.getmaintype(item.type) ~= ItemMainType.PETEQUIP then
+		return false,language.format("该物品无法给宠物装备")
+	end
+	return true
+end
+
+function cpetdb:unwieldequip(petid,itemid)
 end
 
 function cpetdb:getpetsbytype(pettype)

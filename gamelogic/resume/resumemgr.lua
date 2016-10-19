@@ -5,11 +5,6 @@ function resumemgr.init()
 	resumemgr.objs = {}
 end
 
-function resumemgr._init()
-	-- 建立name -> pid的映射，方便重名检查
-	resumemgr.name_pid = {}
-end
-
 function resumemgr.create(pid,data)
 	local resume = cresume.new(pid)
 	resume:create(data)
@@ -31,6 +26,7 @@ function resumemgr.onlogoff(player,reason)
 	local data = player:packresume()
 	data.now_srvname = cserver.getsrvname()
 	data.online = false
+	data.logofftime = os.time()
 	resume:set(data)
 end
 
@@ -86,7 +82,7 @@ function resumemgr.addresume(pid,resume)
 end
 
 function resumemgr.delresume(pid)
-	local resume = resumemgr.getresume(pid)
+	local resume = resumemgr.objs[pid]
 	if resume then
 		logger.log("info","resume",format("[delresume] pid=%d",pid))
 		resumemgr.objs[pid] = nil

@@ -13,6 +13,8 @@ data_1700_PetVar = {
 
 	HolyTrainItem = {item=601050,num=3}, 		-- 魔神宠物训练物品
 
+	ForgetSkillCostClose = 50, 		-- 遗忘技能消耗的亲密度
+
 }
 return data_1700_PetVar
 --<<data_1700_PetVar 导表结束>>

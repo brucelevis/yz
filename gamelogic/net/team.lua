@@ -155,6 +155,7 @@ function C2S.apply_become_captain(player,request)
 				local answer = response.answer
 				if not ((request.buttons[2].timeout and request.buttons[2].timeout > 0 and openui.istimeout(answer)) or
 					(answer == 2)) then
+					net.msg.S2C.notify(pid,language.format("队长申请已被拒绝"))
 					return
 				end
 				if obj:teamid() ~= teamid then

@@ -54,13 +54,19 @@ player_changejob 5005 {
 	}
 }
 
-# 根据pid查看玩家简介
-player_lookresume 5006 {
+# 查找若干pid的玩家简介信息
+player_lookresumes 5006 {
 	request {
 		base 0 : basetype
-		pid 1 : integer
+		pids 1 : *integer
 	}
 }
 
+player_searchresume 5007 {
+	request {
+		base 0 : basetype
+		findplayer 1 : string  # 查找的玩家ID/名字
+	}
+}
 ]]
 }

@@ -9,11 +9,9 @@ data_0801_PromoteEquipVar = {
 
 	FumoShowAttrNumRatio = {[1]=10,[2]=20,[3]=30,[4]=30}, 		-- 附魔刷出属性数量的概率
 
-	ItemBagExpandCostGold = 100, 		-- 扩展背包花费的金币
+	ItemBagExpandSpacePerTime = 6, 		-- 一次扩展增加的背包格子
 
-	ItemBagExpandSpacePerTime = 5, 		-- 一次扩展增加的背包格子
-
-	ItemBagMaxExpandSpace = 20, 		-- 最大扩展的背包格子数
+	ItemBagMaxSpace = 120, 		-- 背包能扩展到的最大容量
 
 }
 return data_0801_PromoteEquipVar

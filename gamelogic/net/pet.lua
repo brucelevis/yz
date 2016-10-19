@@ -123,13 +123,88 @@ end
 
 function C2S.learnskill(player,request)
 	local skillid = assert(request.skillid)
+	local itemid = assert(request.itemid)
 	local id = assert(request.id)
+	local item = player:getitem(itemid)
+	if not item then
+		return
+	end
+	local pet = player.petdb:getpet(id)
+	if not pet then
+		return
+	end
+	local petskilldata = data_1700_PetSkill[skillid]
+	if not petskilldata then
+		return
+	end
+	local needitem = petskilldata.item
+	if needitem ~= item.type then
+		net.msg.S2C.notify(player.pid,language.format("学习{1}技能，需要消耗{2}技能书",petskilldata.name,itemaux.getitemdata(needitem).name))
+		return
+	end
+	local isok,msg = player.petdb:can_learn(pet,skillid)
+	if not isok then
+		if msg then
+			net.msg.S2C.notify(player.pid,msg)
+		end
+		return
+	end
+	player.itemdb:costitembyid(itemid,1,"learnskill")
+	player.petdb:learnskill(id,skillid)
 end
 
 function C2S.forgetskill(player,request)
 	local skillid = assert(request.skillid)
 	local id = assert(request.id)
-	
+	local pet = player.petdb:getpet(id)
+	if not pet then
+		return
+	end
+	local costclose = data_1700_PetVar.ForgetSkillCostClose
+	if costclose then
+		net.msg.S2C.notify(player.pid,language.format("亲密度不足{1}，无法遗忘技能",costclose))
+		return
+	end
+	local idx = pet:hasskill(skillid)
+	if not idx then
+		return
+	end
+	if idx == -1 then
+		net.msg.S2C.notify(player.pid,language.format("无法遗忘绑定技能"))
+		return
+	end
+	logger.log("info","pet",string.format("[forgetskill] pid=%d petid=%d skillid=%d",player.pid,id,skillid))
+	player.petdb:addclose(id,-costclose,"forgetskill")
+	pet:delskill(skillid)
+	player.petdb:onupdate(id,{
+		skills = pet:getallskills(),
+	})
+end
+
+function C2S.wieldequip(player,request)
+	local itemid = assert(request.itemid)
+	local id = assert(request.id)
+	local pet = player.petdb:getpet(id)
+	if not pet then
+		return
+	end
+	local isok,msg = player.petdb:can_wieldequip(pet,itemid)
+	if not isok then
+		if msg then
+			net.msg.S2C.notify(player.pid,msg)
+		return
+	end
+	player.petdb:wieldequip(id,itemid)
+end
+
+function C2S.unwieldequip(player,request)
+	local itemid = assert(request.itemid)
+	local id = assert(request.id)
+	local pet = player.petdb:getpet(id)
+	if not pet then
+		return
+	end
+	player.petdb:unwieldequip(id,itemid)
 end
 
 function C2S.catch(player,request)

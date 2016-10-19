@@ -156,6 +156,9 @@ function gm.newplayerday(args)
 	end
 	player.today.dayno = 1
 	player:onfivehourupdate()
+	sendpackage(player.pid,"player","update",{
+		usehorncnt = 0
+	})
 end
 
 --- 用法: clear 容器类别

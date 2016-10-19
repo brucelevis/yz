@@ -34,6 +34,10 @@ function cpet:init(param)
 		xingyun = self.zizhi_minratio,
 	}
 	self.skills = {}
+	self.equipmentdb = ccontainer.new({
+		pid = self.pid,
+		name = "petequipdb",
+	})
 end
 
 function cpet:config()
@@ -118,6 +122,10 @@ function cpet:get(attr)
 end
 
 function cpet:hasskill(skillid)
+	local bindskill = petaux.getpetdata(self.type).bind_skills
+	if table.find(bindskill,skillid) then
+		return -1
+	end
 	for idx,skill in pairs(self.skills) do
 		if skill.id == skillid then
 			return idx
@@ -137,9 +145,19 @@ function cpet:addskill(skillid)
 	return skill
 end
 
+function cpet:replaceskill(skillid,idx)
+	local skill = self.skills[idx]
+	if not skill then
+		return
+	end
+	local oldid = skill.id
+	skill.id = skillid
+	return oldid
+end
+
 function cpet:delskill(skillid)
 	local idx = self:hasskill(skillid)
-	if not idx then
+	if not idx or idx == -1 then
 		return
 	end
 	table.remove(self.skills,idx)

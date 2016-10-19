@@ -24,6 +24,7 @@ msg_notify 4500 {
 #MB_NOTIFY_BACKTEAM		= 8				-- 通知归队
 
 #MB_LACK_CONDITION		= 9				-- 条件不足,
+#MB_INVITE_JOIN_UNION    = 10		-- 邀请加入工会
 # 对于MB_LACK_CONDITION:attach格式:{lackres=缺少的资源,costgold=消耗的金币}
 # lackres格式统一为:
 #{
@@ -46,6 +47,7 @@ msg_messagebox 4501 {
 		attach 4 : string		#json打包的字符串，不同类型弹框消息有不同含义
 		buttons 5 : *ButtonType #按钮信息
 		type 6 : integer		#消息弹框类型
+		forward 7 : boolean     #true--respondanswer时带上forward=true
 	}
 }
 
@@ -149,6 +151,15 @@ msg_sendmsg_succ 4512 {
 	request {
 		base 0 : basetype
 		id 1 : integer		# 客户端生成的唯一消息ID
+	}
+}
+
+#广播
+msg_broadcast 4513 {
+	request {
+	base 0 : basetype
+	type 1 : integer	#广播类型
+	msg 2 : string		#广播内容
 	}
 }
 ]]

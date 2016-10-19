@@ -220,7 +220,10 @@ function cfrienddb:addblkref(pid)
 		return
 	end
 	frdblk:addref(self.pid)
-	net.friend.S2C.sync_resume(self.pid,frdblk:pack())
+	sendpackage(pid,"player","syncresumes",{
+		resumes = {frdblk:pack()},
+	})
+	--net.friend.S2C.sync_resume(self.pid,frdblk:pack())
 end
 
 function cfrienddb:pack_frddata(pid,data)

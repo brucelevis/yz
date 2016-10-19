@@ -5,7 +5,7 @@ function citemdb:init(conf)
 	ccontainer.init(self,conf)
 	self.type = assert(conf.type)	-- 背包类型
 	self.pid = conf.pid
-	self.space = conf.initspace
+	self.space = conf.initspace or data_0801_PromoteEquipVar.ItemBagMaxSpace
 	self.expandspace = 0
 	self.pos_id = {}
 	self.type_ids = {}
@@ -53,8 +53,7 @@ function citemdb:onlogin(player)
 	assert(self.pid == player.pid)
 	net.item.S2C.bag(self.pid,{
 		type = self.type,
-		space = self.space,
-		expandspace = self.expandspace,
+		space = self:getspace(),
 		sorttype = self.sorttype,
 		beginpos = self.itempos_begin,
 	})
@@ -267,13 +266,12 @@ function citemdb:getfreepos()
 	end
 end
 
-function citemdb:expand(addspace)
-	logger.log("info","item",string.format("[expandspace] pid=%s addspace=%s",self.pid,addspace))
+function citemdb:expand(addspace,reason)
+	logger.log("info","item",string.format("[expandspace] pid=%s addspace=%s reason=%s",self.pid,addspace,reason))
 	self.expandspace = self.expandspace + addspace
 	net.item.S2C.bag(self.pid,{
 		type = self.type,
-		space = self.space,
-		expandspace = self.expandspace,
+		space = self:getspace(),
 		sorttype = self.sorttype,
 		beginpos = self.itempos_begin,
 	})
@@ -430,6 +428,23 @@ end
 function citemdb:onupdate(itemid,attr)
 	attr.id = itemid
 	net.item.S2C.updateitem(self.pid,attr,self.type)
+end
+
+function citemdb:onchangelv()
+	local oldspace = self:getspace()
+	if self.type ~= BAGTYPE.NORMAL or oldspace >= data_0801_PromoteEquipVar.ItemBagMaxSpace then
+		return
+	end
+	local player = playermgr.getplayer(self.pid)
+	local addspace = data_0801_PromoteEquipVar.ItemBagExpandSpacePerTime
+	local nextrow = oldspace / addspace + 1
+	for row = nextrow,#data_0801_ItemBagExpand do
+		local openlv = data_0801_ItemBagExpand[row].openlv
+		if openlv == -1 or player.lv < openlv then
+			break
+		end
+		self:expand(addspace,"onchangelv")
+	end
 end
 
 return citemdb

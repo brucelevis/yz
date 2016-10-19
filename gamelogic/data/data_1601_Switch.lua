@@ -82,8 +82,8 @@ data_1601_Switch = {
 	},
 
 	[1106] = {
-		name = "工会战",
-		flag = "automatch.orgpk",
+		name = "公会战",
+		flag = "automatch.unionpk",
 		default = 1,
 		setbyclient = 1,
 		mutex = {},

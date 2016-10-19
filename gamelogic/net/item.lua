@@ -415,18 +415,20 @@ end
 function C2S.expandspace(player,request)
 	local bagtype = assert(request.bagtype)
 	local itemdb = player:getitembag(bagtype)
-	local max_expandspace = data_0801_PromoteEquipVar.ItemBagMaxExpandSpace
-	local costgold = data_0801_PromoteEquipVar.ItemBagExpandCostGold
+	local maxspace = data_0801_PromoteEquipVar.ItemBagMaxSpace
 	local addspace = data_0801_PromoteEquipVar.ItemBagExpandSpacePerTime
-	if itemdb.expandspace >= max_expandspace then
+	local nowspace = itemdb:getspace()
+	if nowspace >= maxspace then
 		net.msg.S2C.notify(player.pid,language.format("扩展的背包已达到上限"))
 		return
 	end
+	local nextrow = nowspace / addspace + 1
+	local costgold = data_0801_ItemBagExpand[nextrow].gold
 	if not player:validpay("gold",costgold,true) then
 		return
 	end
 	player:addgold(-costgold,"expandspace")
-	itemdb:expand(addspace)
+	itemdb:expand(addspace,"costgold")
 end
 
 function C2S.cancel_baotu(player,request)

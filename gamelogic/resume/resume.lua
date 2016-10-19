@@ -137,7 +137,8 @@ function cresume:sync(data,nosync_todc)
 			player = playermgr.getplayer(pid)
 			if player then
 				data.pid = self.pid
-				net.friend.S2C.sync_resume(pid,data)
+				--net.friend.S2C.sync_resume(pid,data)
+				sendpackage(pid,"player","updateresume",data)
 			end
 		end
 	end
@@ -160,6 +161,7 @@ function cresume:pack()
 		jobzs = self:query("jobzs"),
 		teamstate = self:query("teamstate"),
 		teamid = self:query("teamid"),
+		logofftime = self:query("logofftime"),
 	}
 end
 

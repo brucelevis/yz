@@ -43,7 +43,7 @@ function cplayer:init(pid)
 		pid = self.pid,
 		name = "itemdb",
 		type = BAGTYPE.NORMAL,
-		initspace = 30,
+		initspace = 18,
 		beginpos = ITEMPOS_BEGIN,
 	})
 	-- 时装背包
@@ -51,14 +51,12 @@ function cplayer:init(pid)
 		pid = self.pid,
 		name = "fashinoshowdb",
 		type = BAGTYPE.FASHION_SHOW,
-		initspace = 30,
 	})
 	-- 怪物卡片
 	self.carddb = ccarddb.new({
 		pid = self.pid,
 		name = "carddb",
 		type = BAGTYPE.CARD,
-		initspace = 30,
 	})
 	self.delaytonextlogin = cdelaytonextlogin.new(self.pid)
 	self.switch = cswitch.new{

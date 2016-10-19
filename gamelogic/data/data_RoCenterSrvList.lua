@@ -31,6 +31,21 @@ data_RoCenterSrvList = {
 		machine_type = "虚拟机",
 	},
 
+	unionsrv = {
+		srvname = "unionsrv",
+		showsrvname = "内网公会服",
+		ip = "192.168.1.244",
+		inner_ip = "192.168.1.244",
+		cluster_port = 3021,
+		cluster_zone = "inner",
+		openday = "42661",
+		closeday = "",
+		db = {host="192.168.1.244",port=6372,db=0},
+		purpose = "内网测试",
+		machine_name = "",
+		machine_type = "虚拟机",
+	},
+
 	accountcenter_test = {
 		srvname = "accountcenter_test",
 		showsrvname = "外网测试服账号中心",
@@ -56,6 +71,21 @@ data_RoCenterSrvList = {
 		openday = "42636",
 		closeday = "",
 		db = {host="10.13.57.252",port=6370,db=0},
+		purpose = "内网测试",
+		machine_name = "",
+		machine_type = "ucloud",
+	},
+
+	unionsrv_test = {
+		srvname = "unionsrv_test",
+		showsrvname = "外网测试服数据中心",
+		ip = "106.75.137.23",
+		inner_ip = "10.13.57.252",
+		cluster_port = 3021,
+		cluster_zone = "test",
+		openday = "42661",
+		closeday = "",
+		db = {host="10.13.57.252",port=6372,db=0},
 		purpose = "内网测试",
 		machine_name = "",
 		machine_type = "ucloud",

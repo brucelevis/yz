@@ -65,6 +65,7 @@ msg_respondanswer 4507 {
 		base 0 : basetype
 		id 1 : integer # 服务端发起应答时携带的回调id
 		answer 2 : integer # 选择项id(空/-1表示关闭了窗口)
+		forward 3 : boolean # 透传字段,见msg_messagebox
 	}
 }
 

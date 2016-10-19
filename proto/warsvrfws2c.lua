@@ -129,6 +129,11 @@ return {
 	isMiss			4 	: integer 	# miss，如果miss，这个值是1
 	isCrit			5	: integer 	# 是否暴击， 如果暴击，这个值是1
 	effId 			6 	: integer 	# 播放特效id
+	combo			7 	: integer 	# 连击次数
+	comboEndTime	8 	: integer 	# 连击次数 显示会在comboEndTime之后结束显示
+	isLianjiSum		9 	: boolean 	# 是否连击的总伤害 true-是
+	notShowhurt		10 	: boolean 	# 是否不显示 被伤害动作
+
 }
 #-- 动作参数: 401		-- 击退
 .warActionParam_401{

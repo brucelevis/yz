@@ -206,6 +206,15 @@ return {
 	# 1--队长;2--跟随队员;3--暂离队员;4--离线队员
 	teamstate 9 : integer
 	teamid 10 : integer
+	logofftime 11 : integer		# 下线时间
+}
+
+# 工会徽章类型
+.UnionBadgeType {
+	background 0 : integer   # 背景
+	maincolor 1 : integer	 # 主颜色
+	minorcolor 2 : integer	 # 次颜色
+	design 3 : integer		 # 图案
 }
 
 ]]

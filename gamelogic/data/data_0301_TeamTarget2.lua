@@ -108,8 +108,8 @@ data_0301_TeamTarget2 = {
 		
 		[1] = {
 			id = 5001,
-			main_target = "工会活动",
-			minor_target = "工会战",
+			main_target = "公会活动",
+			minor_target = "公会战",
 			minlv = 20,
 			down_float = 15,
 			up_float = 15,

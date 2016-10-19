@@ -4,12 +4,12 @@ return {
 	src = [[
 
 #同步简介数据(简介数据可以用于好友列表，申请列表等)
-friend_sync_resume 3000 {
-	request {
-		base 0 : basetype
-		resume 1 : ResumeType
-	}
-}
+#friend_sync_resume 3000 {
+#	request {
+#		base 0 : basetype
+#		resume 1 : ResumeType
+#	}
+#}
 
 #同步好友关系数据
 friend_sync_frddata 3001 {
@@ -55,14 +55,6 @@ friend_addmsgs 3004 {
 	request {
 		base 0 : basetype
 		msgs 1 : *MessageType
-	}
-}
-
-# 搜索结果
-friend_search_result 3005 {
-	request {
-		base 0 : basetype
-		resumes 1 : *ResumeType
 	}
 }
 

@@ -76,10 +76,26 @@ player_chongzhilist 5005 {
 }
 
 # 显示玩家简介
-player_showresume 5006 {
+player_syncresumes 5006 {
+	request {
+		base 0 : basetype
+		resumes 1 : *ResumeType
+	}
+}
+
+# 增量更新玩家简介
+player_updateresume 5007 {
 	request {
 		base 0 : basetype
 		resume 1 : ResumeType
+	}
+}
+
+# 按pid/name搜索简介的结果
+player_searchresume_result 5008 {
+	request {
+		base 0 : basetype
+		resumes 1 : *ResumeType
 	}
 }
 ]]

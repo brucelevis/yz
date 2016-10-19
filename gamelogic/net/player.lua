@@ -59,13 +59,44 @@ function C2S.changejob(player,request)
 	player:changejob(jobid)
 end
 
-function C2S.lookresume(player,request)
-	local pid = assert(request.pid)
-	local resume = resumemgr.getresume(pid)
-	if not resume or resume.loadstate ~= "loaded" then
-		return
+function C2S.lookresumes(player,request)
+	local pids = assert(request.pids)
+	local resumes = {}
+	for i,pid in ipairs(pids) do
+		local resume = resumemgr.getresume(pid)
+		if resume then
+			table.insert(resumes,resume:pack())
+		end
 	end
-	net.player.S2C.showresume(player.pid,resume)
+	sendpackage(player.pid,"player","syncresumes",{
+		resumes = resumes,
+	})
+end
+
+function C2S.searchresume(player,request)
+	local findplayer = assert(request.findplayer)
+	local resumes = {}
+	local pid = tonumber(findplayer)
+	if pid then
+		local resume = resumemgr.getresume(pid)
+		if resume then
+			table.insert(resumes,resume:pack())
+		end
+	end
+	local name = findplayer
+	local db = dbmgr.getdb(cserver.datacenter())
+	local srvname = cserver.getsrvname()
+	local zonename = data_RoGameSrvList[srvname].zonename
+	local pid2 = db:hget(db:key("allname",zonename),name)
+	if pid2 and pid2 ~= pid then
+		local resume =  resumemgr.getresume(pid2)
+		if resume then
+			table.insert(resumes,resume:pack())
+		end
+	end
+	sendpackage(player.pid,"player","searchresume_result",{
+		resumes = resumes,
+	})
 end
 
 -- s2c
@@ -76,10 +107,5 @@ function S2C.switch(pid,switchs)
 	end
 	sendpackage(pid,"player","switch",{ switchs = switchs, })
 end
-
-function S2C.showresume(pid,resume)
-	sendpackage(pid,"player","showresume",{ resume = resume:pack(), })
-end
-
 
 return netplayer

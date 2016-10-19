@@ -355,7 +355,7 @@ data_1500_ZhiyinTaskProcess = {
 	[10500112] = {
 		id = 10500112,
 		type = 1,
-		name = "寻找伙伴",
+		name = "分配属性",
 		accept = {
 			{ cmd = 'addnpc', args = { nid = { 112015,112025 }, both = 1, }, },
 			{ cmd = 'talkto', args = { textid = 1121, }, },
