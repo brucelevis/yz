@@ -45,5 +45,14 @@ mail_delallmail 2005 {
 		base 0 : basetype
 	}
 }
+
+# 邮件按钮选项回复
+mail_respondanswer 2006 {
+	request {
+		base 0 : basetype
+		mailid 1 : integer
+		answer 2 : integer # 选项ID
+	}
+}
 ]]
 }

@@ -9,10 +9,7 @@ function citem:init(param)
 	self.num = param.num
 	self.bind = param.bind
 	self.createtime = param.createtime
-	-- 位置一般是放入容器后才有的属性
-	self.pos = param.pos
 
-	
 	-- 附魔增加的属性
 	self.fumo = {
 		maxhp = nil,			-- 血量上限
@@ -53,7 +50,6 @@ function citem:load(data)
 	self.num = data.num
 	self.bind = data.bind
 	self.createtime = data.createtime or os.time()
-	self.pos = data.pos
 
 	self.fumo = data.fumo or {}
 	self.lv = data.lv or 0
@@ -66,7 +62,6 @@ function citem:save()
 	data.num = self.num
 	data.bind = self.bind
 	data.createtime = self.createtime
-	data.pos = self.pos
 
 	data.fumo = self.fumo
 	data.lv = self.lv
@@ -76,6 +71,7 @@ end
 -- for s2c
 function citem:pack()
 	local data = self:save()
+	data.pos = self.pos --放入背包后产生的属性
 	return data
 end
 

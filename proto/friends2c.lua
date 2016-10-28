@@ -2,15 +2,6 @@ return {
 	p = "friend",
 	si = 3000, -- [3000,3500)
 	src = [[
-
-#同步简介数据(简介数据可以用于好友列表，申请列表等)
-#friend_sync_resume 3000 {
-#	request {
-#		base 0 : basetype
-#		resume 1 : ResumeType
-#	}
-#}
-
 #同步好友关系数据
 friend_sync_frddata 3001 {
 	request {

@@ -2,6 +2,9 @@ playunit_baotu = playunit_baotu or {}
 huodongmgr.playunit.baotu = playunit_baotu
 
 function playunit_baotu.onlogoff(player,reason)
+	if reason == "replace" then
+		return
+	end
 	-- 下线立即触发发奖励，并且邮寄给玩家
 	local baotu_cache = player:query("baotu_cache")
 	if baotu_cache then
@@ -54,7 +57,7 @@ function playunit_baotu.onuse(pid,packdata,bsendmail)
 	if packdata.item then
 		local item = assert(packdata.item)
 		local reward = {items={item},}
-		if not bsendmail then
+		if not bsendmail and not player:isdisconnect() then
 			doaward("player",player.pid,reward,reason,true)
 		else
 			local lang = player:getlanguage()
@@ -167,14 +170,42 @@ function playunit_baotu.startwar(player,npc)
 		npc = npc,
 		npclv = lv,
 	}
-	warmgr.startwar(fighters,nil,war)
+	return warmgr.startwar(fighters,nil,war)
 end
 
 function playunit_baotu.onwarend(war,result)
-	local pid = war.attackers[1]
 	local npc = war.npc
 	if warmgr.iswin(result) then
 		scenemgr.delnpc(npc.id,npc.sceneid)
+		for i,pid in ipairs(war.attackers) do
+			local player = playermgr.getplayer(pid)
+			if player then
+				local awardcnt = player.today:query("baotunpc_awardcnt") or 0
+				local limit = 10
+				if awardcnt >= limit then
+					net.msg.S2C.notify(player.pid,language.format("今天已消灭宝图守卫{1}/{2},不会再获得奖励",awardcnt,limit))
+				else
+					player.today:add("baotunpc_awardcnt",1)
+					net.msg.S2C.notify(player.pid,language.format("今天已消灭宝图守卫{1}/{2}，超过{3}个后继续消灭宝图怪没奖励",awardcnt+1,limit,limit))
+					local lv = player.lv
+					local data = data_1100_BaoTuWar[npc.monsterid]
+					local reward = data.war[lv]
+					local reason = "playunit_baotu.onwarend"
+					doaward("player",player.pid,{
+						exp = reward.exp,
+						jobexp = reward.jobexp,
+						coin = reward.coin,
+					},reason,true)
+					if ishit(reward.normal_box_ratio) then
+						player:additembytype(801001,1,nil,reason,true)
+					end
+					if ishit(reward.beautiful_box_ratio) then
+
+						player:additembytype(801001,1,nil,reason,true)
+					end
+				end
+			end
+		end
 	end
 end
 

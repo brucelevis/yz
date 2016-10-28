@@ -30,3 +30,23 @@ function chapter.rmaward(player,args)
 	end
 	net.chapter.S2C.awardrecord(player.pid,player.chapterdb.awardrecord)
 end
+
+function chapter.setstar(player,args)
+	local isok,args = checkargs(args,"int","int")
+	if not isok then
+		gm.notify("chapter setstar 关卡id 星级",player.pid)
+		return
+	end
+	local chapterid = args[1]
+	local star = args[2]
+	local chapter = player.chapterdb:get(chapterid)
+	if not chapter then
+		gm.notify("关卡未解锁",player.pid)
+		return
+	end
+	local attrs = { star = star, }
+	if star == 3 and not chapter.pass then
+		attrs.pass = true
+	end
+	player.chapterdb:update(chapterid,attrs)
+end

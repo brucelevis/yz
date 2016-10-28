@@ -405,11 +405,11 @@ function C2S.sortbag(player,request)
 	itemdb.sorttype =  sorttype
 	net.item.S2C.bag(player.pid,{
 		type = itemdb.type,
-		space = itemdb.space,
-		expandspace = itemdb.expandspace,
+		space = itemdb:getspace(),
 		sorttype = itemdb.sorttype,
-		beginpos = itemdb.itempos_begin,
+		beginpos = itemdb.beginpos,
 	})
+	net.msg.S2C.notify(player.pid,language.format("整理完毕"))
 end
 
 function C2S.expandspace(player,request)
@@ -422,11 +422,13 @@ function C2S.expandspace(player,request)
 		net.msg.S2C.notify(player.pid,language.format("扩展的背包已达到上限"))
 		return
 	end
-	local nextrow = nowspace / addspace + 1
+	local nextrow = math.floor(nowspace / addspace) + 1
 	local costgold = data_0801_ItemBagExpand[nextrow].gold
 	if not player:validpay("gold",costgold,true) then
 		return
 	end
+	--保证扩展后，总尺寸是addspace的整倍数
+	addspace = addspace - (nowspace % addspace)
 	player:addgold(-costgold,"expandspace")
 	itemdb:expand(addspace,"costgold")
 end

@@ -23,6 +23,7 @@ data_1500_GlobalTask = {
 		missiontype = 101,
 		missionname = "剧情任务",
 		orderid = 2,
+		team_target = 3001,
 	},
 
 	branch = {
@@ -47,6 +48,7 @@ data_1500_GlobalTask = {
 		missiontype = 101,
 		missionname = "剧情任务",
 		orderid = 3,
+		team_target = 3002,
 	},
 
 	shimen = {
@@ -71,6 +73,7 @@ data_1500_GlobalTask = {
 		missiontype = 102,
 		missionname = "日常任务",
 		orderid = 4,
+		team_target = -1,
 	},
 
 	shimoshilian = {
@@ -95,6 +98,7 @@ data_1500_GlobalTask = {
 		missiontype = 102,
 		missionname = "日常任务",
 		orderid = 5,
+		team_target = 2001,
 	},
 
 	zhuanzhi = {
@@ -119,6 +123,7 @@ data_1500_GlobalTask = {
 		missiontype = 101,
 		missionname = "剧情任务",
 		orderid = 6,
+		team_target = 6001,
 	},
 
 	zhiyin = {
@@ -143,6 +148,7 @@ data_1500_GlobalTask = {
 		missiontype = 103,
 		missionname = "指引任务",
 		orderid = 7,
+		team_target = -1,
 	},
 
 	babatuosi = {
@@ -167,6 +173,7 @@ data_1500_GlobalTask = {
 		missiontype = 102,
 		missionname = "日常任务",
 		orderid = 8,
+		team_target = -1,
 	},
 
 }

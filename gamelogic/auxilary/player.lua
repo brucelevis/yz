@@ -51,9 +51,18 @@ function playeraux.isopen(lv,name)
 		return false
 	end
 	if lv < data.open_level then
-		return false
+		return false,data.open_level
 	end
 	return true
+end
+
+function playeraux.getlanguage(pid)
+	local player = playermgr.getplayer(pid)
+	if player then
+		return player:getlanguage()
+	end
+	local resume = resumemgr.getresume(pid)
+	return resume:get("lang") or language.language_to
 end
 
 return playeraux

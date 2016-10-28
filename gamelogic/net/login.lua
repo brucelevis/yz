@@ -386,7 +386,7 @@ end
 
 function netlogin.checkversion(version)
 	if not netlogin.version then
-		netlogin.version = "0.1.0"
+		netlogin.version = "0.1.2"
 	end
 	local list1 = string.split(netlogin.version)
 	local list2 = string.split(version)

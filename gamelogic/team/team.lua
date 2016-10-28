@@ -51,6 +51,7 @@ function cteam:onlogoff(player,reason)
 	if teammgr:teamid(pid) then
 		teammgr:leaveteam(player)
 	end
+	self:say(string.format("【%s】已离线",player.name))
 end
 
 
@@ -75,6 +76,7 @@ function cteam:join(player)
 		teamstate = TEAM_STATE_LEAVE,
 		teamid = self.id,
 	})
+	self:say(string.format("【%s】加入了队伍",player.name))
 end
 
 function cteam:back(player)
@@ -126,6 +128,7 @@ function cteam:leaveteam(player)
 			}
 		})
 	end)
+	self:say(string.format("【%s】暂离了队伍",player.name))
 	resumemgr.push(pid,{
 		teamstate = TEAM_STATE_LEAVE,
 		teamid = self.id,
@@ -255,7 +258,7 @@ function cteam:changecaptain(pid)
 			teamstate = teamstate,
 		})
 	end
-
+	self:say(string.format("【%s】成为了队长",newcaptain.name))
 end
 
 function cteam:getapplyer(pid,ispos)
@@ -274,7 +277,7 @@ end
 function cteam:addapplyer(applyer)
 	local pid = applyer.pid
 	if self:getapplyer(pid) then
-		return false,language.format("你已经申请过该队伍了")
+		return false,language.format("已申请进入该队伍，请耐心等待")
 	end
 	applyer.time = os.time()
 	logger.log("info","team",format("[addapplyer] teamid=%d applyer=%s",self.id,applyer))
@@ -479,6 +482,37 @@ function cteam:targetname()
 	end
 	local data = data_0301_TeamTarget[self.target]
 	return data.minor_target
+end
+
+function cteam:say(msg)
+	if not self.captain then
+		return
+	end
+	local lang = playeraux.getlanguage(self.captain)
+	msg = language.translateto(msg,lang)
+	--[[
+	等待客户端
+	local sender = {
+		pid = 0,
+	}
+	local packmsg = {
+		sender = sender,
+		msg = msg,
+	}]]
+	channel.publish(self.channel,{
+		p = "msg",
+		s = "teammsg",
+		a = {
+			msg = msg,
+		},
+	})
+	channel.publish(self.channel,{
+		p = "msg",
+		s = "notify",
+		a = {
+			msg = msg,
+		},
+	})
 end
 
 return cteam

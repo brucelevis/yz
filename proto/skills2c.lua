@@ -3,14 +3,6 @@ return {
 	si = 6800, --[6800,6900)
 	src = [[
 
-#技能类型
-.SkillType {
-	id 0 : integer
-	level 1 : integer
-	pos 2 : integer
-}
-
-
 skill_addskill 6800 {
 	request {
 		base 0 : basetype

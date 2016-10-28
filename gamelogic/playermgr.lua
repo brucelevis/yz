@@ -249,7 +249,7 @@ function playermgr.recoverplayer(pid)
 		player.waitloaded = {}
 		playermgr.id_obj[pid] = player
 		-- may block
-		pcall(player.loadfromdatabase,player)
+		xpcall(player.loadfromdatabase,onerror,player)
 		local waitloaded = player.waitloaded
 		player.waitloaded = nil
 		playermgr.id_obj[pid] = nil

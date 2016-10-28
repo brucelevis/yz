@@ -99,6 +99,23 @@ end
 function navigation.onlogin(player)
 	net.navigation.S2C.needupdate(player)
 	player.navigation_updated = true
+	local needshowred
+	local navigatedata = navigation.getnavigation(player)
+	for _,activity in ipairs(navigatedata.activities) do
+		if not activity.awarded and data_1100_Navigation[activity.hid].progress <= activity.progress then
+			needshowred = true
+			break
+		end
+	end
+	for awardid,data in pairs(data_1100_LivenessAward) do
+		if not table.find(navigatedata.awardrecord,awarid) and navigatedata.liveness >= data.needliveness then
+			needshowred = true
+			break
+		end
+	end
+	if needshowred then
+		net.navigation.S2C.showredpoint(player.pid)
+	end
 end
 
 function navigation.onfivehourupdate(player)
@@ -136,6 +153,19 @@ function navigation.do_livenessaward(player,awardid)
 	net.navigation.S2C.sendactivitydata(player,navigatedata)
 end
 
+function navigation.addliveness(player,num)
+	logger.log("info","navigation",string.format("[addliveness] pid=%d add=%d",player.pid,num))
+	local navigatedata = navigation.getnavigation(player)
+	navigatedata.liveness = navigatedata.liveness + num
+	net.msg.S2C.notify(player.pid,language.format("获得#<O>{1}# #<IR13>#",num))
+	for awardid,data in pairs(data_1100_LivenessAward) do
+		if not table.find(navigatedata.awardrecord,awarid) and navigatedata.liveness >= data.needliveness then
+			net.navigation.S2C.showredpoint(player.pid)
+			break
+		end
+	end
+end
+
 function navigation.do_activityaward(player,hid)
 	local data = data_1100_Navigation[hid]
 	if not data then
@@ -153,8 +183,7 @@ function navigation.do_activityaward(player,hid)
 	logger.log("info","navigation",format("[actaward] pid=%d,hid=%d",player.pid,hid))
 	activity.awarded = true
 	if istrue(data.liveness) then
-		net.msg.S2C.notify(player.pid,language.format("获得#<O>{1}# #<IR13>#",data.liveness))
-		navigatedata.liveness = navigatedata.liveness + data.liveness
+		navigation.addliveness(player,data.liveness)
 	end
 	if istrue(data.item) and istrue(data.num) then
 		player:additembytype(data.item,data.num,nil,"actaward",true)

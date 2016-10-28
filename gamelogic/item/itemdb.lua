@@ -1,16 +1,13 @@
-citemdb = class("citemdb",ccontainer)
+citemdb = class("citemdb",cposcontainer)
 
 function citemdb:init(conf)
-	-- conf: {pid=xxx,name=xxx}
-	ccontainer.init(self,conf)
+	-- conf: {pid=xxx,name=xxx,initspace=xxx,beginpos=xxx}
+	cposcontainer.init(self,conf)
 	self.type = assert(conf.type)	-- 背包类型
 	self.pid = conf.pid
-	self.space = conf.initspace or data_0801_PromoteEquipVar.ItemBagMaxSpace
 	self.expandspace = 0
-	self.pos_id = {}
 	self.type_ids = {}
 	self.loadstate = "unload"
-	self.itempos_begin = conf.beginpos or 1
 
 	-- 物品排序类型(部分背包有用)
 	self.sorttype = 0
@@ -20,7 +17,7 @@ function citemdb:load(data)
 	if not data or not next(data) then
 		return
 	end
-	ccontainer.load(self,data,function (itemdata)
+	cposcontainer.load(self,data,function (itemdata)
 		local item = self:newitem()
 		item:load(itemdata)
 		self:_onadd(item)
@@ -31,7 +28,7 @@ function citemdb:load(data)
 end
 
 function citemdb:save()
-	local data = ccontainer.save(self,function (item)
+	local data = cposcontainer.save(self,function (item)
 		return item:save()
 	end)
 	data.expandspace = self.expandspace
@@ -40,9 +37,8 @@ function citemdb:save()
 end
 
 function citemdb:clear()
-	ccontainer.clear(self)
+	cposcontainer.clear(self)
 	self.expandspace = 0
-	self.pos_id = {}
 	self.type_ids = {}
 end
 
@@ -55,7 +51,7 @@ function citemdb:onlogin(player)
 		type = self.type,
 		space = self:getspace(),
 		sorttype = self.sorttype,
-		beginpos = self.itempos_begin,
+		beginpos = self.beginpos,
 	})
 	net.item.S2C.allitem(self.pid,self.type,self.objs)
 end
@@ -105,8 +101,7 @@ function citemdb:getitem(itemid)
 end
 
 function citemdb:getitembypos(pos)
-	local itemid = self.pos_id[pos]
-	return self:getitem(itemid)
+	return self:getbypos(pos)
 end
 
 function citemdb:canmerge(srcitem,toitem)
@@ -190,10 +185,10 @@ function citemdb:additem2(packitem,reason)
 	end
 	local now = os.time()
 	if num > 0 then
-		local needpos = math.ceil(num/maxnum)
-		local freepos = self:getfreepos()
-		local usepos = math.min(needpos,freepos)
-		for i=1,usepos do
+		local needspace = math.ceil(num/maxnum)
+		local freespace = self:getfreespace() or 0
+		local usespace = math.min(needspace,freespace)
+		for i=1,usespace do
 			local itemnum = math.min(maxnum,num)
 			num = num - itemnum
 			packitem.num = itemnum
@@ -245,25 +240,8 @@ function citemdb:additembytype(itemtype,num,bind,reason)
 	},reason)
 end
 
-function citemdb:getusespace()
-	return self.len
-end
-
-function citemdb:getfreespace()
-	return self:getspace() - self:getusespace()
-end
-
 function citemdb:getspace()
 	return self.expandspace + self.space
-end
-
-function citemdb:getfreepos()
-	local space = self:getspace()
-	for pos = self.itempos_begin,self.itempos_begin + space do
-		if not self.pos_id[pos] then
-			return pos
-		end
-	end
 end
 
 function citemdb:expand(addspace,reason)
@@ -273,7 +251,7 @@ function citemdb:expand(addspace,reason)
 		type = self.type,
 		space = self:getspace(),
 		sorttype = self.sorttype,
-		beginpos = self.itempos_begin,
+		beginpos = self.beginpos,
 	})
 end
 
@@ -294,6 +272,10 @@ function citemdb:moveitem(itemid,newpos)
 	end
 	local oldpos = item1.pos
 	local item2 = self:getitembypos(newpos)
+	self.pos_id[newpos] = item1.id
+	self:update(item1.id,{
+		pos = newpos,
+	})
 	if item2 then
 		self.pos_id[oldpos] = item2.id
 		self:update(item2.id,{
@@ -302,10 +284,6 @@ function citemdb:moveitem(itemid,newpos)
 	else
 		self.pos_id[oldpos] = nil
 	end
-	self.pos_id[newpos] = item1.id
-	self:update(item1.id,{
-		pos = newpos,
-	})
 	return item2
 end
 
@@ -322,13 +300,13 @@ function citemdb:sort()
 	logger.log("info","item",string.format("[sort] pid=%s name=%s",self.pid,self.name))
 	local space = self:getspace()
 	local freepos
-	for pos = self.itempos_begin,self.itempos_begin + space do
+	for pos = self.beginpos,self.beginpos + space - 1 do
 		if not self.pos_id[pos] then
 			freepos = pos
 			break
 		end
 	end
-	for pos = freepos + 1,self.itempos_begin + space do
+	for pos = freepos + 1,self.beginpos + space - 1 do
 		local id = self.pos_id[pos]
 		if id then
 			self:moveitem(id,freepos)
@@ -358,7 +336,7 @@ function citemdb:fumoequip(itemid)
 		end
 		local minortype = itemaux.getminortype(item.type)
 		local minortype_name = assert(EQUIPPOS_NAME[minortype],"Invalid item minortype:" .. tostring(minortype))
-		
+
 
 		local attrnum = choosekey(data_0801_PromoteEquipVar.FumoShowAttrNumRatio)
 		local attrs = {}
@@ -384,9 +362,7 @@ end
 
 function citemdb:_onadd(item)
 	local itemid = item.id
-	local pos = item.pos
 	local itemtype = item.type
-	self.pos_id[pos] = itemid
 	if not self.type_ids[itemtype] then
 		self.type_ids[itemtype] = {}
 	end
@@ -404,10 +380,7 @@ end
 
 function citemdb:ondel(item)
 	local itemid = item.id
-	local pos = item.pos
 	local itemtype = item.type
-	item.pos = nil
-	self.pos_id[pos] = nil
 	if self.type_ids[itemtype] then
 		for pos,id in ipairs(self.type_ids[itemtype]) do
 			if id == itemid then
@@ -437,7 +410,7 @@ function citemdb:onchangelv()
 	end
 	local player = playermgr.getplayer(self.pid)
 	local addspace = data_0801_PromoteEquipVar.ItemBagExpandSpacePerTime
-	local nextrow = oldspace / addspace + 1
+	local nextrow = math.floor(oldspace / addspace + 1)
 	for row = nextrow,#data_0801_ItemBagExpand do
 		local openlv = data_0801_ItemBagExpand[row].openlv
 		if openlv == -1 or player.lv < openlv then

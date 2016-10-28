@@ -33,7 +33,13 @@ function C2S.createteam(player,request)
 		net.msg.S2C.notify(player.pid,language.format("等级不足{1}级",minlv))
 		return
 	end
-	teammgr:createteam(player,request)
+	local team = teammgr:createteam(player,request)
+	if team then
+		if request.autopublish then
+			teammgr:publishteam(player,request)
+		end
+	end
+	net.msg.S2C.notify(player.pid,language.format("成功创建队伍"))
 end
 
 function C2S.dismissteam(player,request)
@@ -53,6 +59,7 @@ function C2S.quitteam(player,request)
 end
 
 function C2S.publishteam(player,request)
+	netteam.uniform_target(player,request)
 	teammgr:publishteam(player,request)
 end
 
@@ -94,6 +101,8 @@ function C2S.recallmember(player,request)
 					end
 					local answer = response.answer
 					if not (answer == 2 or openui.istimeout(answer)) then
+						local team = teammgr:getteam(teamid)
+						team:say(string.format("【%s】拒绝了召回请求",obj.name))
 						return
 					end
 					if obj:teamid() ~= teamid then
@@ -110,6 +119,7 @@ function C2S.recallmember(player,request)
 				end)
 		end
 	end
+	net.msg.S2C.notify(pid,language.format("召回请求已发送"))
 end
 
 function C2S.apply_become_captain(player,request)
@@ -177,6 +187,7 @@ function C2S.apply_become_captain(player,request)
 				end
 				teammgr:changecaptain(teamid,pid)
 			end)
+			net.msg.S2C.notify(pid,language.format("正在申请成为队长，请耐心等候"))
 	end
 
 end
@@ -193,6 +204,10 @@ function C2S.changecaptain(player,request)
 	end
 	if not team.follow[pid] then
 		return
+	end
+	local target = playermgr.getplayer(pid)
+	if not target or target.exitgame_time then
+		return 
 	end
 	local teamid = team.id
 	openui.messagebox(pid,{
@@ -212,6 +227,7 @@ function C2S.changecaptain(player,request)
 			end
 			teammgr:changecaptain(teamid,uid)
 			end)
+			net.msg.S2C.notify(captain_pid,language.format("正在申请移交队长，请耐心等待"))
 end
 
 function C2S.kickmember(player,request)
@@ -247,12 +263,16 @@ function C2S.invite_jointeam(player,request)
 	if team:ismember(tid) then
 		return
 	end
+	if team:len(TEAM_STATE_ALL) >= team:maxlen() then
+		net.msg.S2C.notify(player.pid,"队伍人数已满")
+		return
+	end
 	local self_srvname = cserver.getsrvname()
 	local now_srvname,isonline = globalmgr.now_srvname(tid)
 	if now_srvname == self_srvname then
 		local target = playermgr.getplayer(tid)
 		if not target then
-			net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+			net.msg.S2C.notify(player.pid,language.format("该玩家已离线"))
 			return
 		end
 		if not playeraux.isopen(target.lv,"队伍") then
@@ -261,17 +281,17 @@ function C2S.invite_jointeam(player,request)
 		end
 
 		if target:teamid() then
-			net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
+			net.msg.S2C.notify(player.pid,language.format("【{1}】已经有队伍了",target.name))
 			return
 		end
 	else
 		if not isonline then
-			net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+			net.msg.S2C.notify(player.pid,language.format("该玩家已离线"))
 			return
 		end
 		local target = cproxyplayer.new(tid,now_srvname)
 		if target:teamid() then
-			net.msg.S2C.notify(player.pid,language.format("对方已经有队伍"))
+			net.msg.S2C.notify(player.pid,language.format("【{1}】已经有队伍了",target.name))
 			return
 		end
 		local lv = target:getlv()
@@ -297,6 +317,7 @@ function C2S.invite_jointeam(player,request)
 			end
 			local answer = response.answer
 			if answer ~= 2 then
+				net.msg.S2C.notify(pid,language.format("【{1}】拒绝了本队伍的邀请",obj.name))
 				return
 			end
 			local team = teammgr:getteam(teamid)
@@ -313,9 +334,11 @@ function C2S.invite_jointeam(player,request)
 			if team.captain == pid then
 				teammgr:jointeam(obj,teamid)
 			else
-				team:addapplyer(obj)
+				team:addapplyer(teammgr:pack_applyer(obj))
+				net.msg.S2C.notify(pid,language.format("【{1}】同意了进入本队伍，已申请进入本队伍",obj.name))
 			end
 		end)
+		net.msg.S2C.notify(pid,language.format("组队邀请已发送，请耐心等待"))
 end
 
 function C2S.syncteam(player,request)
@@ -428,7 +451,7 @@ function C2S.apply_jointeam(player,request)
 			net.msg.S2C.notify(player.pid,errmsg)
 		end
 	else
-		net.msg.S2C.notify(player.pid,language.format("已申请加入对方队伍"))
+		net.msg.S2C.notify(player.pid,language.format("已申请进入该队伍，请耐心等待"))
 	end
 end
 

@@ -438,7 +438,7 @@ data_0201_Skill = {
 
 	[102100] = {
 		name = "光之障壁",
-		des = "给友方单体施放一面保护膜,吸收999%+999点伤害,持续999回合",
+		des = "给友方单体施放一面保护膜,吸收999%法术强度+999点伤害,持续999回合",
 		skillPre = 102040,
 		skillPreLv = 5,
 		skillPrePt = 9,
@@ -951,7 +951,7 @@ data_0201_Skill = {
 
 	[106010] = {
 		name = "乘骑术",
-		des = "允许乘骑大嘴鸟,对大型魔物伤害+999%",
+		des = "允许乘骑大嘴鸟,对大型魔物伤害+999",
 		skillPre = 0,
 		skillPreLv = 0,
 		skillPrePt = 58,
@@ -1741,7 +1741,7 @@ data_0201_Skill = {
 		minSingTime = 1,
 		cdTime = 1.5,
 		skilleffect = {900001},
-		jobID = 10018,
+		jobID = 0,
 		costMP = 1.5,
 		buffPro = 0,
 		implflag = 0,

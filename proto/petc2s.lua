@@ -43,11 +43,63 @@ pet_train 7305 {
 	}
 }
 
-pet_catch 7306 {
+# 穿戴装备
+pet_wieldequip 7306 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+		itemid 2 : integer
+	}
+}
+
+# 卸装备
+pet_unwieldequip 7307 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+		itemid 2 : integer
+	}
+}
+
+pet_catch 7308 {
 	request {
 		base 0 : basetype
 		id 1 : integer		# 一场战斗中宠物/怪物的ID
 	}
 }
+
+pet_combine 7309 {
+	request {
+		base 0 : basetype
+		masterid 1 : integer	# 主宠id
+		subid 2 : integer		# 副宠id
+	}
+}
+
+pet_rename 7310 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+		name 2 : string
+	}
+}
+
+pet_setchat 7311 {
+	request {
+		base 0 : basetype
+		id 1 : integer
+		case 2 : integer		#1.进入战斗 2.释放技能 3.使用药物 4.主角倒地 5.队友到底 6.敌人阵亡
+		chat 3 : string
+	}
+}
+
+#扩展可携带宠物数目
+pet_expandspace 7312 {
+	request {
+		base 0 : basetype
+		itemid 1 : integer
+	}
+}
+
 ]]
 }

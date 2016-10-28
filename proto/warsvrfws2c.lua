@@ -139,6 +139,13 @@ return {
 .warActionParam_401{
 	pos 			0 	: integer 	# 位置
 }
+#-- 动作参数: 501 		-- 删除场上角色
+.warActionParam_501{
+	warPos 			0 	: *integer 	# 删除的位置列表
+}#-- 动作参数: 502 		-- 根据新的fb id 创建的角色上场
+.warActionParam_502{
+	roleList	0 : *warRoleData	#角色信息
+}
 
 #----1.7战斗(子)序列
 .warSubSeqData{
@@ -167,6 +174,8 @@ return {
 	param_202		202 : warActionParam_202
 	param_301		301 : warActionParam_301
 	param_401		401 : warActionParam_401
+	param_501		501 : warActionParam_501
+	param_502		502 : warActionParam_502
 }
 #==========================================2战斗表现需要的数据
 #----2.1战斗序列

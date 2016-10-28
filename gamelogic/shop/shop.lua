@@ -34,6 +34,25 @@ function cshop:canbuy(player,goods_id,buynum)
 	if buynum % goods.num ~= 0 then
 		return false,language.format("该商品单次出售数量为{1}个",goods.num)
 	end
+	local goods = self:get(goods_id)
+	local free_space = player.itemdb:getfreespace()
+	local maxnum = player.itemdb:getmaxnum(goods.itemtype)
+	local need_space = math.ceil(buynum / maxnum)
+	if free_space < need_space then
+		if maxnum > 1 then
+			local items = player.itemdb:getitemsbytype(goods.itemtype)
+			local goods_type = goods.itemtype
+			local goods_bind = goods.goods_bind
+			for i,item in ipairs(items) do
+				if item.type == goods_type and item.bind == goods_bind then
+					if maxnum >= item.num + buynum then
+						return true
+					end
+				end
+			end
+		end
+		return false,language.format("背包空间不足")
+	end
 	return true
 end
 

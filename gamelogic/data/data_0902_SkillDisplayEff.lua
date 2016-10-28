@@ -157,6 +157,19 @@ data_0902_SkillDisplayEff = {
 		loopspace = 0.000000,
 	},
 
+	[20002] = {
+		path = "eff_chant_dst.plist",
+		anitime = 0.800000,
+		delaytime = 0.000000,
+		sound = 0,
+		offx = 5,
+		offy = 22,
+		posType = 4,
+		scale = 1.000000,
+		keeptimes = -1.000000,
+		loopspace = 0.000000,
+	},
+
 }
 return data_0902_SkillDisplayEff
 --<<data_0902_SkillDisplayEff 导表结束>>

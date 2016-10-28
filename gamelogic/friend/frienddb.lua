@@ -220,7 +220,7 @@ function cfrienddb:addblkref(pid)
 		return
 	end
 	frdblk:addref(self.pid)
-	sendpackage(pid,"player","syncresumes",{
+	sendpackage(self.pid,"player","syncresumes",{
 		resumes = {frdblk:pack()},
 	})
 	--net.friend.S2C.sync_resume(self.pid,frdblk:pack())
@@ -450,12 +450,10 @@ end
 
 function cfrienddb:change_recommend()
 	local oldrecommend = self.recommendlist
-	local ignorelist = self:update_oldrecommend(oldrecommend)
-	-- TODO 根据规则生成推荐列表
 	local plist = {}
-	for _,pid in ipairs(playermgr.allobject()) do
-		if self:can_recommend(pid,ignorelist) then
-			table.insert(plist,pid)
+	for _,pid in ipairs(playermgr.allplayer()) do
+		if self:can_recommend(pid) then
+			plist[pid] = 1
 		end
 	end
 	if table.isempty(plist) then
@@ -467,7 +465,42 @@ function cfrienddb:change_recommend()
 		frdblk:delref(self.pid)
 	end
 	net.friend.S2C.dellist(self.pid,"recommend",oldrecommend)
-	self.recommendlist = shuffle(plist,nil,self.recommendlimit)
+	local lv_plist = {}
+	local fightpoint_plist = {}
+	local owner = playermgr.getplayer(self.pid)
+	local minlv,maxlv = math.max(1,owner.lv - RECOMMEND_LV_RANGE),math.min(playeraux.getmaxlv(),owner.lv + RECOMMEND_LV_RANGE)
+	local tmp = math.floor(owner.fightpoint * 25 / 100)
+	local minfightpoint,maxfightpoint = math.max(0,owner.fightpoint - tmp),owner.fightpoint + tmp
+	for pid,_ in pairs(plist) do
+		local player = playermgr.getplayer(pid)
+		if minlv < player.lv and player.lv < maxlv then
+			lv_plist[pid] = 1
+		end
+		if minfightpoint < player.fightpoint and player.fightpoint < maxfightpoint then
+			fightpoint_plist[pid] = 1
+		end
+	end
+	local tmplist
+	for _,typ in ipairs(RECOMMEND_RULES) do
+		if typ == 1 then
+			tmplist = lv_plist
+		elseif typ == 2 then
+			tmplist = fightpoint_plist
+		else
+			tmplist = plist
+		end
+		if table.isempty(tmplist) then
+			tmplist = plist
+		end
+		local pid = choosekey(tmplist)
+		plist[pid] = nil
+		lv_plist[pid] = nil
+		fightpoint_plist[pid] = nil
+		table.insert(self.recommendlist,pid)
+		if table.isempty(plist) then
+			break
+		end
+	end
 	logger.log("info","friend",format("[changerecommend] owner=%s oldplist=%s newplist=%s",self.pid,oldrecommend,self.recommendlist))
 	for _,pid in ipairs(self.recommendlist) do
 		self:addblkref(pid)
@@ -476,43 +509,25 @@ function cfrienddb:change_recommend()
 	return true
 end
 
-function cfrienddb:can_recommend(pid,ignorelist)
+function cfrienddb:can_recommend(pid)
 	if pid == self.pid then
 		return false
 	end
 	if table.find(self.frdlist,pid) then
 		return false
 	end
-	if table.find(ignorelist,pid) then
-		return false
-	end
 	if table.find(self.blacklist,pid) then
 		return false
 	end
 	local player = playermgr.getplayer(pid)
-	if player then
-		if #player.frienddb.frdlist >= player.frienddb:getfriendlimit() then
-			return false
-		end
-		if table.find(player.frienddb.blacklist,self.pid) then
-			return false
-		end
+	assert(player)
+	if #player.frienddb.frdlist >= player.frienddb:getfriendlimit() then
+		return false
+	end
+	if table.find(player.frienddb.blacklist,self.pid) then
+		return false
 	end
 	return true
-end
-
-function cfrienddb:update_oldrecommend(oldrecommend)
-	local now = os.time()
-	local dayno = getdayno(now)
-	local exceedtime = getdayzerotime(now) + 3600 * 72 - now
-	local recommendlist = self.thistemp:query(format("recommend.%d",dayno),{})
-	table.extend(recommendlist,oldrecommend)
-	self.thistemp:set(format("recommend.%d",dayno),recommendlist,exceedtime)
-	local ignorelist = {}
-	table.extend(ignorelist,recommendlist)
-	table.extend(ignorelist,self.thistemp:query(format("recommend.%d",dayno-1),{}))
-	table.extend(ignorelist,self.thistemp:query(format("recommend.%d",dayno-2),{}))
-	return ignorelist
 end
 
 function cfrienddb:delrecommend(pid)

@@ -450,10 +450,12 @@ function ctaskcontainer:team_finishtask(task,reason)
 	for _,pid in ipairs(task.war_members) do
 		if pid ~= self.pid then
 			local member = playermgr.getplayer(pid)
-			local task2 = member.taskdb:gettask(task.taskid)
-			if task2 then
-				local taskcontainer = member.taskdb:gettaskcontainer(task.taskid)
-				ctaskcontainer.finishtask(taskcontainer,task2,reason)
+			if member then
+				local task2 = member.taskdb:gettask(task.taskid)
+				if task2 then
+					local taskcontainer = member.taskdb:gettaskcontainer(task.taskid)
+					ctaskcontainer.finishtask(taskcontainer,task2,reason)
+				end
 			end
 		end
 	end
@@ -976,7 +978,9 @@ function ctaskcontainer:taskdati(task,args)
 				if datiinfo.correct < datiinfo.mincorrect then
 					task.resourcemgr:delete("dati")
 					task.execute_result = TASK_SCRIPT_FAIL
-					net.msg.S2C.notify(player.pid,language.format("答题失败"))
+					if datiinfo.maxcnt > 1 then
+						net.msg.S2C.notify(player.pid,language.format("答题失败"))
+					end
 				else
 					task.execute_result = TASK_SCRIPT_PASS
 				end
@@ -1148,7 +1152,8 @@ function ctaskcontainer:check_result(task,ext)
 				for _,pid in ipairs(task.war_members) do
 					if pid ~= self.pid then
 						local member = playermgr.getplayer(pid)
-						if member.taskdb:gettask(task.taskid) then
+						--共同完成的任务需要同步数据给队员
+						if member and member.taskdb:gettask(task.taskid) then
 							self:synctask(member,task.taskid)
 						end
 					end
@@ -1181,9 +1186,6 @@ function ctaskcontainer:submittask(taskid)
 		end
 	end
 	net.msg.S2C.notify(self.pid,language.format("完成任务"))
-	self:addfinishtask(taskid)
-	self.nowtaskid = nil
-	self:deltask(taskid,"taskdone")
 	local awardid = self:getformdata("task")[taskid].award
 	if task.resourcemgr:get("optionaward") then
 		awardid = task.resourcemgr:get("optionaward")
@@ -1192,6 +1194,9 @@ function ctaskcontainer:submittask(taskid)
 	if self:getdonecnt() + 1 <= self:getdonelimit() then
 		self:adddonecnt(1)
 	end
+	self:addfinishtask(taskid)
+	self.nowtaskid = nil
+	self:deltask(taskid,"taskdone")
 	self:onsubmittask(taskid)
 	if self.is_teamsubmit then
 		self:team_submittask(taskid)

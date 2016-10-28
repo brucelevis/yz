@@ -669,7 +669,7 @@ data_1500_MainTaskProcess = {
 		type = 3,
 		name = "非常魔神",
 		accept = {
-			{ cmd = 'addnpc', args = { nid = { 301010,301020 }, both = 1, }, },
+			{ cmd = 'addnpc', args = { nid = { 301010,301020,301030 }, both = 1, }, },
 			{ cmd = 'findnpc', args = { nid = 301030, respond = 0, }, },
 			{ cmd = 'talkto', args = { textid = 3011, }, },
 		},

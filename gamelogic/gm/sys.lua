@@ -185,7 +185,13 @@ function gm.update(args)
 		return
 	end
 	local isok,args = checkargs(args,"string")
-	local path = string.format("gamelogic.%s",args[1])
+	local subpath = args[1]
+	local path
+	if string.find(subpath,"^gamelogic%.") or string.find(subpath,"^proto%.") then
+		path = subpath
+	else
+		path = string.format("gamelogic.%s",args[1])
+	end
 	hotfix.hotfix(path)
 end
 

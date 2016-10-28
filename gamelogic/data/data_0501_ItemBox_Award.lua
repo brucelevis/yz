@@ -13,6 +13,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1,
+				joblimit = 10001,
 			},
 
 
@@ -25,6 +26,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 2,
+				joblimit = 10002,
 			},
 
 
@@ -37,6 +39,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 2,
+				joblimit = 0,
 			},
 
 
@@ -49,6 +52,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 3,
+				joblimit = 0,
 			},
 
 
@@ -61,6 +65,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 4,
+				joblimit = 0,
 			},
 
 
@@ -73,6 +78,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 5,
+				joblimit = 0,
 			},
 
 
@@ -85,10 +91,11 @@ data_0501_ItemBox_Award = {
 				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 6,
+				joblimit = 0,
 			},
 
 		},
-		ratiotype = 1,
+		ratiotype = 2,
 		desc = "801001宝箱开出的奖励",
 	},
 
@@ -104,6 +111,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -116,6 +124,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409002,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -128,6 +137,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409003,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -140,6 +150,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409004,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -152,6 +163,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409005,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -164,6 +176,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409006,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -176,6 +189,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409007,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1000,
+				joblimit = 0,
 			},
 
 		},
@@ -195,6 +209,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -207,6 +222,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409002,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -219,6 +235,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409003,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -231,6 +248,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409004,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -243,6 +261,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409005,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -255,6 +274,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409006,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -267,6 +287,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409007,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1000,
+				joblimit = 0,
 			},
 
 		},
@@ -286,6 +307,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -298,6 +320,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409002,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -310,6 +333,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409003,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -322,6 +346,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409004,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -334,6 +359,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409005,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -346,6 +372,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409006,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -358,6 +385,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409007,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1000,
+				joblimit = 0,
 			},
 
 		},
@@ -377,6 +405,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409001,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -389,6 +418,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409002,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -401,6 +431,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409003,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -413,6 +444,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409004,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -425,6 +457,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409005,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -437,6 +470,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409006,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1500,
+				joblimit = 0,
 			},
 
 
@@ -449,6 +483,7 @@ data_0501_ItemBox_Award = {
 				items = {{type=409007,num=1,bind=0},nil,nil,nil,nil,},
 				pets = {nil,nil,},
 				ratio = 1000,
+				joblimit = 0,
 			},
 
 		},

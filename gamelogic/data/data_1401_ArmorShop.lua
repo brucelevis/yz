@@ -163,7 +163,7 @@ data_1401_ArmorShop = {
 
 	[130009] = {
 		pos = 60001,
-		posname = "首饰",
+		posname = "珠宝",
 		itemtype = 108001,
 		num = 1,
 		sumnum = -1,
@@ -183,7 +183,7 @@ data_1401_ArmorShop = {
 
 	[130010] = {
 		pos = 60002,
-		posname = "首饰",
+		posname = "珠宝",
 		itemtype = 104001,
 		num = 1,
 		sumnum = -1,

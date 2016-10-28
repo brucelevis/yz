@@ -18,7 +18,10 @@ function gm.additem(args)
 		gm.notify(string.format("玩家(%s)不在线",pid))
 		return
 	end
-	player:additembytype(itemtype,num,nil,"gm",true)
+	local num,rest = player:additembytype(itemtype,num,nil,"gm",true)
+	if rest ~= 0 then
+		gm.notify(string.format("背包已满，%d个物品增加失败",rest))
+	end
 end
 
 --- 指令: itemset

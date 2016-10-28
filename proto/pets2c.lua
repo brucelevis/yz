@@ -36,5 +36,13 @@ pet_catch_result 7305 {
 		result 1 : integer	# 1--succuess;0--fail
 	}
 }
+
+pet_updatespace 7306 {
+	request {
+		base 0 : basetype
+		space 1 : integer	# 可携带宠物数目
+	}
+}
+
 ]]
 }

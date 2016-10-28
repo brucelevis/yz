@@ -7,7 +7,7 @@ function cplayer:init(pid)
 		flag = self.flag,
 	})
 	self.pid = pid
-	
+
 	self.data = {}
 	self.frienddb = cfrienddb.new(self.pid)
 	self.achievedb = cachievedb.new(self.pid)
@@ -89,7 +89,7 @@ function cplayer:init(pid)
 		name = "equipposdb"
 	})
 
-	--self.petdb = cpetdb.new(self.pid)
+	self.petdb = cpetdb.new(self.pid)
 
 	self.autosaveobj = {
 		time = self.timeattr,
@@ -172,6 +172,7 @@ function cplayer:load(data)
 end
 
 function cplayer:onload()
+	self.fightpoint = 0
 end
 
 function cplayer:packresume()
@@ -189,6 +190,7 @@ function cplayer:packresume()
 		fightpoint = self.fightpoint or 0,--战力待补充
 		teamstate = self:teamstate(),
 		teamid = self:teamid() or 0,
+		lang = self:getlanguage(),
 	}
 	return resume
 end
@@ -290,6 +292,7 @@ function cplayer:create(conf)
 	self.jobexp = conf.jobexp or 0
 	self.viplv = conf.viplv or 0
 	self.objid = 1000		-- [1,1000)为预留ID
+	self.fightpoint = 0
 	-- 素质点
 	self:set("qualitypoint",{
 		sum = 48,
@@ -313,6 +316,7 @@ function cplayer:create(conf)
 	self:oncreate(conf)
 	local resume = self:packresume()
 	resume.now_srvname = cserver.getsrvname()
+	resume.home_srvname = cserver.getsrvname()
 	resume.online = true
 	resumemgr.create(self.pid,resume)
 end
@@ -496,6 +500,7 @@ function cplayer:onlogin()
 		coin = self.coin,
 		dexppoint = self.thisweek:query("dexppoint") or 0,
 	})
+	--unionaux.onlogin(self)
 	self:sync_chongzhilist()
 	self.switch:onlogin(self)
 	-- 放到teammgr:onlogin之前
@@ -511,7 +516,7 @@ function cplayer:onlogin()
 	teammgr:onlogin(self)
 	warmgr.onlogin(self)
 	gm.onlogin(self)
-	
+
 	-- 跨服上线后回调的逻辑
 	if self.kuafu_onlogin then
 		local kuafu_onlogin = self.kuafu_onlogin
@@ -715,7 +720,7 @@ function cplayer:changejob(tojobid)
 	end
 	local needjoblv = data_0101_Hero[self.roletype].ZZHILV
 	if self.joblv < needjoblv then
-		net.msg.S2C.notify(self.pid,language.format("职业登记不足{1}级，无法进行转职",needjoblv))
+		net.msg.S2C.notify(self.pid,language.format("职业等级不足{1}级，无法进行转职",needjoblv))
 		return
 	end
 	-- TODO: check more
@@ -728,12 +733,25 @@ function cplayer:changejob(tojobid)
 		net.msg.S2C.notify(self.pid,language.format("此职业暂未开放"))
 		return
 	end
+	logger.log("info","lv",string.format("[changejob] pid=%d oldjob=%d newjob=%d",self.pid,self.roletype,tojobid))
 	self.roletype = tojobid
 	self.warskilldb:openskills(self.roletype)
-	sendpackage(self.pid,"player","update",{roletype=self.roletype})
-	self:setjoblv(1,"changejob")
+	self:addjobzs(1,"changejob")
+	self.joblv = 1
+	self.jobexp = 0
+	sendpackage(self.pid,"player","update",{
+		roletype = self.roletype,
+		joblv = self.joblv,
+		jobexp = self.jobexp,
+	})
 	-- TODO:推送转职消息，谁注册谁处理
 	self.taskdb.zhiyin:onchangejob(jobdata.ZSPRE)
+	--临时处理,后改为协议通知客户端重连
+	net.msg.S2C.notify(self.pid,language.format("转职成功，请重新登录游戏"))
+	local pid = self.pid
+	timer.timeout(string.format("changejob%d",self.pid),1,function()
+		playermgr.kick(pid,"changejob")
+	end)
 end
 
 function cplayer:addgold(val,reason)
@@ -971,7 +989,7 @@ function cplayer:unwield(equip)
 end
 
 function cplayer:refreshequip()
-	for pos = 1,self.itemdb.itempos_begin - 1 do
+	for pos = 1,self.itemdb.beginpos - 1 do
 		local equip = self.itemdb:getitembypos(pos)
 		if equip then
 		end
@@ -1040,7 +1058,7 @@ end
 function cplayer:teamstate()
 	local team = self:getteam(self.pid)
 	if not team then
-		return NO_TEAM 
+		return NO_TEAM
 	end
 	return team:teamstate(self.pid)
 end
@@ -1152,7 +1170,7 @@ end
 function cplayer:enterscene(sceneid,pos,notleave)
 	assert(sceneid)
 	assert(pos)
-	
+
 	local newscene = scenemgr.getscene(sceneid)
 	if not newscene then
 		return false
@@ -1181,7 +1199,6 @@ function cplayer:canenterscene(sceneid,pos)
 	if not scene then
 		return false,language.format("场景不存在")
 	end
-
 	local isok,errmsg = huodongmgr.canenterscene(self,sceneid,pos)
 	if not isok then
 		return false,errmsg
@@ -1318,6 +1335,10 @@ function cplayer:has_dexp_addn(playname,exp)
 	if not data then
 		return false
 	end
+	-- 策划要求：挂机是跟随队员不消耗双倍点,也不收益于双倍点
+	if playname == "guaji" and self:teamstate() == TEAM_STATE_FOLLOW then
+		return false
+	end
 	local exp_addn = 0
 	if data.cost_dexp ~= 0 then
 		if self.switch:isopen("costdexp") then
@@ -1359,7 +1380,7 @@ function cplayer:has_exp_addn(playname,exp)
 end
 
 function cplayer:team_maxlv(state)
-	state = state or TEAM_STATE_ALL 
+	state = state or TEAM_STATE_ALL
 	local teamid = self:teamid()
 	if not teamid then
 		return self.lv
@@ -1423,7 +1444,7 @@ function cplayer:can_exitgame()
 		self:set_exitgame_time(now + tuoguan_time)
 	end
 	if self:warid() then
-		if not self.exitgame_time or self.exitgame_time < now then
+		if not self.exitgame_time or self.exitgame_time <= now then
 			self:set_exitgame_time(now + 60)
 		end
 	end
@@ -1455,6 +1476,7 @@ end
 
 function cplayer:del_delay_exitgame()
 	self.bforce_exitgame = nil
+	self.exitgame_time = nil
 	if self.delay_exitgame_timerid then
 		local timerid = self.delay_exitgame_timerid
 		timer.deltimerbyid(timerid)
@@ -1721,6 +1743,105 @@ end
 -- for rpc
 function cplayer:getlv()
 	return self.lv
+end
+
+function cplayer:unionid()
+	return self:query("union.id")
+end
+
+function cplayer:union_recommendlist()
+	local list = self.thistemp:query("union_recommendlist")
+	if not list then
+		local pids = {}
+		for i,pid in ipairs(playermgr.allplayer()) do
+			local player = playermgr.getplayer(pid)
+			if player and
+				not player:unionid() and
+				playeraux.isopen(player.lv,"公会") then
+				table.insert(pids,pid)
+			end
+		end
+		pids = shuffle(pids,nil,10)
+		self.thistemp:set("union_recommendlist",pids,8*3600)
+	end
+	return self.thistemp:query("union_recommendlist")
+end
+
+function cplayer:delfrom_union_recommendlist(tid)
+	local list = self:union_recommendlist()
+	local pos = table.find(list,tid)
+	if pos then
+		table.remove(list,pos)
+		sendpackage(self.pid,"union","delinviter",{
+			pid = tid,
+		})
+	end
+end
+
+function cplayer:ondelfromunion(unionid)
+	self:delete("union.id")
+	if self.lv >= data_1800_UnionVar.QuitUnionCDNeedLv then
+		self.thistemp:set("apply_join_cd",unionid,data_1800_UnionVar.JoinUnionCDAfterQuit)
+	end
+end
+
+function cplayer:onaddtounion(unionid)
+	self:set("union.id",unionid)
+	sendpackage(self.pid,"union","selfunion",{
+		unionid = unionid,
+	})
+end
+
+function cplayer:addoffer(addval,reason)
+	local unionid = self:unionid()
+	if not unionid then
+		return 0
+	end
+
+	return addval
+end
+
+function cplayer:addoffer(addval,reason)
+	local unionid = self:unionid()
+	if not unionid then
+		return 0
+	end
+	if cserver.isunionsrv() then
+		local union = unionmgr:getunion(unionid)
+		return union:addoffer(self.pid,addval,reason)
+	else
+		return rpc.call(cserver.unionsrv(),"rpc","unionmgr:unionmethod",unionid,":addoffer",self.pid,addval,reason)
+	end
+end
+
+function cplayer:union_addwarcnt(cnt)
+	cnt = cnt or 1
+	local unionid = self:unionid()
+	if not unionid then
+		return
+	end
+	if cserver.isunionsrv() then
+		local union = unionmgr:getunion(unionid)
+		union:addwarcnt(self.pid,cnt)
+	else
+		rpc.call(cserver.unionsrv(),"rpc","unionmgr:unionmethod",unionid,":addwarcnt",self.pid,cnt)
+	end
+end
+
+function cplayer:union_addfinishcnt(name,cnt)
+	cnt = cnt or 1
+	player.thisweek:add(string.format("union.weekfuli.finishcnt.%s",name),cnt)
+end
+
+function cplayer:limit_frequence(cmd,pid,cd,val)
+	val = val or true
+	local key = string.format("frequence.%s.%s",cmd,pid)
+	local incd,exceedtime = self.thistemp:query(key)
+	if incd then
+		return true,exceedtime - os.time()
+	end
+	self.thistemp:set(key,val,cd)
+	return false
 end
 
 return cplayer

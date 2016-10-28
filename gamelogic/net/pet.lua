@@ -184,30 +184,45 @@ end
 function C2S.wieldequip(player,request)
 	local itemid = assert(request.itemid)
 	local id = assert(request.id)
-	local pet = player.petdb:getpet(id)
-	if not pet then
-		return
+	local isok,msg = player.petdb:wieldequip(id,itemid)
+	if msg then
+		net.msg.S2C.notify(player.pid,msg)
 	end
-	local isok,msg = player.petdb:can_wieldequip(pet,itemid)
-	if not isok then
-		if msg then
-			net.msg.S2C.notify(player.pid,msg)
-		return
-	end
-	player.petdb:wieldequip(id,itemid)
 end
 
 function C2S.unwieldequip(player,request)
 	local itemid = assert(request.itemid)
 	local id = assert(request.id)
-	local pet = player.petdb:getpet(id)
-	if not pet then
-		return
-	end
 	player.petdb:unwieldequip(id,itemid)
 end
 
 function C2S.catch(player,request)
+	local id = assert(request.id)
+end
+
+function C2S.combine(player,request)
+	local masterid = assert(request.masterid)
+	local subid = assert(request.subid)
+	player.petdb:combine(masterid,subid)
+end
+
+function C2S.rename(player,request)
+	local id = assert(request.id)
+	local name = assert(request.name)
+	player.petdb:rename(id,name)
+end
+
+function C2S.setchat(player,request)
+	local id = assert(request.id)
+	local case = assert(request.case)
+	local chat = assert(request.chat)
+	player.petdb:setchat(id,case,chat)
+end
+
+function C2S.commenton(player,request)
+end
+
+function C2S.getcomments(player,request)
 end
 
 -- s2c

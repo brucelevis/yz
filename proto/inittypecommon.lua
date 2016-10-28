@@ -17,7 +17,8 @@ return {
 
 # 消息发言者玩家简介信息
 .SendMsgPlayerType {
-	pid 0 : integer
+	pid 0 : integer		# 0--系统,1--公会管理员
+	# 仅当pid > 1000,下面字段才有意义
 	name 1 : string
 	lv 2 : integer
 	roletype 3 : integer
@@ -114,6 +115,7 @@ return {
 	pos 5 : integer #背包位置
 	fumo 6 : ItemFumoAttrType #附魔增加的属性
 	lv 7 : integer			# 卡片等级（仅对卡片有效，其他物品的等级读导表),空--0级
+	uuid 8 : string		# 对于放入仓库/市场的物品有效，表示其唯一ID，这时id字段无用
 }
 
 .PetType {
@@ -129,7 +131,10 @@ return {
 	status 9 : integer	# 状态，见data_1700_PetStatus
 	readywar 10 : boolean # true--出战状态,false/nil--休息状态
 	zizhi 11 : QualityPointType # 宠物没有素质点和扩展素质点
-	skills 12 : *integer # 技能编号列表
+	skills 12 : *SkillType # 技能
+	equips 13 : *ItemType # 装备
+	chats 14 : *string	# 闲聊（1-6 case按顺序发)
+	bianyi_type 15 : integer # 变异方向，0表示未变异
 }
 
 
@@ -150,6 +155,8 @@ return {
 	attach 5 : AttachType
 	readtime 6 : integer
 	srcid 7 : integer #邮件来源ID（0--系统，其他--玩家ID)
+	lifetime 8 : integer #持续时间，截止时间=sendtime+lifetime
+	buttons 9 : *string  #若干按钮
 }
 
 .TaskType {
@@ -205,8 +212,9 @@ return {
 	jobzs 8 : integer
 	# 1--队长;2--跟随队员;3--暂离队员;4--离线队员
 	teamstate 9 : integer
-	teamid 10 : integer
+	teamid 10 : integer		# 0/空--无队伍，其他--队伍ID
 	logofftime 11 : integer		# 下线时间
+	unionid 12 : integer	# 0/空--无公会，其他--公会ID
 }
 
 # 工会徽章类型
@@ -215,6 +223,13 @@ return {
 	maincolor 1 : integer	 # 主颜色
 	minorcolor 2 : integer	 # 次颜色
 	design 3 : integer		 # 图案
+}
+
+#技能类型
+.SkillType {
+	id 0 : integer
+	level 1 : integer
+	pos 2 : integer
 }
 
 ]]

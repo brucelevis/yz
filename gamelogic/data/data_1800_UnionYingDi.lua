@@ -1,6 +1,10 @@
 --<<data_1800_UnionYingDi 导表开始>>
 data_1800_UnionYingDi = {
 
+	[0] = {
+		limit = 100,
+	},
+
 	[1] = {
 		limit = 100,
 	},

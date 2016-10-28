@@ -25,21 +25,21 @@ data_ResType = {
 	[4] = {
 		type = "chengjiu",
 		name = "成就",
-		flag = "nil",
+		flag = "chengjiu",
 		goldbuyhowmuch = 100,
 	},
 
 	[5] = {
 		type = "tili",
 		name = "体力",
-		flag = "nil",
+		flag = "tili",
 		goldbuyhowmuch = 0,
 	},
 
 	[6] = {
 		type = "honour",
 		name = "荣誉",
-		flag = "nil",
+		flag = "honour",
 		goldbuyhowmuch = 10,
 	},
 
@@ -51,9 +51,9 @@ data_ResType = {
 	},
 
 	[8] = {
-		type = "construct",
+		type = "offer",
 		name = "帮派贡献",
-		flag = "nil",
+		flag = "offer",
 		goldbuyhowmuch = 100,
 	},
 
@@ -65,16 +65,16 @@ data_ResType = {
 	},
 
 	[10] = {
-		type = "nil",
+		type = "baoshidu",
 		name = "饱食度",
-		flag = "nil",
+		flag = "baoshidu",
 		goldbuyhowmuch = 0,
 	},
 
 	[11] = {
-		type = "xiyi",
+		type = "xiayi",
 		name = "侠义值",
-		flag = "nil",
+		flag = "xiayi",
 		goldbuyhowmuch = 0,
 	},
 
@@ -86,9 +86,9 @@ data_ResType = {
 	},
 
 	[13] = {
-		type = "acti",
+		type = "liveness",
 		name = "活跃度",
-		flag = "nil",
+		flag = "liveness",
 		goldbuyhowmuch = 0,
 	},
 

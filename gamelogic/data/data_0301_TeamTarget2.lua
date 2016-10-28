@@ -21,25 +21,12 @@ data_0301_TeamTarget2 = {
 		
 		[1] = {
 			id = 2001,
-			main_target = "日常击杀",
-			minor_target = "抓鬼",
+			main_target = "日常任务",
+			minor_target = "使魔试炼",
 			minlv = 10,
 			down_float = 15,
 			up_float = 15,
 			switchid = 1100,
-			maxlen = 5,
-			lifetime = 300,
-		},
-
-
-		[2] = {
-			id = 2002,
-			main_target = "日常击杀",
-			minor_target = "宝图怪",
-			minlv = 15,
-			down_float = 15,
-			up_float = 15,
-			switchid = 1101,
 			maxlen = 5,
 			lifetime = 300,
 		},
@@ -64,7 +51,7 @@ data_0301_TeamTarget2 = {
 		[2] = {
 			id = 3002,
 			main_target = "剧情任务",
-			minor_target = "职业任务",
+			minor_target = "支线任务",
 			minlv = 17,
 			down_float = 15,
 			up_float = 15,
@@ -114,6 +101,38 @@ data_0301_TeamTarget2 = {
 			down_float = 15,
 			up_float = 15,
 			switchid = 1106,
+			maxlen = 5,
+			lifetime = 300,
+		},
+
+	},
+
+	[6] = {
+		
+		[1] = {
+			id = 6001,
+			main_target = "转职任务",
+			minor_target = "转职任务",
+			minlv = 50,
+			down_float = 50,
+			up_float = 16,
+			switchid = 1107,
+			maxlen = 5,
+			lifetime = 300,
+		},
+
+	},
+
+	[7] = {
+		
+		[1] = {
+			id = 7001,
+			main_target = "日常击杀",
+			minor_target = "宝藏守卫",
+			minlv = 15,
+			down_float = 15,
+			up_float = 15,
+			switchid = 1108,
 			maxlen = 5,
 			lifetime = 300,
 		},

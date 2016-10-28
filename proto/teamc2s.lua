@@ -9,6 +9,7 @@ team_createteam 4000 {
 		target 1 : integer		#组队目标(可选，不发表示不限组队目标)
 		minlv 2 : integer		#最低等级(可选,不发服务端自动选择个最低等级)
 		maxlv 3 : integer		#最高等级(可选，不发服务端自动选择个最高等级)
+		autopublish 4 : boolean # 是否自动发布队伍
 	}
 }
 
@@ -23,7 +24,6 @@ team_publishteam 4002 {
 		target 1 : integer		#组队目标(可选，不发表示不限组队目标)
 		minlv 2 : integer		#最低等级(可选,不发服务端自动选择个最低等级)
 		maxlv 3 : integer		#最高等级(可选，不发服务端自动选择个最高等级)
-		captain 4 : MemberType  # 队长信息
 	}
 }
 

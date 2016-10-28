@@ -157,10 +157,11 @@ msg_sendmsg_succ 4512 {
 #广播
 msg_broadcast 4513 {
 	request {
-	base 0 : basetype
-	type 1 : integer	#广播类型
-	msg 2 : string		#广播内容
+		base 0 : basetype
+		type 1 : integer	#广播类型
+		msg 2 : string		#广播内容
 	}
 }
+
 ]]
 }

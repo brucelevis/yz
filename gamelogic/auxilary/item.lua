@@ -10,6 +10,7 @@ ItemMainType = {
 	CONSUME = 6,			-- 消耗品
 	TASKITEM = 7,			-- 任务物品
 	TREASURE_BOX = 8,		-- 宝箱
+	PETEQUIP = 9,			-- 宠物装备
 }
 
 ItemQuality = {

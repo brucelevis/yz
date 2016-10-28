@@ -143,12 +143,18 @@ end
 
 function cteammgr:addapplyer(teamid,applyer)
 	local team = self:getteam(teamid)
-	if not team then
+	if not team and teamid ~= 0 then
 		local fromsrv = self:fromsrv(teamid)
 		if fromsrv ~= cserver.getsrvname() then
 			return rpc.call(fromsrv,"rpc","teammgr:addapplyer",teamid,applyer)
 		end
 		return
+	end
+	if not team and teamid == 0 then
+		return false,language.format("该队伍已解散")
+	end
+	if team:len(TEAM_STATE_ALL) >= team:maxlen() then
+		return false,language.format("该队伍人数已满")
 	end
 	return team:addapplyer(applyer)
 end
@@ -264,6 +270,8 @@ function cteammgr:quitteam(player)
 	end
 	logger.log("info","team",string.format("[quitteam] pid=%d teamid=%d",pid,team.id))
 	team:quit(player.pid)
+	team:say(string.format("【%s】离开了队伍",player.name))
+	net.msg.S2C.notify(pid,language.format("成功退出队伍"))
 	self:onquitteam(player.pid,team.id)
 	return true
 end
@@ -276,6 +284,15 @@ function cteammgr:kickmember(player,targetid)
 	end
 	logger.log("info","team",string.format("[kickmember] pid=%d teamid=%d targetid=%d",pid,team.id,targetid))
 	team:quit(targetid)
+	local target_name
+	local target = playermgr.getplayer(targetid)
+	if target then
+		target_name = target:getname()
+	else
+		target_name = taret:get("name")
+	end
+	team:say(string.format("【%s】被请离了队伍",target_name))
+	net.msg.S2C.notify(targetid,language.format("你已被队长请离队伍"))
 	self:onquitteam(targetid,team.id)
 end
 
@@ -306,6 +323,11 @@ function cteammgr:backteam(player)
 	end
 	local captain = playermgr.getplayer(team.captain)
 	if not captain then
+		return false
+	end
+	local isok,errmsg = self:canbackteam(player)
+	if not isok then
+		net.msg.S2C.notify(player.pid,errmsg)
 		return false
 	end
 	if not player:jumpto(captain.sceneid,captain.pos) then
@@ -613,6 +635,17 @@ function cteammgr:onquitteam(pid,teamid)
 	if player then
 		huodongmgr.onquitteam(player,teamid)
 	end
+end
+
+function cteammgr:canbackteam(player)
+	--local isok,errmsg = huodongmgr.canbackteam(player)
+	--if not isok then
+	--	return false,errmsg
+	--end
+	if player:warid() then
+		return false,language.format("战斗中无法归队")
+	end
+	return true
 end
 
 

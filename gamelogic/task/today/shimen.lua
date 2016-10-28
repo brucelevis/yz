@@ -85,7 +85,7 @@ function cshimentask:onsubmittask(taskid)
 		self:log("info","task",format("[ringdoneaward] pid=%d itemtype=%d ring=%d",self.pid,itemtype,self.ringnum))
 		player:additembytype(itemtype,1,nil,"shimenring",true)
 		if self.ringnum == ringlimit then
-			if not player.thistemp:query("task.shimen.specialdone") and ishit(50) then
+			if not player.thistemp:query("task.shimen.specialdone") and ishit(50,100) then
 				player.today:set("task.shimen.specialcapacity",1)
 				-- TODO 通知客户端可以查看特殊任务面板
 			end

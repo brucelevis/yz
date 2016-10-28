@@ -161,9 +161,9 @@ function gm.newplayerday(args)
 	})
 end
 
---- 用法: clear 容器类别
---- 举例: clear itemdb		<=> 清空背包
-function gm.clear(args)
+--- 用法: cleardb 容器类别
+--- 举例: cleardb itemdb		<=> 清空背包
+function gm.cleardb(args)
 	local isok,args = checkargs(args,"string")
 	if not isok then
 		gm.notify("用法: clear 容器类别")
@@ -300,7 +300,7 @@ function gm.setliveness(args)
 	end
 	local liveness = args[1]
 	local navigatedata = navigation.getnavigation(master)
-	navigatedata.liveness = liveness
+	navigation.addliveness(master,liveness - navigatedata.liveness)
 	net.navigation.S2C.sendactivitydata(master,navigatedata)
 end
 
@@ -312,7 +312,7 @@ end
 --- 举例: clear pet <=> 清空宠物
 --- 举例: clear equippos <=> 清空装备栏的属性
 function gm.clear(args)
-	local isok,args = checkargs("string")
+	local isok,args = checkargs(args,"string")
 	if not isok then
 		gm.notify("用法: clear item|card|fashionshow|pet|equippos")
 		return

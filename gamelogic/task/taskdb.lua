@@ -74,9 +74,6 @@ function ctaskdb:update_canaccept()
 		if not table.isempty(canaccept) then
 			table.extend(self.canaccepttask,canaccept)
 		end
-		if taskcontainer.autoaccept then
-			taskcontainer:autoaccept()
-		end
 	end
 	net.task.S2C.update_canaccept(self.pid,self.canaccepttask)
 end

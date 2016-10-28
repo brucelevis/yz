@@ -6,9 +6,10 @@ data_1800_UnionJob = {
 		limit = 1,
 		auth = {
 			add = 1,
-			del = 1,
-			changejob = 1,
-			banspeak = 1,
+			del = {2,3,4,5,6},
+			changejob = {2,3,4,5,6},
+			changejob_range = {2,3,4,5,6},
+			banspeak = {2,3,4,5,6},
 			edit_purpose = 1,
 			edit_notice = 1,
 			become_leader = 1,
@@ -18,6 +19,8 @@ data_1800_UnionJob = {
 			open_huodong = 1,
 			open_fuli = 1,
 		},
+		fuli_addn = 1.000000,
+		position_desc = "会长最厉害",
 	},
 
 	[2] = {
@@ -25,9 +28,10 @@ data_1800_UnionJob = {
 		limit = 3,
 		auth = {
 			add = 1,
-			del = 1,
-			changejob = 1,
-			banspeak = 1,
+			del = {3,4,5,6},
+			changejob = {3,4,5,6},
+			changejob_range = {3,4,5,6},
+			banspeak = {3,4,5,6},
 			edit_purpose = 1,
 			edit_notice = 1,
 			become_leader = 1,
@@ -37,6 +41,8 @@ data_1800_UnionJob = {
 			open_huodong = 1,
 			open_fuli = 1,
 		},
+		fuli_addn = 1.500000,
+		position_desc = "副会长不如会长",
 	},
 
 	[3] = {
@@ -44,9 +50,10 @@ data_1800_UnionJob = {
 		limit = 6,
 		auth = {
 			add = 1,
-			del = 1,
-			changejob = 0,
-			banspeak = 0,
+			del = {},
+			changejob = {5,6},
+			changejob_range = {5,6},
+			banspeak = {5,6},
 			edit_purpose = 0,
 			edit_notice = 0,
 			become_leader = 0,
@@ -56,6 +63,8 @@ data_1800_UnionJob = {
 			open_huodong = 0,
 			open_fuli = 0,
 		},
+		fuli_addn = 2.000000,
+		position_desc = "干部不如副会长",
 	},
 
 	[4] = {
@@ -63,9 +72,10 @@ data_1800_UnionJob = {
 		limit = 9,
 		auth = {
 			add = 1,
-			del = 1,
-			changejob = 0,
-			banspeak = 0,
+			del = {},
+			changejob = {},
+			changejob_range = {},
+			banspeak = {},
 			edit_purpose = 0,
 			edit_notice = 0,
 			become_leader = 0,
@@ -75,6 +85,8 @@ data_1800_UnionJob = {
 			open_huodong = 0,
 			open_fuli = 0,
 		},
+		fuli_addn = 2.500000,
+		position_desc = "管事不如干部",
 	},
 
 	[5] = {
@@ -82,9 +94,10 @@ data_1800_UnionJob = {
 		limit = 21,
 		auth = {
 			add = 0,
-			del = 1,
-			changejob = 0,
-			banspeak = 0,
+			del = {},
+			changejob = {},
+			changejob_range = {},
+			banspeak = {},
 			edit_purpose = 0,
 			edit_notice = 0,
 			become_leader = 0,
@@ -94,6 +107,8 @@ data_1800_UnionJob = {
 			open_huodong = 0,
 			open_fuli = 0,
 		},
+		fuli_addn = 3.000000,
+		position_desc = "精英",
 	},
 
 	[6] = {
@@ -101,9 +116,10 @@ data_1800_UnionJob = {
 		limit = -1,
 		auth = {
 			add = 0,
-			del = 1,
-			changejob = 0,
-			banspeak = 0,
+			del = {},
+			changejob = {},
+			changejob_range = {},
+			banspeak = {},
 			edit_purpose = 0,
 			edit_notice = 0,
 			become_leader = 0,
@@ -113,6 +129,8 @@ data_1800_UnionJob = {
 			open_huodong = 0,
 			open_fuli = 0,
 		},
+		fuli_addn = 3.500000,
+		position_desc = "会员",
 	},
 
 }

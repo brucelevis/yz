@@ -15,6 +15,16 @@ data_1700_PetVar = {
 
 	ForgetSkillCostClose = 50, 		-- 遗忘技能消耗的亲密度
 
+	CombineSkillMinRatio = 0.6, 		-- 宠物合成时副宠技能数参数
+
+	CombineSkillMaxRatio = 0.8, 		-- 宠物合成时副宠技能数参数
+
+	NormalFix = 0, 		-- 品阶修正
+
+	RareFix = 0.95, 		-- 
+
+	HolyFix = 1.45, 		-- 
+
 }
 return data_1700_PetVar
 --<<data_1700_PetVar 导表结束>>

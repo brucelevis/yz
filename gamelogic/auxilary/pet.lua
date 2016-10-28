@@ -24,4 +24,27 @@ function petaux.relationship(name)
 	return petaux.relationship_name_id[name]
 end
 
+function petaux.newpet(typ)
+	local pet = cpet.new({
+		pid = 0,
+		flag = "pet",
+		type = typ,
+	})
+	pet:config()
+	return pet
+end
+
+function petaux.bianyifix(pet)
+	local quality = pet:get("quality")
+	if quality == 1 then
+		return data_1700_PetVar.NormalFix
+	elseif quality == 2 then
+		return data_1700_PetVar.RareFix
+	elseif quality == 3 then
+		return data_1700_PetVar.HolyFix
+	else
+		return 0
+	end
+end
+
 return petaux

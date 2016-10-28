@@ -2,143 +2,113 @@
 data_1800_UnionBadge = {
 
 	[1] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
+		background = {
+			gold = 0,
+			cond = {dating_lv=1},
+		},
+
+		maincolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {25,26,89},
+		},
+		minorcolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {25,26,89},
+		},
+		design = {
+			gold = 0,
+			cond = {dating_lv=1},
+		},
 	},
 
 	[2] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
+		background = {
+			gold = 0,
+			cond = {dating_lv=1},
+		},
+
+		maincolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {100,58,96},
+		},
+		minorcolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {36,89,200},
+		},
+		design = {
+			gold = 0,
+			cond = {dating_lv=1},
+		},
 	},
 
 	[3] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
+		background = {
+			gold = -1,
+			cond = {dating_lv=1},
+		},
+
+		maincolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {24,90,90},
+		},
+		minorcolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {89,80,230},
+		},
+		design = {
+			gold = 0,
+			cond = {dating_lv=1},
+		},
 	},
 
 	[4] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
+		background = {
+			gold = -1,
+			cond = {dating_lv=1},
+		},
+
+		maincolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {89,80,230},
+		},
+		minorcolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {100,58,96},
+		},
+		design = {
+			gold = 0,
+			cond = {dating_lv=1},
+		},
 	},
 
 	[5] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
+		background = {
+			gold = -1,
+			cond = {dating_lv=1},
+		},
 
-	[6] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[7] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[8] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[9] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[10] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[11] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[12] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[13] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[14] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[15] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[16] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[17] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[18] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[19] = {
-		background_gold = 0,
-		maincolor_gold = 0,
-		minorcolor_gold = 0,
-		design_gold = 0,
-	},
-
-	[20] = {
-		background_gold = 100,
-		maincolor_gold = 100,
-		minorcolor_gold = 100,
-		design_gold = 100,
+		maincolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {36,89,200},
+		},
+		minorcolor = {
+			gold = 0,
+			cond = {dating_lv=1},
+			color = {25,26,89},
+		},
+		design = {
+			gold = -1,
+			cond = {dating_lv=1},
+		},
 	},
 
 }

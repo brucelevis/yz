@@ -21,7 +21,7 @@ scene_addplayer 2501 {
 		name 2 : string
 		lv 3 : integer
 		roletype 4 : integer		#角色类型/职业ID
-		teamid 5 : integer			#队伍ID
+		teamid 5 : integer			#0/空--无队伍，其他--队伍ID
 		teamstate 6 : integer		#队伍状态:0--无队伍，1--队长，2--跟随队员，3--暂离队员，4--离线队员
 		warid 7 : integer			#战斗ID,不等于0/不为空，表示处于战斗状态
 		pos 8 : PosType
@@ -32,6 +32,7 @@ scene_addplayer 2501 {
 		joblv 13 : integer			#职业等级
 		weapontype 14 : integer		#武器类型(0/空--无)
 		shieldtype 15 : integer		#盾牌类型(0/空--无)
+		unionid 16 : integer		# 0/空--无公会,其他--公会ID
 	}
 }
 

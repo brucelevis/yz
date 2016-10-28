@@ -128,7 +128,7 @@ union_publish_notice 7414 {
 union_openui 7415 {
 	request {
 		base 0 : basetype
-		# union--公会,applyer--申请者列表,inviter--邀请者列表,member--成员列表,huodong--公会活动,fuli--公会福利,info--公会信息
+		# union--公会,applyer--申请者列表,inviter--邀请者列表,member--成员列表,huodong--公会活动,info--公会信息,weekfuli--每周福利,cangku--仓库
 		type 1 : string
 	}
 }
@@ -164,6 +164,52 @@ union_scan_unions 7419 {
 		# 查询startpos开始（包含startpos）后len个公会
 		startpos 1 : integer
 		len 2 : integer
+	}
+}
+
+# 竞选会长
+union_runfor_leader 7420 {
+	request {
+		base 0 : basetype
+	}
+}
+
+# 升级公会技能
+union_upgradeskill 7421 {
+	request {
+		base 0 : basetype
+		skillid 1 : integer		# 公会技能ID
+	}
+}
+
+# 领取：每周福利奖励
+union_weekfuli_getbonus 7422 {
+	request {
+		base 0 : basetype
+	}
+}
+
+# 搜索公会
+union_search_union 7423 {
+	request {
+		base 0 : basetype
+		unionid 1 : string	# 公会ID/公会名字
+	}
+}
+
+# 禁言
+union_banspeak 7424 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
+	}
+}
+
+# 取消禁言
+union_unbanspeak 7425 {
+	request {
+		base 0 : basetype
+		pid 1 : integer
 	}
 }
 ]]

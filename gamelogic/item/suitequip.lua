@@ -29,7 +29,7 @@ function csuitequip:setsuit(suitno)
 	end
 	local player = playermgr.getplayer(self.pid)
 	local suitlst = {}
-	for pos = 1,player.itemdb.itempos_begin - 1 do
+	for pos = 1,player.itemdb.beginpos - 1 do
 		local equip = player.itemdb:getitembypos(pos)
 		if equip then
 			table.insert(suitlst,equip.id)

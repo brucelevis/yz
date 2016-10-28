@@ -56,7 +56,7 @@ function mailmgr.sendmail(pid,amail)
 			to_srvname = home_srvname
 		end
 	end
-	if to_srvname ~= self_srvname then
+	if to_srvname and to_srvname ~= self_srvname then
 		return rpc.call(to_srvname,"modmethod","mail.mailmgr",".sendmail",pid,amail)
 	end
 	amail = deepcopy(amail) -- 防止多个玩家修改同一份邮件

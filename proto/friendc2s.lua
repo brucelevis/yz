@@ -39,14 +39,6 @@ friend_sendmsg 3004 {
 	}
 }
 
-# 搜索玩家(findplayer:ID或者完整名字)
-#friend_search 3005 {
-#	request {
-#		base 0 : basetype
-#		findplayer 1 : string
-#	}
-#}
-
 # 更换好友推荐
 friend_change_recommend 3006 {
 	request {
