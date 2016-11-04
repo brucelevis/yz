@@ -1,5 +1,0 @@
--- 使魔试炼
-
-cshimoshiliantask = class("cshimoshiliantask",ctaskcontainer)
-
-return cshimoshiliantask

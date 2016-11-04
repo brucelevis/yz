@@ -1,8 +1,0 @@
---指引任务
-czhiyintask = class("czhiyintask",ctaskcontainer)
-
-function czhiyintask:init(conf)
-	ctaskcontainer.init(self,conf)
-end
-
-return czhiyintask
