@@ -1,0 +1,57 @@
+--<<data_1501_MainTaskProcess 导表开始>>
+data_1501_MainTaskProcess = {
+
+	[10000101] = {
+		type = 1,
+		name = "寻人测试1",
+		accept = {
+			{ cmd = 'addnpc', args = { nid = 1001, }, },
+			{ cmd = 'talkto', args = { textid = 1100001, }, },
+			{ cmd = 'delnpc', args = { nid = 1001, }, },
+		},
+		execution = {
+			{ cmd = 'findnpc', args = { nid = 1002, }, },
+			{ cmd = 'talkto', args = { textid = 1100002, }, },
+		},
+		finishbyclient = 0,
+		submitnpc = 1001,
+		cangiveup = 0,
+		needlv = 0,
+		needjob = {nil},
+		exceedtime = nil,
+		pretask = {nil},
+		ratio = 0,
+		award = 101.0,
+		nexttask = 10100102,
+		chapterid = 0,
+		icon_id = 0,
+		desc = "nil",
+	},
+
+	[10000102] = {
+		type = 2,
+		name = "战斗测试1",
+		accept = {
+			{ cmd = 'addnpc', args = { nid = 1003, }, },
+		},
+		execution = {
+			{ cmd = 'raisewar', args = { warid = 100000, }, },
+		},
+		finishbyclient = 0,
+		submitnpc = 1003,
+		cangiveup = 0,
+		needlv = 0,
+		needjob = {nil},
+		exceedtime = nil,
+		pretask = {nil},
+		ratio = 0,
+		award = 102.0,
+		nexttask = nil,
+		chapterid = 10001,
+		icon_id = 0,
+		desc = "nil",
+	},
+
+}
+return data_1501_MainTaskProcess
+--<<data_1501_MainTaskProcess 导表结束>>

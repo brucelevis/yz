@@ -1,0 +1,102 @@
+--<<data_1500_MainTaskNpc 导表开始>>
+data_1500_MainTaskNpc = {
+
+	[10101] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10102] = {
+		name = "吉祥物",
+		shape = 10002,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10103] = {
+		name = "熊孩子",
+		shape = 10003,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10104] = {
+		name = "村民",
+		shape = 10004,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10105] = {
+		name = "村民",
+		shape = 10004,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10106] = {
+		name = "村民",
+		shape = 10004,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10107] = {
+		name = "女勇者",
+		shape = 10005,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10108] = {
+		name = "村长",
+		shape = 10006,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10109] = {
+		name = "怪叫的蘑菇",
+		shape = 10007,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10110] = {
+		name = "混乱的士兵",
+		shape = 10008,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10111] = {
+		name = "剑士",
+		shape = 10009,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[10112] = {
+		name = "爱拉忒",
+		shape = 10010,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+}
+return data_1500_MainTaskNpc
+--<<data_1500_MainTaskNpc 导表结束>>

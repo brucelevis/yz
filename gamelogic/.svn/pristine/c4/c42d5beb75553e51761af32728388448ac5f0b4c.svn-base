@@ -1,0 +1,38 @@
+--<<data_1501_MainTaskNpc 导表开始>>
+data_1501_MainTaskNpc = {
+
+	[1001] = {
+		name = "伊菲",
+		shape = 10001,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1002] = {
+		name = "吉祥物",
+		shape = 10002,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1003] = {
+		name = "熊孩子",
+		shape = 10003,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+	[1004] = {
+		name = "村民",
+		shape = 10004,
+		posid = "8101001",
+		dir = 1,
+		isclient = 1,
+	},
+
+}
+return data_1501_MainTaskNpc
+--<<data_1501_MainTaskNpc 导表结束>>

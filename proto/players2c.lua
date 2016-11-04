@@ -98,5 +98,6 @@ player_searchresume_result 5008 {
 		resumes 1 : *ResumeType
 	}
 }
+
 ]]
 }

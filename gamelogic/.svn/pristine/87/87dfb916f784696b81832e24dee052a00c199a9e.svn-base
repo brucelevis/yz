@@ -1,0 +1,36 @@
+gm = require "gamelogic.gm.init"
+
+local pet = {}
+
+function gm.pet(args)
+	local funcname = args[1]
+	local player = playermgr.getplayer(master_pid)
+	if not player then
+		return
+	end
+	local func = pet[funcname]
+	if not func then
+		gm.notify("指令未找到，查看帮助:help pet")
+		return
+	end
+	table.remove(args,1)
+	func(player,args)
+end
+
+--- 指令: pet add
+--- 用法: pet add 20002 <=> 增加一只type为20002的宠物
+function pet.addpet(player,args)
+	local isok,args = checkargs(args,"int")
+	if not isok then
+		gm.notify("pet add 20002 <=> 增加一只20002宠物")
+		return
+	end
+	local pettype = args[1]
+	if player.petdb:getfreespace() <= 0 then
+		gm.notify("宠物可携带数目已满")
+		return
+	end
+	local pet = petaux.newpet(pettype)
+	player.petdb:addpet(pet,"gm")
+end
+

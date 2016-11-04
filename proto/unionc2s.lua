@@ -1,6 +1,6 @@
 return {
 	p = "union",
-	si = 7400, --[7400,7500)
+	si = 7400, --[7400,8000)
 	src = [[
 
 # 创建公会
@@ -128,7 +128,7 @@ union_publish_notice 7414 {
 union_openui 7415 {
 	request {
 		base 0 : basetype
-		# union--公会,applyer--申请者列表,inviter--邀请者列表,member--成员列表,huodong--公会活动,info--公会信息,weekfuli--每周福利,cangku--仓库
+		# union--公会,applyer--申请者列表,inviter--邀请者列表,member--成员列表,huodong--公会活动,info--公会信息,weekfuli--每周福利,cangku--仓库,jika--公会集卡
 		type 1 : string
 	}
 }
@@ -210,6 +210,61 @@ union_unbanspeak 7425 {
 	request {
 		base 0 : basetype
 		pid 1 : integer
+	}
+}
+
+# 收集卡片
+union_collect_card 7426 {
+	request {
+		base 0 : basetype
+		cardtype 1 : integer	# 卡片类型
+	}
+}
+
+# 捐献卡片
+union_donate_card 7427 {
+	request {
+		base 0 : basetype
+		id 1 : integer			# 本次捐献的会话ID
+		cardid 2 : integer		# 捐献的卡片ID
+		num 3 :   integer		# 捐献的卡片数量,现在无用，服务端固定为1
+	}
+}
+
+# 公会收集: 求助
+union_collectitem_askfor_help 7428 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer
+	}
+}
+
+# 公会收集: 捐献物品
+union_collectitem_donate 7429 {
+	request {
+		base 0 : basetype
+		pid 1 : integer			# 捐献给哪个玩家
+		taskid 2 : integer		# 任务ID
+		itemtype 3 : integer	# 物品类型
+		itemnum 4 : integer		# 物品数量
+	}
+}
+
+# 公会收集:提交物品
+union_collectitem_submit 7430 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer		# 任务ID
+		itemtype 2 : integer	# 物品类型
+		itemnum 3 : integer		# 物品数量
+	}
+}
+
+# 公会收集: 完成任务
+union_collectitem_finishtask 7431 {
+	request {
+		base 0 : basetype
+		taskid 1 : integer		# 任务ID
 	}
 }
 ]]

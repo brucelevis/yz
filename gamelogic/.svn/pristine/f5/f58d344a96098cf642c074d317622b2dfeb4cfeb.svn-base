@@ -1,0 +1,44 @@
+-- 引擎配置
+root = "./"
+thread = 8
+bootstrap = "snlua bootstrap"
+cpath = root.."cservice/?.so"
+lua_cpath = "./luaclib/?.so;../src/3rd/luaclib/?.so"
+start = "skynetmain"
+nomogafilesx = "../"..root.."src/?.luo;"
+nomogafiles = "../"..root.."src/?.lua"
+luaservice = root.."service/?.lua;" .. root.."service/?.luo;" ..nomogafilesx..nomogafiles
+--luaservice = nomogafilesx .. nomogafiles .. root.."service/?.lua;" .. root .. "service/?.luo"
+harbor = 0
+logger = "../log/sknserver.log"
+snax = root.."service/?.lua"
+lualoader = "lualib/loader.lua"
+cryptc = "G\n"
+protofile = "proto"
+agentd_extend="agentd.init"
+profilemode=2
+log_serverstatus_close=1
+nmgkey="tpfZQyUTeE44/exz/pqy7KlUR/UZa73QAtuyu5bzNug="
+
+-- 用户配置
+srvname = "gamesrv_51"
+servermode = "DEBUG"
+loglevel = "debug"
+gameflag = "ro"
+cluster = "../src/gamelogic/config/clustername.lua"
+thread = 8
+logpath = "../log/"
+logger = logpath .. "sknserver.log"
+harbor = 0
+cryptc = "G\n"
+protofile = "proto"
+start = "skynetmain"
+
+gateport = 8081
+maxclient = 4000
+dbcport="1"..gateport
+
+warsrv="warsrv_51"
+datacenter="datacenter_test"
+accountcenter="10.13.57.252:80"
+unionsrv="unionsrv_test"

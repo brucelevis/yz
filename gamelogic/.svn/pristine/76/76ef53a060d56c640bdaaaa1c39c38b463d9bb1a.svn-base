@@ -1,0 +1,11 @@
+--<<login_roleid_whitelist 导表开始>>
+login_roleid_whitelist = {
+
+	["100001"] = {
+		exceedtime = "42618.75",
+		reason = "测试",
+	},
+
+}
+return login_roleid_whitelist
+--<<login_roleid_whitelist 导表结束>>

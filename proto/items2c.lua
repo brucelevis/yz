@@ -49,8 +49,8 @@ item_usebaotu_result 5504 {
 		sceneid 7 : integer				# 藏宝图出现的场景ID
 		mapid 8 : integer	# 藏宝图所在地图ID
 		pos 9 : PosType			#优先使用坐标ID,没有坐标ID再使用mapid和pos
-		stop 10 : boolean   # 停止表现
-		baotuid 11 : integer	# 宝图ID：见data_1100_BaoTu
+		baotuid 10 : integer	# 宝图ID：见data_1100_BaoTu
+		inuse 11 : boolean		# true--正在使用中
 	}
 }
 

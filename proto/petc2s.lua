@@ -61,14 +61,7 @@ pet_unwieldequip 7307 {
 	}
 }
 
-pet_catch 7308 {
-	request {
-		base 0 : basetype
-		id 1 : integer		# 一场战斗中宠物/怪物的ID
-	}
-}
-
-pet_combine 7309 {
+pet_combine 7308 {
 	request {
 		base 0 : basetype
 		masterid 1 : integer	# 主宠id
@@ -76,7 +69,7 @@ pet_combine 7309 {
 	}
 }
 
-pet_rename 7310 {
+pet_rename 7309 {
 	request {
 		base 0 : basetype
 		id 1 : integer
@@ -84,7 +77,7 @@ pet_rename 7310 {
 	}
 }
 
-pet_setchat 7311 {
+pet_setchat 7310 {
 	request {
 		base 0 : basetype
 		id 1 : integer
@@ -94,7 +87,7 @@ pet_setchat 7311 {
 }
 
 #扩展可携带宠物数目
-pet_expandspace 7312 {
+pet_expandspace 7311 {
 	request {
 		base 0 : basetype
 		itemid 1 : integer

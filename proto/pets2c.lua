@@ -6,6 +6,7 @@ pet_allpet 7301 {
 	request {
 		base 0 : basetype
 		pets 1 : *PetType
+		space 2 : integer	# 可携带宠物数量
 	}
 }
 

@@ -1,0 +1,33 @@
+--<<data_0601_NPC_Button 导表开始>>
+data_0601_NPC_Button = {
+
+	[1001] = {
+		name = "购买商品",
+		appear_time = {},
+		disappear_time = {},
+		needlv = 0,
+		needjobs = {},
+		need_srvlv = 0,
+	},
+
+	[1002] = {
+		name = "购买商品",
+		appear_time = {},
+		disappear_time = {},
+		needlv = 0,
+		needjobs = {},
+		need_srvlv = 0,
+	},
+
+	[1003] = {
+		name = "购买商品",
+		appear_time = {},
+		disappear_time = {},
+		needlv = 0,
+		needjobs = {},
+		need_srvlv = 0,
+	},
+
+}
+return data_0601_NPC_Button
+--<<data_0601_NPC_Button 导表结束>>

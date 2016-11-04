@@ -1,0 +1,75 @@
+--<<data_1700_PetSkill 导表开始>>
+data_1700_PetSkill = {
+
+	[10001] = {
+		name = 力量赋予,
+		quality = 1,
+		type = 101,
+		wartype = 1,
+		relation_limit = 1,
+		lv_limit = 1,
+		quality_limit = 1,
+		race_limit = 1,
+		attr_limit = 0,
+		type_limit = 0,
+		comprehend_ratio = 10000,
+		status_addn = 0,
+		liliang = 100,
+		minjie = 0,
+		tili = 0,
+		zhili = 0,
+		lingqiao = 0,
+		xingyun = 0,
+		desc = 将宠物一部分力量赋予给主角；,
+		limitdesc = 需要力量资质达到100,
+	}
+
+	[10002] = {
+		name = 敏捷赋予,
+		quality = 1,
+		type = 101,
+		wartype = 2,
+		relation_limit = 5,
+		lv_limit = 10,
+		quality_limit = 2,
+		race_limit = 2,
+		attr_limit = 0,
+		type_limit = 0,
+		comprehend_ratio = 10000,
+		status_addn = 0,
+		liliang = 0,
+		minjie = 100,
+		tili = 0,
+		zhili = 0,
+		lingqiao = 0,
+		xingyun = 0,
+		desc = 将宠物一部分敏捷赋予给主角；,
+		limitdesc = 需要敏捷资质达到100,
+	}
+
+	[10003] = {
+		name = 体力赋予,
+		quality = 1,
+		type = 101,
+		wartype = 3,
+		relation_limit = 7,
+		lv_limit = 50,
+		quality_limit = 3,
+		race_limit = 3,
+		attr_limit = 0,
+		type_limit = 0,
+		comprehend_ratio = 0,
+		status_addn = 0,
+		liliang = 0,
+		minjie = 0,
+		tili = 100,
+		zhili = 0,
+		lingqiao = 0,
+		xingyun = 0,
+		desc = 将宠物一部分体力赋予给主角；,
+		limitdesc = 需要体力资质达到100,
+	}
+
+}
+return data_1700_PetSkill
+--<<data_1700_PetSkill 导表结束>>

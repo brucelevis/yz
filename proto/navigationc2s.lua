@@ -26,5 +26,12 @@ navigation_livenessaward 7102 {
 	}
 }
 
+# 查看每日活动进度
+navigation_lookstat 7103 {
+	request {
+		base 0 : basetype
+	}
+}
+
 ]]
 }

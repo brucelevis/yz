@@ -1,0 +1,30 @@
+require "gamelogic.server"
+require "gamelogic.vote.votemgr"
+require "gamelogic.shop.globalshopdb"
+
+globalmgr = globalmgr or {}
+
+function globalmgr.init()
+	assert(not globalmgr.binit)
+	globalmgr.binit = true
+	local server = cserver.new()
+	server:loadfromdatabase()
+	server:add("runno",1)
+	globalmgr.server = server
+
+	local votemgr = cvotemgr.new()
+	globalmgr.votemgr = votemgr
+
+	local globalshopdb = cglobalshopdb.new()
+	globalshopdb:loadfromdatabase()
+	globalmgr.globalshopdb = globalshopdb
+end
+
+function globalmgr.onhourupdate()
+end
+
+function globalmgr.onfivehourupdate()
+	globalmgr.globalshopdb:onfivehourupdate()
+end
+
+return globalmgr

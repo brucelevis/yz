@@ -1,0 +1,66 @@
+--<<data_1500_ShiMoShiLianTaskNpc 导表开始>>
+data_1500_ShiMoShiLianTaskNpc = {
+
+	[10301] = {
+		name = "烈焰使魔",
+		shape = 10001,
+		posid = "21001001",
+		dir = 1,
+		isclient = 1,
+		talk = "我就是烈焰使魔,快来受死吧！",
+		job = "",
+	},
+
+	[10302] = {
+		name = "剧毒使魔",
+		shape = 10002,
+		posid = "21001002",
+		dir = 1,
+		isclient = 1,
+		talk = "我就是剧毒使魔,快来受死吧！",
+		job = "",
+	},
+
+	[10303] = {
+		name = "寒冰使魔",
+		shape = 10003,
+		posid = "21001003",
+		dir = 1,
+		isclient = 1,
+		talk = "我就是寒冰使魔,快来受死吧！",
+		job = "",
+	},
+
+	[10304] = {
+		name = "暗影使魔",
+		shape = 10004,
+		posid = "21001004",
+		dir = 1,
+		isclient = 1,
+		talk = "我就是暗影使魔,快来受死吧！",
+		job = "",
+	},
+
+	[10305] = {
+		name = "飓风使魔",
+		shape = 10005,
+		posid = "21002001",
+		dir = 1,
+		isclient = 1,
+		talk = "我就是飓风使魔,快来受死吧！",
+		job = "",
+	},
+
+	[10306] = {
+		name = "裂地使魔",
+		shape = 10006,
+		posid = "21002002",
+		dir = 1,
+		isclient = 1,
+		talk = "我就是裂地使魔,快来受死吧！",
+		job = "",
+	},
+
+}
+return data_1500_ShiMoShiLianTaskNpc
+--<<data_1500_ShiMoShiLianTaskNpc 导表结束>>

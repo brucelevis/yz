@@ -1,0 +1,63 @@
+data_0201_Debuff = {
+	[300001] = {
+		name = "昏迷",
+		des = "",
+		baseHitPro = 0.1,
+		baseHitProMin = 0,
+		existRound = 7,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 1,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {901031},
+		targetEffId = 0,
+	},
+
+	[301040] = {
+		name = "击退",
+		des = "",
+		baseHitPro = 0.1,
+		baseHitProMin = 0,
+		existRound = 0,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 1,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {901041},
+		targetEffId = 0,
+	},
+
+	[301050] = {
+		name = "挑衅",
+		des = "",
+		baseHitPro = 1,
+		baseHitProMin = 1,
+		existRound = 1,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 1,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {901051},
+		targetEffId = 10004,
+	},
+
+	[303010] = {
+		name = "冰冻",
+		des = "",
+		baseHitPro = 0.1,
+		baseHitProMin = 0,
+		existRound = 5,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 1,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {903011,903012,903013,903014,903015},
+		targetEffId = 10010,
+	},
+
+}
+

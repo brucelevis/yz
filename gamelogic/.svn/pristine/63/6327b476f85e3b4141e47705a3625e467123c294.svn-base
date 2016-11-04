@@ -1,0 +1,46 @@
+--<<data_1500_PaoshangTaskGoods 导表开始>>
+data_1500_PaoshangTaskGoods = {
+
+	[10001] = {
+		name = "商品1",
+		min_price = {14000,16000},
+		standard_price = 17000,
+		max_price = {17000,17001},
+		npcs = {90021,90022,90941,90931},
+	},
+
+	[10002] = {
+		name = "商品2",
+		min_price = {15000,17000},
+		standard_price = 18000,
+		max_price = {18000,18001},
+		npcs = {90021,90022,90941,90931},
+	},
+
+	[10003] = {
+		name = "商品3",
+		min_price = {16000,18000},
+		standard_price = 19000,
+		max_price = {19000,19001},
+		npcs = {90021,90022,90941,90931},
+	},
+
+	[10004] = {
+		name = "商品4",
+		min_price = {17000,19000},
+		standard_price = 20000,
+		max_price = {20000,20001},
+		npcs = {90021,90022,90941,90931},
+	},
+
+	[10005] = {
+		name = "商品5",
+		min_price = {18000,20000},
+		standard_price = 21000,
+		max_price = {21000,21001},
+		npcs = {90021,90022,90941,90931},
+	},
+
+}
+return data_1500_PaoshangTaskGoods
+--<<data_1500_PaoshangTaskGoods 导表结束>>

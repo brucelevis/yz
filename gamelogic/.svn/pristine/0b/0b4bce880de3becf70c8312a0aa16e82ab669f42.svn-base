@@ -1,0 +1,45 @@
+nettask = nettask or {
+	C2S = {},
+	S2C = {},
+}
+
+local C2S = nettask.C2S
+local S2C = nettask.S2C
+
+--c2s
+function C2S.triggerwar(player,request)
+	local chapterid = assert(request.chapterid)
+	player.chapterdb:triggerwar(chapterid)
+end
+
+function C2S.getaward(player,request)
+	local awardid = assert(request.awardid)
+	player.chapterdb:mainlineaward(awardid)
+end
+
+--s2c
+function S2C.unlock(pid,chapterid)
+	sendpackage(pid,"chapter","unlock",{
+		chapterid = chapterid,
+	})
+end
+
+function S2C.update(pid,chapter)
+	sendpackage(pid,"chapter","update",{
+		chapter = chapter,
+	})
+end
+
+function S2C.allchapter(pid,chapters)
+	sendpackage(pid,"chapter","allchapter",{
+		chapters = chapters,
+	})
+end
+
+function S2C.awardrecord(pid,records)
+	sendpackage(pid,"chapter","awardrecord",{
+		records = records,
+	})
+end
+
+return nettask

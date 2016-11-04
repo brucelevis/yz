@@ -145,6 +145,7 @@ item_expandspace 5518 {
 item_cancel_baotu 5519 {
 	request {
 		base 0 : basetype
+		type 1 : string			# baotu--普通宝图，gaoji_baotu--高级宝图
 	}
 }
 

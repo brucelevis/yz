@@ -1,0 +1,6 @@
+--<<data_1700_PetVar 导表开始>>
+data_1700_PetVar = {
+
+}
+return data_1700_PetVar
+--<<data_1700_PetVar 导表结束>>

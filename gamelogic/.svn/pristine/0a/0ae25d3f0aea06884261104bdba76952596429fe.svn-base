@@ -1,0 +1,1 @@
+require "gamelogic.friend.frienddb"

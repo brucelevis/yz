@@ -1,0 +1,135 @@
+horn = horn or {}
+horn.itemid = 501001
+horn.hornmsg = {}
+horn.lasttime = 0
+horn.msgid = 0
+horn.nowmsgid = 0
+horn.duration = 0
+horn.cooldown = 3
+
+function horn.usehorn(player,hornmsg)
+	local isok,errmsg = horn.canusehorn(player)
+	if not isok then
+		net.msg.S2C.notify(player.pid,errmsg)
+		return
+	end
+	local itemdb = player:getitemdb(horn.itemid)
+	local costhornnum = horn.costhornnum(player)
+	local reason = "usehorn"
+	itemdb:costitembytype(horn.itemid,costhornnum,reason)
+	local sender = net.msg.packsender(player)
+	horn.add(hornmsg,sender)
+	player.thistemp:set("usehorntime",os.time(),3)
+	local hornstatus = player:query("hornstatus")
+	hornstatus.usehornnum = hornstatus.usehornnum + 1
+	player:set("hornstatus",hornstatus)
+	horn.showmsgmgr()
+end
+
+function horn.canusehorn(player)
+	local itemdb = player:getitemdb(horn.itemid)
+	local hasnum = itemdb:getnumbytype(horn.itemid)
+	local costhornnum = horn.costhornnum(player)
+	if hasnum < costhornnum then
+		return false,language.format("{1}不足{2}个",itemaux.itemlink(horn.itemid),costhornnum)
+	end
+	local usehorntime = player.thistemp:query("usehorntime")
+	if usehorntime then
+		local nowtime = os.time()
+		print(nowtime,usehorntime)
+		return false,language.format("道具{1}秒后完成冷却",horn.cooldown - (nowtime - usehorntime))
+	end
+	return true
+end
+
+function horn.genid()
+	if horn.msgid >= MAX_NUMBER then
+		horn.msgid = 0
+	end
+	horn.msgid = horn.msgid + 1
+	return horn.msgid
+end
+
+function horn.add(hornmsg,sender)
+	local id = horn.genid()
+	horn.hornmsg[id] = {
+		hornmsg = hornmsg,
+		sender = sender,
+	}
+end
+
+function horn.costhornnum(player)
+	local hornstatus = player:query("hornstatus")
+	local resettime = os.date("%Y%m%d05", os.time())
+	local nowtime = os.date("%Y%m%d%H", os.time())
+	if not hornstatus or (hornstatus.resettime < resettime and resettime <= nowtime) then
+		hornstatus = {
+			usehornnum = 0,
+			resettime = resettime,
+		}
+		player:set("hornstatus",hornstatus)
+		return 1
+	elseif hornstatus.usehornnum < 20 then
+		return 1
+	elseif hornstatus.usehornnum >= 20 and hornstatus.usehornnum < 30 then
+		return 2
+	elseif hornstatus.usehornnum >= 30 and hornstatus.usehornnum < 40 then
+		return 3
+	elseif hornstatus.usehornnum >= 40 and hornstatus.usehornnum < 50 then
+		return 4
+	elseif hornstatus.usehornnum >= 50 then
+		return 5
+	end
+end
+
+function horn.showmsg(sender,hornmsg)
+	local list = playermgr.allplayer()
+	for _,pid in pairs(list) do
+		sendpackage(pid,"msg","hornmsg",{
+			sender = sender,
+			msg = hornmsg,
+		})
+	end
+end
+
+function horn.getduration()
+	if horn.nowmsgid == horn.msgid then
+		return 10
+	else
+		return 3
+	end
+end
+
+function horn.showmsgmgr()
+	if horn.nowmsgid == horn.msgid then
+		return
+	end
+	local interval = os.time() - horn.lasttime
+	if interval > horn.duration then 
+		horn.hornmsg[horn.nowmsgid] = nil
+		horn.nowmsgid = horn.nowmsgid + 1
+		local sender = horn.hornmsg[horn.nowmsgid].sender
+		local hornmsg = horn.hornmsg[horn.nowmsgid].hornmsg
+		horn.duration = horn.getduration()
+		horn.showmsg(sender,hornmsg)
+		horn.lasttime = os.time()
+		if horn.nowmsgid >= MAX_NUMBER then
+			horn.nowmsgid = 0
+		end
+	elseif interval < horn.duration - 3 then
+		horn.duration = 3
+		horn.lasttime = os.time()
+	else
+		return
+	end
+end
+
+function horn.check()
+	if horn.msgid ~= horn.nowmsgid then
+		horn.showmsgmgr()
+	else
+		return
+	end
+end
+
+return horn

@@ -1,0 +1,73 @@
+-- 跨服玩家代理
+-- 如: 
+-- local player = cproxyplayer.new(1000001)
+-- player.itemdb:additembytype(105001,10,nil,"test:rpc")
+-- local addgold = player:addgold(10,"test:rpc")
+-- print(addgold)  -- 10
+-- 只支持rpc调用函数，并且需要保证调用的函数返回值是"值类型"
+-- 暂时不支持rpc获取属性
+cproxyplayer = cproxyplayer or {}
+
+cproxyplayer_meta = cproxyplayer_meta or {}
+
+function cproxyplayer_meta.__index(self,cmd)
+	self.cmd = cmd
+	self.child = cproxyplayer.new(self.pid)
+	self.child.parent = self
+	print(self.cmd,self,self.child,self.parent)
+	return self.child
+end
+
+function cproxyplayer_meta.__call(self,first,...)
+	local pid = self.pid
+
+	local cmds = {}
+	local root = self
+	table.insert(cmds,1,self.parent.cmd)
+	if self.parent == first then
+		table.insert(cmds,1,":")
+	else
+		table.insert(cmds,1,".")
+	end
+	root = self.parent
+	while root.parent do
+		table.insert(cmds,1,root.parent.cmd)
+		table.insert(cmds,1,".")
+		root = root.parent
+	end
+	print(self,#cmds)
+	local cmd = table.concat(cmds)
+	print("call",self.pid,cmd,...)
+	local resume = resumemgr.getresume(pid)
+	if not resume or not resume:get("now_srvname") then
+		logger.log("warning","cluster","[ignore cproxyplayer:call]",pid,cmd,...)
+		return
+	end
+	local now_srvname = resume:get("now_srvname")
+	return rpc.call(now_srvname,"playermethod",pid,cmd,...)
+end
+
+
+
+function cproxyplayer.new(pid)
+	local self = {
+		pid = pid,
+		cmd = false,
+		parent = false,
+		child = false,
+	}
+	setmetatable(self,cproxyplayer_meta)
+	return self
+end
+
+function cproxyplayer:playermethod(cmd,...)
+	local pid = self.pid
+	local resume = resumemgr.getresume(pid)
+	if not resume or not resume.now_srvname then
+		logger.log("warning","cluster","[ignore cprxyplayer:playermethod]",pid,cmd,...)
+		return
+	end
+	return rpc.call(resume.now_srvname,"playermethod",pid,cmd,...)
+end
+
+return cproxyplayer

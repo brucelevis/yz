@@ -1,0 +1,188 @@
+--<<data_0501_ItemBox_Award 导表开始>>
+data_0501_ItemBox_Award = {
+
+	[1] = {
+		awardtable = {
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 2,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 2,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 3,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 4,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 5,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=401001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 6,
+			},
+
+		},
+		ratiotype = 1,
+		desc = "801001宝箱开出的奖励",
+	},
+
+	[2] = {
+		awardtable = {
+			
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409001,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1500,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409002,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1500,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409003,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1500,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409004,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1500,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409005,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1500,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409006,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1500,
+			},
+
+
+			{
+				gold = 1,
+				silver = 1,
+				coin = 1,
+				exp = 1,
+				jobexp = 1,
+				items = {{type=409007,num=1,bind=0},nil,nil,nil,nil,},
+				pets = {nil,nil,},
+				ratio = 1000,
+			},
+
+		},
+		ratiotype = 1,
+		desc = "队长宝箱出物品",
+	},
+
+}
+return data_0501_ItemBox_Award
+--<<data_0501_ItemBox_Award 导表结束>>

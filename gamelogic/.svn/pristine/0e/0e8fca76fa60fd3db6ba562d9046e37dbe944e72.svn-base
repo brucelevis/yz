@@ -1,0 +1,86 @@
+--<<data_1500_GlobalTask 导表开始>>
+data_1500_GlobalTask = {
+
+	test = {
+		task = "data_1500_TestTaskProcess",
+		npc = "data_1500_TestTaskNpc",
+		award = "data_1500_TestTaskAward",
+		text = "data_1500_TestTaskText",
+		fake = "nil",
+		tasktype = 900,
+		ringlimit = 0,
+		donelimit = 0,
+		interval = nil,
+		starttime = nil,
+		endtime = nil,
+		name = "测试任务",
+		desc = "这是测试任务的描述哦",
+	},
+
+	main = {
+		task = "data_1500_MainTaskProcess",
+		npc = "data_1500_MainTaskNpc",
+		award = "data_1500_MainTaskAward",
+		text = "data_1500_MainTaskText",
+		fake = "nil",
+		tasktype = 100,
+		ringlimit = 0,
+		donelimit = 0,
+		interval = nil,
+		starttime = nil,
+		endtime = nil,
+		name = "主线任务",
+		desc = "这是主线任务的描述哦",
+	},
+
+	branch = {
+		task = "data_1500_BranchTaskProcess",
+		npc = "data_1500_BranchTaskNpc",
+		award = "data_1500_BranchTaskAward",
+		text = "data_1500_BranchTaskText",
+		fake = "nil",
+		tasktype = 101,
+		ringlimit = 0,
+		donelimit = 0,
+		interval = nil,
+		starttime = nil,
+		endtime = nil,
+		name = "支线任务",
+		desc = "这是支线任务的描述哦",
+	},
+
+	shimen = {
+		task = "data_1500_ShimenTaskProcess",
+		npc = "data_1500_ShimenTaskNpc",
+		award = "data_1500_ShimenTaskAward",
+		text = "data_1500_ShimenTaskText",
+		fake = "nil",
+		tasktype = 102,
+		ringlimit = 0,
+		donelimit = 0,
+		interval = nil,
+		starttime = nil,
+		endtime = nil,
+		name = "师门任务",
+		desc = "这是师门任务的描述哦",
+	},
+
+	shimoshilian = {
+		task = "data_1500_ShiMoShiLianTaskProcess",
+		npc = "data_1500_ShiMoShiLianTaskNpc",
+		award = "data_1500_ShiMoShiLianTaskAward",
+		text = "data_1500_ShiMoShiLianTaskText",
+		fake = "data_1500_ShiMoShiLianTaskFake",
+		tasktype = 103,
+		ringlimit = 0,
+		donelimit = 100,
+		interval = today,
+		starttime = nil,
+		endtime = nil,
+		name = "使魔试炼",
+		desc = "这是使魔试炼任务的描述哦",
+	},
+
+}
+return data_1500_GlobalTask
+--<<data_1500_GlobalTask 导表结束>>

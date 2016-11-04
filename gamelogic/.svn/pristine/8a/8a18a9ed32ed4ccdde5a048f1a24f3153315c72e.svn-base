@@ -1,0 +1,16 @@
+data_0201_Buff = {
+	[200001] = {
+		name = "",
+		des = "",
+		existRound = 1,
+		overlayType = 0,
+		mutualType = 0,
+		immuneByBoss = 0,
+		immuneByRace = 0,
+		attackType = 0,
+		skilleffect = {901061,901062},
+		targetEffId = 10005,
+	},
+
+}
+

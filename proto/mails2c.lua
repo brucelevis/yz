@@ -17,10 +17,17 @@ mail_allmail 2001 {
 	}
 }
 
-mail_delmail_result 2002 {
+mail_delmail 2002 {
 	request {
 		base 0 : basetype
-		result 1 : boolean
+		mailid 1 : integer
+	}
+}
+
+mail_updatemail 2003 {
+	request {
+		base 0 : basetype
+		mail 1 : MailType
 	}
 }
 ]]

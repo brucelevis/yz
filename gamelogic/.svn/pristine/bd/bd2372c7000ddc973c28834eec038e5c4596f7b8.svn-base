@@ -1,0 +1,309 @@
+--<<data_1500_BranchTaskText 导表开始>>
+data_1500_BranchTaskText = {
+
+	[1011] = {
+		texts = {
+			
+			{ npc1 = 101011, type = 1, emoji1 = 0, name = "伊菲", talk = 101011, npc2 = 0, emoji2 = 0, content = "还是王城好,繁华,兴旺,应有尽有。", },
+
+
+			{ npc1 = 101011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "不过到了这里可就不能像在山林旷野一样放肆了。迦南正在多事之秋,王城守备森严,小心惹来事端。、", },
+
+
+			{ npc1 = 101041, type = 2, emoji1 = 0, name = "？？？", talk = 101031, npc2 = 101031, emoji2 = 0, content = "对不起,饶了我这次吧,我真的没有钱。嘤嘤嘤……", },
+
+
+			{ npc1 = 101041, type = 2, emoji1 = 0, name = "恶霸", talk = 101041, npc2 = 101031, emoji2 = 0, content = "没钱？没钱谁准你在城里乱逛的？", },
+
+
+			{ npc1 = 101041, type = 2, emoji1 = 0, name = "？？？", talk = 101031, npc2 = 101031, emoji2 = 0, content = "请你们再饶恕我一次吧……", },
+
+
+			{ npc1 = 101011, type = 2, emoji1 = 0, name = "伊菲", talk = 101011, npc2 = 101021, emoji2 = 0, content = "青天白日欺凌弱小？！", },
+
+
+			{ npc1 = 101011, type = 2, emoji1 = 0, name = "爱拉忒", talk = 101021, npc2 = 101021, emoji2 = 0, content = "听起来还是个小孩子。", },
+
+
+			{ npc1 = 101011, type = 2, emoji1 = 0, name = "伊菲", talk = 101011, npc2 = 101021, emoji2 = 0, content = "哼,看我去教训他们！", },
+
+
+			{ npc1 = 101011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 101021, emoji2 = 0, content = "哎！不要冲动！", },
+
+		},
+	},
+
+	[1012] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "恶霸", talk = 101041, npc2 = 0, emoji2 = 0, content = "唉哟……勇者大人饶命啊！", },
+
+
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "要向你们的嘉卡大人告状尽管去,我可不怕他！", },
+
+		},
+	},
+
+	[1021] = {
+		texts = {
+			
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "爱拉忒", talk = 102021, npc2 = 102031, emoji2 = 0, content = "这孩子不是思莉嘉吗？", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "思莉嘉", talk = 102031, npc2 = 102031, emoji2 = 0, content = "嘤……哥哥姐姐,是你们？", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 102031, emoji2 = 0, content = "你怎么在这儿？你的爷爷呢？", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "思莉嘉", talk = 102031, npc2 = 102031, emoji2 = 0, content = "你们离开不久,赛共大人就为我解除了身上的魔法。爷爷说,不能回村子了,要带我投靠住在王城的姑姑。可是我们刚一下山,爷爷就得了重病,很快就去世了。", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "爱拉忒", talk = 102021, npc2 = 102031, emoji2 = 0, content = "老人家长时间受华利弗魔气的侵害,身体状况实在……思莉嘉你又是怎么遇到这群人的？", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "思莉嘉", talk = 102031, npc2 = 102031, emoji2 = 0, content = "我……我也不清楚。王城太大了,我找不到姑姑,昨天撞见了这群人,他们朝我要钱。说没有钱就像过路人讨……", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "思莉嘉", talk = 102031, npc2 = 102031, emoji2 = 0, content = "如果今天还拿不出钱就把我关起来。", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 102031, emoji2 = 0, content = "嘉卡真是想钱想疯了,这种事也能纵容手下做得出来！", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "思莉嘉", talk = 102031, npc2 = 102031, emoji2 = 0, content = "哥哥姐姐,我已经很久没吃饱饭了,你们有吃的吗？", },
+
+
+			{ npc1 = 102021, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 102031, emoji2 = 0, content = "你等着。", },
+
+		},
+	},
+
+	[1022] = {
+		texts = {
+			
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "请问有人在吗？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "没有人我是死的吗？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "老板好,脾气还是这么火爆啊,还记得我吗？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "记得记得！你就是那个帮我教训了那群混蛋的勇者吧！", },
+
+		},
+	},
+
+	[1031] = {
+		texts = {
+			
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "怎么,又来讨牛肉吗？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "我这次可是会给钱的。", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "哈哈哈哈！那就多谢啦！", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "这么久不见,你到那里施展拳脚去了？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "这话可就长了。", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "啊那算了！我可没时间听你絮叨,今天要点什么啊？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "还是嫩牛肉吧,一份熟的。", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "一份？太少了吧？您可是威风赫赫的勇者大人啊！", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "呃……那两份？", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "五份！", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "好……好多……", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "怎么样,够爽快吧！", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "好！就五份。", },
+
+
+			{ npc1 = 101003, type = 1, emoji1 = 0, name = "肉铺老板", talk = 101003, npc2 = 0, emoji2 = 0, content = "银货两讫,您的牛肉,勇者大人！", },
+
+		},
+	},
+
+	[1032] = {
+		texts = {
+			
+			{ npc1 = 103011, type = 2, emoji1 = 0, name = "伊菲", talk = 103011, npc2 = 103021, emoji2 = 0, content = "好蠢！被人骗了都不知道。", },
+
+
+			{ npc1 = 103011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 103021, emoji2 = 0, content = "被骗？", },
+
+
+			{ npc1 = 103011, type = 2, emoji1 = 0, name = "爱拉忒", talk = 103021, npc2 = 103021, emoji2 = 0, content = "人家三言两语就让你多买了四份牛肉。你吃得了那么多？天这么热,很快就会坏掉的。", },
+
+
+			{ npc1 = 103011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 103021, emoji2 = 0, content = "那思莉嘉多吃点。", },
+
+
+			{ npc1 = 103011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 103021, emoji2 = 0, content = "我们不能照顾她太久,还是尽快找到他的家人比较好。", },
+
+		},
+	},
+
+	[1041] = {
+		texts = {
+			
+			{ npc1 = 104011, type = 2, emoji1 = 0, name = "爱拉忒", talk = 104021, npc2 = 104021, emoji2 = 0, content = "那就开始行动吧！", },
+
+
+			{ npc1 = 104011, type = 2, emoji1 = 0, name = "伊菲", talk = 104011, npc2 = 104021, emoji2 = 0, content = "我们分头进行吧,这样快一些。", },
+
+
+			{ npc1 = 104011, type = 2, emoji1 = 0, name = "爱拉忒", talk = 104021, npc2 = 104021, emoji2 = 0, content = "王城这么大,要找到什么时候？我们把消息写在布告牌上,思莉嘉的姑姑看到了,就回来找我们。", },
+
+
+			{ npc1 = 104011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 104021, emoji2 = 0, content = "这个主意不错,就这么办！", },
+
+		},
+	},
+
+	[1042] = {
+		texts = {
+			
+			{ npc1 = 0, type = 3, emoji1 = 0, name = "nil", talk = 0, npc2 = 0, emoji2 = 0, content = "时间匆匆流逝,夕阳西下。", },
+
+
+			{ npc1 = 104011, type = 2, emoji1 = 0, name = "伊菲", talk = 104011, npc2 = 104021, emoji2 = 0, content = "这么久也没有人……不过思莉嘉不要担心,你姑姑一定会看到的。", },
+
+
+			{ npc1 = 104011, type = 2, emoji1 = 0, name = "爱拉忒", talk = 104021, npc2 = 104021, emoji2 = 0, content = "话这么说,可是如果一直找不到人,我们也只能暂时将她托付给别人照顾了……", },
+
+		},
+	},
+
+	[1051] = {
+		texts = {
+			
+			{ npc1 = 105031, type = 1, emoji1 = 0, name = "思莉嘉", talk = 105031, npc2 = 0, emoji2 = 0, content = "我……我可以和你们在一起吗？我能照顾好自己。", },
+
+
+			{ npc1 = 105031, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "我们要去的地方,要做的事都是非常凶险的。你还小,应该得到更好的照顾和教育。", },
+
+
+			{ npc1 = 105011, type = 2, emoji1 = 0, name = "伊菲", talk = 105011, npc2 = 105021, emoji2 = 0, content = "是啊！说不定以后能成为比我们更强的勇者呢！", },
+
+
+			{ npc1 = 105031, type = 1, emoji1 = 0, name = "思莉嘉", talk = 105031, npc2 = 0, emoji2 = 0, content = "好吧……", },
+
+
+			{ npc1 = 105011, type = 2, emoji1 = 0, name = "爱拉忒", talk = 105021, npc2 = 105021, emoji2 = 0, content = "真的很抱歉……", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "嘉卡", talk = 105041, npc2 = 0, emoji2 = 0, content = "哈哈,又是你！", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "嘉卡大人？", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "嘉卡", talk = 105041, npc2 = 0, emoji2 = 0, content = "上次有米利暗包庇你,这次,我看谁来救你！", },
+
+
+			{ npc1 = 105011, type = 2, emoji1 = 0, name = "伊菲", talk = 105011, npc2 = 105021, emoji2 = 0, content = "怎么,想打群架吗？", },
+
+
+			{ npc1 = 105011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105021, emoji2 = 0, content = "这是我和嘉卡大人的个人恩怨,你们不要插手。", },
+
+
+			{ npc1 = 105011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 105021, emoji2 = 0, content = "这位大人上次没亲自尝到我的拳头,恐怕心里十分遗憾呢。", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "嘉卡", talk = 105041, npc2 = 0, emoji2 = 0, content = "别说大话,我今天可是带足了打手。", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "是吗？那就请您亲自验证,我是不是说大话。", },
+
+		},
+	},
+
+	[1052] = {
+		texts = {
+			
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "嘉卡", talk = 105041, npc2 = 0, emoji2 = 0, content = "你……你……！", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "放心,我还没野蛮到随意伤害他人性命的地步,只是稍微教训你一下而已。", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "但是,如果再让我看到阁下欺凌弱小,可就不是一顿拳头这么便宜了。", },
+
+
+			{ npc1 = 105041, type = 1, emoji1 = 0, name = "嘉卡", talk = 105041, npc2 = 0, emoji2 = 0, content = "我……我要告诉睦旦大人去！你们竟然敢如此无法无天！咱们走着瞧！", },
+
+		},
+	},
+
+	[1061] = {
+		texts = {
+			
+			{ npc1 = 106031, type = 1, emoji1 = 0, name = "思莉嘉", talk = 106031, npc2 = 0, emoji2 = 0, content = "是不是我又连累你们了？", },
+
+
+			{ npc1 = 106031, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "怎么会！小小年纪,不要想那么多,会长不高的。", },
+
+
+			{ npc1 = 106031, type = 2, emoji1 = 0, name = "中年妇女", talk = 106041, npc2 = 106041, emoji2 = 0, content = "思莉嘉？是你吗？", },
+
+
+			{ npc1 = 106031, type = 2, emoji1 = 0, name = "思莉嘉", talk = 106031, npc2 = 106041, emoji2 = 0, content = "姑姑？是我姑姑！", },
+
+
+			{ npc1 = 106031, type = 2, emoji1 = 0, name = "中年妇女", talk = 106041, npc2 = 106041, emoji2 = 0, content = "真的是你,我的孩子！你怎么到这里来了？他们是谁？", },
+
+
+			{ npc1 = 106031, type = 2, emoji1 = 0, name = "思莉嘉", talk = 106031, npc2 = 106041, emoji2 = 0, content = "他们是我的朋友。", },
+
+
+			{ npc1 = 106031, type = 1, emoji1 = 0, name = "爱拉忒", talk = 106021, npc2 = 106021, emoji2 = 0, content = "你说你是这个孩子的姑姑,怎么证明？我们可不能把她交给不明不白的人。", },
+
+
+			{ npc1 = 106041, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "请问这个孩子的家住在哪里？有什么亲人？", },
+
+
+			{ npc1 = 106041, type = 1, emoji1 = 0, name = "中年妇女", talk = 106041, npc2 = 0, emoji2 = 0, content = "她住在王城外不远处的赫麦村。家里有父亲、母亲和爷爷。前一段时间,我接到他父亲的信,说村子里不太平静,也不知道现在怎么样了……", },
+
+		},
+	},
+
+	[1062] = {
+		texts = {
+			
+			{ npc1 = 106031, type = 2, emoji1 = 0, name = "思莉嘉", talk = 106031, npc2 = 106041, emoji2 = 0, content = "哥哥姐姐,她真的是我姑姑。", },
+
+
+			{ npc1 = 106011, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 106021, emoji2 = 0, content = "既然这样,那思莉嘉就拜托您照看了。", },
+
+
+			{ npc1 = 106011, type = 2, emoji1 = 0, name = "伊菲", talk = 106011, npc2 = 106021, emoji2 = 0, content = "思莉嘉,我们下次回到王城再来看望你。", },
+
+
+			{ npc1 = 106031, type = 2, emoji1 = 0, name = "思莉嘉", talk = 106031, npc2 = 106041, emoji2 = 0, content = "嗯！我会努力成长为和哥哥姐姐一样出色的勇者呢！", },
+
+		},
+	},
+
+}
+return data_1500_BranchTaskText
+--<<data_1500_BranchTaskText 导表结束>>

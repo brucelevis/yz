@@ -1,0 +1,6 @@
+--<<data_1500_PaoshangTaskAward 导表开始>>
+data_1500_PaoshangTaskAward = {
+
+}
+return data_1500_PaoshangTaskAward
+--<<data_1500_PaoshangTaskAward 导表结束>>

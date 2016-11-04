@@ -9,6 +9,12 @@ return {
 	awarded 2 : boolean #活动奖励是否领取
 }
 
+.DailyStatType {
+	id 0 : integer
+	cnt 1 : integer		# 当天完成次数
+	limit 2 : integer	# 当天次数上限
+}
+
 # 全量更新活动导航数据
 navigation_sendactivitydata 7100 {
 	request {
@@ -30,6 +36,14 @@ navigation_needupdate 7101 {
 navigation_showredpoint 7102 {
 	request {
 		base 0 : basetype
+	}
+}
+
+# 每日统计数据
+navigation_dailystat 7103 {
+	request {
+		base 0 : basetype
+		stats 1 : *DailyStatType
 	}
 }
 

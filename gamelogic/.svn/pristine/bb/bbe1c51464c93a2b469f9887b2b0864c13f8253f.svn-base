@@ -1,0 +1,147 @@
+-- 物品辅助函数
+itemaux = itemaux or {}
+
+ItemMainType = {
+	EQUIP = 1,				-- 装备
+	FASHION_SHOW = 2,		-- 时装
+	CARD = 3,				-- 卡片
+	MATERIAL = 4,			-- 材料
+	DRUG = 5,				-- 药品
+	COSTITEM = 6,			-- 消耗品
+	TASKITEM = 7,			-- 任务物品
+	TREASURE_BOX = 8,		-- 宝箱
+}
+
+ItemQuality = {
+	GREEE = 1,		-- 绿
+	BLUE = 2,		-- 蓝
+	PURPLE = 3,		-- 紫
+	ORANGE = 4,		-- 橙 
+}
+
+function itemaux.getitemdata(itemtype)
+	local maintype = itemaux.getmaintype(itemtype)
+	if maintype == ItemMainType.EQUIP then
+		for i,itemtable in ipairs({
+			data_0401_ItemHat,
+			data_0401_ItemWeapon,
+			data_0401_ItemNecklace,
+			data_0401_ItemCloth,
+			data_0401_ItemCloak,
+			data_0401_ItemShield,
+			data_0401_ItemShoe,
+			data_0401_ItemRing}) do
+			local itemdata = itemtable[itemtype]
+			if itemdata then
+				return itemdata
+			end
+		end
+	elseif maintype == ItemMainType.FASHION_SHOW then
+	elseif maintype == ItemMainType.CARD then
+	elseif maintype == ItemMainType.MATERIAL then
+		return data_0401_ItemMaterial[itemtype]
+	elseif maintype == ItemMainType.DRUG then
+		return data_0401_ItemDrug[itemtype]
+	elseif maintype == ItemMainType.COSTITEM then
+	elseif maintype == ItemMainType.TASKITEM then
+	elseif maintype == ItemMainType.TREASURE_BOX then
+		return data_0401_ItemBox[itemtype]
+	else
+		error("Unknow MainType Item:" .. tostring(itemtype))
+	end
+end
+
+-- 物品主类别
+function itemaux.getmaintype(itemtype)
+	local typ = math.floor(itemtype/100000)
+	return typ
+end
+
+-- 物品子类别
+function itemaux.getminortype(itemtype)
+	itemtype = itemtype - itemaux.getmaintype(itemtype) * 100000
+	return math.floor(itemtype/1000)
+end
+
+function itemaux.itemtip(itemtype)
+	local itemdata = itemaux.getitemdata(itemtype)
+	-- TODO: modify
+	return language.untranslate(itemdata.name)
+end
+
+
+EQUIPTYPE = {
+	["短剑"] = 1,
+	["单手剑"] = 2,
+	["单手矛"] = 3,
+	["单手杖"] = 4,
+	["锤"] = 5,
+	["双手剑" ] = 6,
+	["双后矛"] = 7,
+	["双手杖"] = 8,
+	["拳刃"] = 9,
+	["弓"] = 10,
+	["头盔"] = 11,
+	["帽子"] = 12,
+	["披风"] = 13,
+	["衣服"] = 14,
+	["铠甲"] = 15,
+	["法袍"] = 16,
+	["鞋子"] = 17,
+	["项链"] = 18,
+	["戒指"] = 19,
+	["盾"] = 20,
+}
+
+EQUIP_MINORTYPE_NAME = {
+	[1] = "hat", -- 帽子
+	[2] = "weapon", -- 武器
+	[3] = "cloth",  -- 衣服
+	[4] = "necklace", -- 项链
+	[5] = "cloak",    -- 披风
+	[6] = "shield",	  -- 盾牌
+	[7] = "shoe",	  -- 鞋子
+	[8] = "ring",	  -- 戒指
+}
+
+-- 武器
+function itemaux.isweapon(equiptype)
+	return 1 <= equiptype and equiptype <= 10
+end
+
+-- 帽子
+function itemaux.ishat(equiptype)
+	return 11 <= equiptype and equiptype < 12
+end
+
+-- 披风
+function itemaux.iscloak(equiptype)
+	return 13 <= equiptype and equiptype <= 13
+end
+
+-- 衣服
+function itemaux.iscloth(equiptype)
+	return 14 <= equiptype and equiptype <= 16
+end
+
+-- 鞋子
+function itemaux.isshoe(equiptype)
+	return 17 <= equiptype and equiptype <= 17
+end
+
+-- 项链
+function itemaux.isnecklace(equiptype)
+	return 18 <= equiptype and equiptype <= 18
+end
+
+-- 戒指
+function itemaux.isring(equiptype)
+	return 19 <= equiptype and equiptype <= 19
+end
+
+-- 盾
+function itemaux.isshield(eqiuptype)
+	return 20 <= equiptype and equiptype <= 20
+end
+
+return itemaux

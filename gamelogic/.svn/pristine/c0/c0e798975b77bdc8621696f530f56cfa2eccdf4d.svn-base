@@ -1,0 +1,118 @@
+--<<data_1700_PetZiZhiGrow 导表开始>>
+data_1700_PetZiZhiGrow = {
+
+	["INIT"] = {
+		HP = 0.000000,
+		WUGONG = 10.000000,
+		WUFANG = 5.000000,
+		FAGONG = 10.000000,
+		FAFANG = 5.000000,
+		SP = 0.000000,
+		PACC = 0.000000,
+		WLDS = 0.000000,
+		WLBJ = 0.000000,
+		RENXING = 10.000000,
+		DESC = "初始值",
+	},
+
+	["LVGROW"] = {
+		HP = 8.000000,
+		WUGONG = 2.000000,
+		WUFANG = 1.000000,
+		FAGONG = 2.000000,
+		FAFANG = 1.000000,
+		SP = 1.000000,
+		PACC = 0.500000,
+		WLDS = 0.500000,
+		WLBJ = 0.500000,
+		RENXING = 0.500000,
+		DESC = "等级成长",
+	},
+
+	["XZ_LILIANG"] = {
+		HP = 0.000000,
+		WUGONG = 0.600000,
+		WUFANG = 0.500000,
+		FAGONG = 0.000000,
+		FAFANG = 0.000000,
+		SP = 0.000000,
+		PACC = 0.000000,
+		WLDS = 0.000000,
+		WLBJ = 0.000000,
+		RENXING = 0.000000,
+		DESC = "力量资质修正",
+	},
+
+	["XZ_MINJIE"] = {
+		HP = 0.000000,
+		WUGONG = 0.000000,
+		WUFANG = 0.000000,
+		FAGONG = 0.000000,
+		FAFANG = 0.000000,
+		SP = 0.200000,
+		PACC = 0.000000,
+		WLDS = 0.600000,
+		WLBJ = 0.000000,
+		RENXING = 0.000000,
+		DESC = "敏捷资质修正",
+	},
+
+	["XZ_TILI"] = {
+		HP = 0.000000,
+		WUGONG = 0.000000,
+		WUFANG = 0.500000,
+		FAGONG = 0.000000,
+		FAFANG = 0.200000,
+		SP = 0.000000,
+		PACC = 0.000000,
+		WLDS = 0.000000,
+		WLBJ = 0.000000,
+		RENXING = 0.000000,
+		DESC = "体力资质修正",
+	},
+
+	["XZ_ZHILI"] = {
+		HP = 0.000000,
+		WUGONG = 0.000000,
+		WUFANG = 0.000000,
+		FAGONG = 1.000000,
+		FAFANG = 0.500000,
+		SP = 0.000000,
+		PACC = 0.000000,
+		WLDS = 0.000000,
+		WLBJ = 0.000000,
+		RENXING = 0.000000,
+		DESC = "智力资质修正",
+	},
+
+	["XZ_LINGQIAO"] = {
+		HP = 0.000000,
+		WUGONG = 0.400000,
+		WUFANG = 0.000000,
+		FAGONG = 0.000000,
+		FAFANG = 0.300000,
+		SP = 0.000000,
+		PACC = 1.000000,
+		WLDS = 0.000000,
+		WLBJ = 0.000000,
+		RENXING = 0.000000,
+		DESC = "灵巧资质修正",
+	},
+
+	["XZ_XINYUN"] = {
+		HP = 0.000000,
+		WUGONG = 0.000000,
+		WUFANG = 0.000000,
+		FAGONG = 0.000000,
+		FAFANG = 0.000000,
+		SP = 0.000000,
+		PACC = 0.000000,
+		WLDS = 0.400000,
+		WLBJ = 0.500000,
+		RENXING = 0.500000,
+		DESC = "幸运资质修正",
+	},
+
+}
+return data_1700_PetZiZhiGrow
+--<<data_1700_PetZiZhiGrow 导表结束>>

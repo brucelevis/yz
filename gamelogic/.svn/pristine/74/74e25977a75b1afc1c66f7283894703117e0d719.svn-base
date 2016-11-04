@@ -1,0 +1,306 @@
+--<<data_0401_MapTeleporter 导表开始>>
+data_0401_MapTeleporter = {
+
+	[101001] = {
+		des = "迦南城》迦南圣殿",
+		name = "迦南圣殿",
+		type = 1,
+		toid = 9102001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[101002] = {
+		des = "迦南城》野外乡村",
+		name = "野外乡村",
+		type = 1,
+		toid = 9106001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[102001] = {
+		des = "迦南圣殿》迦南城",
+		name = "迦南城",
+		type = 1,
+		toid = 9101001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[103001] = {
+		des = "巴比伦城》空中花园",
+		name = "空中花园",
+		type = 1,
+		toid = 9104001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[103002] = {
+		des = "巴比伦城》海边",
+		name = "海边",
+		type = 1,
+		toid = 9112001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[103003] = {
+		des = "巴比伦城》沙漠戈壁",
+		name = "沙漠戈壁",
+		type = 1,
+		toid = 9110003,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[104001] = {
+		des = "空中花园》巴比伦城",
+		name = "巴比伦城",
+		type = 1,
+		toid = 9103001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[106001] = {
+		des = "野外乡村》迦南城",
+		name = "迦南城",
+		type = 1,
+		toid = 9101002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[106002] = {
+		des = "野外乡村》水晶矿洞",
+		name = "水晶矿洞",
+		type = 1,
+		toid = 9107001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[106003] = {
+		des = "野外乡村》森林",
+		name = "森林",
+		type = 1,
+		toid = 9108001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[107001] = {
+		des = "水晶矿洞》野外乡村",
+		name = "野外乡村",
+		type = 1,
+		toid = 9106002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[107002] = {
+		des = "水晶矿洞》地下城市",
+		name = "地下城市",
+		type = 1,
+		toid = 9117001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[108001] = {
+		des = "森林》野外乡村",
+		name = "野外乡村",
+		type = 1,
+		toid = 9106003,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[108002] = {
+		des = "森林》雪山",
+		name = "雪山",
+		type = 1,
+		toid = 9111002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[108003] = {
+		des = "森林》沙漠戈壁",
+		name = "沙漠戈壁",
+		type = 1,
+		toid = 9110001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[108004] = {
+		des = "森林》毒气沼泽",
+		name = "毒气沼泽",
+		type = 1,
+		toid = 9113001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[109001] = {
+		des = "空中城市》雪山",
+		name = "雪山",
+		type = 1,
+		toid = 9111001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[110001] = {
+		des = "沙漠戈壁》森林",
+		name = "森林",
+		type = 1,
+		toid = 9108003,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[110002] = {
+		des = "沙漠戈壁》诅咒之地",
+		name = "诅咒之地",
+		type = 1,
+		toid = 9114001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[110003] = {
+		des = "沙漠戈壁》巴比伦城",
+		name = "巴比伦城",
+		type = 1,
+		toid = 9103003,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[111001] = {
+		des = "雪山》空中城市",
+		name = "空中城市",
+		type = 1,
+		toid = 9109001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[111002] = {
+		des = "雪山》森林",
+		name = "森林",
+		type = 1,
+		toid = 9108002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[112001] = {
+		des = "海边》巴比伦城",
+		name = "巴比伦城",
+		type = 1,
+		toid = 9103002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[112002] = {
+		des = "海边》东方城市",
+		name = "东方城市",
+		type = 1,
+		toid = 9116001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[113001] = {
+		des = "毒气沼泽》森林",
+		name = "森林",
+		type = 1,
+		toid = 9108004,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[114001] = {
+		des = "诅咒之地》戈壁沙漠",
+		name = "戈壁沙漠",
+		type = 1,
+		toid = 9110002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[114002] = {
+		des = "诅咒之地》火山",
+		name = "火山",
+		type = 1,
+		toid = 9115001,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[115001] = {
+		des = "火山》诅咒之地",
+		name = "诅咒之地",
+		type = 1,
+		toid = 9114002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[116001] = {
+		des = "东方城市》海边",
+		name = "海边",
+		type = 1,
+		toid = 9112002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+	[117001] = {
+		des = "地下城市》水晶矿洞",
+		name = "水晶矿洞",
+		type = 1,
+		toid = 9107002,
+		dir = 5,
+		minimapPosDelay_x = 0,
+		minimapPosDelay_y = 0,
+	},
+
+}
+return data_0401_MapTeleporter
+--<<data_0401_MapTeleporter 导表结束>>

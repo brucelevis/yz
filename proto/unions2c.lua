@@ -1,6 +1,6 @@
 return {
 	p = "union",
-	si = 7400, --[7400,7500)
+	si = 7400, --[7400,8000)
 	src = [[
 
 # 公告/宗旨更改者
@@ -25,8 +25,9 @@ return {
 	pid 0 : integer
 	name 1 : string
 	lv 2 : integer
-	joblv 3 : integer
+	jobid 3 : integer
 	roletype 4 : integer
+	joblv 5 : integer
 }
 
 .UnionType {
@@ -45,6 +46,7 @@ return {
 	# 下面属性update_union不会更新
 	len 12 : integer			# 公会人数
 	leader 13 : UnionLeaderType	# 会长信息
+	fu_leaders 14 : *UnionLeaderType # 副会长信息
 }
 
 # 全量同步一个公会
@@ -168,6 +170,7 @@ union_selfunion 7413 {
 	request {
 		base 0 : basetype
 		unionid 1 : integer   # 空--无公会，否则--公会ID
+		jobid 2 : integer	  # 自身职位
 	}
 }
 
@@ -245,6 +248,66 @@ union_allitem 7421 {
 		items 1 : *ItemType
 	}
 }
-]]
+
+.UnionCollectCardSessionType {
+	id 0 : integer			# 会话ID
+	cardtype 1 : integer	# 收集的卡片类型
+	num 2 : integer			# 收集的卡片数量
+	has_donate 3 : integer	# 已捐献数量
+	createtime 4 : integer	# 创建时间
+	lifetime 5 : integer	# 持续时间
+	creater 6 : ResumeType # 集卡者信息(这里的简介可能只会发pid,name等)
 }
 
+# 所有的收集卡片信息(openui,type=jika时发给客户端)
+union_all_collect_card 7422 {
+	request {
+		base 0 : basetype
+		sessions 1 : *UnionCollectCardSessionType
+	}
+}
+
+# 单个收集卡片信息
+union_collect_card 7423 {
+	request {
+		base 0 : basetype
+		session 1 : UnionCollectCardSessionType
+	}
+}
+
+.UnionCollectItemTaskType {
+	taskid 0 : integer		# 任务ID
+	itemtype 1 : integer	# 物品类型
+	neednum 2 : integer     # 需求物品数量
+	hasnum 3 : integer		# 已有物品数量
+	donater 4 : ResumeType  # 捐献者信息(这里简介只会发pid,name信息),空--无捐献者
+	isbonus 5 : boolean		# true--已领取奖励
+	inhelp 6 : boolean		# true--求助中
+}
+
+# 公会收集：求助任务
+union_collectitem_askfor_help_task 7424 {
+	request {
+		base 0 : basetype
+		pid 1 : integer			# 求助者玩家ID
+		task 2 : UnionCollectItemTaskType  # 任务信息
+	}
+}
+
+# 公会收集: 所有任务(openui#collectitem时发送)
+union_collectitem_alltask 7425 {
+	request {
+		base 0 :  basetype
+		tasks 1 : *UnionCollectItemTaskType
+	}
+}
+
+# 公会收集:更新单个任务
+union_collectitem_updatetask 7426 {
+	request {
+		base 0 : basetype
+		task 1 : UnionCollectItemTaskType
+	}
+}
+]]
+}

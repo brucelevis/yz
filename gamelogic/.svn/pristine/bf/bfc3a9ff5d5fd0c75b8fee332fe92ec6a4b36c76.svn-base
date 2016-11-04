@@ -1,0 +1,468 @@
+--<<data_1100_GuaJiMonsterGroup 导表开始>>
+data_1100_GuaJiMonsterGroup = {
+
+	[1001] = {
+		
+			[20001] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1003] = {
+		
+			[20001] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1006] = {
+		
+			[20001] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1007] = {
+		
+			[20001] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1008] = {
+		
+			[20001] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1009] = {
+		
+			[20001] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1010] = {
+		
+			[20001] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1011] = {
+		
+			[20001] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1012] = {
+		
+			[20001] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1013] = {
+		
+			[20001] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1014] = {
+		
+			[20001] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1015] = {
+		
+			[20001] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1016] = {
+		
+			[20001] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+	},
+
+	[1017] = {
+		
+			[20001] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+
+			[20002] = {
+				name = "怪物1",
+				description = "这是一个怪物"
+			},
+
+
+			[20003] = {
+				name = "怪物2",
+				description = "这是一个怪物"
+			},
+
+
+			[20004] = {
+				name = "怪物3",
+				description = "这是一个怪物"
+			},
+
+
+			[20005] = {
+				name = "怪物4",
+				description = "这是一个怪物"
+			},
+
+	},
+
+}
+return data_1100_GuaJiMonsterGroup
+--<<data_1100_GuaJiMonsterGroup 导表结束>>

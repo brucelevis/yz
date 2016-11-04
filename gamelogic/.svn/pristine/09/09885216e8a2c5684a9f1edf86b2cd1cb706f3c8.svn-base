@@ -1,0 +1,59 @@
+playunit_dati = playunit_dati or {}
+huodongmgr.playunit.dati = playunit_dati
+
+--[[
+data 可配置参数
+{
+	questionid = 0,
+	cnt = 1,
+	maxcnt = 1,
+	npcname = "",
+	npcshape = 0,
+	exceedtime = 0,
+}
+]]--
+function playunit_dati.opendati(pid,callback,data)
+	local lifetime
+	if data.exceedtime then
+		lifetime = data.exceedtime + 10
+	end
+	local questionid = data.questionid or randlist(table.keys(data_1100_QuestionBank))
+	local request = {
+		questionid = questionid,
+		cnt = data.cnt,
+		maxcnt = data.maxcnt,
+		lifetime = lifetime,
+		callback = callback,
+	}
+	local respondid = reqresp.req(pid,request,playunit_dati.responddati)
+	net.playunit.S2C.opendati(pid,questionid,respondid,data)
+	return questionid
+end
+
+function playunit_dati.responddati(pid,request,respond)
+	local answer = respond.answer
+	local callback =  request.callback
+	local questionid = request.questionid
+	local player = playermgr.getplayer(pid)
+	if not player then
+		return
+	end
+	local result
+	if answer == data_1100_QuestionBank[questionid].right_answer then	-- 正确
+		result = 1
+	elseif not answer or answer == 0 then		-- 超时或关闭答题界面
+		result = 0
+	else	-- 错误
+		result = -1
+	end
+	if callback then
+		callback(player,result)
+	end
+end
+
+function playunit_dati.generate_norepeat(num)
+	local questions = shuffle(table.keys(data_1100_QuestionBank),true,num)
+	return questions
+end
+
+return playunit_dati

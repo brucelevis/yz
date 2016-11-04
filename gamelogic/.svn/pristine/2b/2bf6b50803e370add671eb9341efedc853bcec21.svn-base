@@ -1,0 +1,27 @@
+--<<Parser_1202_ChapterAward 导表开始>>
+Parser_1202_ChapterAward = {
+
+	[1] = {
+		sectioin = 1,
+		needstar = 3,
+		item = 93001,
+		num = 1,
+	},
+
+	[2] = {
+		sectioin = 1,
+		needstar = 6,
+		item = 93002,
+		num = 1,
+	},
+
+	[3] = {
+		sectioin = 1,
+		needstar = 9,
+		item = 93003,
+		num = 5,
+	},
+
+}
+return Parser_1202_ChapterAward
+--<<Parser_1202_ChapterAward 导表结束>>

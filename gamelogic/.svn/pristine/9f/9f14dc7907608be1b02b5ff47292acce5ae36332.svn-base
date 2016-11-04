@@ -1,0 +1,7 @@
+require "gamelogic.auxilary.functions"
+require "gamelogic.auxilary.http"
+require "gamelogic.auxilary.item"
+require "gamelogic.auxilary.player"
+require "gamelogic.auxilary.task"
+require "gamelogic.auxilary.skill"
+require "gamelogic.auxilary.pet"
