@@ -157,13 +157,13 @@ function navigation.addliveness(player,num)
 	logger.log("info","navigation",string.format("[addliveness] pid=%d add=%d",player.pid,num))
 	local navigatedata = navigation.getnavigation(player)
 	navigatedata.liveness = navigatedata.liveness + num
-	net.msg.S2C.notify(player.pid,language.format("获得#<O>{1}# #<IR13>#",num))
 	for awardid,data in pairs(data_1100_LivenessAward) do
 		if not table.find(navigatedata.awardrecord,awardid) and navigatedata.liveness >= data.needliveness then
 			net.navigation.S2C.showredpoint(player.pid)
 			break
 		end
 	end
+	return num
 end
 
 function navigation.do_activityaward(player,hid)
@@ -185,18 +185,7 @@ function navigation.do_activityaward(player,hid)
 	if istrue(data.liveness) then
 		navigation.addliveness(player,data.liveness)
 	end
-	if istrue(data.item) and istrue(data.num) then
-		player:additembytype(data.item,data.num,nil,"actaward",true)
-	end
-	if istrue(data.coin) then
-		player:addres("coin",data.coin,"actaward",true)
-	end
-	if istrue(data.sliver) then
-		player:addres("silver",data.sliver,"actaward",true)
-	end
-	if istrue(data.huoli) then
-		player:addres("huoli",data.huoli,"actaward",true)
-	end
+	doaward("player",player.pid,data.award,"navigation",true)
 	net.navigation.S2C.sendactivitydata(player,navigatedata)
 end
 

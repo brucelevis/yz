@@ -45,7 +45,7 @@ function cposcontainer:add(obj,id)
 	if obj.pos then
 		local pos = obj.pos
 		if self.pos_id[pos] then
-			logger.log("error","item",string.format("[samepos] pid=%d pos=%d id1=%d id2",self.pid,pos,self.pos_id[pos],id))
+			logger.log("error","item",string.format("[samepos] name=%s pos=%d id1=%d id2",self.name,pos,self.pos_id[pos],id))
 			return
 		end
 	else

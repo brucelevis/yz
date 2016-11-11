@@ -72,15 +72,15 @@ function cshimentask:opentask()
 	return ctaskcontainer.opentask(self)
 end
 
-function cshimentask:onsubmittask(taskid)
-	if table.find(g_specialtask,taskid) then
+function cshimentask:onsubmittask(task)
+	if table.find(g_specialtask,task.taskid) then
 		local player = playermgr.getplayer(self.pid)
 		player.thistemp:set("task.shimen.specialdone",1,3600*36)
 		return
 	end
 	local ringlimit = self:getformdata("ringlimit")
 	if self.ringnum % 10 == 0 then
-		local playtype = self:getformdata("task")[taskid].type
+		local playtype = self:getformdata("task")[task.taskid].type
 		local itemtype = self:getformdata("var").RingDoneAward[playtype]
 		local player = playermgr.getplayer(self.pid)
 		self:log("info","task",format("[ringdoneaward] pid=%d itemtype=%d ring=%d",self.pid,itemtype,self.ringnum))

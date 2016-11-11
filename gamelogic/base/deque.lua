@@ -13,6 +13,7 @@ function cdeque:save(savefunc)
 	data.last = self.last
 	local objs = {}
 	for idx,obj in pairs(self.objs) do
+		idx = tostring(idx)
 		if savefunc then
 			objs[idx] = savefunc(obj)
 		else
@@ -104,18 +105,37 @@ function cdeque:del(target)
 	for idx,obj in pairs(self.objs) do
 		if obj == target then
 			del_idx = idx
-			self.objs[idx] = nil
 			break
 		end
 	end
 	if del_idx then
-		for idx = del_idx + 1,self.last do
-			local obj = self.objs[idx]
-			self.objs[idx] = nil
-			self.objs[idx - 1] = obj
-		end
-		self.last = self.last - 1
+		self:delbyidx(del_idx)
 	end
+end
+
+function cdeque:delbyidx(idx)
+	if not self.objs[idx] then
+		return
+	end
+	self.objs[idx] = nil
+	for i = idx + 1,self.last do
+		local obj = self.objs[i]
+		self.objs[i] = nil
+		self.objs[i - 1] = obj
+	end
+	self.last = self.last - 1
+end
+
+function cdeque:getobjs()
+	return self.objs
+end
+
+function cdeque:getobjs_byorder()
+	local tbl = {}
+	for idx = self.first,self.last do
+		tbl.insert(self.objs[idx])
+	end
+	return tbl
 end
 
 function cdeque:reverse()

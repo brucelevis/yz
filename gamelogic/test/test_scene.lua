@@ -28,7 +28,7 @@ local function test(pid1,pid2,pid3)
 	local now = os.time()
 	-- moveto [2][2]块
 	net.scene.C2S.move(player1,{
-		srcpos = {
+		dstpos = {
 			x = player1.pos.x + map.block_width,
 			y = player1.pos.y + map.block_height,
 			dir = player1.dir,
@@ -39,7 +39,7 @@ local function test(pid1,pid2,pid3)
 
 	-- moveto [2][1]块
 	net.scene.C2S.move(player1,{
-		srcpos = {
+		dstpos = {
 			x = player1.pos.x,
 			y = player1.pos.y - map.block_height,
 			dir = player1.dir,
@@ -50,7 +50,7 @@ local function test(pid1,pid2,pid3)
 
 	-- moveto [2][2]块,这时player1，player2离开了player3的视野
 	net.scene.C2S.move(player1,{
-		srcpos = {
+		dstpos = {
 			x = player1.pos.x + map.block_width,
 			y = player1.pos.y,
 			dir = player1.dir,
@@ -63,7 +63,7 @@ local function test(pid1,pid2,pid3)
 
 	-- moveto [2][1]块,这时player1，player2重新进入player3的视野
 	net.scene.C2S.move(player1,{
-		srcpos = {
+		dstpos = {
 			x = player1.pos.x - map.block_width,
 			y = player1.pos.y,
 			dir = player1.dir,
@@ -74,7 +74,7 @@ local function test(pid1,pid2,pid3)
 
 	-- player3 moveto [2][1]块
 	net.scene.C2S.move(player3,{
-		srcpos = {
+		dstpos = {
 			x = player3.pos.x + map.block_width,
 			y = player3.pos.y,
 			dir = player3.dir,

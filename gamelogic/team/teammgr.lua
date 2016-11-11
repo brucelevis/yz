@@ -212,10 +212,13 @@ function cteammgr:dismissteam(player)
 	return true
 end
 
-function cteammgr:_jointeam(pid,teamid)
+function cteammgr:_jointeam(pid,teamid,bquitteam)
 	local player = playermgr.getplayer(pid)
 	if not player then
 		return
+	end
+	if bquitteam then
+		self:quitteam(player)
 	end
 	local isok,errmsg = self:jointeam(player,teamid)
 	if not isok and errmsg then
@@ -230,7 +233,7 @@ function cteammgr:jointeam(player,teamid)
 	end
 	local fromsrv = self:fromsrv(teamid)
 	if fromsrv ~= cserver.getsrvname() then
-		playermgr.gosrv(player,fromsrv,nil,pack_function("teammgr:_jointeam",player.pid,teamid))
+		playermgr.gosrv(player,fromsrv,pack_function("teammgr:_jointeam",player.pid,teamid))
 		return
 	end
 
@@ -290,7 +293,7 @@ function cteammgr:quitteam(player)
 	end
 	logger.log("info","team",string.format("[quitteam] pid=%d teamid=%d",pid,team.id))
 	team:quit(player.pid)
-	team:say(string.format("【%s】离开了队伍",player.name))
+	team:say(language.format("【{1}】离开了队伍",language.untranslate(player.name)))
 	net.msg.S2C.notify(pid,language.format("成功退出队伍"))
 	self:onquitteam(player.pid,team.id)
 	return true
@@ -304,15 +307,8 @@ function cteammgr:kickmember(player,targetid)
 	end
 	logger.log("info","team",string.format("[kickmember] pid=%d teamid=%d targetid=%d",pid,team.id,targetid))
 	team:quit(targetid)
-	local target_name
-	local target = playermgr.getplayer(targetid)
-	if target then
-		target_name = target:getname()
-	else
-		local resume = resumemgr.getresume(targetid)
-		target_name = resume:get("name")
-	end
-	team:say(string.format("【%s】被请离了队伍",target_name))
+	local target_name = resumemgr.get(targetid,"name")
+	team:say(language.format("【{1}】被请离了队伍",language.untranslate(target_name)))
 	net.msg.S2C.notify(targetid,language.format("你已被队长请离队伍"))
 	self:onquitteam(targetid,team.id)
 end
@@ -629,6 +625,53 @@ end
 function cteammgr:packteam(teamid)
 	local team = self:getteam(teamid)
 	return team:pack()
+end
+
+function cteammgr:transfer_team(packteam)
+	local captain = playermgr.getplayer(packteam.captain)
+	if not captain then
+		return
+	end
+	local team = self:createteam(captain,{
+		target = packteam.target,
+		minlv = packteam.minlv,
+		maxlv = packteam.maxlv,
+		captain = packteam.captain,
+		createtime = packteam.createtime,
+	})
+	if not team then
+		return
+	end
+	for i,pid in ipairs(packteam.members) do
+		skynet.fork(rpc.pcall,packteam.srvname,"rpc","teammgr:_jointeam",pid,team.id,true)
+	end
+end
+
+function cteammgr:gosrv(teamid,srvname)
+	local team = self:getteam(teamid)
+	if not team then
+		return
+	end
+	local captain = playermgr.getplayer(team.captain)
+	if not captain then
+		return
+	end
+	local members = team:members(TEAM_STATE_FOLLOW)
+	--for i,pid in ipairs(members) do
+	--	local member = playermgr.getplayer(pid)
+	--	self:quitteam(member)
+	--end
+	local packteam = {
+		srvname = cserver.getsrvname(),
+		teamid = teamid,
+		target = team.target,
+		minlv = team.minlv,
+		maxlv = team.maxlv,
+		createtime = team.createtime,
+		captain = captain.pid,
+		members = members,
+	}
+	playermgr.gosrv(captain,srvname,pack_function("teammgr:transfer_team",packteam))
 end
 
 function cteammgr:oncreateteam(player,teamid)

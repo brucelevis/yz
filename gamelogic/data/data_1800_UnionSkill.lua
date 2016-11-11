@@ -10,6 +10,8 @@ data_1800_UnionSkill = {
 				offer = 100,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000101,
 		},
 
 
@@ -19,6 +21,8 @@ data_1800_UnionSkill = {
 				offer = 200,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000102,
 		},
 
 
@@ -28,6 +32,8 @@ data_1800_UnionSkill = {
 				offer = 300,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000103,
 		},
 
 
@@ -37,6 +43,8 @@ data_1800_UnionSkill = {
 				offer = 400,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000104,
 		},
 
 
@@ -46,6 +54,8 @@ data_1800_UnionSkill = {
 				offer = 500,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000105,
 		},
 
 	},
@@ -59,6 +69,8 @@ data_1800_UnionSkill = {
 				offer = 100,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = {id=200001,lv=2},
+			lvid = 20000201,
 		},
 
 
@@ -68,6 +80,8 @@ data_1800_UnionSkill = {
 				offer = 200,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000202,
 		},
 
 
@@ -77,6 +91,8 @@ data_1800_UnionSkill = {
 				offer = 300,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000203,
 		},
 
 
@@ -86,6 +102,8 @@ data_1800_UnionSkill = {
 				offer = 400,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000204,
 		},
 
 
@@ -95,6 +113,8 @@ data_1800_UnionSkill = {
 				offer = 500,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000205,
 		},
 
 	},
@@ -108,6 +128,8 @@ data_1800_UnionSkill = {
 				offer = 100,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000301,
 		},
 
 
@@ -117,6 +139,8 @@ data_1800_UnionSkill = {
 				offer = 200,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000302,
 		},
 
 
@@ -126,6 +150,8 @@ data_1800_UnionSkill = {
 				offer = 300,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000303,
 		},
 
 
@@ -135,6 +161,8 @@ data_1800_UnionSkill = {
 				offer = 400,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000304,
 		},
 
 
@@ -144,6 +172,8 @@ data_1800_UnionSkill = {
 				offer = 500,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000305,
 		},
 
 	},
@@ -157,6 +187,8 @@ data_1800_UnionSkill = {
 				offer = 100,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000401,
 		},
 
 
@@ -166,6 +198,8 @@ data_1800_UnionSkill = {
 				offer = 200,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000402,
 		},
 
 
@@ -175,6 +209,8 @@ data_1800_UnionSkill = {
 				offer = 300,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000403,
 		},
 
 
@@ -184,6 +220,8 @@ data_1800_UnionSkill = {
 				offer = 400,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000404,
 		},
 
 
@@ -193,6 +231,8 @@ data_1800_UnionSkill = {
 				offer = 500,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000405,
 		},
 
 	},
@@ -206,6 +246,8 @@ data_1800_UnionSkill = {
 				offer = 100,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000501,
 		},
 
 
@@ -215,6 +257,8 @@ data_1800_UnionSkill = {
 				offer = 200,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000502,
 		},
 
 
@@ -224,6 +268,8 @@ data_1800_UnionSkill = {
 				offer = 300,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000503,
 		},
 
 
@@ -233,6 +279,8 @@ data_1800_UnionSkill = {
 				offer = 400,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000504,
 		},
 
 
@@ -242,6 +290,8 @@ data_1800_UnionSkill = {
 				offer = 500,
 			},
 			cond = {dating_lv=1,jitan_lv=1},
+			preskill = nil,
+			lvid = 20000505,
 		},
 
 	},

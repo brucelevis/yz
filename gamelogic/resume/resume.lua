@@ -137,7 +137,7 @@ function cresume:sync(data,nosync_todc)
 			local player = playermgr.getplayer(pid)
 			if player then
 				data.pid = self.pid
-				sendpackage(pid,"player","updateresume",data)
+				sendpackage(pid,"player","updateresume",{ resume = data, })
 			end
 		end
 	end
@@ -153,7 +153,7 @@ function cresume:pack()
 		name = self:query("name"),
 		lv = self:query("lv"),
 		roletype = self:query("roletype"),
-		srvname = self:query("srvname"),
+		now_srvname = self:query("now_srvname"),
 		online = self:query("online"),
 		fightpoint = self:query("fightpoint"),
 		joblv = self:query("joblv"),

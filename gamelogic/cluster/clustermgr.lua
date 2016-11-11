@@ -51,7 +51,7 @@ function clustermgr.needconnect(srvname,self_srvname,bforce)
 		if bforce then
 			return true
 		else
-			return istrue(srv.isopen)
+			return cserver.isopensrv(srvname)
 		end
 	end
 	return false
@@ -78,6 +78,7 @@ function clustermgr.onconnect(srvname)
 					friend = true,
 				})
 			end)
+			resumemgr.recover_refs()
 		end
 
 		if cserver.isgamesrv(self_srvname) and cserver.isgamesrv(srvname) then

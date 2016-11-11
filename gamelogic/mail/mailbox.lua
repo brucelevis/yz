@@ -153,13 +153,11 @@ end
 
 function cmailbox:getmails()
 	local now = os.time()
-	local maillist = {}
-	for i,mail in ipairs(self.maillist) do
-		if not mail.lifetime or mail.lifetime + mail.sendtime > now then
-			table.insert(maillist,mail)
+	for mailid,mail in pairs(self.mails) do
+		if mail.lifetime and mail.lifetime + mail.sendtime <= now then
+			self:delmail(mailid)
 		end
 	end
-	self.maillist = maillist
 	return self.maillist
 end
 

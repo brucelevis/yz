@@ -3,7 +3,7 @@ data_1302_WarVariable_Value = {
 
 	[1001] = {
 		Id = "1001",
-		value = "1.400000",
+		value = 1.400000,
 		des = "暴击修正",
 	},
 

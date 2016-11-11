@@ -25,13 +25,13 @@ function cscene:enter(player,pos)
 				local member = playermgr.getplayer(uid)
 				if member then
 					skynet.send(self.scenesrv,"lua","enter",member:packscene(self.sceneid,pos))
-					self:onenter(member,pos)
+					xpcall(self.onenter,onerror,self,member,pos)
 				end
 			end
 		end
 	end
 	skynet.send(self.scenesrv,"lua","enter",player:packscene(self.sceneid,pos))
-	self:onenter(player,pos)
+	xpcall(self.onenter,onerror,self,player,pos)
 end
 
 function cscene:leave(player)
@@ -42,13 +42,13 @@ function cscene:leave(player)
 				local member = playermgr.getplayer(uid)
 				if member then
 					skynet.send(self.scenesrv,"lua","leave",uid)
-					self:onleave(member)
+					xpcall(self.onleave,onerror,self,member)
 				end
 			end
 		end
 	end
 	skynet.send(self.scenesrv,"lua","leave",player.pid)
-	self:onleave(player)
+	xpcall(self.onleave,onerror,self,player)
 end
 
 function cscene:move(player,package)
@@ -59,13 +59,13 @@ function cscene:move(player,package)
 				local member = playermgr.getplayer(uid)
 				if member then
 					skynet.send(self.scenesrv,"lua","move",uid,package)
-					member:setpos(self.sceneid,package.srcpos)
+					member:setpos(self.sceneid,package.dstpos)
 				end
 			end
 		end
 	end
 	skynet.send(self.scenesrv,"lua","move",player.pid,package)
-	player:setpos(self.sceneid,package.srcpos)
+	player:setpos(self.sceneid,package.dstpos)
 end
 
 function cscene:reload(pid)

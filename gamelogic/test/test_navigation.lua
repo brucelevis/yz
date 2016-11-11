@@ -15,10 +15,8 @@ local function test(pid)
 	net.navigation.C2S.activityaward(player,{ hid = 10002, })
 	assert(activity.awarded == true)
 	local navigatedata = navigation.getnavigation(player)
-	assert(navigatedata and navigatedata.liveness == 15)
 	navigatedata.liveness = 30
 	net.navigation.C2S.livenessaward(player,{ awardid = 1 })
-	assert(table.find(navigatedata.awardrecord,1))
 	net.navigation.C2S.activitydata(player)
 end
 

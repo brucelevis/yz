@@ -172,7 +172,7 @@ function unionaux.onlogin(player)
 	local pid = player.pid
 	local unionid = player:unionid()
 	if unionid then
-		rpc.pcall(cserver.unionsrv(),"rpc","unionmgr:onlogin",pid)
+		rpc.pcall(cserver.unionsrv(),"rpc","unionmgr:onlogin",pid,cserver.getsrvname())
 	end
 	local skills = player:query("unionskill")
 	if skills then

@@ -193,9 +193,9 @@ function scene.move(pid,package)
 	local srcpos = package.srcpos	
 	local dstpos = package.dstpos
 	player.pos = {
-		x = srcpos.x,
-		y = srcpos.y,
-		dir = srcpos.dir,
+		x = dstpos.x,
+		y = dstpos.y,
+		dir = dstpos.dir,
 	}
 	local oldrow,oldcol = player.row,player.col
 	local row,col = scene.getrowcol(player.pos.x,player.pos.y)

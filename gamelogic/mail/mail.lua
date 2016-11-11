@@ -15,7 +15,7 @@ function cmail:init(conf)
 	self.lifetime = conf.lifetime or 10 * DAY_SECS
 	self.buttons = conf.buttons
 	self.callback = conf.callback
-	self.autodel = true		-- true:无附件邮件，阅读后可以自动删除
+	self.autodel = conf.autodel or true		-- true:无附件邮件，阅读后可以自动删除
 end
 
 function cmail:load(data)
@@ -59,7 +59,9 @@ end
 
 function cmail:can_autodel()
 	if self.autodel then
-		if self.readtime and not next(self.attach) then
+		if self.readtime and 
+			table.isempty(self.attach)
+			and table.isempty(self.buttons) then
 			return true
 		end
 	end

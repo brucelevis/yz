@@ -49,4 +49,21 @@ function petaux.bianyifix(pet)
 	end
 end
 
+function petaux.forgetskillcost(skillid)
+	local quality = data_0201_PetSkill[skillid].quality
+	if quality == 1 then
+		return data_1700_PetVar.NormalSkillForgetCost
+	elseif quality == 2 then
+		return data_1700_PetVar.RareSkillForgetCost
+	elseif quality == 3 then
+		return data_1700_PetVar.EpicSkillForgetCost
+	else
+		return data_1700_PetVar.LegendSkillForgetCost
+	end
+end
+
+function petaux.getskillvalue(skillid,attr)
+	return data_0201_PetSkill[skillid][attr]
+end
+
 return petaux

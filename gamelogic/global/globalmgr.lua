@@ -66,7 +66,9 @@ function globalmgr.onfivehourupdate()
 			ranks:onfivehourupdate()
 		end
 	end
-	unionmgr:onfivehourupdate()
+	if cserver.isunionsrv() then
+		unionmgr:onfivehourupdate()
+	end
 end
 
 -- 生成和服务器相关的全局唯一id

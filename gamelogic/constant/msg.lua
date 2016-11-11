@@ -9,7 +9,10 @@ MB_INVITE_BECOME_CAPTAIN = 7		-- 邀请成为队长
 MB_NOTIFY_BACKTEAM		= 8			-- 通知归队
 MB_LACK_CONDITION		= 9			-- 条件不足
 MB_INVITE_JOIN_UNION    = 10		-- 邀请加入公会
+MB_PAOSHANG_GOBACK = 11				-- 回归至公会商人
 
+MSG_BROADCAST_SYSTEM = 1			-- 系统广播
+MSG_BROADCAST_COST = 2				-- 高额消费广播
 
 MAX_MSG_LEN = 50			-- 聊天消息最长50个单词
 

@@ -1,5 +1,5 @@
 -- 玩家辅助函数
-playeraux = playeraux or {}
+playeraux = {}
 
 
 function playeraux.getmaxlv()
@@ -29,10 +29,10 @@ function playeraux.getmaxjoblv(zs)
 		for lv=1,maxlv do
 			local data = data_1001_LvExp[lv]
 			local val = data[attr]
+			maxjoblv = maxjoblv + 1
 			if val == 0 then
 				break
 			end
-			maxjoblv = maxjoblv + 1
 		end
 		playeraux[maxjoblv_attr] = maxjoblv
 	end
@@ -51,7 +51,7 @@ function playeraux.isopen(lv,name)
 		return false
 	end
 	if lv < data.open_level then
-		return false,data.open_level
+		return false,data
 	end
 	return true
 end

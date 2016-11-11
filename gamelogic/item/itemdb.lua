@@ -126,8 +126,16 @@ function citemdb:getitemsbytype(itemtype,filter)
 		local items = {}
 		for i,itemid in ipairs(ids) do
 			local item = self:getitem(itemid)
-			if item and (not filter or filter(item)) then
-				table.insert(items,item)
+			if item then
+				if filter then
+					if filter(item) then
+						table.insert(items,item)
+					end
+				else
+					if item.pos >= self.beginpos then
+						table.insert(items,item)
+					end
+				end
 			end
 		end
 		return items
@@ -242,6 +250,9 @@ function citemdb:costitembytype(itemtype,num,reason)
 				--self:delitem(item.id,reason)
 			else
 				self:costitembyid(item.id,costnum,reason)
+				costnum = 0
+			end
+			if costnum <= 0 then
 				break
 			end
 		end

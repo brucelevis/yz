@@ -67,6 +67,10 @@ data_1800_UnionVar = {
 
 	CollectItemDonateMaxCnt = 5, 		-- 公会收集：最大捐献次数
 
+	UnionNameMaxLen = 6, 		-- 公会名字最长字符个数
+
+	ChangeBadgeCostGold = 500, 		-- 修改公会会长消耗金币
+
 }
 return data_1800_UnionVar
 --<<data_1800_UnionVar 导表结束>>

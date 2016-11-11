@@ -46,26 +46,26 @@ local function test()
 	assert(deque:count() == 0)
 	local a = {}
 	local ti1 = os.time()
-	for i = 1,100000 do
+	for i = 1,10000 do
 		table.insert(a,1)
 	end
 	local ti2 = os.time()
 	print(string.format("table insert:%d",ti2-ti1))
 	ti1 = os.time()
-	for i = 1,100000 do
+	for i = 1,10000 do
 		table.remove(a,1)
 	end
 	ti2 = os.time()
 	print(string.format("table remove:%d",ti2-ti1))
 	deque = cdeque.new()
 	ti1 = os.time()
-	for i = 1,100000 do
+	for i = 1,10000 do
 		deque:push(1)
 	end
 	ti2 = os.time()
 	print(string.format("deque push:%d",ti2-ti1))
 	ti1 = os.time()
-	for i = 1,100000 do
+	for i = 1,10000 do
 		deque:popleft()
 	end
 	ti2 = os.time()

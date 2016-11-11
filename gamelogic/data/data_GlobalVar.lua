@@ -11,7 +11,7 @@ data_GlobalVar = {
 
 	CostHornNum = {[0]=1,[21]=2,[31]=3,[41]=4,[51]=5}, 		-- 消耗喇叭数量,格式{[使用次数]=消耗数量,}
 
-	MaxHornMsgLen = 40, 		-- 喇叭消息长度
+	MaxHornMsgLen = 26, 		-- 喇叭消息长度
 
 	NewRedPacketNeedLv = 15, 		-- 发放红包需要的等级
 

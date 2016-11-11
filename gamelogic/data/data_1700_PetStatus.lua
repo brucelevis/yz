@@ -14,7 +14,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "今天真是好开心啊",
 		talk2 = "天气真好,心情好愉快！",
-		item = 601029,
+		item = 1102076,
 	},
 
 	[2] = {
@@ -30,7 +30,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "不想动...",
 		talk2 = "就是不动！",
-		item = 601030,
+		item = 1102077,
 	},
 
 	[3] = {
@@ -46,7 +46,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "这是什么？",
 		talk2 = "主人主人快告诉我这是什么？",
-		item = 601031,
+		item = 1102078,
 	},
 
 	[4] = {
@@ -62,7 +62,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "好烦啊",
 		talk2 = "吵死了",
-		item = 601032,
+		item = 1102079,
 	},
 
 	[5] = {
@@ -78,7 +78,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "呜呜呜",
 		talk2 = "不开森",
-		item = 601033,
+		item = 1102080,
 	},
 
 	[6] = {
@@ -94,7 +94,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "嘿嘿嘿嘿",
 		talk2 = "嘻嘻嘻嘻",
-		item = 601034,
+		item = 1102081,
 	},
 
 	[7] = {
@@ -110,7 +110,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "作死！",
 		talk2 = "去死吧！",
-		item = 601035,
+		item = 1102082,
 	},
 
 	[8] = {
@@ -126,7 +126,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "好可怕！",
 		talk2 = "口怕！",
-		item = 601036,
+		item = 1102083,
 	},
 
 	[9] = {
@@ -142,7 +142,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "……",
 		talk2 = "嘘！要安静",
-		item = 601037,
+		item = 1102084,
 	},
 
 	[10] = {
@@ -158,7 +158,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "我是谁？我在哪？",
 		talk2 = "我在干什么？",
-		item = 601038,
+		item = 1102085,
 	},
 
 	[11] = {
@@ -174,7 +174,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "我不怕！",
 		talk2 = "尽管来！",
-		item = 601039,
+		item = 1102086,
 	},
 
 	[12] = {
@@ -190,7 +190,7 @@ data_1700_PetStatus = {
 		emoji2 = 2,
 		talk1 = "等等！",
 		talk2 = "小心点！",
-		item = 601040,
+		item = 1102087,
 	},
 
 }

@@ -10,9 +10,9 @@ function C2S.createunion(player,request)
 	local name = assert(request.name)
 	local purpose = assert(request.purpose)
 	local badge = assert(request.badge)
-	local isopen,needlv = playeraux.isopen(player.lv,"公会")
-	if not isopen then
-		net.msg.S2C.notify(player.pid,language.format("#<R>{1}#级开放#<Y>{2}#功能",needlv,"公会"))
+	local isok,data = playeraux.isopen(player.lv,"公会")
+	if not isok then
+		net.msg.S2C.notify(player.pid,language.format(data.tips_text))
 		return
 	end
 	if not unionaux.isvalid_badge(badge) then
@@ -67,7 +67,11 @@ function C2S._createunion(param)
 	local srvnames = unionmgr:samezone_srvnames(param.srvname)
 	for i,srvname in ipairs(srvnames) do
 		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.sendquickmsg",
-			language.format("【{1}】在此宣布【公会徽章小图标】公会【{2}】创建成功！【查看】",union:memberget(pid,"name"),union.name))
+			language.format("#<Y>{1}#在此宣布{2}公会#<Y>{3}#创建成功！{4}",
+				language.untranslate(union:memberget(pid,"name")),
+				richtext("badge",union.badge),
+				language.untranslate(union.name),
+				richtext("button_lookunion",{unionid=union.id})))
 	end
 	return true,union:pack()
 end
@@ -114,8 +118,7 @@ function C2S._changeleader(pid,topid)
 	if logofftime and now - logofftime > logoffday * DAY_SECS then
 		return false,language.format("该副会长离线超过{1}天,无法更改会长",logoffday)
 	end
-	union:changejob(member1,jobid2)
-	union:changejob(member2,jobid1)
+	union:changeleader(member2)
 	return true
 end
 
@@ -200,7 +203,7 @@ function C2S._changebadge(player,badge)
 			diff_badge[k] = badge[k]
 		end
 	end
-	local sumgold = 0
+	local sumgold = data_1800_UnionVar.ChangeBadgeCostGold
 	for badge_type,badge_id in pairs(diff_badge) do
 		local data = data_1800_UnionBadge[badge_id][badge_type]
 		local costgold = data.gold
@@ -279,7 +282,7 @@ function C2S._upgradebuild(pid,typ)
 			end
 		end
 	end
-	local reason = "publish_purpose"
+	local reason = "upgradeskill"
 	for restype,v in pairs(cost) do
 		if restype == "money" then
 			union:addmoney(-v,reason)
@@ -338,11 +341,16 @@ function C2S._changejob(pid,tid,jobid)
 		return false,language.format("你没有权限进行此项操作")
 	end
 	local pids = union.job_members[jobid] or {}
-	local limit = data_1800_UnionYingDi[union.yingdi_lv].limit
-	if #pids >= limit then
+	local limit = data_1800_UnionJob[jobid].limit
+	if limit > 0 and #pids >= limit then
 		return false,language.format("该职位人数已满")
 	end
 	union:changejob(member2,jobid)
+	local msg = language.format("#<Y>{1}#将#<Y>{2}#的公会职位调整为#<Y>{3}#",
+				language.untranslate(union:memberget(member1.pid,"name")),
+				language.untranslate(union:memberget(member2.pid,"name")),
+				unionaux.jobname(member2.jobid))
+	union:sendmsg({pid = SENDER.UNION},msg)
 	return true
 end
 
@@ -359,6 +367,8 @@ function C2S.edit_purpose(player,request)
 			net.msg.S2C.notify(player.pid,errmsg)
 		end
 		return
+	else
+		net.msg.S2C.notify(player.pid,language.format("保存成功"))
 	end
 end
 
@@ -407,6 +417,8 @@ function C2S.publish_purpose(player,request)
 			net.msg.S2C.notify(player.pid,errmsg)
 		end
 		return
+	else
+		net.msg.S2C.notify(player.pid,language.format("发布成功"))
 	end
 end
 
@@ -454,11 +466,10 @@ function C2S._publish_purpose(pid)
 	local srvnames = unionmgr:samezone_srvnames(unionmgr:srvname(unionid))
 	for i,srvname in ipairs(srvnames) do
 		skynet.fork(rpc.pcall,srvname,"rpc","net.union.S2C.publish_purpose",
-			language.format("{1}:{2}:{3}现正火热招募公会成员中！{4}!请大家踊跃【申请】",
-				language.untranslate(union:leader().name),
+			language.format("公会{1}现正火热招募公会成员中！{2}!请大家踊跃加入{3}",
 				language.untranslate(union.name),
-				language.untranslate(union.id),
-				language.untranslate(union.purpose.msg)))
+				language.untranslate(union.purpose.msg),
+				richtext("button_lookunion",{unionid=union.id})))
 	end
 	return true
 end
@@ -476,6 +487,8 @@ function C2S.edit_notice(player,request)
 			net.msg.S2C.notify(player.pid,errmsg)
 		end
 		return
+	else
+		net.msg.S2C.notify(player.pid,language.format("保存成功"))
 	end
 end
 
@@ -510,22 +523,12 @@ function C2S._edit_notice(pid,notice)
 		},
 		msg = notice,
 	})
-	local pids = table.keys(union.members.objs)
-	local pack = {
-		sender = {
-			pid = SENDER.UNION,
-		},
-		msg = language.format("公会公告：{1} 编辑人:{2} {3} {4}",
+	local msg = language.format("公会公告：{1} 编辑人:{2} {3} {4}",
 				language.untranslate(union.notice.msg),
 				language.untranslate(union.notice.changer.name),
-				unionaux.jobname(member.jobid),
+				unionaux.jobname(union.notice.changer.jobid),
 				os.date("%m/%d",union.notice.changer.time))
-	}
-	local pids = table.keys(union.members.objs)
-	local srvname_pids = unionmgr:srvname_pids(pids)
-	for srvname,pids in pairs(srvname_pids) do
-		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.broadcast",pids,"msg","unionmsg",pack)
-	end
+	union:sendmsg({pid = SENDER.UNION},msg)
 	return true
 end
 
@@ -541,6 +544,8 @@ function C2S.publish_notice(player,request)
 			net.msg.S2C.notify(player.pid,errmsg)
 		end
 		return
+	else
+		net.msg.S2C.notify(player.pid,language.format("发布成功"))
 	end
 end
 
@@ -564,28 +569,20 @@ function C2S._publish_notice(pid)
 	end
 	local cd = data_1800_UnionVar.PublishNoticeCD
 	union.thistemp:set("publish_notice.cd",true,cd)
-	local pack = {
-		sender = {
-			pid = SENDER.UNION,
-		},
-		msg = language.format("公会公告：{1} 编辑人:{2} {3} {4}",
+	local msg = language.format("公会公告：{1} 编辑人:{2} {3} {4}",
 			language.untranslate(union.notice.msg),
 			language.untranslate(union.notice.changer.name),
 			unionaux.jobname(member.jobid),
 			os.date("%m/%d",union.notice.changer.time))
-	}
-	local pids = table.keys(union.members.objs)
-	local srvname_pids = unionmgr:srvname_pids(pids)
-	for srvname,pids in pairs(srvname_pids) do
-		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.broadcast",pids,"msg","unionmsg",pack)
-	end
+	union:sendmsg({pid = SENDER.UNION},msg)
+	return true
 end
 
 function C2S.apply_join(player,request)
 	local unionid = assert(request.unionid)
-	local isopen,needlv = playeraux.isopen(player.lv,"公会")
-	if not isopen then
-		net.msg.S2C.notify(player.pid,language.format("#<R>{1}#级开放#<Y>{2}#功能",needlv,"公会"))
+	local isok,data = playeraux.isopen(player.lv,"公会")
+	if not isok then
+		net.msg.S2C.notify(player.pid,language.format(data.tips_text))
 		return
 	end
 	if player:unionid() then
@@ -632,32 +629,35 @@ function C2S._apply_join(pid,unionid)
 end
 
 function C2S.invite_join(player,request)
-	local isopen,needlv = playeraux.isopen(player.lv,"公会")
-	if not isopen then
-		net.msg.S2C.notify(player.pid,language.format("#<R>{1}#级开放#<Y>{2}#功能",needlv,"公会"))
+	local isok,data = playeraux.isopen(player.lv,"公会")
+	if not isok then
+		net.msg.S2C.notify(player.pid,language.format(data.tips_text))
 		return
 	end
-
 	local tid = assert(request.pid)
 	local unionid = player:unionid()
 	if not unionid then
 		net.msg.S2C.notify(player.pid,language.format("你没有公会"))
 		return
 	end
+
 	local self_srvname = cserver.getsrvname()
 	local now_srvname,isonline = globalmgr.now_srvname(tid)
 	if now_srvname == self_srvname then
 		local target = playermgr.getplayer(tid)
 		if not target then
 			net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 		if target:unionid() then
 			net.msg.S2C.notify(player.pid,language.format("对方已经有公会"))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 		if not playeraux.isopen(target.lv,"公会") then
 			net.msg.S2C.notify(player.pid,language.format("对方等级不足,无法加入公会"))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 		local incd_unionid,exceedtime = target.thistemp:query("apply_join_cd")
@@ -665,21 +665,25 @@ function C2S.invite_join(player,request)
 			local lefttime = exceedtime - os.time()
 			local date = dhms_time({hour=true,min=true,sec=true},lefttime)
 			net.msg.S2C.notify(player.pid,language.format("对方申请入会CD中，剩余时间:{1}小时{2}分钟{3}秒",date.hour,date.min,date.sec))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 	else
 		if not isonline then
 			net.msg.S2C.notify(player.pid,language.format("对方不在线"))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 		local target = cproxyplayer.new(tid,now_srvname)
 		if target:unionid() then
 			net.msg.S2C.notify(player.pid,language.format("对方已经有公会"))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 		local lv = target:getlv()
 		if not playeraux.isopen(lv,"公会") then
 			net.msg.S2C.notify(player.pid,language.format("对方等级不足,无法加入公会"))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 		local incd_unionid,exceedtime = target.thistemp:query("apply_join_cd")
@@ -687,6 +691,7 @@ function C2S.invite_join(player,request)
 			local lefttime = exceedtime - os.time()
 			local date = dhms_time({hour=true,min=true,sec=true},lefttime)
 			net.msg.S2C.notify(player.pid,language.format("对方申请入会CD中，剩余时间:{1}小时{2}分钟{3}秒",date.hour,date.min,date.sec))
+			player:delfrom_union_recommendlist(tid)
 			return
 		end
 	end
@@ -695,12 +700,20 @@ function C2S.invite_join(player,request)
 		net.msg.S2C.notify(player.pid,language.format("你没有公会"))
 		return
 	end
+	local incd,lefttime = player:limit_frequence("union.invite_join",tid,60)
+	if incd then
+		net.msg.S2C.notify(player.pid,language.format("入会邀请已发送，请耐心等待"))
+		return
+	end
+	net.msg.S2C.notify(player.pid,language.format("入会邀请已发送，请耐心等待"))
 	player:delfrom_union_recommendlist(tid)
 	local pid = player.pid
 	openui.messagebox(tid,{
 		type = MB_INVITE_JOIN_UNION,
 		title = language.format("邀请入会"),
-		content = language.format("【{1}】邀请你加入\n【{2}】公会。",player:getname(),unioninfo.name),
+		content = language.format("#<Y>{1}#邀请你加入\n#<Y>{2}#公会。",
+					language.untranslate(player:getname()),
+					language.untranslate(unioninfo.name)),
 		buttons = {
 			openui.button(language.format("拒绝")),
 			openui.button(language.format("查看")),  -- 查看后可以选择加入公会
@@ -728,7 +741,6 @@ function C2S.invite_join(player,request)
 				return
 			end
 		end)
-	net.msg.S2C.notify(player.pid,language.format("已经发送邀请，请耐心等待"))
 end
 
 function C2S._agree_invite_join(uid,unionid,pid)
@@ -833,7 +845,7 @@ function C2S._disagree_join(pid,tid)
 	if tid then
 		remove_applyers = {tid}
 	else
-		remove_applyers = union.applyers
+		remove_applyers = deepcopy(union.applyers)
 	end
 	if table.isempty(remove_applyers) then
 		return false,language.format("空申请列表")
@@ -885,10 +897,14 @@ function C2S._kick_member(pid,tid)
 		srcid = SYSTEM_MAIL,
 		author = language.format("公会管理员"),
 		title = language.format("离开公会通知"),
-		content = language.format("你被【{1}】踢出了【{2}】",
+		content = language.format("你被#<Y>{1}#踢出了#<Y>{2}#",
 					language.untranslate(union:memberget(pid,"name")),
 					language.untranslate(union.name)),
 	})
+	local msg = language.format("#<Y>{1}#将#<Y>{2}#踢出了公会",
+					language.untranslate(union:memberget(member1.pid,"name")),
+					language.untranslate(union:memberget(member2.pid,"name")))
+	union:sendmsg({pid = SENDER.UNION},msg)
 	return true
 end
 
@@ -973,6 +989,18 @@ function C2S._openui_member(pid)
 		members = members,
 	})
 	return true
+end
+
+function C2S.openui_huodong_paoshang(player)
+	local unionid = player:unionid()
+	if not unionid then
+		return false,language.format("你没有公会")
+	end
+	local member = unionaux.unionmethod(unionid,":member",player.pid)
+	sendpackage(player.pid,"union","huodong_paoshang",{
+		offer = member.offer,
+		paoshangcnt = unionaux.unionmethod(unionid,".today:query","union.huodong.paoshangcnt") or 0,
+	})
 end
 
 function C2S.openui_weekfuli(player)
@@ -1111,6 +1139,9 @@ function C2S._quit(pid)
 		end
 	else
 		union:del(pid)
+		local msg = language.format("#<Y>{1}#脱离了公会",
+						language.untranslate(union:memberget(member.pid,"name")))
+		union:sendmsg({pid = SENDER.UNION},msg)
 		return true
 	end
 end
@@ -1203,14 +1234,17 @@ function C2S._runfor_leader(pid)
 		return false,language.format("只有副会长才能竞选会长")
 	end
 	local now = os.time()
-	local leader = union:leader()
-	local logofftime = union:memberget(leader.pid,"logofftime")
 	local needday = data_1800_UnionVar.RunForLeaderNeedLogoffTime
-	--if not logofftime or now - logofftime < needday * DAY_SECS then
-	--	return false,language.format("会长离线未超过{1}天",needday)
+	local leader = union:leader()
+	if union:memberget(leader.pid,"online") then
+		return false,language.format("现任会长离线时间未超过{1}天，无法发起会长竞选",needday)
+	end
+	local logofftime = union:memberget(leader.pid,"logofftime")
+	--if not logofftime or (now - logofftime) < needday * DAY_SECS then
+	--	return false,language.format("现任会长离线时间未超过{1}天，无法发起会长竞选",needday)
 	--end
-	if not logofftime or now - logofftime < 60 then
-		return false,language.format("会长离线未超过{1}天",needday)
+	if not logofftime or (now - logofftime) < 60 then
+		return false,language.format("现任会长离线时间未超过{1}天，无法发起会长竞选",needday)
 	end
 
 	local incd,exceedtime = union.thistemp:query(string.format("runfor_leader.%s",pid))
@@ -1222,19 +1256,20 @@ function C2S._runfor_leader(pid)
 	if union:getvote("竞选会长") then
 		return false,language.format("竞选会长正在进行中,等本次投票结束后再试")
 	end
-	local cd = 120--data_1800_UnionVar.RunForLeaderCD * DAY_SECS
+	local cd = 300--data_1800_UnionVar.RunForLeaderCD * DAY_SECS
 	union.thistemp:set(string.format("runfor_leader.%s",pid),true,cd)
 	local member_vote = {}
 	local pids = union.job_members[unionaux.jobid("副会长")]
 	for i,uid in ipairs(pids) do
 		member_vote[uid] = 1
 	end
-	local lifetime = data_1800_UnionVar.RunForLeaderVoteTime * DAY_SECS
+	local lifetime = 240--data_1800_UnionVar.RunForLeaderVoteTime * DAY_SECS
 	local vote = union.votemgr:newvote({
 		exceedtime = now + lifetime,
 		member_vote = member_vote,
 		must_timeout_endvote = true,
 		creater = pid,
+		unionid = unionid,
 		callback = pack_function("unionmgr:onendvote"),
 	})
 	-- 竞选会长采取：投反对票形式
@@ -1247,16 +1282,14 @@ function C2S._runfor_leader(pid)
 				author = language.format("公会管理员"),
 				title = language.format("公会会长竞选"),
 				content = language.format([[由于#<R>{1}#会长#<R>{2}#长时间不在线，副会长#<R>{3}#正式发起会长竞选，
-申请成为本公会的公会会长，请问你是否反对？
-投票剩余时间：{4}小时{5}分]],
+申请成为本公会的公会会长，请问你是否反对？]],
 							language.untranslate(union.name),
 							language.untranslate(union:memberget(leader.pid,"name")),
-							language.untranslate(union:memberget(pid,"name")),
-							language.untranslate(date.hour),
-							language.untranslate(date.min)),
+							language.untranslate(union:memberget(pid,"name"))),
 				lifetime = lifetime,
 				buttons = {language.format("【考虑一下】"),language.format("【我要反对】"),language.format("【竞选规则】"),},
 				callback = pack_function("net.mail.C2S._respondanswer"),
+				autodel = false,
 			})
 
 		end
@@ -1276,10 +1309,9 @@ function C2S._voteto(typ,pid)
 			return false,language.format("只有副会长才有投票资格")
 		end
 		if not union:getvote(typ) then
-			return false,language.format("{1}投票已失效")
+			return false,language.format("本次竞选已结束")
 		end
-		union.votemgr:voteto(typ,pid)
-		return true
+		return union.votemgr:voteto(typ,pid)
 	end
 end
 
@@ -1303,6 +1335,14 @@ function C2S.upgradeskill(player,request)
 	if not lv_skilldata then
 		net.msg.S2C.notify(pid,language.format("该技能已达到最高等级"))
 		return
+	end
+	local preskill = lv_skilldata.preskill
+	if preskill then
+		local has_preskill = player:query(string.format("union.skill.%s",preskill.id))
+		if not has_preskill or has_preskill.lv < preskill.lv then
+			net.msg.S2C.notify(player.pid,language.format("前置技能等级不足#<R>{1}#级",preskill.lv))
+			return
+		end
 	end
 	local isok,errmsg
 	if cserver.isunionsrv() then
@@ -1489,6 +1529,10 @@ function C2S._banspeak(pid,tid)
 		return false,errmsg
 	end
 	union:banspeak(tid)
+	local msg = language.format("#<Y>{1}#被#<Y>{2}#禁言了30分钟",
+					language.untranslate(union:memberget(tid,"name")),
+					language.untranslate(union:memberget(pid,"name")))
+	union:sendmsg({pid=SENDER.UNION},msg)
 	return true
 end
 
@@ -1524,6 +1568,11 @@ function C2S._unbanspeak(pid,tid)
 		return false,errmsg
 	end
 	union:unbanspeak(tid)
+	local msg = language.format("#<Y>{1}#被#<Y>{2}#解除了禁言",
+					language.untranslate(union:memberget(tid,"name")),
+					language.untranslate(union:memberget(pid,"name")))
+	union:sendmsg({pid=SENDER.UNION},msg)
+
 	return true
 end
 
@@ -1743,6 +1792,26 @@ function C2S.collectitem_finishtask(player,request)
 			net.msg.S2C.notify(player.pid,errmsg)
 		end
 	else
+	end
+end
+
+function C2S.checkname(player,request)
+	local name = assert(request.name)
+	local srvname = globalmgr.home_srvname(player.pid)
+	local isok,errmsg
+	if cserver.isunionsrv() then
+		isok,errmsg = unionmgr:isvalid_name(name,srvname)
+	else
+		isok,errmsg = rpc.call(cserver.unionsrv(),"rpc","unionmgr:isvalid_name",name,srvname)
+	end
+	sendpackage(player.pid,"union","checkname_result",{
+		result = isok,
+	})
+	if not isok then
+		if errmsg then
+			net.msg.S2C.notify(player.pid,errmsg)
+		end
+		return
 	end
 end
 

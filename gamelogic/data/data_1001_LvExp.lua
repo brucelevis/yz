@@ -75,7 +75,7 @@ data_1001_LvExp = {
 
 	[10] = {
 		sumexp = 93187,
-		jobzs0_sumexp = 93187,
+		jobzs0_sumexp = 0,
 		jobzs1_sumexp = 186374,
 		jobzs2_sumexp = 96442548,
 		jobzs3_sumexp = 2445916544,

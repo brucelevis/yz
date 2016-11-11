@@ -26,7 +26,7 @@ function C2S.useitem(player,request)
 	end
 	local target = nil
 	if targetid then
-		local target = player:gettarget(targetid)
+		target = player:gettarget(targetid)
 		if not target then
 			net.msg.S2C.notify(player.pid,language.format("未知目标"))
 			return

@@ -66,6 +66,7 @@ function cunion:load(data)
 	self.cangku_lv = data.cangku_lv
 	self.shangdian_lv = data.shangdian_lv
 	self.thistemp:load(data.thistemp)
+	self.today:load(data.today)
 	self.members:load(data.members)
 	for pid,member in pairs(self.members.objs) do
 		local jobid = member.jobid
@@ -92,6 +93,7 @@ function cunion:save()
 	data.cangku_lv = self.cangku_lv
 	data.shangdian_lv = self.shangdian_lv
 	data.thistemp = self.thistemp:save()
+	data.today = self.today:save()
 	data.members = self.members:save()
 	data.votemgr = self.votemgr:save()
 	data.cangku = self.cangku:save()
@@ -149,19 +151,20 @@ function cunion:add(member)
 			srcid = SYSTEM_MAIL,
 			author = language.format("公会管理员"),
 			title = language.format("加入公会通知"),
-			content = language.format("恭喜，你加入了【{1}】成为了【{2}】的公会成员",
+			content = language.format("恭喜，你加入了#<Y>{1}#成为了#<Y>{2}#的公会成员",
 						language.untranslate(self.name),
 						language.untranslate(self.name)),
 		})
-		local srvname_pids = unionmgr:srvname_pids(pids)
-		for srvname,pids in pairs(srvname_pids) do
-			skynet.fork(rpc.pcall,srvname,"rpc","net.msg.broadcast",pids,"msg","unionmsg",{
-				sender = {
-					pid = SENDER.UNION,
-				},
-				msg = language.format("【{1}】加入公会【热烈欢迎】",
-						language.untranslate(self:memberget(pid,"name"))),
-			})
+		local msg = language.format("#<Y>{1}#加入了公会",
+						language.untranslate(self:memberget(pid,"name")))
+		self:sendmsg({pid = SENDER.UNION},msg)
+	end
+	local srvname = unionmgr:srvname(self.id)
+	local srvnames = unionmgr:samezone_srvnames(srvname)
+	for unionid,union in pairs(unionmgr.objs) do
+		local srvname2 = unionmgr:srvname(unionid)
+		if table.find(srvnames,srvname2) then
+			union:delapplyer(pid)
 		end
 	end
 end
@@ -195,7 +198,6 @@ function cunion:del(pid)
 				table.remove(members,pos)
 			end
 		end
-
 		local pids = table.keys(self.openui_pids)
 		unionmgr:sendpackage(pids,"union","delmember",{
 			pid = pid,
@@ -231,10 +233,26 @@ function cunion:delapplyer(pid)
 			table.insert(remove_pids,pid)
 		end
 	end
-	local pids = table.keys(self.openui_pids)
-	unionmgr:sendpackage(pids,"union","delapplyer",{
-		pids = remove_pids,
-	})
+	if not table.isempty(remove_pids) then
+		local pids = table.keys(self.openui_pids)
+		unionmgr:sendpackage(pids,"union","delapplyer",{
+			pids = remove_pids,
+		})
+	end
+end
+
+function cunion:changeleader(member)
+	local member2 = member
+	local jobid2 = member2.jobid
+	local jobid1 = unionaux.jobid("会长")
+	local member1 = self:leader()
+	assert(member1.pid ~= member2.pid)
+	self:changejob(member1,jobid2)
+	self:changejob(member2,jobid1)
+	local msg = language.format("副会长#<Y>{1}#成为了#<Y>{2}#的公会会长",
+				language.untranslate(self:memberget(member2.pid,"name")),
+				language.untranslate(self.name))
+	self:sendmsg({pid = SENDER.UNION},msg)
 end
 
 function cunion:changejob(member,jobid2)
@@ -268,15 +286,35 @@ function cunion:changejob(member,jobid2)
 end
 
 function cunion:changename(name)
+	local oldname = self.name
 	self:update({
 		name = name,
 	})
+	local msg = language.format("公会#<Y>{1}#正式改名为{2}#<Y>{3}#，欢迎各位勇者加入{4}",
+					language.untranslate(oldname),
+					richtext("badge",self.badge),
+					language.untranslate(self.name),
+					richtext("button_lookunion",{unionid=self.id}))
+	local srvname = unionmgr:srvname(self.id)
+	local srvnames = unionmgr:samezone_srvnames(srvname)
+	for i,srvname in ipairs(srvnames) do
+		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.sendquickmsg",msg)
+	end
 end
 
 function cunion:changebadge(badge)
 	self:update({
 		badge = badge,
 	})
+	local msg = language.format("公会#<Y>{1}#的公会徽章更改为{2}，欢迎各位勇者加入{3}",
+					language.untranslate(self.name),
+					richtext("badge",self.badge),
+					richtext("button_lookunion",{unionid=self.id}))
+	local srvname = unionmgr:srvname(self.id)
+	local srvnames = unionmgr:samezone_srvnames(srvname)
+	for i,srvname in ipairs(srvnames) do
+		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.sendquickmsg",msg)
+	end
 end
 
 function cunion:edit_purpose(purpose)
@@ -295,6 +333,11 @@ function cunion:addmoney(addval,reason)
 	local oldval = self.money
 	local newval = oldval + addval
 	local maxval = data_1800_UnionCangKu[self.cangku_lv].money_limit
+	if newval >= maxval then
+		local sender = { pid = SENDER.UNION }
+		local msg = language.format("公会资金已到达上限")
+		self:sendmsg(sender,msg)
+	end
 	newval = math.min(newval,maxval)
 	self:update({
 		money = newval,
@@ -544,7 +587,7 @@ function cunion:donate_card(id,pid,cardtype,num)
 		srcid = SYSTEM_MAIL,
 		author = language.format("公会管理员"),
 		title = language.format("公会集卡"),
-		content = language.format("【{1}】向你捐献了{2}个【{3}】",
+		content = language.format("#<Y>{1}#向你捐献了{2}个#<G>{3}#",
 					language.untranslate(resume:get("name")),
 					language.untranslate(num),
 					carddata.name),
@@ -571,7 +614,7 @@ function cunion:get_collect_card(id)
 				author = language.format("公会管理员"),
 				title = language.format("公会集卡"),
 
-				content = language.format("你在{1}月{2}日{3}时{4}分发起的【{5}】集卡已经过期",
+				content = language.format("你在{1}月{2}日{3}时{4}分发起的#<G>{5}#集卡已经过期",
 							language.untranslate(date.month),
 							language.untranslate(date.day),
 							language.untranslate(date.hour),
@@ -634,6 +677,17 @@ function cunion:broadcast(typ,protoname,subprotoname,request)
 		error("[cunion:broadcast] Error Type:" .. tostring(typ))
 	end
 	unionmgr:sendpackage(pids,protoname,subprotoname,request)
+end
+
+function cunion:sendmsg(sender,msg)
+	local pids = table.keys(self.members.objs)
+	local srvname_pids = unionmgr:srvname_pids(pids)
+	for srvname,pids in pairs(srvname_pids) do
+		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.broadcast",pids,"msg","unionmsg",{
+			sender = sender,
+			msg = msg,
+		})
+	end
 end
 
 function cunion:onfivehourupdate()

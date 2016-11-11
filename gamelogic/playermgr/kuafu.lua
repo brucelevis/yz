@@ -45,17 +45,11 @@ playermgr = require "gamelogic.playermgr"
 playermgr.kuafuplayers = playermgr.kuafuplayers or {}
 playermgr.gokuafunum = playermgr.gokuafunum or 0
 
-function playermgr.gosrv(player,go_srvname,home_srvname,kuafu_onlogin)
+function playermgr.gosrv(player,go_srvname,kuafu_onlogin,after_gosrv)
 	-- player是连线对象，不一定是玩家对象
 	local pid = player.pid
 	local now_srvname = cserver.getsrvname()
-	if not home_srvname then
-		if player.home_srvname then
-			home_srvname = player.home_srvname
-		else
-			home_srvname = now_srvname
-		end
-	end
+	local home_srvname = globalmgr.home_srvname(pid)
 	if go_srvname == home_srvname then
 		playermgr.gohome(player,home_srvname,kuafu_onlogin)
 		return
@@ -68,6 +62,7 @@ function playermgr.gosrv(player,go_srvname,home_srvname,kuafu_onlogin)
 		home_srvname=home_srvname,
 		player_data = player_data,
 		kuafu_onlogin = kuafu_onlogin,
+		after_gosrv = after_gosrv,
 	})
 	if player.ongosrv then
 		player:ongosrv(go_srvname)
@@ -132,6 +127,12 @@ function playermgr.addkuafuplayer(kuafuplayer)
 	kuafuplayer.home_srvname = kuafuplayer.home_srvname or cserver.getsrvname()
 	playermgr.kuafuplayers[pid] = kuafuplayer
 	playermgr.keep_heartbeat(pid)
+	local after_gosrv = kuafuplayer.after_gosrv
+	if after_gosrv then
+		kuafuplayer.after_gosrv = nil
+		local after_gosrv = unpack_function(after_gosrv)
+		skynet.fork(xpcall,after_gosrv,onerror)
+	end
 	return kuafuplayer
 end
 

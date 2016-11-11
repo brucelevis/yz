@@ -1,6 +1,7 @@
 cpet = class("cpet",cdatabaseable,{
 	zizhi_minratio = 50,	--最小资质比
 	zizhi_maxratio = 100,	--最大资质比
+	skilllimit = 15,		--宠物最多拥有技能数
 })
 
 function cpet:init(param)
@@ -10,7 +11,6 @@ function cpet:init(param)
 	self.type = param.type
 	self.createtime = param.createtime
 	-- 位置一般是放入容器后才有的属性
-	self.pos = param.pos
 	self.data = {}
 	self.lv = 1
 	self.exp = 0
@@ -33,13 +33,10 @@ function cpet:init(param)
 		lingqiao = self.zizhi_minratio,
 		xingyun = self.zizhi_minratio,
 	}
-	self.skills = cposcontainer.new({
-		pid = self.pid,
+	self.skills = ccontainer.new({
 		name = "petskills",
-		initspace = 15,
 	})
 	self.equipments = cposcontainer.new({
-		pid = self.pid,
 		name = "petequips",
 		initspace = 6,
 	})
@@ -61,7 +58,6 @@ function cpet:load(data)
 	self.id = data.id
 	self.type = data.type
 	self.createtime = data.createtime
-	self.pos = data.pos
 	self.data = data.data
 	self.lv = data.lv
 	self.exp = data.exp
@@ -85,7 +81,6 @@ function cpet:save()
 	data.id = self.id
 	data.type = self.type
 	data.createtime = self.createtime
-	data.pos = self.pos
 	data.data = self.data
 	data.lv = self.lv
 	data.name = self.name
@@ -125,7 +120,6 @@ function cpet:pack()
 	data.id = self.id
 	data.type = self.type
 	data.name = self:getname()
-	data.pos = self.pos
 	data.createtime = self.createtime
 	data.lv = self.lv
 	data.exp = self.exp
@@ -134,7 +128,8 @@ function cpet:pack()
 	data.status = self.status
 	data.readywar = self.readywar or false
 	data.zizhi = self.zizhi
-	data.skills = self:getallskills()
+	data.bindskills = self:getbindskills()
+	data.skills = self:getunbindskills()
 	data.equips = self:getallequips()
 	data.chats = self.chats
 	data.bianyi_type = self.bianyi_type
@@ -155,26 +150,29 @@ end
 
 function cpet:hasskill(skillid)
 	local bindskill = petaux.getpetdata(self.type).bind_skills
-	if table.find(bindskill,skillid) then
-		return -1
+	if table.find(bindskill,skillid) or skillid == self:getbianyiskill() then
+		return true
 	end
 	local skill = self.skills:get(skillid)
 	if not skill then
-		return
+		return false
 	end
-	return skill.pos
+	return true
 end
 
-function cpet:addskill(skillid,pos)
+function cpet:addskill(skillid)
 	if self:hasskill(skillid) then
 		return
 	end
 	local skill = {
 		id = skillid,
 		time = os.time(),
-		pos = pos,
 	}
 	self.skills:add(skill,skillid)
+	sendpackage(self.pid,"pet","addskill",{
+		petid = self.id,
+		skill = skill,
+	})
 	return skill
 end
 
@@ -184,35 +182,56 @@ function cpet:delskill(skillid)
 		return
 	end
 	self.skills:del(skillid)
+	sendpackage(self.pid,"pet","delskill",{
+		petid = self.id,
+		skillid = skillid,
+	})
+end
+
+function cpet:addequip(equip)
+	self.equipments:add(equip,equip.id)
+	sendpackage(self.pid,"pet","addequip",{
+		petid = self.id,
+		equip = equip:pack(),
+	})
+	return equip
+end
+
+function cpet:delequip(equipid)
+	local equip = self.equipments:del(equipid)
+	sendpackage(self.pid,"pet","delequip",{
+		petid = self.id,
+		equipid = equipid,
+	})
+	return equip
 end
 
 function cpet:isbianyi()
 	return self.bianyi_type ~= 0
 end
 
-function cpet:getallskills()
-	local data = petaux.getpetdata(self.type)
-	local curpos = 0
+function cpet:getbindskills()
 	local skills = {}
-	for idx,skillid in ipairs(data.bind_skills) do
-		curpos = curpos + 1
+	local data = self:get("bind_skills")
+	for _,skillid in ipairs(data) do
 		table.insert(skills,{
 			id = skillid,
-			pos = curpos,
 		})
 	end
-	if self:isbianyi() then
-		local skillid = self:getbianyiskill()
-		curpos = curpos + 1
+	local bianyiskill = self:getbianyiskill()
+	if bianyiskill then
 		table.insert(skills,{
-			id = skillid,
-			pos = curpos,
+			id = bianyiskill,
 		})
 	end
+	return skills
+end
+
+function cpet:getunbindskills()
+	local skills = {}
 	for _,skill in pairs(self.skills.objs) do
 		table.insert(skills,{
 			id = skill.id,
-			pos = skill.pos + curpos,
 		})
 	end
 	return skills
@@ -227,7 +246,11 @@ end
 
 function cpet:getskillslen()
 	local data = petaux.getpetdata(self.type)
-	return #data.bind_skills + self.skills.len
+	local len = #data.bind_skills + self.skills.len
+	if self:isbianyi() then
+		len = len + 1
+	end
+	return len
 end
 
 function cpet:getallequips()

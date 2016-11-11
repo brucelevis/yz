@@ -10,13 +10,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 101,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[102] = {
@@ -28,13 +30,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 102,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[103] = {
@@ -46,13 +50,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 103,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[104] = {
@@ -64,13 +70,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 104,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[105] = {
@@ -82,13 +90,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 105,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[106] = {
@@ -100,13 +110,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 106,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[107] = {
@@ -118,13 +130,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 107,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[108] = {
@@ -136,13 +150,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 108,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[109] = {
@@ -154,13 +170,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 109,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[110] = {
@@ -172,13 +190,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 110,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[111] = {
@@ -190,13 +210,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 111,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[112] = {
@@ -208,13 +230,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 112,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[113] = {
@@ -226,13 +250,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 113,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[114] = {
@@ -244,13 +270,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 114,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[115] = {
@@ -262,13 +290,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 115,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[116] = {
@@ -280,13 +310,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 116,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[117] = {
@@ -298,13 +330,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 117,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[118] = {
@@ -316,13 +350,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 118,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[119] = {
@@ -334,13 +370,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 119,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[120] = {
@@ -352,13 +390,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 120,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[121] = {
@@ -370,13 +410,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 121,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[122] = {
@@ -388,13 +430,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 122,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[123] = {
@@ -406,13 +450,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 123,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[124] = {
@@ -424,13 +470,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 124,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[125] = {
@@ -442,13 +490,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 125,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[126] = {
@@ -460,13 +510,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 126,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[127] = {
@@ -478,13 +530,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 127,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[128] = {
@@ -496,13 +550,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 128,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[129] = {
@@ -514,13 +570,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 129,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[130] = {
@@ -532,13 +590,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 130,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[131] = {
@@ -550,13 +610,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 131,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[132] = {
@@ -568,13 +630,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 132,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[133] = {
@@ -586,13 +650,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 133,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[134] = {
@@ -604,13 +670,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 134,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[135] = {
@@ -622,13 +690,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 135,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[136] = {
@@ -640,13 +710,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 136,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[137] = {
@@ -658,13 +730,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 137,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[138] = {
@@ -676,13 +750,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 138,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[139] = {
@@ -694,13 +770,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 139,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[140] = {
@@ -712,13 +790,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 140,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[141] = {
@@ -730,13 +810,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 141,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[142] = {
@@ -748,13 +830,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 142,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[143] = {
@@ -766,13 +850,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 143,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[144] = {
@@ -784,13 +870,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 144,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[145] = {
@@ -802,13 +890,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 145,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[146] = {
@@ -820,13 +910,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 146,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[147] = {
@@ -838,13 +930,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 147,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[148] = {
@@ -856,13 +950,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 148,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[149] = {
@@ -874,13 +970,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 149,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[150] = {
@@ -892,13 +990,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 150,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[151] = {
@@ -910,13 +1010,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 151,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[152] = {
@@ -928,13 +1030,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 152,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[153] = {
@@ -946,13 +1050,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 153,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[154] = {
@@ -964,13 +1070,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 154,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[155] = {
@@ -982,13 +1090,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 155,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[156] = {
@@ -1000,13 +1110,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 156,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[157] = {
@@ -1018,13 +1130,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 157,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[158] = {
@@ -1036,13 +1150,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 158,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[159] = {
@@ -1054,13 +1170,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 159,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[160] = {
@@ -1072,13 +1190,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 160,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[161] = {
@@ -1090,13 +1210,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 161,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[162] = {
@@ -1108,13 +1230,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 162,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[163] = {
@@ -1126,13 +1250,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 163,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[164] = {
@@ -1144,13 +1270,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 164,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[165] = {
@@ -1162,13 +1290,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 165,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[166] = {
@@ -1180,13 +1310,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 166,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[167] = {
@@ -1198,13 +1330,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 167,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[168] = {
@@ -1216,13 +1350,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 168,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[169] = {
@@ -1234,13 +1370,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 169,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[170] = {
@@ -1252,13 +1390,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 170,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[171] = {
@@ -1270,13 +1410,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 171,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[172] = {
@@ -1288,13 +1430,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 172,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[173] = {
@@ -1306,13 +1450,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 173,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[174] = {
@@ -1324,13 +1470,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 174,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[175] = {
@@ -1342,13 +1490,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 175,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[176] = {
@@ -1360,13 +1510,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 176,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[177] = {
@@ -1378,13 +1530,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 177,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[178] = {
@@ -1396,13 +1550,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 178,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[179] = {
@@ -1414,13 +1570,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 179,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[180] = {
@@ -1432,13 +1590,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 180,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[181] = {
@@ -1450,13 +1610,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 181,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[182] = {
@@ -1468,13 +1630,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 182,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[183] = {
@@ -1486,13 +1650,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 183,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[184] = {
@@ -1504,13 +1670,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 184,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[185] = {
@@ -1522,13 +1690,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 185,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[186] = {
@@ -1540,13 +1710,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 186,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[187] = {
@@ -1558,13 +1730,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 187,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[188] = {
@@ -1576,13 +1750,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 188,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[189] = {
@@ -1594,13 +1770,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 189,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[190] = {
@@ -1612,13 +1790,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 190,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[191] = {
@@ -1630,13 +1810,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 191,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[192] = {
@@ -1648,13 +1830,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 192,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[193] = {
@@ -1666,13 +1850,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 193,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[194] = {
@@ -1684,13 +1870,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 194,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[195] = {
@@ -1702,13 +1890,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 195,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[196] = {
@@ -1720,13 +1910,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 196,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[197] = {
@@ -1738,13 +1930,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 197,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[198] = {
@@ -1756,13 +1950,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 198,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[199] = {
@@ -1774,13 +1970,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 199,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[200] = {
@@ -1792,13 +1990,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 200,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[201] = {
@@ -1810,13 +2010,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 201,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[202] = {
@@ -1828,13 +2030,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 202,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[203] = {
@@ -1846,13 +2050,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 203,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[204] = {
@@ -1864,13 +2070,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 204,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[205] = {
@@ -1882,13 +2090,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 205,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[206] = {
@@ -1900,13 +2110,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 206,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[207] = {
@@ -1918,13 +2130,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 207,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[208] = {
@@ -1936,13 +2150,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 208,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[209] = {
@@ -1954,13 +2170,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 209,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[210] = {
@@ -1972,13 +2190,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 210,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[211] = {
@@ -1990,13 +2210,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 211,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[212] = {
@@ -2008,13 +2230,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 212,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[213] = {
@@ -2026,13 +2250,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 213,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[214] = {
@@ -2044,13 +2270,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 214,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[215] = {
@@ -2062,13 +2290,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 215,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[216] = {
@@ -2080,13 +2310,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 216,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[217] = {
@@ -2098,13 +2330,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 217,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[218] = {
@@ -2116,13 +2350,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 218,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[219] = {
@@ -2134,13 +2370,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 219,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[220] = {
@@ -2152,13 +2390,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 220,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[221] = {
@@ -2170,13 +2410,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 221,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[222] = {
@@ -2188,13 +2430,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 222,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[223] = {
@@ -2206,13 +2450,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 223,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[224] = {
@@ -2224,13 +2470,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 224,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[225] = {
@@ -2242,13 +2490,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 225,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[226] = {
@@ -2260,13 +2510,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 226,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[227] = {
@@ -2278,13 +2530,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 227,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[228] = {
@@ -2296,13 +2550,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 228,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[229] = {
@@ -2314,13 +2570,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 229,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[230] = {
@@ -2332,13 +2590,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 230,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[231] = {
@@ -2350,13 +2610,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 231,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[232] = {
@@ -2368,13 +2630,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 232,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[233] = {
@@ -2386,13 +2650,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 233,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[234] = {
@@ -2404,13 +2670,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 234,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[235] = {
@@ -2422,13 +2690,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 235,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[236] = {
@@ -2440,13 +2710,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 236,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[237] = {
@@ -2458,13 +2730,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 237,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[238] = {
@@ -2476,13 +2750,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 238,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[239] = {
@@ -2494,13 +2770,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 239,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[240] = {
@@ -2512,13 +2790,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 240,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[241] = {
@@ -2530,13 +2810,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 241,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[242] = {
@@ -2548,13 +2830,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 242,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[243] = {
@@ -2566,13 +2850,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 243,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[244] = {
@@ -2584,13 +2870,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 244,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[245] = {
@@ -2602,13 +2890,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 245,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[246] = {
@@ -2620,13 +2910,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 246,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[247] = {
@@ -2638,13 +2930,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 247,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[248] = {
@@ -2656,13 +2950,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 248,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[249] = {
@@ -2674,13 +2970,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 249,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[250] = {
@@ -2692,13 +2990,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 250,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[251] = {
@@ -2710,13 +3010,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 251,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[252] = {
@@ -2728,13 +3030,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 252,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[253] = {
@@ -2746,13 +3050,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 253,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[254] = {
@@ -2764,13 +3070,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 254,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[255] = {
@@ -2782,13 +3090,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 255,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[256] = {
@@ -2800,13 +3110,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 256,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[257] = {
@@ -2818,13 +3130,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 257,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[258] = {
@@ -2836,13 +3150,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 258,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[259] = {
@@ -2854,13 +3170,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 259,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[260] = {
@@ -2872,13 +3190,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 260,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[261] = {
@@ -2890,13 +3210,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 261,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[262] = {
@@ -2908,13 +3230,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 262,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[263] = {
@@ -2926,13 +3250,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 263,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[264] = {
@@ -2944,13 +3270,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 264,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[265] = {
@@ -2962,13 +3290,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 265,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[266] = {
@@ -2980,13 +3310,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 266,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[267] = {
@@ -2998,13 +3330,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 267,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[268] = {
@@ -3016,13 +3350,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 268,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[269] = {
@@ -3034,13 +3370,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 269,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[270] = {
@@ -3052,13 +3390,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 270,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[271] = {
@@ -3070,13 +3410,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 271,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[272] = {
@@ -3088,13 +3430,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 272,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[273] = {
@@ -3106,13 +3450,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 273,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[274] = {
@@ -3124,13 +3470,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 274,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[275] = {
@@ -3142,13 +3490,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 275,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[276] = {
@@ -3160,13 +3510,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 276,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[277] = {
@@ -3178,13 +3530,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 277,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[278] = {
@@ -3196,13 +3550,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 278,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[279] = {
@@ -3214,13 +3570,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 279,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[280] = {
@@ -3232,13 +3590,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 280,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[281] = {
@@ -3250,13 +3610,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 281,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[282] = {
@@ -3268,13 +3630,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 282,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[283] = {
@@ -3286,13 +3650,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 283,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[284] = {
@@ -3304,13 +3670,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 284,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[285] = {
@@ -3322,13 +3690,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 285,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[286] = {
@@ -3340,13 +3710,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 286,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[287] = {
@@ -3358,13 +3730,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 287,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[288] = {
@@ -3376,13 +3750,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 288,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[289] = {
@@ -3394,13 +3770,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 289,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[290] = {
@@ -3412,13 +3790,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 290,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[291] = {
@@ -3430,13 +3810,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 291,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[292] = {
@@ -3448,13 +3830,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 292,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[293] = {
@@ -3466,13 +3850,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 293,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[294] = {
@@ -3484,13 +3870,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 294,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[295] = {
@@ -3502,13 +3890,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 295,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[296] = {
@@ -3520,13 +3910,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 296,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[297] = {
@@ -3538,13 +3930,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 297,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[298] = {
@@ -3556,13 +3950,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 298,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[299] = {
@@ -3574,13 +3970,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 299,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 	[300] = {
@@ -3592,13 +3990,15 @@ data_1500_PaoshangTaskAward = {
 				gold = nil,
 				silver = nil,
 				coin = 300,
+				union_offer = 100,
+				union_money = 10000,
 				items = {nil,nil,nil,},
 				pets = {nil,nil,},
-				ratio = 0,
+				ratio = 1,
 			},
 
 		},
-		ratiotype = 0,
+		ratiotype = 2,
 	},
 
 }

@@ -33,6 +33,14 @@ data_1100_DailyStat = {
 		needlv = 10,
 	},
 
+	[5] = {
+		order = 5,
+		name = "公会跑商",
+		flag = "paoshang",
+		needzs = 0,
+		needlv = 15,
+	},
+
 }
 return data_1100_DailyStat
 --<<data_1100_DailyStat 导表结束>>

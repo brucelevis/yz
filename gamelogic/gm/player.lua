@@ -266,6 +266,7 @@ function gm.changejob(args)
 	end
 	local player = master
 	player.roletype = jobid
+	player.jobzs = jobdata.ZZHI
 	player.warskilldb:resetpoint()
 	player.warskilldb:clear()
 	player.warskilldb:openskills(jobid)

@@ -8,7 +8,7 @@ data_1700_CatchPet = {
 		addratio_onfail = 0.020000,
 		cost_huoli = 0,
 		mapid = 1,
-		need_itemtype = 601050,
+		need_itemtype = 1102051,
 	},
 
 	[20002] = {
@@ -18,7 +18,7 @@ data_1700_CatchPet = {
 		addratio_onfail = 0.030000,
 		cost_huoli = 100,
 		mapid = 2,
-		need_itemtype = 601050,
+		need_itemtype = 1102052,
 	},
 
 	[20004] = {
@@ -28,7 +28,7 @@ data_1700_CatchPet = {
 		addratio_onfail = 0.050000,
 		cost_huoli = 100,
 		mapid = 3,
-		need_itemtype = 601050,
+		need_itemtype = 1102053,
 	},
 
 }

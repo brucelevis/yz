@@ -158,7 +158,7 @@ function cbabatuositask:onwarend(war,result)
 	ctaskcontainer.onwarend(self,war,result)
 end
 
-function cbabatuositask:onsubmittask(taskid)
+function cbabatuositask:onsubmittask(task)
 	local player = playermgr.getplayer(self.pid)
 	local flag = self:getflag("isget")
 	local isget = player.today:query(flag)

@@ -14,7 +14,7 @@ function netscene.isvalid_move(srcpos,topos)
 end
 
 function C2S.move(player,request)
-	if table.equal(player.pos,request.srcpos) then
+	if table.equal(player.pos,request.dstpos) then
 		return
 	end
 	local scene = scenemgr.getscene(player.sceneid)
@@ -28,9 +28,9 @@ function C2S.move(player,request)
 		sendpackage(player.pid,"scene","fixpos",{pos=player.pos})
 		return
 	end
-	if not netscene.isvalid_move(player.pos,request.srcpos) then
+	if not netscene.isvalid_move(player.pos,request.dstpos) then
 		sendpackage(player.pid,"scene","fixpos",{pos=player.pos})
-		logger.log("warning","scene",format("[invalid_move->fixpos] pid=%s pos=%s->%s",player.pid,player.pos,request.srcpos))
+		logger.log("warning","scene",format("[invalid_move->fixpos] pid=%s pos=%s->%s",player.pid,player.pos,request.dstpos))
 		return
 	end
 	player:move(request)

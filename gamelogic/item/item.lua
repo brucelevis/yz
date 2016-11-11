@@ -168,6 +168,7 @@ function __hotfix(oldmod)
 	hotfix.hotfix("gamelogic.item.use.baotu")
 	hotfix.hotfix("gamelogic.item.use.box")
 	hotfix.hotfix("gamelogic.item.use.consume")
+	hotfix.hotfix("gamelogic.item.use.pet")
 end
 
 return citem

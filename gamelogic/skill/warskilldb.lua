@@ -227,15 +227,17 @@ function cwarskilldb:resetpoint()
 	if not self:canreset() then
 		return
 	end
-	local point = self:getallpoint()
-	if point == 0 then
-		return
-	end
 	--TODO 重置消耗
-	logger.log("info","skill",format("[reset] pid=%d point=%d",self.pid,point))
+	local point = 0
 	for _,skill in pairs(self.objs) do
-		skill.level = 0
+		local data = self:getskilldata(skill.id)
+		-- 初心者技能不变
+		if data.jobID ~= 10001 then
+			point = point + skill.level
+			skill.level = 0
+		end
 	end
+	logger.log("info","skill",format("[reset] pid=%d point=%d",self.pid,point))
 	self.skillpoint = self.skillpoint + point
 	self:sendallskill()
 	net.skill.S2C.updatepoint(self.pid,self.skillpoint)

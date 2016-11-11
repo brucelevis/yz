@@ -79,7 +79,7 @@ data_0201_RoleSkillState = {
 		switchPos = 0,
 		takeMedicine = 0,
 		forceWugongTarget = 0,
-		targetEffId = 10003,
+		targetEffId = 0,
 		immunStates = {},
 	},
 

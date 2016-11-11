@@ -25,6 +25,12 @@ data_0902_WarActionParams = {
 		waitime = 0.000000,
 	},
 
+	[402] = {
+		action = "",
+		commonActionAndEffect = 1005,
+		waitime = 0.000000,
+	},
+
 }
 return data_0902_WarActionParams
 --<<data_0902_WarActionParams 导表结束>>

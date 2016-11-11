@@ -99,6 +99,20 @@ data_ResType = {
 		goldbuyhowmuch = 0,
 	},
 
+	[15] = {
+		type = "close",
+		name = "亲密度",
+		flag = "close",
+		goldbuyhowmuch = 0,
+	},
+
+	[16] = {
+		type = "yinpiao",
+		name = "跑商用银票",
+		flag = "yinpiao",
+		goldbuyhowmuch = 0,
+	},
+
 }
 return data_ResType
 --<<data_ResType 导表结束>>

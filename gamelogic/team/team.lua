@@ -5,7 +5,7 @@ function cteam:init(param)
 	self.minlv = param.minlv or 1
 	self.maxlv = param.maxlv or playeraux.getmaxlv()
 	self.captain = assert(param.captain)
-	self.createtime = os.time()
+	self.createtime = param.createtime or os.time()
 	self.follow = {}
 	self.leave = {}
 	self.applyers = {}
@@ -51,7 +51,7 @@ function cteam:onlogoff(player,reason)
 	if teammgr:teamid(pid) then
 		teammgr:leaveteam(player)
 	end
-	self:say(string.format("【%s】已离线",player.name))
+	self:say(language.format("【{1}】已离线",language.untranslate(player.name)))
 end
 
 
@@ -76,7 +76,7 @@ function cteam:join(player)
 		teamstate = TEAM_STATE_LEAVE,
 		teamid = self.id,
 	})
-	self:say(string.format("【%s】加入了队伍",player.name))
+	self:say(language.format("【{1}】加入了队伍",language.untranslate(player.name)))
 end
 
 function cteam:back(player)
@@ -128,7 +128,7 @@ function cteam:leaveteam(player)
 			}
 		})
 	end)
-	self:say(string.format("【%s】暂离了队伍",player.name))
+	self:say(language.format("【{1}】暂离了队伍",language.untranslate(player.name)))
 	resumemgr.push(pid,{
 		teamstate = TEAM_STATE_LEAVE,
 		teamid = self.id,
@@ -258,7 +258,7 @@ function cteam:changecaptain(pid)
 			teamstate = teamstate,
 		})
 	end
-	self:say(string.format("【%s】成为了队长",newcaptain.name))
+	self:say(language.format("【{1}】成为了队长",language.untranslate(newcaptain.name)))
 end
 
 function cteam:getapplyer(pid,ispos)
@@ -478,8 +478,6 @@ function cteam:say(msg,nosend_channel)
 	if not self.captain then
 		return
 	end
-	local lang = playeraux.getlanguage(self.captain)
-	msg = language.translateto(msg,lang)
 	local sender = {
 		pid = 0,
 	}
@@ -487,19 +485,12 @@ function cteam:say(msg,nosend_channel)
 		sender = sender,
 		msg = msg,
 	}
-	channel.publish(self.channel,{
-		p = "msg",
-		s = "notify",
-		a = packmsg,
-	})
+	local members = self:members(TEAM_STATE_ALL)
+	netmsg.broadcast(members,"msg","notify",packmsg)
 	if nosend_channel then
 		return
 	end
-	channel.publish(self.channel,{
-		p = "msg",
-		s = "teammsg",
-		a = packmsg,
-	})
+	netmsg.broadcast(members,"msg","teammsg",packmsg)
 end
 
 return cteam

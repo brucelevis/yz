@@ -58,3 +58,21 @@ function gethideip(ip)
 	return hideip
 end
 
+function richtext(typ,info)
+	local elem = {
+		type = typ,
+		info = info
+	}
+	elem = cjson.encode(elem)
+	return string.format("#<REF>%s#",elem)
+end
+
+function markdown(typ,text,info)
+	if text and info then
+		assert(type(info) == "table")
+		info = cjson.encode(info)
+		return string.format("#<%s>[%s](%s)#",typ,text,info)
+	else
+		return string.format("#<%s>#",typ)
+	end
+end

@@ -134,7 +134,7 @@ function ctaskcontainer:onwarend(war,result)
 	end
 end
 
-function ctaskcontainer:onsubmittask(taskid)
+function ctaskcontainer:onsubmittask(task)
 end
 
 function ctaskcontainer:raisewar(task,args,pid)
@@ -719,7 +719,8 @@ function ctaskcontainer:getitemtype(itemtype)
 	return data_0501_ItemSet[itemtype].items
 end
 
-function ctaskcontainer:handinitem(task,args,pid,itemlst)
+function ctaskcontainer:handinitem(task,args,pid,ext)
+	local itemlst = ext.items
 	local nid = task.resourcemgr:get("findnpc")[1]
 	local npc = self:getnpc_bynid(task,nid)
 	local player = playermgr.getplayer(self.pid)
@@ -800,12 +801,7 @@ function ctaskcontainer:autohandin(player,itemneed)
 		local items = {}
 		local typs = self:getitemtype(itemtype)
 		for _,typ in ipairs(typs) do
-			local v2 = player.itemdb:getitemsbytype(typ,function(item)
-				if item.pos < ITEMPOS_BEGIN then
-					return false
-				end
-				return true
-			end)
+			local v2 = player.itemdb:getitemsbytype(typ)
 			if v2 then
 				table.extend(items,v2)
 			end
@@ -1198,7 +1194,7 @@ function ctaskcontainer:submittask(taskid)
 	self:addfinishtask(taskid)
 	self.nowtaskid = nil
 	self:deltask(taskid,"taskdone")
-	self:onsubmittask(taskid)
+	self:onsubmittask(task)
 	if self.is_teamsubmit then
 		self:team_submittask(taskid)
 	end

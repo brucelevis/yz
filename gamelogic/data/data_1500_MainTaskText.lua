@@ -1781,6 +1781,917 @@ data_1500_MainTaskText = {
 		},
 	},
 
+	[5011] = {
+		texts = {
+			
+			{ npc1 = 0, type = 3, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "再见这座异域城市\n竟有一丝还乡的欣喜", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 1, emoji1 = 0, name = "睦旦", talk = 501040, npc2 = 0, emoji2 = 0, content = "欢迎回来,勇士们!真是年轻有为啊！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "士兵", talk = 501060, npc2 = 501060, emoji2 = 0, content = "摄政王殿下正在与你们说话,不要东张西望！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "伊菲", talk = 501010, npc2 = 501010, emoji2 = 0, content = "身为乡野小民的我们从没见过这么大的人物,摄政王大人是不会怪罪的吧？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "睦旦", talk = 501040, npc2 = 501010, emoji2 = 0, content = "哈哈哈哈！怎么会呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "睦旦", talk = 501040, npc2 = 501010, emoji2 = 0, content = "赶走作乱的魔神,保护了王都安危的勇者们可是迦南王国的大英雄,理应受到人民的爱戴和礼遇啊。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "爱拉忒", talk = 501020, npc2 = 501020, emoji2 = 0, content = "虽然作恶的魔神已经离开王都附近,但如果不收复的话,恐怕会跑到别的地方作乱呢。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "睦旦", talk = 501040, npc2 = 501020, emoji2 = 0, content = "嗯……本王也正在发愁呢。听说收复魔神需要强大的法术,祭司们应该正在研究对策吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 501020, emoji2 = 0, content = "如果需要什么帮助的话,请摄政王殿下吩咐。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 501030, emoji2 = 0, content = "难怪回城后就不见了踪影,原来是被摄政王大人先请过来了啊。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 501030, emoji2 = 0, content = "米利暗大人！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "睦旦", talk = 501040, npc2 = 501030, emoji2 = 0, content = "哈哈哈哈,这次可是被我捷足先登了,米利暗。怎么,找他们有什么事吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 501030, emoji2 = 0, content = "这几位勇者可是我的老朋友了,睦旦大人。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 501030, emoji2 = 0, content = "能与这些年轻人畅谈叙旧是再好不过的了,睦旦大人如果还有工作请先去忙吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501040, type = 2, emoji1 = 0, name = "睦旦", talk = 501040, npc2 = 501030, emoji2 = 0, content = "既然这样,可不要慢待了这几个年轻的勇士啊。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "米利暗大人？是有话要说吗……？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "没错。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "遗失的圣约柜似乎有了一些线索,但事关祭司们的荣誉和威信,这件事不能让其他人知道。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "请问需要我们帮助您什么呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "勇者们可能要去巴比伦调查一下了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "巴比伦吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "这是一个刚刚兴起的国家,它的国王尼布甲尼撒二世是一位非常英勇的君主。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "巴比伦在他的带领下,日益强大。甚至……未来可能是迦南王国的威胁。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "既然这样,这件事就请交给我们吧！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "不过这件事毕竟太危险。必须再次确认你们的能力才行,希望几位可以理解。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "一切听从米利暗大人的安排。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "那么就让我的侍者来做主考官吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（在通过米利暗大人安排的试炼之后）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5012] = {
+		texts = {
+			
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "恭喜你们通过了考验。准备好了的话,即刻前往巴比伦吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "请米利暗大人放心,如果有圣约柜的下落,我们一定尽全力将它带回来的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "圣约柜不同于一般的圣物,如果有了消息,请务必先通知我,不要轻举妄动。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "身为迦南的大祭司,是不能轻易离开王都的。正因如此,更对巴比伦的各种传闻非常好奇。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "巴比伦之所以如此迅速地强大起来,一定有它的道理。所以也请你们多多关注巴比伦优秀的方面。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "放心吧,米利暗大人,一定会有好消息传回来的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "不过,关于赫麦村的事……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 501030, type = 1, emoji1 = 0, name = "米利暗", talk = 501030, npc2 = 0, emoji2 = 0, content = "这件事会妥善处理的,请放心吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5021] = {
+		texts = {
+			
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 502020, emoji2 = 0, content = "这里就是传说中的巴比伦？真是气派啊！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "伊菲", talk = 502010, npc2 = 502020, emoji2 = 0, content = "与迦南的王都有什么区别吗？不过迦南人总是忙忙碌碌的,巴比伦看起来更舒服。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 502020, npc2 = 502020, emoji2 = 0, content = "迦南只是暂时陷于战争才稍微显得有些忙乱罢了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "伊菲", talk = 502010, npc2 = 502020, emoji2 = 0, content = "连米利暗大人都说巴比伦有很多优秀的方面。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 502020, npc2 = 502020, emoji2 = 0, content = "那也不代表巴比伦比迦南好！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "巴比伦士兵", talk = 502050, npc2 = 502050, emoji2 = 0, content = "什么人在此大声喧哗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 502050, emoji2 = 0, content = "抱歉,我们是从异域来的游客。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "巴比伦士兵", talk = 502050, npc2 = 502050, emoji2 = 0, content = "异域的游客？从迦南王国而来的所谓勇者吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "伊菲", talk = 502010, npc2 = 502050, emoji2 = 0, content = "猜得不错！没想到迦南勇者的威名已经传到这里了呢！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 502010, type = 2, emoji1 = 0, name = "巴比伦士兵", talk = 502050, npc2 = 502050, emoji2 = 0, content = "想必就是国王陛下等候的人了。请允许我们向几位请教。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5022] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 502020, npc2 = 0, emoji2 = 0, content = "才到巴比伦而已,就遇上了这样的麻烦……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5031] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（巴比伦将军挑战勇者大人）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5032] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 503010, npc2 = 0, emoji2 = 0, content = "虽然不介意这样的比试,不过是否应该告诉我们理由呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5041] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（在巴比伦阵营中出现了一位骁勇的骑士,精彩的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5042] = {
+		texts = {
+			
+			{ npc1 = 504030, type = 1, emoji1 = 0, name = "华衣将军", talk = 504030, npc2 = 0, emoji2 = 0, content = "不愧是迦南王国引以为傲的勇者,能战胜剑魂的人可不太多。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "剑魂？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "装束不像寻常的军人,请问阁下是……？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 1, emoji1 = 0, name = "华衣将军", talk = 504030, npc2 = 0, emoji2 = 0, content = "尼布。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 504020, npc2 = 504020, emoji2 = 0, content = "尼布？巴比伦国王尼布甲尼撒二世？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "正是。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 504020, emoji2 = 0, content = "所以,您再次阻拦的用意是……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "巴比伦如今深陷为难,亟待勇者们的援助。作为巴比伦国王,我恳请各位仗义援助,以解我国燃眉之急。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 504020, npc2 = 504020, emoji2 = 0, content = "无往不胜的尼布甲尼撒大人,怎么会需要迦南人的帮助？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "实不相瞒,最近在我国朝拜神明的圣地通天塔,出现了一股神秘而危险的力量。一旦接近就会迷失其中变得疯狂。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "我的妻子安美依迪丝,巴比伦的王后和荣誉祭司,为解除人们的困境,冒着极大的危险进入了幻境。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "也不幸在困在其中无法脱身。而作为君主与丈夫的我,却无计可施。只好向勇者们求助。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 504020, emoji2 = 0, content = "神秘……而危险的力量……？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504010, type = 2, emoji1 = 0, name = "伊菲", talk = 504010, npc2 = 504020, emoji2 = 0, content = "会不会是圣……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 504020, npc2 = 504020, emoji2 = 0, content = "请恕我直言国王陛下。贵国的事情与我们这些迦南的勇者又有什么关系呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "虽然没有直接利害,不过对以收复魔神为己任的勇者来说,这股力量绝对值得几位感兴趣。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 504020, emoji2 = 0, content = "国王陛下也知道魔神？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 504030, npc2 = 504020, emoji2 = 0, content = "迦南王国魔神逃逸,四境不宁,早就不是什么秘密了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 504020, emoji2 = 0, content = "说的也是呢……这样的话,去看一看比较好吧,爱拉忒酱？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 504030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 504020, npc2 = 504020, emoji2 = 0, content = "$playername$sex:君|酱#这样想吗？那么,现在就出发吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5051] = {
+		texts = {
+			
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 505030, emoji2 = 0, content = "那就是通天塔？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 505020, npc2 = 505030, emoji2 = 0, content = "好重的魔气。还有这么远的距离,就已经这样浓烈了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "早在巴比伦复国时,通天塔就已出现异样。因此,祭司们在塔中设下了法阵镇压这股来历不明的魔气。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "一直以来,我的爱人安美依迪丝致力于追查这股魔气的来源,但苦寻无果。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505010, type = 2, emoji1 = 0, name = "伊菲", talk = 505010, npc2 = 505030, emoji2 = 0, content = "既然设下了法阵,应该没什么问题了吧！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505011, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "原本如此。可是数月前,通天塔内的魔气突然爆发,连镇魔圣器也受到污染。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505012, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "随后,我们得到迦南王国魔神逃逸的消息。这两件事时间非常接近,所以……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 505020, npc2 = 505030, emoji2 = 0, content = "这么说虽然没错,可在此之前魔气已经出现,又该怎么解释呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "目前还无法得知。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "我的妻子进入魔气笼罩之处已经数日,应该没有人比深入其中的她更了解里面的情况了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 505030, emoji2 = 0, content = "不过,此事毕竟凶险异常,国王陛下要营救王后的话有什么计划吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "此魔如此凶悍,必须最强的人才能镇服。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "之前法阵被毁,要想重启需要四位实力相当的勇者与我配合,分别净化相应的阵眼。此后,由我将新的镇魔圣器放入主阵之中,即可完成封印。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 505020, npc2 = 505030, emoji2 = 0, content = "新的镇魔圣器？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "剑魂。作为古巴比伦霸主汉谟拉比佩剑之魂的圣器一定能够镇住塔内的魔物。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 505030, emoji2 = 0, content = "您要亲自到通天塔中去吗？国王陛下！那可是非常危险的！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "虽然危险,但深陷魔气中的是我的妻子啊。冷眼旁观所爱之人受苦而无动于衷,身为丈夫无论如何也做不到呢。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 505020, npc2 = 505030, emoji2 = 0, content = "从前听说巴比伦的国王陛下与王后相爱情深,原来真的如此。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505010, type = 2, emoji1 = 0, name = "伊菲", talk = 505010, npc2 = 505030, emoji2 = 0, content = "女孩子啊——只要说两句让人肉麻的好听话,就可以轻易虏获芳心。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505010, type = 2, emoji1 = 0, name = "伊菲", talk = 505010, npc2 = 505030, emoji2 = 0, content = "刚才还是一副势不两立的样子,现在却像要被感动哭了一样,真是莫名其妙。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 505020, npc2 = 505030, emoji2 = 0, content = "又在乱说些什么嘛,伊菲君！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 505030, emoji2 = 0, content = "好了好了,现在不是玩笑的时候。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "正是呢,几位虽然不必进入通天塔,但进入魔气污染的范围,一旦心志动摇就有被迷惑的可能。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 505030, npc2 = 505030, emoji2 = 0, content = "所以请大家无论如何,一定保持意念坚定,平安地重启法阵。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 505010, type = 2, emoji1 = 0, name = "伊菲", talk = 505010, npc2 = 505030, emoji2 = 0, content = "放心吧尼布桑！迦南王国的勇者是绝对不会让人失望的！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（进入被魔气笼罩的范围,勇者大人很快迷失了方向。周围出现了许多散发着浓雾的怪物,激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5052] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 505010, npc2 = 0, emoji2 = 0, content = "啊？$playername怎么是你啊！到这里之后,大家就都走散了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5061] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（魔气中幻化出爱拉忒酱的心魔,在激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5062] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 506020, npc2 = 0, emoji2 = 0, content = "这个魔物居然能映出忍心的恐惧之处。刚才真是多谢你了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5071] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（魔气之厉害连巴比伦的将军都无法抵抗,在击败被扰乱的巴比伦将军之后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5072] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "巴比伦将军", talk = 507030, npc2 = 0, emoji2 = 0, content = "这到底是什么怪物……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5081] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（曾经在这片魔雾中故去的巴比伦人变成了游魂,漫无目的的攻击着勇者大人们。激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5082] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 508010, npc2 = 0, emoji2 = 0, content = "那边似乎有个人影！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5091] = {
+		texts = {
+			
+			{ npc1 = 509050, type = 1, emoji1 = 0, name = "？？？", talk = 509050, npc2 = 0, emoji2 = 0, content = "圣水不竭,圣火不灭,圣土无垠,圣谕普赐。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509050, type = 1, emoji1 = 0, name = "？？？", talk = 509050, npc2 = 0, emoji2 = 0, content = "将我血肉虔诚奉上,祈求赐予无上神威。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509050, type = 1, emoji1 = 0, name = "？？？", talk = 509050, npc2 = 0, emoji2 = 0, content = "驱退邪恶,震慑……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 509040, npc2 = 509020, emoji2 = 0, content = "安美依迪丝——不要！！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "爱拉忒", talk = 509020, npc2 = 509020, emoji2 = 0, content = "她要牺牲自己开启禁术！快阻止她！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（勇者大人们及时制止了安美依迪丝王后的危险禁术。）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5092] = {
+		texts = {
+			
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "安美依迪丝", talk = 509050, npc2 = 509050, emoji2 = 0, content = "尼布……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 509040, npc2 = 509050, emoji2 = 0, content = "是我,我来了。只是……对不起,来得太晚了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "安美依迪丝", talk = 509050, npc2 = 509050, emoji2 = 0, content = "不,它还没有完全脱离封印！现在,就是……现在！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 509040, npc2 = 509050, emoji2 = 0, content = "可是……你现在很虚弱呢……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "安美依迪丝", talk = 509050, npc2 = 509050, emoji2 = 0, content = "只要、只要能保护巴比伦的安全,所有的牺牲都值得！而且,我相信你会保护我！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 509040, type = 2, emoji1 = 0, name = "安美依迪丝", talk = 509050, npc2 = 509050, emoji2 = 0, content = "也请你相信我,尼布！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5101] = {
+		texts = {
+			
+			{ npc1 = 510020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "虽然不知道是什么怪物,但或许正如王后所说,一鼓作气才能彻底镇压它呢。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 510020, npc2 = 0, emoji2 = 0, content = "同意。这个时候退步,下次恐怕很难突破了。王后殿下的心血不是白费了吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "安美依迪丝", talk = 510050, npc2 = 510050, emoji2 = 0, content = "不要犹豫了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510050, emoji2 = 0, content = "……好吧……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510050, emoji2 = 0, content = "重启开始后,这个魔物恐怕会全力反扑,这大概是最危险的时候。所以一旦开始,无论如何,请各位一定要坚持！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510050, emoji2 = 0, content = "无论……如何,安美依迪丝……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "安美依迪丝", talk = 510050, npc2 = 510050, emoji2 = 0, content = "不要为我担心。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "伊菲", talk = 510010, npc2 = 510010, emoji2 = 0, content = "时间紧迫,有什么话出去说不好吗？你们两个！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510010, emoji2 = 0, content = "那么,请各位分别到相应的位置上吧！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 510010, emoji2 = 0, content = "不必担心,大家都会全力以赴的！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（正式重启法阵的过程中遭到了魔物激烈的反抗,它居然说勇者大人是所罗门陛下！）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[5102] = {
+		texts = {
+			
+			{ npc1 = 510020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "所……罗门……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 1, emoji1 = 0, name = "爱拉忒", talk = 510020, npc2 = 0, emoji2 = 0, content = "$playername$sex:君|酱#,没关系吧……？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "啊……没问题！其他人,安美依迪丝王后呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510040, emoji2 = 0, content = "因为耗费了太多法力的缘故,之前又试图启动禁术,虽然中断了,还是对身体造成了很大的损伤。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510040, emoji2 = 0, content = "恐怕要好好休养一段时间了。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510040, emoji2 = 0, content = "对了,你刚才说……所罗门？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 510040, emoji2 = 0, content = "呃——它、那个怪物似乎提到了所罗门王呢。不过我也不知道它的意思,国王陛下有什么顾虑吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510040, emoji2 = 0, content = "四百多年前,我们的故国因兴修通天塔,遭到以奉神之谕为名的所罗门麾下迦南军的侵扰,在内忧外患中走向倾覆。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510040, emoji2 = 0, content = "族人数百年间流离失所,漂泊异乡,不久前才辗转回到故土。所以,乍一听到所罗门这个名字,难免有些吃惊。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "伊菲", talk = 510010, npc2 = 510010, emoji2 = 0, content = "$playername$sex:君|酱#是说听到了那个怪物说话吗？哪里有什么声音啊,爱拉忒酱听到了吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 510020, npc2 = 510010, emoji2 = 0, content = "没有呢。不过$playername$sex:君|酱#是不会乱讲的吧。它究竟说了什么呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 510010, emoji2 = 0, content = "我……我其实也不很清楚。折里还是太危险了,快离开吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 510020, npc2 = 510010, emoji2 = 0, content = "也是呢,既然魔物已经被镇住,国王陛下应该不急在此时解决所有的疑问吧？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510020, type = 2, emoji1 = 0, name = "伊菲", talk = 510010, npc2 = 510010, emoji2 = 0, content = "怎么说,我们都是贵国巴比伦重要的客人啊！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 510040, type = 2, emoji1 = 0, name = "尼布甲尼撒", talk = 510040, npc2 = 510010, emoji2 = 0, content = "抱歉,是我的疏忽。请各位到驿馆休息吧,会有人照顾几位的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6011] = {
+		texts = {
+			
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 601020, emoji2 = 0, content = "所罗门……它为什么,要那样说……？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 601020, emoji2 = 0, content = "这几天怎么总是精神恍惚的,$playername$sex:君|酱#？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 601020, npc2 = 601020, emoji2 = 0, content = "一直不肯说听到了什么,是怕那位国王陛下知道吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 601020, npc2 = 601020, emoji2 = 0, content = "说起来这位大人虽然好心安排了住处和侍者,不过总有种被看管起来的感觉呢。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 601020, emoji2 = 0, content = "会吗？这里可比在迦南的丛林里冒险舒服多了。美餐美酒,还有美人服侍~", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 601020, emoji2 = 0, content = "爱拉忒酱说得有道理,从那时尼布甲尼撒的话看来,巴比伦对数百年前灭国的事仍然十分介意。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 601020, emoji2 = 0, content = "即使平定了灾患,他也无法完全相信我们……继续留在这里的话……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 601020, npc2 = 601020, emoji2 = 0, content = "逃走吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 601020, emoji2 = 0, content = "什……什么？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 601020, npc2 = 601020, emoji2 = 0, content = "离开这里,离开巴比伦,就算尼布甲尼撒再有权势也好,离开了巴比伦,他也无法再控制我们。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 601020, emoji2 = 0, content = "可是,圣约柜还没有下落,还有被锁在通天塔的怪物,恐怕与迦南王国也脱离不了关系吧？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 601020, emoji2 = 0, content = "我们现在的处境,恐怕完全没法开展调查吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 601020, npc2 = 601020, emoji2 = 0, content = "巴比伦城号称百门之都,从其他方向离开,尼布甲尼撒不会发现我们的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 601020, emoji2 = 0, content = "既然你们两个如此坚决,那我也没什么意见……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 601020, emoji2 = 0, content = "真是舍不得巴比伦舒适的房间啊！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 601020, emoji2 = 0, content = "贪恋舒适的环境可是要影响勇者进步的哟,伊菲君！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 601010, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 601020, emoji2 = 0, content = "（进入沼泽不久,就遇到了被魔气熏染的怪物,激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6012] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 601010, npc2 = 0, emoji2 = 0, content = "爱拉忒酱的主意真是太棒了,哼！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6021] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6022] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 602010, npc2 = 0, emoji2 = 0, content = "这到底是什么地方嘛！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6031] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6032] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "伊菲", talk = 603010, npc2 = 0, emoji2 = 0, content = "都怪爱拉忒酱出的好主意！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6041] = {
+		texts = {
+			
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604020, emoji2 = 0, content = "都怪爱拉忒酱出的好主意！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604020, emoji2 = 0, content = "主意虽然是我出的,但领路的人是伊菲君吧？只会抱怨别人什么的最差劲了！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 604020, emoji2 = 0, content = "当务之急,是要尽快走出这片泥沼,而不是追究责任吧？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604020, emoji2 = 0, content = "这里根本没有路,该怎么走嘛！反正距离巴比伦也有一段距离了,总可以休息一下了吧？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604020, emoji2 = 0, content = "顺便,$playername$sex:君|酱#的秘密到底是什么呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604020, emoji2 = 0, content = "是啊,让人十分在意呢。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 604020, emoji2 = 0, content = "它……它说：“我是什么怪物,这要问你,所罗门”。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604020, emoji2 = 0, content = "你是……所罗门陛下？怎么可能？！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604020, emoji2 = 0, content = "怎么不可能？$playername$sex:君|酱#很有王者风范啊！以后一定会成为一位优秀的国王的！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 604020, emoji2 = 0, content = "这样的玩笑就不要开了吧,伊菲君。虽然米利暗大人说过那样的话……但我怎么可能真的是所罗门陛下呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 604020, emoji2 = 0, content = "巴比伦人至今视所罗门王为仇敌,如果被尼布甲尼撒知道,一定不会放过我的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604020, emoji2 = 0, content = "虽说如此,那个被锁在通天塔里的怪物居然那样对你说,恐怕也是所罗门陛下的死敌呢,如果……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604020, emoji2 = 0, content = "什么人？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "？？？", talk = 604030, npc2 = 604030, emoji2 = 0, content = "警惕性很好。年轻人,不错。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604030, emoji2 = 0, content = "是你？巴比伦的将军。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604020, type = 2, emoji1 = 0, name = "？？？", talk = 604030, npc2 = 604030, emoji2 = 0, content = "我叫奥珞,也是迦南人,多以请不必担心。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604030, emoji2 = 0, content = "你也是勇者？似乎年级有些大呢大叔！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604020, type = 2, emoji1 = 0, name = "奥珞", talk = 604030, npc2 = 604030, emoji2 = 0, content = "迦南勇者的能力与年龄无关。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604030, emoji2 = 0, content = "可是,投靠敌国的人也不能算是迦南的勇者了吧？在尼布甲尼撒麾下作将军,对我们来说本身就是威胁。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604020, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 604030, emoji2 = 0, content = "虽然将军大人已经表明身份,但如果是想带我们回巴比伦的话,我们也不会束手就擒的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604020, type = 2, emoji1 = 0, name = "奥珞", talk = 604030, npc2 = 604030, emoji2 = 0, content = "这里实在太危险,就算要离开巴比伦,从这里走也是行不通的,还是跟我回去吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604030, emoji2 = 0, content = "喂喂,哪有那么多时间跟他消磨啊,打就是啦！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604010, type = 2, emoji1 = 0, name = "奥珞", talk = 604030, npc2 = 604030, emoji2 = 0, content = "等……等一下！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（巴比伦将军果然厉害,不过勇者大人更胜一筹~激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6042] = {
+		texts = {
+			
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "奥珞", talk = 604030, npc2 = 604010, emoji2 = 0, content = "你们都很有实力,不过对于这篇沼泽还是太弱了一些。这里发生的恐惧诡异的事情,根本是无法想象的。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604010, emoji2 = 0, content = "作为手下败将,奥珞大人说这种话不会脸红吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 604010, emoji2 = 0, content = "奥珞大人是手下留情了呢。这也是尼布甲尼撒大人的意思吧？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "奥珞", talk = 604030, npc2 = 604010, emoji2 = 0, content = "国王陛下并不知道我来这里。如果一定要离开,就让我护送你们吧。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 604020, npc2 = 604020, emoji2 = 0, content = "护送？该如何相信一个投靠了巴比伦并成为将军大人的人会真心的帮助迦南的勇者呢？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "奥珞", talk = 604030, npc2 = 604020, emoji2 = 0, content = "我会用行动打消诸位的疑虑。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "烂泥怪", talk = 0, npc2 = 604020, emoji2 = 0, content = "呼……呼——噜噜噜噜噜~~~~", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "树精", talk = 0, npc2 = 604020, emoji2 = 0, content = "吼吼——嘎嘎嘎嘎……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "腐肉骷髅", talk = 0, npc2 = 604020, emoji2 = 0, content = "科科……科、科科科……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 604030, type = 2, emoji1 = 0, name = "伊菲", talk = 604010, npc2 = 604010, emoji2 = 0, content = "啊！怎么聚集了这么多怪物啊！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6051] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（沼泽中聚集来许多的怪物,将勇者大人们团团围住。激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6052] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 605020, npc2 = 0, emoji2 = 0, content = "糟糕,我们被包围了！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6061] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6062] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "奥珞", talk = 606030, npc2 = 0, emoji2 = 0, content = "大概是刚才的战斗引来了这些怪物。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6071] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6072] = {
+		texts = {
+			
+			{ npc1 = 607020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 607020, npc2 = 607050, emoji2 = 0, content = "出来吧！别在躲着了,毕弗隆斯！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 607020, type = 2, emoji1 = 0, name = "毕弗隆斯", talk = 607050, npc2 = 607050, emoji2 = 0, content = "哼哼哼哼,呵呵呵呵……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 607020, type = 2, emoji1 = 0, name = "毕弗隆斯", talk = 607050, npc2 = 607050, emoji2 = 0, content = "果然,在赫麦村时不应该留你们活口。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 607010, type = 2, emoji1 = 0, name = "伊菲", talk = 607010, npc2 = 607050, emoji2 = 0, content = "真的是你这家伙！可恶！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 607010, type = 2, emoji1 = 0, name = "毕弗隆斯", talk = 607050, npc2 = 607050, emoji2 = 0, content = "这次可没有华利弗来搅局了,你们就等死吧！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 607010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 607050, emoji2 = 0, content = "不要小看了迦南勇者的实力,这一次,绝对不会让你占到便宜！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 607010, type = 2, emoji1 = 0, name = "毕弗隆斯", talk = 607050, npc2 = 607050, emoji2 = 0, content = "那就试试看吧！阿默厉,撕碎它们！！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6081] = {
+		texts = {
+			
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（毕弗隆斯指派他的使魔：骨龙阿默厉歼灭勇者大人,激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6082] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "奥珞", talk = 608030, npc2 = 0, emoji2 = 0, content = "小心！毕弗隆斯要亲自上阵了！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6091] = {
+		texts = {
+			
+			{ npc1 = 609040, type = 1, emoji1 = 0, name = "毕弗隆斯", talk = 609040, npc2 = 0, emoji2 = 0, content = "你狠聪明,也够倒霉。如果没有遇到这些小家伙,或许可以死得晚一些。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609040, type = 1, emoji1 = 0, name = "毕弗隆斯", talk = 609040, npc2 = 0, emoji2 = 0, content = "但是今天,就要葬身在这肮脏的泥潭中,成为这些勇者的陪葬了！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609010, type = 1, emoji1 = 0, name = "伊菲", talk = 609010, npc2 = 0, emoji2 = 0, content = "还没比试过,怎么知道是什么结果？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609040, type = 1, emoji1 = 0, name = "毕弗隆斯", talk = 609040, npc2 = 0, emoji2 = 0, content = "什么结果？哈哈哈哈,难道你们还能再次从我手里逃走吗？别做梦了,不会有别人出现的！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609040, type = 1, emoji1 = 0, name = "毕弗隆斯", talk = 609040, npc2 = 0, emoji2 = 0, content = "伟大的魔神主宰,尊贵的巴力大人！您的臣仆毕弗隆斯,虔诚地像您献上血祭。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609040, type = 1, emoji1 = 0, name = "毕弗隆斯", talk = 609040, npc2 = 0, emoji2 = 0, content = "愿您从沉睡中复苏,在黑暗中重生！以无上的魔力支配日月与星辰,让这世界堕落狂欢！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609040, type = 1, emoji1 = 0, name = "$playername", talk = 0, npc2 = 0, emoji2 = 0, content = "这家伙在做什么？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 609020, npc2 = 609010, emoji2 = 0, content = "它在献祭,难道是巴力的遗躯埋葬在这里吗？", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609020, type = 2, emoji1 = 0, name = "伊菲", talk = 609010, npc2 = 609010, emoji2 = 0, content = "献祭？！那祭品岂不就是……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609030, type = 2, emoji1 = 0, name = "奥珞", talk = 609030, npc2 = 609010, emoji2 = 0, content = "自然是我们。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 609030, type = 2, emoji1 = 0, name = "伊菲", talk = 609010, npc2 = 609010, emoji2 = 0, content = "奥珞大人还真是淡定啊！还等什么啦,绝对不能让它得逞！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（毕弗隆斯成功唤醒了魔神巴力沉睡的遗躯,在战斗中给勇者大人造成了不小的麻烦。）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6092] = {
+		texts = {
+			
+			{ npc1 = 0, type = 4, emoji1 = 0, name = "爱拉忒", talk = 609020, npc2 = 0, emoji2 = 0, content = "大家小心,是……巴力！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 0, },
+
+		},
+	},
+
+	[6101] = {
+		texts = {
+			
+			{ npc1 = 610020, type = 2, emoji1 = 0, name = "爱拉忒", talk = 610020, npc2 = 610010, emoji2 = 0, content = "巴力,真的是巴力……！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610020, type = 2, emoji1 = 0, name = "伊菲", talk = 610010, npc2 = 610010, emoji2 = 0, content = "不过它好像对我们没什么兴趣的样子啊,反而是毕弗隆斯……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610030, type = 2, emoji1 = 0, name = "奥珞", talk = 610030, npc2 = 610010, emoji2 = 0, content = "不要大意。", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610030, type = 2, emoji1 = 0, name = "毕弗隆斯", talk = 0, npc2 = 610010, emoji2 = 0, content = "巴……巴力大人,巴力大人！放过您的臣仆吧,巴力大人！啊——", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610030, type = 2, emoji1 = 0, name = "爱拉忒", talk = 610020, npc2 = 610020, emoji2 = 0, content = "快！快走！吞噬了毕弗隆斯的巴力不是我们能抗衡的！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610040, type = 1, emoji1 = 0, name = "巴力之影", talk = 610040, npc2 = 0, emoji2 = 0, content = "想跑吗？已经没有机会了！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 0, type = 6, emoji1 = 0, name = "", talk = 0, npc2 = 0, emoji2 = 0, content = "（反噬了毕弗隆斯的巴力异常强大,在激烈的战斗过后……）", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
+	[6102] = {
+		texts = {
+			
+			{ npc1 = 610040, type = 1, emoji1 = 0, name = "巴力之影", talk = 610040, npc2 = 0, emoji2 = 0, content = "啊——！！！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610010, type = 2, emoji1 = 0, name = "伊菲", talk = 610010, npc2 = 610020, emoji2 = 0, content = "它它它它它……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610010, type = 2, emoji1 = 0, name = "爱拉忒", talk = 610020, npc2 = 610020, emoji2 = 0, content = "毕弗隆斯！一定是毕弗隆斯不甘心被吞噬,所以发起反抗了！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610010, type = 2, emoji1 = 0, name = "$playername", talk = 0, npc2 = 610020, emoji2 = 0, content = "那我们现在……", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+
+			{ npc1 = 610010, type = 2, emoji1 = 0, name = "奥珞", talk = 610030, npc2 = 610030, emoji2 = 0, content = "趁这个机会快走！应该有捷径可以离开这里的,请大家跟我走！", option1 = "", option2 = "", option3 = "", option4 = "", flipY1 = 0, flipY2 = 1, },
+
+		},
+	},
+
 }
 return data_1500_MainTaskText
 --<<data_1500_MainTaskText 导表结束>>

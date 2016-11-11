@@ -53,7 +53,9 @@ function cvotemgr:save()
 			vote = self:savevote(vote)
 			tmp[id] = vote
 		end
-		type_id_vote[typ] = tmp
+		if not next(tmp) then
+			type_id_vote[typ] = tmp
+		end
 	end
 	data.type_id_vote = type_id_vote
 	return data
@@ -133,7 +135,6 @@ end
 
 function cvotemgr:newvote(vote)
 	assert(vote.member_vote)
-	assert(vote.callback)
 	local sum_vote = 0
 	for _,votenum in pairs(vote.member_vote) do
 		sum_vote = sum_vote + votenum
@@ -164,12 +165,12 @@ end
 --		pass_vote = 10,	  -- 投票数达到一定值则终止投票
 --		exceedtime = os.time() + 300, -- 过期时间
 --		-- 如果投票需要存盘，callback就必须用pack_function打包
---		callback = function (vote,state)  -- 投票出结果后的回调函数
+--		callback = function (vote,state,id)  -- 投票出结果后的回调函数
 --		end,
 -- })
 --*/
 function cvotemgr:addvote(typ,vote)
-	if not self.type_id_vote[typ] then
+	if not self.type_id_vote[typ] or not next(self.type_id_vote[typ]) then
 		self.type_id_vote[typ] = {}
 		self.type_pid_id[typ] = {}
 	end
@@ -203,7 +204,7 @@ function cvotemgr:__delvote(id,typ)
 	if id_vote then
 		local vote = id_vote[id]
 		if vote then
-			logger.log("info","vote",string.format("[delvote] type=%s id=%s",typ,id))
+			logger.log("info","vote",format("[delvote] type=%s id=%s vote=%s",typ,id,vote))
 			xpcall(self.ondelvote,onerror,self,vote)
 			id_vote[id] = nil
 			for pid,_ in pairs(vote.member_vote) do
@@ -428,7 +429,7 @@ function cvotemgr:check_timeout()
 	for typ,id_vote in pairs(self.type_id_vote) do
 		for id,vote in pairs(id_vote) do
 			if vote.exceedtime and now >= vote.exceedtime then
-				assert(self:check_endvote(vote,"timeout"))
+				xpcall(self.check_endvote,onerror,self,vote,"timeout")
 				self:delvote(id,typ)
 			end
 		end
@@ -449,6 +450,9 @@ end
 
 function cvotemgr:callback(vote,state,id)
 	local callback = vote.callback
+	if not callback then
+		return
+	end
 	if type(callback) == "table" then  -- 序列化回调函数
 		local func = unpack_function(callback)
 		return func(vote,state,id)

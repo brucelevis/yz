@@ -35,6 +35,15 @@ function resumemgr.push(pid,data)
 	resume:set(data)
 end
 
+function resumemgr.get(pid,attr)
+	local player = playermgr.getplayer(pid)
+	if player then
+		return player[attr]
+	end
+	local resume = resumemgr.getresume(pid)
+	return resume:get(attr)
+end
+
 function resumemgr.loadresume(pid)
 	local resume = cresume.new(pid)
 	resume:loadfromdatabase()
@@ -71,6 +80,14 @@ function resumemgr.getresume(pid)
 	else
 		-- resume non exist
 		return
+	end
+end
+
+-- 恢复数据中心玩家简介的服务器引用
+function resumemgr.recover_refs()
+	local pids = table.keys(resumemgr.objs)
+	if not table.isempty(pids) then
+		skynet.fork(pcall,rpc.call,cserver.datacenter(),"resumemgr","recover",pids)
 	end
 end
 
@@ -150,7 +167,7 @@ function CMD.sync(srvname,pid,data)
 				-- 防止部分服断开连接后影响其他服的同步
 				-- 服务器断开连接的情况可能有： 1. 停服了 2. 网络不好
 				if clustermgr.isconnect(srvname2) then
-					rpc.pcall(srvname2,"resumemgr","sync",resume.pid,data)
+					skynet.fork(rpc.pcall,srvname2,"resumemgr","sync",resume.pid,data)
 				end
 			end
 		end
@@ -163,6 +180,17 @@ function CMD.delete(srvname,pid)
 	if resume then
 		resumemgr.delresume(pid)
 		resume:deletefromdatabase()
+	end
+end
+
+-- gamesrv -> datacenter
+function CMD.recover(srvname,pids)
+	logger.log("debug","resume",string.format("[recover] srvname=%s pidcnt=%d",srvname,#pids))
+	for _,pid in ipairs(pids) do
+		local resume = resumemgr.getresume(pid)
+		if resume then
+			resume:addref(srvname)
+		end
 	end
 end
 

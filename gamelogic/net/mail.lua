@@ -8,9 +8,9 @@ local C2S = netmail.C2S
 local S2C = netmail.S2C
 
 function C2S.openmailbox(player)
-	--local pid = player.pid
-	--local mailbox = mailmgr.getmailbox(pid)
-	--local mails = mailbox:getmails()
+	local pid = player.pid
+	local mailbox = mailmgr.getmailbox(pid)
+	local mails = mailbox:getmails()    -- will del exceedtime's mail
 	--local allmail = {}
 	--for _,mail in ipairs(mails) do
 	--	table.insert(allmail,mail:pack())
@@ -107,7 +107,7 @@ function C2S._respondanswer(player,mail,answer)
 		end
 		local unionid = player:unionid()
 		if not unionid then
-			net.msg.S2C.notify(player.pid,language.format("你没有公会1"))
+			net.msg.S2C.notify(player.pid,language.format("你没有公会"))
 			return
 		end
 		local isok,errmsg
@@ -121,6 +121,8 @@ function C2S._respondanswer(player,mail,answer)
 				net.msg.S2C.notify(player.pid,errmsg)
 			end
 			return
+		else
+			net.msg.S2C.notify(player.pid,language.format("已成功投票"))
 		end
 	end
 end

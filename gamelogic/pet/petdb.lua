@@ -1,11 +1,11 @@
-cpetdb = class("cpetdb",cposcontainer)
+cpetdb = class("cpetdb",ccontainer)
 
 function cpetdb:init(pid)
-	cposcontainer.init(self,{
+	ccontainer.init(self,{
 		name = "cpetdb",
-		initspace = 4,
 	})
 	self.pid = pid
+	self.space = 4
 	self.expandspace = 0
 	self.readywar_petid = nil
 end
@@ -14,10 +14,12 @@ function cpetdb:load(data)
 	if not data or not next(data) then
 		return
 	end
-	cposcontainer.load(self,data,function(petdata)
+	local pid = self.pid
+	ccontainer.load(self,data,function(petdata)
 		local pet = petaux.newpet()
 		pet:load(petdata)
 		pet:config()
+		pet.pid = pid
 		return pet
 	end)
 	self.expandspace = data.expandspace
@@ -32,7 +34,7 @@ function cpetdb:load(data)
 end
 
 function cpetdb:save()
-	local data = cposcontainer.save(self,function(pet)
+	local data = ccontainer.save(self,function(pet)
 		return pet:save()
 	end)
 	data.expandspace = self.expandspace
@@ -48,6 +50,17 @@ function cpetdb:onlogin(player)
 	})
 end
 
+function cpetdb:genid()
+	local player = playermgr.getplayer(self.pid)
+	return player:genid()
+end
+
+function cpetdb:clear()
+	ccontainer.clear(self)
+	self.expandspace = 0
+	self.readywar_petid = nil
+end
+
 function cpetdb:getallpets()
 	local pets = {}
 	for id,pet in pairs(self.objs) do
@@ -61,11 +74,9 @@ function cpetdb:getpet(petid)
 end
 
 function cpetdb:addpet(pet,reason)
-	local pos = self:getfreepos()
-	assert(pos)
 	local petid = self:genid()
-	logger.log("info","pet",string.format("[addpet] pid=%s petid=%s pettype=%s pos=%s reason=%s",self.pid,petid,pet.type,pos,reason))
-	pet.pos = pos
+	logger.log("info","pet",string.format("[addpet] pid=%s petid=%s pettype=%s reason=%s",self.pid,petid,pet.type,reason))
+	pet.pid = self.pid
 	self:add(pet,petid)
 	return pet
 end
@@ -73,13 +84,8 @@ end
 function cpetdb:delpet(petid,reason)
 	local pet = self:getpet(petid)
 	if pet then
-		logger.log("info","pet",string.format("[delpet] pid=%s petid=%s pettype=%s pos=%s reason=%s",self.pid,petid,pet.type,pet.pos,reason))
-		local pos = pet.pos
-		local space = self:getspace()
+		logger.log("info","pet",string.format("[delpet] pid=%s petid=%s pettype=%s reason=%s",self.pid,petid,pet.type,reason))
 		self:del(petid)
-		for i=pos+1,space do
-			self:moveto(i,i-1)
-		end
 		return pet
 	end
 end
@@ -88,6 +94,14 @@ function cpetdb:readywar(petid)
 	local pet = self:getpet(petid)
 	if not pet then
 		return
+	end
+	if self.readywar_petid == petid then
+		return
+	end
+	if self.readywar_petid then
+		self:update(self.readywar_petid,{
+			readywar = false,
+		})
 	end
 	self.readywar_petid = petid
 	self:update(pet.id,{
@@ -156,7 +170,6 @@ function cpetdb:trainpet(petid)
 	end
 	local data = petaux.getpetdata(pet.type)
 	-- 处理技能
-	local oldskills = pet:getallskills()
 	pet.skills:clear()
 	for _,skillid in pairs(data.study_skills) do
 		if ishit(50,100) then
@@ -189,10 +202,8 @@ function cpetdb:trainpet(petid)
 		end
 	end
 	pet:set("fullzizhi",fullzizhi)
-	local newskills = pet:getallskills()
-	logger.log("info","pet",format("[trainpet] pid=%d petid=%d oldzz=%s newzz=%s oldsk=%s newsk=%s",self.pid,petid,oldzizhi,pet.zizhi,oldskills,newskills))
+	logger.log("info","pet",format("[trainpet] pid=%d petid=%d oldzz=%s newzz=%s",self.pid,petid,oldzizhi,pet.zizhi))
 	self:onupdate(petid,{
-		skills = newskills,
 		zizhi = pet.zizhi,
 	})
 end
@@ -202,7 +213,7 @@ function cpetdb:comprehendskill(petid)
 	if not pet then
 		return
 	end
-	local limit = pet.skills:getspace()
+	local limit = pet.skilllimit
 	if pet:getskillslen() >= limit then
 		return
 	end
@@ -211,7 +222,7 @@ function cpetdb:comprehendskill(petid)
 		return
 	end
 	local tmp = {}
-	for skillid,skilldata in pairs(data_1700_PetSkill) do
+	for skillid,skilldata in pairs(data_0201_PetSkill) do
 		if skilldata.comprehend_ratio ~= 0 and self:can_learn(pet,skillid) then
 			tmp[skillid] = skilldata.comprehend_ratio
 		end
@@ -220,10 +231,7 @@ function cpetdb:comprehendskill(petid)
 	local player = playermgr.getplayer(self.pid)
 	logger.log("info","pet",string.format("[comprehendskill] pid=%d petid=%d skillid=%d",self.pid,petid,skillid))
 	pet:addskill(skillid)
-	net.msg.sendquickmsg(language.format("恭喜{1}的{2}领悟了{3}！",player.name,pet:get("name"),data_1700_PetSkill[skillid].name))
-	self:onupdate(petid,{
-		skills = pet:getallskills(),
-	})
+	net.msg.sendquickmsg(language.format("恭喜{1}的{2}领悟了{3}！",player.name,pet:get("name"),data_0201_PetSkill[skillid].name))
 end
 
 function cpetdb:learnskill(petid,skillid)
@@ -231,35 +239,31 @@ function cpetdb:learnskill(petid,skillid)
 	if not pet then
 		return
 	end
-	local replaceskill,replace_skillpos
+	local replaceskill
 	local skillslen = pet:getskillslen()
 	if skillslen > 5 then
 		local ratio = math.max(0,math.floor((pet.skills.len - 2) / 3))
-		if skillslen >= pet.skills:getspace() or ishit(ratio,100) then
+		if skillslen >= pet.skilllimit or ishit(ratio,100) then
 			replaceskill = randlist(table.keys(pet.skills.objs))
-			replace_skillpos = pet:hasskill(replaceskill)
 			pet:delskill(replaceskill)
 		end
 	end
-	pet:addskill(skillid,replace_skillpos)
+	pet:addskill(skillid)
 	local msg
-	if not replace_skillpos then
-		msg = language.format("{1}学习成功",data_1700_PetSkill[skillid].name)
+	if not replaceskill then
+		msg = language.format("{1}学习成功",data_0201_PetSkill[skillid].name)
 	else
-		msg = language.format("{1}替换了{2}",data_1700_PetSkill[skillid].name,data_1700_PetSkill[replaceskill].name)
+		msg = language.format("{1}替换了{2}",data_0201_PetSkill[skillid].name,data_0201_PetSkill[replaceskill].name)
 	end
 	net.msg.S2C.notify(self.pid,msg)
 	logger.log("info","pet",string.format("[learnskill] pid=%d petid=%d skillid=%d replacesk=%d",self.pid,pet.id,skillid,replaceskill or 0))
-	self:onupdate(petid,{
-		skills = pet:getallskills(),
-	})
 end
 
 function cpetdb:can_learn(pet,skillid)
 	if pet:hasskill(skillid) then
 		return false,language.format("已经学习过该技能了")
 	end
-	local skilldata = data_1700_PetSkill[skillid]
+	local skilldata = data_0201_PetSkill[skillid]
 	if istrue(skilldata.relation_limit) and pet.relationship < skilldata.relation_limit then
 		return false,language.format("宠物关系达不到{1}，无法学习本技能",data_1700_PetRelationShip[skilldata.relation_limit].name)
 	end
@@ -298,16 +302,14 @@ function cpetdb:wieldequip(petid,itemid)
 	local player = playermgr.getplayer(self.pid)
 	local equip = player.itemdb:delitem(itemid,"wield_petequip")
 	local equippos = equip:get("equippos")
-	local item = pet.equipments:delbypos(equippos)
+	local item = pet.equipments:getbypos(equippos)
 	if item then
+		pet:delequip(item.id)
 		player.itemdb:additem(item,"unwield_petequip")
 	end
 	logger.log("info","pet",string.format("[wieldequip] pid=%d petid=%d itemid=%d",self.pid,petid,itemid))
 	equip.pos = equippos
-	pet.equipments:add(equip,equip.id)
-	self:onupdate(petid,{
-		equips =  pet:getallequips(),
-	})
+	pet:addequip(equip)
 end
 
 function cpetdb:can_wieldequip(pet,itemid)
@@ -335,7 +337,7 @@ function cpetdb:unwieldequip(petid,itemid)
 		return
 	end
 	logger.log("info","pet",string.format("[unwieldequip] pid=%d petid=%d itemid=%d",self.pid,petid,itemid))
-	local item = pet.equipments:del(itemid)
+	local item = pet:delequip(itemid)
 	if player.itemdb:getfreespace() > 0 then
 		player.itemdb:additem(item,"unwield_petequip")
 	else
@@ -349,9 +351,6 @@ function cpetdb:unwieldequip(petid,itemid)
 			},
 		})
 	end
-	self:onupdate(petid,{
-		equips = pet:getallequips(),
-	})
 end
 
 function cpetdb:combine(masterid,subid)
@@ -386,7 +385,7 @@ function cpetdb:combine(masterid,subid)
 	end
 	local rand = math.random(data_1700_PetVar.CombineSkillMinRatio * 100,data_1700_PetVar.CombineSkillMaxRatio * 100) / 100
 	local skillnum = #lstskill + math.floor(#lstskill2 * rand)
-	skillnum = math.min(skillnum,masterpet.skills:getspace() - #masterpet:get("bind_skills"))
+	skillnum = math.min(skillnum,masterpet.skilllimit - #masterpet:get("bind_skills"))
 	table.extend(lstskill,lstskill2)
 	lstskill = shuffle(lstskill,false,skillnum)
 	masterpet.skills:clear()
@@ -395,7 +394,6 @@ function cpetdb:combine(masterid,subid)
 	end
 	self:onupdate(masterid,{
 		zizhi = masterpet.zizhi,
-		skills = masterpet:getallskills(),
 	})
 	--变异
 	if not masterpet:isbianyi() then
@@ -404,7 +402,7 @@ function cpetdb:combine(masterid,subid)
 			self:bianyi(masterid,"combine")
 			local player = playermgr.getplayer(self.pid)
 			local skillid = masterpet:getbianyiskill()
-			local skillname = data_1700_PetSkill[skillid].name
+			local skillname = data_0201_PetSkill[skillid].name
 			net.msg.sendquickmsg(language.format("{1}的{2}在合成时产生了变异，获得了变异技能{3}",player.name,masterpet:name(),skillname))
 		end
 	end
@@ -495,7 +493,7 @@ function cpetdb:bianyi(petid,reason,bianyi_type)
 	logger.log("info","pet",string.format("[bianyi] pid=%d petid=%d type=%d reason=%s",self.pid,petid,bianyi_type,reason))
 	pet.bianyi_type = bianyi_type
 	self:onupdate(petid,{
-		skills = pet:getallskills(),
+		bindskills = pet:getbindskills(),
 		bianyi_type = pet.bianyi_type,
 	})
 end
@@ -509,7 +507,7 @@ function cpetdb:expand(addspace,reason)
 end
 
 function cpetdb:catchpet(player,pettype,bianyi_type,itemid)
-	if self:getfreespace() <= 0 then
+	if self:getspace() - self.len <= 0 then
 		return
 	end
 	local item = player:getitem(itemid)
@@ -521,7 +519,7 @@ function cpetdb:catchpet(player,pettype,bianyi_type,itemid)
 	if item.type ~= catchdata.need_itemtype then
 		return
 	end
-	if player:query("huoli") < catchdata.cost_huoli then
+	if player:query("huoli") or 0 < catchdata.cost_huoli then
 		return
 	end
 	logger.log("info","pet",string.format("[catchpet] pid=%d pettype=%d bianyi=%d",self.pid,pettype,bianyi_type))

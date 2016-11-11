@@ -176,6 +176,31 @@ data_1500_GlobalTask = {
 		team_target = -1,
 	},
 
+	paoshang = {
+		task = "data_1500_PaoshangTaskProcess",
+		npc = "data_1500_PaoshangTaskNpc",
+		award = "data_1500_PaoshangTaskAward",
+		text = "data_1500_PaoshangTaskText",
+		fake = "data_1500_PaoshangTaskFake",
+		var = "data_1500_PaoshangTaskVar",
+		tasktype = 107,
+		ringlimit = 0,
+		donelimit = 25,
+		interval = "thisweek",
+		isoverlay = 0,
+		harddonelimit = 0,
+		starttime = nil,
+		endtime = nil,
+		name = "公会",
+		comment = "公会跑商",
+		desc = "这是公会跑商的描述哦",
+		awarddesc = "#<IR14>#数量可观,#<IR8>#数量可观",
+		missiontype = 104,
+		missionname = "公会任务",
+		orderid = 9,
+		team_target = -1,
+	},
+
 }
 return data_1500_GlobalTask
 --<<data_1500_GlobalTask 导表结束>>

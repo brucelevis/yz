@@ -172,7 +172,7 @@ function cshimoshiliantask:nexttask(taskid,reason)
 	return next_taskid,errmsg
 end
 
-function cshimoshiliantask:onsubmittask(taskid)
+function cshimoshiliantask:onsubmittask(task)
 	local ringlimit = self:getformdata("ringlimit")
 	self.ringnum = (self.ringnum + 1) % ringlimit
 	if self.ringnum == 0 then

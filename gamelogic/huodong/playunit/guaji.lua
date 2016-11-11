@@ -71,7 +71,10 @@ function playunit_guaji.canbackteam(player)
 	if captain and playunit_guaji.inguaji(captain) then
 		local map = data_1100_GuaJiMap[captain.sceneid]
 		if player.lv < map.openlv then
-			local msg = string.format("【%s】的等级不足%d级，无法在【%s】挂机巡逻",player.name,map.openlv,map.name)
+			local msg = language.format("【{1}】的等级不足{2}级，无法在【{3}】挂机巡逻",
+				language.untranslate(player.name),
+				language.untranslate(map.openlv),
+				language.untranslate(map.name))
 			team:say(msg,true)
 			return false
 		end

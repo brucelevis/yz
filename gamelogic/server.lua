@@ -100,7 +100,7 @@ function cserver.starttimer_logstatus()
 	local mqlen = skynet.mqlen()
 	logger.log("info","status",string.format("onlinenum=%s linknum=%s offlinenum=%s kuafunum=%s gokuafunum=%s num=%s task=%s mqlen=%s",playermgr.onlinenum,playermgr.linknum,playermgr.offlinenum,playermgr.kuafunum,playermgr.gokuafunum,playermgr.num,skynet.task(),mqlen))
 	if cserver.isgamesrv() then
-		local url = string.format("/serverstatus")
+		local url = string.format("/update_srv_status")
 		local request = make_request({
 			gameflag = cserver.gameflag(),
 			srvname = cserver.getsrvname(),
@@ -111,6 +111,42 @@ function cserver.starttimer_logstatus()
 		})
 		httpc.postx(cserver.accountcenter(),url,request)
 	end
+	if ishit(1,5) then
+		cserver.allsrv_status(true)
+	end
+end
+
+function cserver.allsrv_status(bforce)
+	if not cserver._allsrv_status or bforce then
+		local url = string.format("/allsrv_status")
+		local request = make_request({
+			gameflag = cserver.gameflag(),
+			srvname = cserver.getsrvname(),
+		})
+		local status,response = httpc.postx(cserver.accountcenter(),url,request)
+		if status == 200 then
+			local errcode,result = unpack_response(response)
+			if errcode == STATUS_OK then
+				cserver._allsrv_status = result
+			end
+		end
+	end
+	return cserver._allsrv_status
+end
+
+function cserver.isopensrv(srvname)
+	srvname = srvname or cserver.getsrvname()
+	local allsrv_status = cserver.allsrv_status()
+	local srvinfo = allsrv_status[srvname]
+	if srvinfo then
+		return istrue(srvinfo.isopen)
+	else
+		local srv = data_RoGameSrvList[srvname]
+		if istrue(srv.isopen) then
+			return true
+		end
+	end
+	return false
 end
 
 -- class method
@@ -124,7 +160,7 @@ function cserver.datacenter()
 end
 
 function cserver.accountcenter()
-	return skynet.getenv("accountcenter") or "192.168.1.244:80"
+	return skynet.getenv("accountcenter") or "192.168.1.244:8886"
 end
 
 function cserver.warsrv()

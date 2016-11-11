@@ -169,13 +169,18 @@ function C2S.createrole(obj,request)
 		netlogin.S2C.createrole_result(obj,{errcode = STATUS_SEX_INVALID})
 		return
 	end
-	local isok,errmsg = isvalid_name(name)
-	if not isok then
-		if errmsg then
-			net.msg.S2C.notify(obj,errmsg)
+	local debugmode = skynet.getenv("servermode") == "DEBUG"
+	if debugmode and string.sub(name,1,1) == "#" then
+		-- debugcreaterole,名字格式一般是:#玩家ID
+	else
+		local isok,errmsg = isvalid_name(name)
+		if not isok then
+			if errmsg then
+				net.msg.S2C.notify(obj,errmsg)
+			end
+			netlogin.S2C.createrole_result(obj,{errcode = STATUS_NAME_INVALID})
+			return
 		end
-		netlogin.S2C.createrole_result(obj,{errcode = STATUS_NAME_INVALID})
-		return
 	end
 	-- 调试模式下允许不经过帐号中心直接创建角色
 	if skynet.getenv("servermode") == "DEBUG" then
@@ -287,7 +292,7 @@ function C2S.entergame(obj,request)
 	if now_srvname ~= self_srvname then
 		if isonline and clustermgr.nodown(now_srvname) then
 			obj.pid = roleid
-			playermgr.gosrv(obj,now_srvname,home_srvname)
+			playermgr.gosrv(obj,now_srvname)
 			netlogin.S2C.entergame_result(obj,{errcode = STATUS_REDIRECT_SERVER,})
 			return
 		end
@@ -310,6 +315,7 @@ function C2S.entergame(obj,request)
 		rpc.pcall(home_srvname,"rpc","playermgr.addkuafuplayer",{
 			pid = roleid,
 			go_srvname = self_srvname,
+			after_gosrv = token_cache and token_cache.after_gosrv,
 		})
 	end
 

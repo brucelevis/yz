@@ -26,7 +26,7 @@ function pet.add(player,args)
 		return
 	end
 	local pettype = args[1]
-	if player.petdb:getfreespace() <= 0 then
+	if player.petdb:getspace() - player.petdb.len <= 0 then
 		gm.notify("宠物可携带数目已满")
 		return
 	end

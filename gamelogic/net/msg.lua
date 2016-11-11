@@ -21,7 +21,7 @@ function netmsg.sendquickmsg(msg)
 	local pids = playermgr.allplayer()
 	netmsg.broadcast(pids,"msg","quickmsg",{msg=msg})
 end
-	
+
 function netmsg.broadcast(pids,protoname,subprotoname,args)
 	local msg = args.msg
 	for i,pid in ipairs(pids) do
@@ -233,14 +233,7 @@ function C2S._unionmsg(sender,msg)
 		local date = dhms_time({min=true,sec=true},member.banspeak-os.time())
 		return false,language.format("你已被公会管理者禁言，剩余禁言时间{1}分钟{2}秒",date.min,date.sec)
 	end
-	local pids = table.keys(union.members.objs)
-	local srvname_pids = unionmgr:srvname_pids(pids)
-	for srvname,pids in pairs(srvname_pids) do
-		skynet.fork(rpc.pcall,srvname,"rpc","net.msg.broadcast",pids,"msg","unionmsg",{
-			sender = sender,
-			msg = msg,
-		})
-	end
+	union:sendmsg(sender,msg)
 	return true
 end
 
@@ -357,7 +350,7 @@ function C2S._respondanswer(pid,request)
 			rpc.pcall(srvname,"rpc","net.msg.C2S._respondanswer",pid,request)
 		else
 			local kuafu_onlogin = pack_function("net.msg.C2S._respondanswer",pid,request)
-			playermgr.gosrv(player,srvname,nil,kuafu_onlogin)
+			playermgr.gosrv(player,srvname,kuafu_onlogin)
 		end
 		return
 	end

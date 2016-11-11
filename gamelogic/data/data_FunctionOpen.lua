@@ -27,7 +27,7 @@ data_FunctionOpen = {
 		type = 2,
 		tips_level = 1,
 		open_level = 15,
-		tips_text = "15级开启组队功能,加油升级哟",
+		tips_text = "15级开启公会功能,加油升级哟",
 	},
 	["公会"] = {
 		id = 1,
@@ -36,7 +36,7 @@ data_FunctionOpen = {
 		type = 2,
 		tips_level = 1,
 		open_level = 15,
-		tips_text = "15级开启组队功能,加油升级哟",
+		tips_text = "15级开启公会功能,加油升级哟",
 	},
 
 }

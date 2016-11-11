@@ -98,6 +98,8 @@ function award.mergebonus(bonuss)
 		gold = 0,
 		silver = 0,
 		coin = 0,
+		union_offer = 0,
+		union_money = 0,
 		items = {},
 		pets = {}
 	}
@@ -107,6 +109,8 @@ function award.mergebonus(bonuss)
 		merge_bonus.gold = merge_bonus.gold + (bonus.gold or 0)
 		merge_bonus.silver = merge_bonus.silver + (bonus.silver or 0)
 		merge_bonus.coin = merge_bonus.coin + (bonus.coin or 0)
+		merge_bonus.union_offer = merge_bonus.union_offer + (bonus.union_offer or 0 )
+		merge_bonus.union_money = merge_bonus.union_money + (bonus.union_money or 0)
 		if not table.isempty(bonus.items) then
 			table.extend(merge_bonus.items,bonus.items)
 		end

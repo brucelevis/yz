@@ -171,6 +171,7 @@ union_selfunion 7413 {
 		base 0 : basetype
 		unionid 1 : integer   # 空--无公会，否则--公会ID
 		jobid 2 : integer	  # 自身职位
+		badge 3 : UnionBadgeType # 徽章信息
 	}
 }
 
@@ -307,6 +308,23 @@ union_collectitem_updatetask 7426 {
 	request {
 		base 0 : basetype
 		task 1 : UnionCollectItemTaskType
+	}
+}
+
+# 检查公会名字是否合法：结果
+union_checkname_result 7427 {
+	request {
+		base 0 : basetype
+		result 1 : boolean	#true--合法
+	}
+}
+
+# 公会活动:跑商任务
+union_huodong_paoshang 7428 {
+	request {
+		base 0 : basetype
+		offer 1 : integer
+		paoshangcnt 2 : integer
 	}
 }
 ]]

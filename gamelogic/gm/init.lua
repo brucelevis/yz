@@ -94,6 +94,7 @@ function gm.init()
 	require "gamelogic.gm.friend"
 	require "gamelogic.gm.union"
 	require "gamelogic.gm.pet"
+	require "gamelogic.gm.fixbug"
 end
 
 function gm.onlogin(player)

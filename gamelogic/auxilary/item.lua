@@ -12,6 +12,7 @@ ItemMainType = {
 	TREASURE_BOX = 8,		-- 宝箱
 	PETEQUIP = 9,			-- 宠物装备
 	UNION = 10,				-- 公会物品
+	PETCONSUME = 11,		-- 宠物消耗品
 }
 
 ItemQuality = {
@@ -54,6 +55,8 @@ function itemaux.getitemdata(itemtype)
 		return data_0501_ItemUnion[itemtype]
 	elseif maintype == ItemMainType.PETEQUIP then
 		return data_0501_ItemPetEquip[itemtype]
+	elseif maintype == ItemMainType.PETCONSUME then
+		return data_0501_ItemPetConsume[itemtype]
 	else
 		error("Unknow MainType Item:" .. tostring(itemtype))
 	end

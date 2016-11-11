@@ -207,7 +207,7 @@ function cplayer:savetodatabase()
 		return
 	end
 
-	local srvname = self.home_srvname or cserver.getsrvname()
+	local srvname = globalmgr.home_srvname(self.pid)
 	local db = dbmgr.getdb(srvname)
 	if self.loadstate == "loaded" then
 		local data = self:save()
@@ -472,13 +472,6 @@ end
 function cplayer:onlogin()
 	logger.log("info","login",string.format("[login] account=%s pid=%s name=%s roletype=%s sex=%s lv=%s gold=%s channel=%s ip=%s:%s agent=%s",self.account,self.pid,self.name,self.roletype,self.sex,self.lv,self.gold,self.channel,self:ip(),self:port(),self.__agent))
 	self:comptible_process()
-	if not self.thistemp:query("onfivehourupdate") then
-		self:onfivehourupdate()
-	end
-	--route.onlogin(self)
-	local server = globalmgr.server
-	heartbeat(self.pid)
-	self:add("logincnt",1)
 	--  玩家基本/简介信息
 	sendpackage(self.pid,"player","sync",{
 		roletype = self.roletype,
@@ -495,13 +488,20 @@ function cplayer:onlogin()
 		storehp = self:query("storehp") or 0,
 		usehorncnt = self.today:query("usehorncnt") or 0,
 	})
+	if not self.thistemp:query("onfivehourupdate") then
+		self:onfivehourupdate()
+	end
+	--route.onlogin(self)
+	resumemgr.onlogin(self)
+	local server = globalmgr.server
+	heartbeat(self.pid)
+	self:add("logincnt",1)
 	sendpackage(self.pid,"player","resource",{
 		gold = self.gold,
 		silver = self.silver,
 		coin = self.coin,
 		dexppoint = self.thisweek:query("dexppoint") or 0,
 	})
-	unionaux.onlogin(self)
 	self:sync_chongzhilist()
 	self.switch:onlogin(self)
 	-- 放到teammgr:onlogin之前
@@ -523,9 +523,10 @@ function cplayer:onlogin()
 		local kuafu_onlogin = self.kuafu_onlogin
 		self.kuafu_onlogin = nil
 		local func = unpack_function(kuafu_onlogin)
-		func()
+		skynet.fork(xpcall,func,onerror)
 	end
 	channel.subscribe("world",self.pid)
+	unionaux.onlogin(self)		-- 保证放到resumemgr.onlogin之后
 	self:synctoac()
 end
 
@@ -535,6 +536,7 @@ function cplayer:onlogoff(reason)
 	if reason ~= "replace" then
 		self:set("logofftime",os.time())
 	end
+	resumemgr.onlogoff(self,reason)
 	mailmgr.onlogoff(self,reason)
 	huodongmgr.onlogoff(self,reason)
 	for k,obj in pairs(self.autosaveobj) do
@@ -1031,6 +1033,8 @@ function cplayer:addres(typ,num,reason,btip)
 	elseif resid == RESTYPE.UNION_MONEY then
 		num = self:union_addmoney(num,reason)
 		flag = "IR"
+	elseif resid == RESTYPE.LIVENESS then
+		num = navigation.addliveness(self,num)
 	else
 		error("Invlid restype:" .. tostring(typ))
 	end
@@ -1252,19 +1256,17 @@ function cplayer:onfivehourupdate()
 	end
 	local lefttime = next_five_hour - now
 	self.thistemp:set("onfivehourupdate",1,lefttime)
-	-- dosomething()
+	-- dosomething(),涉及到玩家数据变动,需要主动更新
 	for k,obj in pairs(self.autosaveobj) do
 		if obj.onfivehourupdate then
 			obj:onfivehourupdate()
 		end
 	end
-
-
+	navigation.onfivehourupdate(self)
 	local monthno = getyearmonth()
 	if self:query("monthno") ~= monthno then
 		self:onmonthupdate_infivehour()
 	end
-	navigation.onfivehourupdate(self)
 end
 
 function cplayer:oncleartoday(data)
@@ -1282,7 +1284,7 @@ function cplayer:gettarget(targetid)
 	if targetid == 1 then
 		return self
 	else
-		-- pet ?
+		return self.petdb:getpet(targetid)
 	end
 end
 
@@ -1771,8 +1773,8 @@ function cplayer:union_recommendlist()
 				table.insert(pids,pid)
 			end
 		end
-		pids = shuffle(pids,nil,10)
-		self.thistemp:set("union_recommendlist",pids,8*3600)
+		pids = shuffle(pids,nil,20)
+		self.thistemp:set("union_recommendlist",pids,1800)
 	end
 	return self.thistemp:query("union_recommendlist")
 end
@@ -1791,12 +1793,17 @@ end
 function cplayer:ondelfromunion(unionid)
 	self:delete("union.id")
 	self.today:delete("union.huodong.collectitem")
+	self.thistemp:delete("union_recommendlist")
 	if self.lv >= data_1800_UnionVar.QuitUnionCDNeedLv then
 		self.thistemp:set("apply_join_cd",unionid,data_1800_UnionVar.JoinUnionCDAfterQuit)
 	end
 	sendpackage(self.pid,"union","selfunion",{
 	})
-
+	local scene = scenemgr.getscene(self.sceneid)
+	scene:set(self.pid,{
+		unionid = 0,
+	})
+	self.taskdb:update_canaccept()
 end
 
 function cplayer:onaddtounion(unionid,member)
@@ -1806,6 +1813,12 @@ function cplayer:onaddtounion(unionid,member)
 		unionid = unionid,
 		jobid = member.jobid,
 	})
+	
+	local scene = scenemgr.getscene(self.sceneid)
+	scene:set(self.pid,{
+		unionid = unionid,
+	})
+	self.taskdb:update_canaccept()
 end
 
 function cplayer:union_addoffer(addval,reason)

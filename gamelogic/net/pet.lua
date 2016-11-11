@@ -27,76 +27,21 @@ function C2S.war_or_rest(player,request)
 	end
 end
 
-function C2S.feed(player,request)
-	local id = assert(request.id)
-	local itemid = assert(request.itemid)
-	local pet = player.petdb:getpet(id)
-	if not pet then
-		return
-	end
-	local item = player.itemdb:getitem(itemid)
-	if not item then
-		return
-	end
-	local foods = data_1700_PetVar.PetFeedFoods
-	if not table.find(foods,item.type) then
-		net.msg.S2C.notify(player.pid,language.format("该食物无法喂养宠物"))
-		return
-	end
-	local petdata = petaux.getpetdata(pet.type)
-	local likeit = table.find(petdata.like_foods,item.type)
-	local key = string.format("feedcnt.%s",pet.id)
-	local cnt = player.today:query(key,0)
-	local optimal_feed_cnt = data_1700_PetVar.OptimalFeedCnt
-	local optimal_feed = cnt < optimal_feed_cnt
-	local addclose
-	if optimal_feed or likeit then
-		addclose = 2 * data_1700_PetVar.FeedAddClose
-	else
-		addclose = data_1700_PetVar.FeedAddClose
-	end
-	player.itemdb:costitembyid(item.id,1,string.format("feed#%s",pet.id))
-	player.today:add(key,1)
-	player.petdb:addclose(pet.id,addclose,"feed")
-	if optimal_feed then
-		net.msg.S2C.notify(player.pid,language.format("今天已喂食【{1}】{2}/{3},每天前{4}次喂食获得亲密度翻倍",pet.name,cnt,optimal_feed_cnt,optimal_feed_cnt))
-	else
-		net.msg.S2C.notify(player.pid,language.format("今天已喂食【{1}】{2}次",pet.name,cnt))
-	end
-	net.msg.S2C.notify(player.pid,language.format("获得亲密度{1}",addclose))
-end
-
 function C2S.changestatus(player,request)
 	local id = assert(request.id)
 	local pet = player.petdb:getpet(id)
 	if not pet then
 		return
 	end
-	local status = request.status
-	local reason
-	if status then
-		local itemtype = data_1700_PetStatus[status].item
-		if not itemtype then
-			return
-		end
-		local items = player.itemdb:getitemsbytype(itemtype)
-		if table.isempty(items) then
-			net.msg.S2C.notify(player.pid,language.format("身上没有该状态转换道具"))
-			return
-		end
-		player.itemdb:costitembytype(itemtype,1,"change_petstatus")
-		reason = "useitem"
-	else
-		local costclose = data_1700_PetChangeStatusCost[pet.lv].costclose
-		if pet.close < costclose then
-			net.msg.S2C.notify(player.pid,language.format("亲密度不足"))
-			return
-		end
-		player.petdb:addclose(id,-costclose,"changestatus")
-		status = randlist(table.keys(data_1700_PetStatus))
-		reason = "useclose"
+	local costclose = data_1700_PetChangeStatusCost[pet.lv].costclose
+	if pet.close < costclose then
+		net.msg.S2C.notify(player.pid,language.format("亲密度不足"))
+		return
 	end
-	player.petdb:change_petstatus(id,status,reason)
+	player.petdb:addclose(id,-costclose,"changestatus")
+	local status = randlist(table.keys(data_1700_PetStatus))
+	player.petdb:change_petstatus(id,status,"useclose")
+	net.msg.S2C.notify(player.pid,language.format("{1}变为了{2}状态",pet:getname(),data_1700_PetStatus[status].name))
 end
 
 function C2S.train(player,request)
@@ -122,38 +67,6 @@ function C2S.train(player,request)
 	player.petdb:trainpet(id)
 end
 
-function C2S.learnskill(player,request)
-	local skillid = assert(request.skillid)
-	local itemid = assert(request.itemid)
-	local id = assert(request.id)
-	local item = player:getitem(itemid)
-	if not item then
-		return
-	end
-	local pet = player.petdb:getpet(id)
-	if not pet then
-		return
-	end
-	local petskilldata = data_1700_PetSkill[skillid]
-	if not petskilldata then
-		return
-	end
-	local needitem = petskilldata.item
-	if needitem ~= item.type then
-		net.msg.S2C.notify(player.pid,language.format("学习{1}技能，需要消耗{2}技能书",petskilldata.name,itemaux.getitemdata(needitem).name))
-		return
-	end
-	local isok,errmsg = player.petdb:can_learn(pet,skillid)
-	if not isok then
-		if errmsg then
-			net.msg.S2C.notify(player.pid,errmsg)
-		end
-		return
-	end
-	player.itemdb:costitembyid(itemid,1,"learnskill")
-	player.petdb:learnskill(id,skillid)
-end
-
 function C2S.forgetskill(player,request)
 	local skillid = assert(request.skillid)
 	local id = assert(request.id)
@@ -161,34 +74,22 @@ function C2S.forgetskill(player,request)
 	if not pet then
 		return
 	end
-	local costclose = data_1700_PetVar.ForgetSkillCostClose
+	if not pet:hasskill(skillid) then
+		return
+	end
+	local costclose = petaux.forgetskillcost(skillid)
 	if pet.close < costclose then
 		net.msg.S2C.notify(player.pid,language.format("亲密度不足{1}，无法遗忘技能",costclose))
 		return
 	end
-	local idx = pet:hasskill(skillid)
-	if not idx then
-		return
-	end
-	if idx == -1 then
+	if table.find(pet:get("bind_skills"),skillid) or skillid == pet:getbianyiskill() then
 		net.msg.S2C.notify(player.pid,language.format("无法遗忘绑定技能"))
 		return
 	end
 	logger.log("info","pet",string.format("[forgetskill] pid=%d petid=%d skillid=%d",player.pid,id,skillid))
 	player.petdb:addclose(id,-costclose,"forgetskill")
 	pet:delskill(skillid)
-	player.petdb:onupdate(id,{
-		skills = pet:getallskills(),
-	})
-end
-
-function C2S.wieldequip(player,request)
-	local itemid = assert(request.itemid)
-	local id = assert(request.id)
-	local isok,errmsg = player.petdb:wieldequip(id,itemid)
-	if errmsg then
-		net.msg.S2C.notify(player.pid,errmsg)
-	end
+	net.msg.S2C.notify(player.pid,language.format("{1}遗忘成功",petaux.getskillvalue(skillid,"name")))
 end
 
 function C2S.unwieldequip(player,request)
@@ -226,7 +127,7 @@ function C2S.expandspace(player,request)
 	end
 	local item = player:getitem(itemid)
 	if not item or item.type ~= data.item.item or item.num < data.item.num then
-		net.msg.S2C.notify(player.pid,language.foramt("解锁所需物品不足"))
+		net.msg.S2C.notify(player.pid,language.format("解锁所需物品不足"))
 		return
 	end
 	player.itemdb:costitembyid(itemid,data.item.num,"petexpandspace")
@@ -235,16 +136,91 @@ end
 
 function C2S.commenton(player,request)
 	local pettype = assert(request.pettype)
-	local comment = assert(request.comment)
+	local msg = assert(request.msg)
+	if cserver.isgamesrv() then
+		local isok,errmsg = rpc.call(cserver.datacenter(),"rpc","net.pet.C2S._commenton",player.pid,pettype,msg,player.name,os.time())
+		if not isok then
+			if errmsg then
+				net.msg.S2C.notify(player.pid,errmsg)
+			end
+			return
+		end
+		local comments = errmsg
+		sendpackage(player.pid,"pet","sendcomments",{
+			comments = comments,
+			excedtime = os.time() + 60 * 5,
+		})
+	end
+end
+
+function C2S._commenton(pid,pettype,msg,name,time)
+	if not cserver.isdatacenter() then
+		return false
+	end
+	local petcomment,errmsg = globalmgr.petcommentmgr:getpetcomment(pettype)
+	if not petcomment then
+		return false,errmsg
+	end
+	local isok
+	isok,errmsg = petcomment:addcomment(pid,name,msg,time)
+	if not isok then
+		return false,errmsg
+	end
+	return true,petcomment:pack(pid)
 end
 
 function C2S.getcomments(player,request)
 	local pettype = assert(request.pettype)
+	if cserver.isgamesrv() then
+		local isok,errmsg = rpc.call(cserver.datacenter(),"rpc","net.pet.C2S._getcomments",player.pid,pettype)
+		if not isok then
+			if errmsg then
+				net.msg.S2C.notify(player.pid,errmsg)
+			end
+			return
+		end
+		local comments = errmsg
+		sendpackage(player.pid,"pet","sendcomments",{
+			comments = comments,
+			excedtime = os.time() + 60 * 5,
+		})
+	end
+end
+
+function C2S._getcomments(pid,pettype)
+	if not cserver.isdatacenter() then
+		return false
+	end
+	local petcomment,errmsg = globalmgr.petcommentmgr:getpetcomment(pettype)
+	if not petcomment then
+		return false,errmsg
+	end
+	return true,petcomment:pack(pid)
 end
 
 function C2S.likecomment(player,request)
 	local pettype = assert(request.pettype)
-	local commentid = assert(request.commentid)
+	local id = assert(request.id)
+	if cserver.isgamesrv() then
+		local isok,errmsg = rpc.call(cserver.datacenter(),"rpc","net.pet.C2S._likecomment",player.pid,pettype,id)
+		if errmsg then
+			net.msg.S2C.notify(player.pid,errmsg)
+		end
+		sendpackage(player.pid,"pet","likeresult",{
+			isok = isok,
+		})
+	end
+end
+
+function C2S._likecomment(pid,pettype,id)
+	if not cserver.isdatacenter() then
+		return false
+	end
+	local petcomment,errmsg = globalmgr.petcommentmgr:getpetcomment(pettype)
+	if not petcomment then
+		return false,errmsg
+	end
+	return petcomment:likecomment(pid,id)
 end
 
 -- s2c

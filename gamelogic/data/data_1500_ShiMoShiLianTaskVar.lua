@@ -13,7 +13,7 @@ data_1500_ShiMoShiLianTaskVar = {
 
 	QuickFinishNeedLeftCnt = 20, 		-- 快速完成10环任务需要的剩余任务次数
 
-	QuickFinishNeedItem = {type=601044,num=1}, 		-- 快速完成10环任务需要消耗的物品
+	QuickFinishNeedItem = {type=601004,num=1}, 		-- 快速完成10环任务需要消耗的物品
 
 }
 return data_1500_ShiMoShiLianTaskVar

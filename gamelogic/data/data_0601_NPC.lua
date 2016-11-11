@@ -257,6 +257,22 @@ data_0601_NPC = {
 		talk = "测试跑商",
 	},
 
+	[20018001] = {
+		name = "公会商人",
+		job = "公会商人",
+		shape = 10001,
+		transparency = 0,
+		posid = "20018001",
+		button_ids = {},
+		header_flag = 0,
+		appear_time = {},
+		disappear_time = {},
+		is_festival_npc = 0,
+		is_fix_npc = 1,
+		dir = 2,
+		talk = "建设公会需要花费大量的钱！",
+	},
+
 }
 return data_0601_NPC
 --<<data_0601_NPC 导表结束>>

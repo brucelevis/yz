@@ -266,6 +266,10 @@ function cunionmgr:isvalid_name(name,srvname)
 	if not isok then
 		return false,errmsg
 	end
+	local maxlen = data_1800_UnionVar.UnionNameMaxLen
+	if string.utf8len(name) > maxlen then
+		return false,language.format("公会名字过长")
+	end
 	local srv = data_RoGameSrvList[srvname]
 	for unionid,union in pairs(self.objs) do
 		local srvname2 = self:srvname(unionid)
@@ -317,7 +321,8 @@ end
 
 
 -- 竞选会长采取：投反对票形式
-function cunionmgr:onendvote(unionid,vote,state,id)
+function cunionmgr:onendvote(vote,state,id)
+	local unionid = vote.unionid
 	local union = self:getunion(unionid)
 	if not union then
 		return
@@ -339,9 +344,8 @@ function cunionmgr:onendvote(unionid,vote,state,id)
 	else
 		local member = union:member(pid)
 		if member then
-			union:changejob(leader,member.jobid)
-			union:changejob(member,leader.jobid)
-			mailmgr.sendmail(pids,{
+			union:changeleader(member)
+			mailmgr.sendmails(pids,{
 				srcid = SYSTEM_MAIL,
 				author = language.format("公会管理员"),
 				title = language.format("公会会长竞选"),
@@ -351,20 +355,42 @@ function cunionmgr:onendvote(unionid,vote,state,id)
 	end
 end
 
-function cunionmgr:onlogin(pid)
+function cunionmgr:onlogin(pid,srvname)
 	local unionid = self:unionid(pid)
 	if not unionid then
 		return
 	end
 	local union = self:getunion(unionid)
+	if not union then
+		return
+	end
 	local member = union:member(pid)
-	self:sendpackage(pid,"union","selfunion",{
-		unionid = unionid,
-		jobid = member.jobid,
-	})
-	self:sendpackage(pid,"union","sync_union",{
-		union = union:pack(),
-	})
+	-- 这里不能用self:sendpackage来转发数据，因为多节点resume同步有时序问题，
+	-- 保存的now_srvname可能是副本
+	skynet.fork(function ()
+		rpc.pcall(srvname,"rpc","sendpackage",pid,"union","selfunion",{
+			unionid = unionid,
+			jobid = member.jobid,
+			badge = union.badge,
+			offer = member.offer,
+		})
+		rpc.pcall(srvname,"rpc","sendpackage",pid,"union","sync_union",{
+			union = union:pack(),
+		})
+		if union.notice then
+			local msg = language.format("公会公告：{1} 编辑人:{2} {3} {4}",
+							language.untranslate(union.notice.msg),
+							language.untranslate(union.notice.changer.name),
+							unionaux.jobname(union.notice.changer.jobid),
+							os.date("%m/%d",union.notice.changer.time))
+			rpc.pcall(srvname,"rpc","net.msg.broadcast",{pid,},"msg","unionmsg",{
+				sender = {
+					pid = SENDER.UNION,
+				},
+				msg = msg,
+			})
+		end
+	end)
 	if member.jobid == unionaux.jobid("会长") then
 		local id = union:getvote("竞选会长")
 		if id then
